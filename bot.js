@@ -19,13 +19,13 @@ client.on('message', message => {
 
        }
 
-    //if (message.content === 'มาเล่นเกมกัน') {
+    if (message.content === 'ทำอะไรกันอยู่') {
 
-        //message.reply('อย่าเหลี่ยมล่ะกันน้าาาา');
+        message.reply('มีตาดูไหม ฮัลโหล');
  
         //member.kick("สวัสดีครับ");
  
-    //}
+    }
 
 });
 
