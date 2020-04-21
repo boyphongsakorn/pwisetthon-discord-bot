@@ -35,8 +35,7 @@ client.on('message', message => {
  
     }
 
-    if (message.content === "ส้นตีน")
-    {
+    if (message.content === 'ส้นตีน') {
 
         message.reply(':foot:');
 
