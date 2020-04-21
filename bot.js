@@ -19,6 +19,14 @@ client.on('message', message => {
 
        }
 
+    //if (message.content === 'มาเล่นเกมกัน') {
+
+        //message.reply('อย่าเหลี่ยมล่ะกันน้าาาา');
+ 
+        //member.kick("สวัสดีครับ");
+ 
+    //}
+
 });
 
 // THIS  MUST  BE  THIS  WAY
