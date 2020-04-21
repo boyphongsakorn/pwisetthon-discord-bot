@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
 const client = new Discord.Client();
-const member = new Discord.GuildMember(client,);
+//const member = new Discord.GuildMember(client,);
 
 client.on('ready', () => {
 
@@ -22,6 +22,14 @@ client.on('message', message => {
     if (message.content === 'ทำอะไรกันอยู่') {
 
         message.reply('มีตาดูไหม ฮัลโหล');
+ 
+        //member.kick("สวัสดีครับ");
+ 
+    }
+
+    if (message.content === 'แลค') {
+
+        message.reply('แพ็กเกจอินเทอร์เน็ตบ้าน #3BB #GIGATainment #1Gbps พร้อมความบันเทิงระดับ World Class จาก #HBOGO \n สมัครได้แล้ววันนี้ที่ 3BB Shop ทั่วประเทศ โทร.1530 หรือเปลี่ยนแพ็กเกจ ผ่านแอปฯ 3BB Member');
  
         //member.kick("สวัสดีครับ");
  
