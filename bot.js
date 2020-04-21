@@ -35,6 +35,13 @@ client.on('message', message => {
  
     }
 
+    if (message.content === "ส้นตีน")
+    {
+
+        message.reply(':foot:');
+
+    }
+
 });
 
 // THIS  MUST  BE  THIS  WAY
