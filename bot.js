@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 
 const client = new Discord.Client();
+const member = new Discord.GuildMember(client,);
 
 client.on('ready', () => {
 
@@ -10,9 +11,11 @@ client.on('ready', () => {
 
 client.on('message', message => {
 
-    if (message.content === 'ping') {
+    if (message.content === 'มาเล่นเกมกัน') {
 
-       message.reply('เหลี่ยม');
+       message.reply('อย่าเหลี่ยมล่ะกันน้าาาา');
+
+       //member.kick("สวัสดีครับ");
 
        }
 
