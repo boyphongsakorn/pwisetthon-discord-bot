@@ -10,7 +10,7 @@ client.on('ready', () => {
     client.user.setStatus('online')
     client.user.setPresence({
         game: {
-            name: 'Use f!help',
+            name: 'ทำอะไรก็ได้ ที่คุณอยากทำ',
             type: "Playing",
             url: ""
         }
