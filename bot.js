@@ -5,9 +5,13 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
 
-    console.log('I am ready! as ${client.user.tag}!');
+    //console.log('I am ready! as ${client.user.tag}!');
 
-    client.user.setPresence({ game: { name: 'Bot อย่าง เหลี่ยม' }, status: 'idie '}); 
+    //client.user.setPresence({ game: { name: 'Bot อย่าง เหลี่ยม' }, status: 'idie '}); 
+
+    client.user.setPresence({ game: { name: 'with discord.js' }, status: 'idle' })
+    
+    console.log('${client.user.username} is up and running!');
 
 });
 
