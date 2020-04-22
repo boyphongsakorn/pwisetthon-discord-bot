@@ -3,18 +3,11 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 //const member = new Discord.GuildMember(client,);
 
+client.user.setActivity('YouTube', { type: 'WATCHING' });
+
 client.on('ready', () => {
 
     console.log('I am ready!');
-
-    client.user.setStatus('online')
-    client.user.setPresence({
-        game: {
-            name: 'ทำอะไรก็ได้ ที่คุณอยากทำ',
-            type: "Playing",
-            url: ""
-        }
-    });
 
     //client.user.setPresence({ activity: { name: 'with discord.js' }, status: 'idle' })
     //.then(console.log)
