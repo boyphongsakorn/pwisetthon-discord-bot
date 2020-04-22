@@ -7,7 +7,6 @@ client.on('ready', () => {
 
     client.user.setPresence({ activity: { name: 'with discord.js' }, status: 'idle' });
 
-
     console.log('I am ready!');
 
 });
