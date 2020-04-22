@@ -53,8 +53,7 @@ client.on('message', message => {
         })
         .catch('Error ว่ะ');
 
-        message.channel.fetchMessage('702585032996552747').then(msg => msg.delete());
-        message.channel.fetchMessage('702585282641395773').then(msg => msg.delete());
+        message.channel.fetchMessage('702588213390475264').then(msg => msg.delete());
 
     }else if (message.content.search('วาป') !== ''){
 
