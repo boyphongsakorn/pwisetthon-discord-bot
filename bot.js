@@ -7,7 +7,7 @@ client.on('ready', () => {
 
     console.log('I am ready! as ${client.user.tag}!');
 
-    client.user.setPresence({ game: { name: 'with depression', type: "playing", url: "https://www.twitch.tv/monstercat"}}); 
+    client.user.setPresence({ game: { name: 'with depression', type: "playing" }}); 
 
 });
 
