@@ -17,7 +17,7 @@ client.on('message', message => {
 
        //member.kick("สวัสดีครับ");
 
-    }else if (message.content === 'ทำอะไรกันอยู่' && message.content === 'ทำอะไรกัน') {
+    }else if (message.content === 'ทำอะไรกันอยู่' || message.content === 'ทำอะไรกัน') {
 
         message.reply('มีตาดูไหม ฮัลโหล')
         .then(msg => {
