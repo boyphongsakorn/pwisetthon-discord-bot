@@ -3,31 +3,10 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 //const member = new Discord.GuildMember(client,);
 
-client.user.setActivity('YouTube', { type: 'WATCHING' });
-
 client.on('ready', () => {
 
     console.log('I am ready!');
 
-    //client.user.setPresence({ activity: { name: 'with discord.js' }, status: 'idle' })
-    //.then(console.log)
-    //.catch(console.error);
-
-    //client.user.setPresence({ game: { name: 'with depression', type: "playing" }}); 
-
-    //client.user.setStatus('online');
-
-    //client.user.setActivity('Minecraft is The Best');
-
-    //client.user.setActivity('discord.js', { type: 'WATCHING' })
-    //.then(presence => console.log(`Activity set to ${presence.activities[0].name}`))
-    //.catch(console.error);
-
-    //client.user.setActivity('Use f!help.');
-
-    //client.bot.user.setPresence({ activity: { name: 'with discord.js' }, status: 'online' });
-    //.then(console.log)
-    //.catch(console.error);
 });
 
 client.on('message', message => {
