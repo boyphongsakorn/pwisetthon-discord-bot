@@ -13,6 +13,8 @@ client.on('ready', () => {
 
     //client.user.setPresence({ game: { name: 'with depression', type: "playing" }}); 
 
+    client.user.setStatus('available');
+
     client.user.setGame('Minecraft is The Best');
 
     //client.user.setActivity('discord.js', { type: 'WATCHING' })
