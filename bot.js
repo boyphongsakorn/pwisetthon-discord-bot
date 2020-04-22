@@ -8,6 +8,12 @@ client.on('ready', () => {
 
     console.log('I am ready!');
 
+    client.users.get("133439202556641280").send("Bot ทำการ Restart เสร็จแล้วนะคุณบอย")
+    .then(msg => {
+        msg.delete(100000);
+    })
+    .catch("Error ว่ะ");
+
 });
 
 client.on('message', message => {
