@@ -33,10 +33,6 @@ client.on('message', message => {
 
         message.reply(':foot:');
 
-    }else if (message.content === 'เหลี่ยม'){
-
-        message.reply(':dishonesty:');
-
     }else if (message.content === 'หี'){
 
         message.reply('(|)');
