@@ -45,9 +45,11 @@ client.on('message', message => {
             msg.delete(10000);
             message.delete(20000);
         })
-        .catch("Error ว่ะ");
+        .catch('Error ว่ะ');
 
     }
+
+    message.channel.fetchMessage('702422015189057626').then(msg => msg.delete());
 
 });
 
