@@ -9,6 +9,10 @@ client.on('ready', () => {
 
 });
 
+client.user.setPresence({ activity: { name: 'Make With Discord.js' }, status: 'online' })
+.then(console.log)
+.catch(console.error);
+
 client.on('message', message => {
 
     if (message.content === 'มาเล่นเกมกัน') {
