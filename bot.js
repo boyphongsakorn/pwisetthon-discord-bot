@@ -55,9 +55,14 @@ client.on('message', message => {
 
     }else if (message.content.search('วาป') !== ''){
 
-        message.author.send("ถ้า คุณต้องการที่ จะแชร์การบ้าน หรือ งานอื่นๆ ช่วย แชร์งาน ใน ช่องของ [#sharewarp](https://tiny.cc/ascknz) ด้วยนะครับ เพื่อจะได้ไม่เป็นการรก แชทในหมวดทั่วไปอ่าครับ ขอบคุณครับ");
+        message.author.send("ถ้า คุณต้องการที่ จะแชร์การบ้าน หรือ งานอื่นๆ ช่วย แชร์งาน ใน ช่องของ [#sharewarp](https://discordapp.com/channels/443362659522445312/455728466566971393) ด้วยนะครับ เพื่อจะได้ไม่เป็นการรก แชทในหมวดทั่วไปอ่าครับ ขอบคุณครับ")
+        .then(msg => {
+            msg.delete(10000);
+        })
+        .catch('Error ว่ะ');
 
-        //https://discordapp.com/channels/443362659522445312/455728466566971393
+        message.channel.fetchMessage("702592399968305192").then(msg => msg.delete());
+
     }
 
 });
