@@ -5,7 +5,7 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
 
-    client.user.setPresence({ activity: { name: 'with discord.js' }, status: 'idle' });
+    client.user.setPresence({ activity: { name: 'with discord.js' }, status: 'online' });
 
     console.log('I am ready!');
 
