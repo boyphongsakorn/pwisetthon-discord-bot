@@ -9,7 +9,7 @@ client.on('ready', () => {
 
     //client.user.setPresence({ game: { name: 'Bot อย่าง เหลี่ยม' }, status: 'idie '}); 
 
-    client.user.setPresence({ game: { name: 'with discord.js' }, status: 'idle' });
+    client.user.setPresence({ game: { name: 'with discord.js' }, status: 'online' });
     
     console.log('${client.user.username} is up and running!');
 
