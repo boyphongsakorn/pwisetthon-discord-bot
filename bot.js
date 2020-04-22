@@ -49,11 +49,6 @@ client.on('message', message => {
 
     }
 
-    channel.fetchMessage("702411616423247934").then(msg => {
-        if (msg) msg.edit("Your new message.");
-    });
-
-
 });
 
 // THIS  MUST  BE  THIS  WAY
