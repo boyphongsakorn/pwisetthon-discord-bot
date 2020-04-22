@@ -7,7 +7,7 @@ client.on('ready', () => {
 
     console.log('I am ready! as ${client.user.tag}!');
 
-    user.setPresence({ activity: { name: 'Make With Discord.js' }, status: 'online' })
+    client.user.setPresence({ activity: { name: 'Make With Discord.js' }, status: 'online' })
     .then(console.log)
     .catch(console.error);
 
