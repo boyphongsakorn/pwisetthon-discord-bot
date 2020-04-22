@@ -7,11 +7,11 @@ client.on('ready', () => {
 
     console.log('I am ready! as ${client.user.tag}!');
 
-});
+    client.user.setPresence({ activity: { name: 'Make With Discord.js' }, status: 'online' })
+    .then(console.log)
+    .catch(console.error);
 
-client.user.setPresence({ activity: { name: 'Make With Discord.js' }, status: 'online' })
-.then(console.log)
-.catch(console.error);
+});
 
 client.on('message', message => {
 
