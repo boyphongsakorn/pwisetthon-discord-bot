@@ -5,7 +5,16 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
 
-    console.log('I am ready! as ${client.user.tag}!');
+    console.log('I am ready!');
+
+    client.user.setStatus('online')
+    client.user.setPresence({
+        game: {
+            name: 'Use f!help',
+            type: "Playing",
+            url: "https://discordapp.com/"
+        }
+    });
 
     //client.user.setPresence({ activity: { name: 'with discord.js' }, status: 'idle' })
     //.then(console.log)
@@ -13,9 +22,9 @@ client.on('ready', () => {
 
     //client.user.setPresence({ game: { name: 'with depression', type: "playing" }}); 
 
-    client.user.setStatus('online');
+    //client.user.setStatus('online');
 
-    client.user.setActivity('Minecraft is The Best');
+    //client.user.setActivity('Minecraft is The Best');
 
     //client.user.setActivity('discord.js', { type: 'WATCHING' })
     //.then(presence => console.log(`Activity set to ${presence.activities[0].name}`))
@@ -23,6 +32,9 @@ client.on('ready', () => {
 
     //client.user.setActivity('Use f!help.');
 
+    //client.bot.user.setPresence({ activity: { name: 'with discord.js' }, status: 'online' });
+    //.then(console.log)
+    //.catch(console.error);
 });
 
 client.on('message', message => {
