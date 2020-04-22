@@ -35,7 +35,11 @@ client.on('message', message => {
 
     }else if (message.content === 'หี'){
 
-        message.reply('(|)');
+        message.reply('(|)')
+        .then(msg => {
+            msg.delete(10000)
+        })
+        .catch("Error ว่ะ")
 
     }
 
