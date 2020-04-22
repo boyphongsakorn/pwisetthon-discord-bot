@@ -2,6 +2,8 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 
+const messEmbed = new Discord.MessageEmbed();
+
 client.on('ready', () => {
 
     client.user.setPresence({ activity: { name: 'with discord.js' }, status: 'online' });
@@ -53,12 +55,13 @@ client.on('message', message => {
         })
         .catch('Error ว่ะ');
 
-        message.channel.fetchMessage('702588213390475264').then(msg => msg.delete());
-
     }else if (message.content.search('วาป') !== ''){
 
-        message.author.send("ถ้า คุณต้องการที่ จะแชร์การบ้าน หรือ งานอื่นๆ ช่วย แชร์งาน ใน ช่องของ [#sharewarp](https://discordapp.com/channels/443362659522445312/455728466566971393) ด้วยนะครับ เพื่อจะได้ไม่เป็นการรก แชทในหมวดทั่วไปอ่าครับ ขอบคุณครับ");
+        message.author.send("ถ้า คุณต้องการที่ จะแชร์การบ้าน หรือ งานอื่นๆ ช่วย แชร์งาน ใน ช่องของ [#sharewarp](https://tiny.cc/ascknz) ด้วยนะครับ เพื่อจะได้ไม่เป็นการรก แชทในหมวดทั่วไปอ่าครับ ขอบคุณครับ").then(msg => {
+            msg.delete(10000);
+        });
 
+        //https://discordapp.com/channels/443362659522445312/455728466566971393
     }
 
 });
