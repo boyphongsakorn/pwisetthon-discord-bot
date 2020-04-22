@@ -38,6 +38,7 @@ client.on('message', message => {
         message.reply('(|)')
         .then(msg => {
             msg.delete(10000)
+            message.author.delete(12000);
         })
         .catch("Error ว่ะ")
 
