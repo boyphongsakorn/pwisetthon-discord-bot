@@ -3,9 +3,9 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 //const member = new Discord.GuildMember(client,);
 
-client.user.setActivity('<activity>');
-
 client.on('ready', () => {
+
+    client.user.setActivity('<activity>');
 
     console.log('I am ready!');
 
