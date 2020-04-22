@@ -7,7 +7,7 @@ client.on('ready', () => {
 
     console.log('I am ready! as ${client.user.tag}!');
 
-    client.user.setPresence({ game: { name: 'Bot อย่าง เหลี่ยม', type: "online"}}); 
+    client.user.setPresence({ game: { name: 'Bot อย่าง เหลี่ยม' }, status: 'idie '}); 
 
 });
 
