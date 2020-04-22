@@ -4,7 +4,7 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
 
-    client.user.setPresence({ activity: { name: 'with discord.js' }, status: 'online' })
+    client.user.setPresence({ activity: { name: 'with discord.js' }, status: 'online' });
 
     console.log('I am ready!');
 
@@ -46,6 +46,10 @@ client.on('message', message => {
             message.delete(20000);
         })
         .catch('Error ว่ะ');
+
+    }else if (message.content.search('วาป') !== ''){
+
+        message.author.send("ถ้า คุณต้องการที่ จะแชร์การบ้าน หรือ งานอื่นๆ ช่วย แชร์งาน ใน ช่องของ #sharewarp ด้วยนะครับ เพื่อจะได้ไม่เป็นการรก แชทในหมวดทั่วไปอ่าครับ ขอบคุณครับ");
 
     }
 
