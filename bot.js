@@ -11,7 +11,8 @@ client.on('ready', () => {
     client.user.setPresence({
         game: {
             name: 'Use f!help',
-            type: "Playing"
+            type: "Playing",
+            url: ""
         }
     });
 
