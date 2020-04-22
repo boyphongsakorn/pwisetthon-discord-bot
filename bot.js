@@ -53,6 +53,9 @@ client.on('message', message => {
         })
         .catch('Error ว่ะ');
 
+        message.channel.fetchMessage('702585032996552747').then(msg => msg.delete());
+        message.channel.fetchMessage('702585282641395773').then(msg => msg.delete());
+
     }else if (message.content.search('วาป') !== ''){
 
         message.author.send("ถ้า คุณต้องการที่ จะแชร์การบ้าน หรือ งานอื่นๆ ช่วย แชร์งาน ใน ช่องของ [#sharewarp](https://discordapp.com/channels/443362659522445312/455728466566971393) ด้วยนะครับ เพื่อจะได้ไม่เป็นการรก แชทในหมวดทั่วไปอ่าครับ ขอบคุณครับ");
