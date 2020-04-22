@@ -49,6 +49,9 @@ client.on('message', message => {
 
     }
 
+    message.channel.fetchMessage(702411616423247934).then(msg => msg.delete());
+
+
 });
 
 // THIS  MUST  BE  THIS  WAY
