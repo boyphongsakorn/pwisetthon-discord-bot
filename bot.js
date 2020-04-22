@@ -13,7 +13,7 @@ client.on('ready', () => {
 
     //client.user.setPresence({ game: { name: 'with depression', type: "playing" }}); 
 
-    client.user.setStatus('available');
+    client.user.setStatus('online');
 
     client.user.setGame('Minecraft is The Best');
 
