@@ -9,7 +9,11 @@ client.on('ready', () => {
 
     //client.user.setPresence({ game: { name: 'with depression', type: "playing" }}); 
 
-    client.user.setGame("จัก")
+    //client.user.setGame("จัก")
+
+    client.user.setActivity('discord.js', { type: 'WATCHING' })
+    .then(presence => console.log(`Activity set to ${presence.activities[0].name}`))
+    .catch(console.error);
 
 });
 
