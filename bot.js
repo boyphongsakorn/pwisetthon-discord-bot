@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 
 const client = new Discord.Client();
-//const member = new Discord.GuildMember(client,);
 
 client.on('ready', () => {
 
@@ -17,8 +16,6 @@ client.on('message', message => {
 
        message.reply('อย่าเหลี่ยมล่ะกันน้าาาา');
 
-       //member.kick("สวัสดีครับ");
-
     }else if (message.content === 'ทำอะไรกันอยู่' || message.content === 'ทำอะไรกัน') {
 
         message.reply('มีตาดูไหม ฮัลโหล')
@@ -28,13 +25,9 @@ client.on('message', message => {
         })
         .catch("Error ว่ะ");
  
-        //member.kick("สวัสดีครับ");
- 
     }else if (message.content === 'แลค') {
 
         message.reply('แพ็กเกจอินเทอร์เน็ตบ้าน #3BB #GIGATainment #1Gbps พร้อมความบันเทิงระดับ World Class จาก #HBOGO \n สมัครได้แล้ววันนี้ที่ 3BB Shop ทั่วประเทศ โทร.1530 หรือเปลี่ยนแพ็กเกจ ผ่านแอปฯ 3BB Member');
- 
-        //member.kick("สวัสดีครับ");
  
     }else if (message.content === 'ส้นตีน') {
 
@@ -58,6 +51,4 @@ client.on('message', message => {
 
 });
 
-// THIS  MUST  BE  THIS  WAY
-
-client.login(process.env.BOT_TOKEN);//BOT_TOKEN is the Client Secret
+client.login(process.env.BOT_TOKEN);
