@@ -7,7 +7,9 @@ client.on('ready', () => {
 
     console.log('I am ready! as ${client.user.tag}!');
 
-    client.user.setPresence({ game: { name: 'with depression', type: "playing" }}); 
+    //client.user.setPresence({ game: { name: 'with depression', type: "playing" }}); 
+
+    client.user.setGame("จัก")
 
 });
 
