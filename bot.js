@@ -31,19 +31,23 @@ client.on('message', message => {
  
     }else if (message.content === 'ส้นตีน') {
 
-        message.reply(':foot:');
+        message.reply(':foot:')
+        .then(msg => {
+            msg.delete(10000);
+            message.delete(20000);
+        })
+        .catch("Error ว่ะ");
 
     }else if (message.content === 'หี'){
 
         message.reply('(|)')
         .then(msg => {
             msg.delete(10000);
+            message.delete(20000);
         })
-        .catch("Error ว่ะ")
+        .catch("Error ว่ะ");
 
     }
-
-    message.delete(20000);
 
 });
 
