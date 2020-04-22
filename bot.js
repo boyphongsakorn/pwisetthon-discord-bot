@@ -7,13 +7,19 @@ client.on('ready', () => {
 
     console.log('I am ready! as ${client.user.tag}!');
 
+    //client.user.setPresence({ activity: { name: 'with discord.js' }, status: 'idle' })
+    //.then(console.log)
+    //.catch(console.error);
+
     //client.user.setPresence({ game: { name: 'with depression', type: "playing" }}); 
 
-    //client.user.setGame("จัก")
+    client.user.setGame('Minecraft is The Best');
 
-    client.user.setActivity('discord.js', { type: 'WATCHING' })
-    .then(presence => console.log(`Activity set to ${presence.activities[0].name}`))
-    .catch(console.error);
+    //client.user.setActivity('discord.js', { type: 'WATCHING' })
+    //.then(presence => console.log(`Activity set to ${presence.activities[0].name}`))
+    //.catch(console.error);
+
+    //client.user.setActivity('Use f!help.');
 
 });
 
