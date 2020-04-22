@@ -17,9 +17,14 @@ client.on('message', message => {
 
        //member.kick("สวัสดีครับ");
 
-    }else if (message.content === 'ทำอะไรกันอยู่') {
+    }else if (message.content === 'ทำอะไรกันอยู่' && message.content === 'ทำอะไรกัน') {
 
-        message.reply('มีตาดูไหม ฮัลโหล');
+        message.reply('มีตาดูไหม ฮัลโหล')
+        .then(msg => {
+            msg.delete(10000);
+            message.delete(20000);
+        })
+        .catch("Error ว่ะ");
  
         //member.kick("สวัสดีครับ");
  
