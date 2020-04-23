@@ -73,9 +73,9 @@ client.on('message', message => {
             message.reply('สาย Lan ทุกวันนี้ ควรไปที่ Cat 5e หรือ 6 ได้แล้วนะ \n ตัวระดับที่วิ่ง 1000Mbps อ่า \n ทุกวันนี้ โปรเน็ตบ้านส่วนมาก ไประดับ 1Gbps แล้วอ่า');
         }
 
-        if (message.content.indexOf('ดูด Wifi') > -1 || message.content.indexOf('ดูด ไวไฟ') > -1){
-            message.reply('จะ ดูด ไวไฟ งั้นหรอก | ก็ไม่ได้ดูเป็นเรื่องยากอะไรนะ \n ถ้าดูดแบบข้างบ้าน ใช้แบบ Router มา Repeater ต่อก็ได้นะ (ไม่แนะนำ ถ้าแถวนั้น มีไวไฟหลาย SSID หรือ Channel ที่อัดกันเยอะๆ) \n ส่วน ดูดจาก ตรงข้ามบ้าน หรือ ระยะไกลๆ ให้ชื่ออุปกรณ์แบบ Outdoor ที่เอาไว้รับ ไวไฟ อย่างเดียว \n เช่น UBIQUITI Nanostation Loco M5 , Tenda O1 , Tenda O3 , Tenda O6');
-        }
+        //if (message.content.indexOf('ดูด Wifi') > -1 || message.content.indexOf('ดูด ไวไฟ') > -1){
+        //    message.reply('จะ ดูด ไวไฟ งั้นหรอก | ก็ไม่ได้ดูเป็นเรื่องยากอะไรนะ \n ถ้าดูดแบบข้างบ้าน ใช้แบบ Router มา Repeater ต่อก็ได้นะ (ไม่แนะนำ ถ้าแถวนั้น มีไวไฟหลาย SSID หรือ Channel ที่อัดกันเยอะๆ) \n ส่วน ดูดจาก ตรงข้ามบ้าน หรือ ระยะไกลๆ ให้ชื่ออุปกรณ์แบบ Outdoor ที่เอาไว้รับ ไวไฟ อย่างเดียว \n เช่น UBIQUITI Nanostation Loco M5 , Tenda O1 , Tenda O3 , Tenda O6');
+        //}
 
     }
 
