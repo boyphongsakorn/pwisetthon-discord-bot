@@ -2,24 +2,6 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 
-const dmembed = new Discord.MessageEmbed()
-    .setColor('#0099ff')
-	.setTitle('Some title')
-	.setURL('https://discord.js.org/')
-	.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
-	.setDescription('Some description here')
-	.setThumbnail('https://i.imgur.com/wSTFkRM.png')
-	.addFields(
-		{ name: 'Regular field title', value: 'Some value here' },
-		{ name: '\u200B', value: '\u200B' },
-		{ name: 'Inline field title', value: 'Some value here', inline: true },
-		{ name: 'Inline field title', value: 'Some value here', inline: true },
-	)
-	.addField('Inline field title', 'Some value here', true)
-	.setImage('https://i.imgur.com/wSTFkRM.png')
-	.setTimestamp()
-	.setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
-
 client.on('ready', () => {
 
     client.user.setPresence({ activity: { name: 'with discord.js' }, status: 'online' });
@@ -73,8 +55,8 @@ client.on('message', message => {
 
     }else if (message.content.search('วาป') !== ''){
 
-        //message.author.send("ถ้า คุณต้องการที่ จะแชร์การบ้าน หรือ งานอื่นๆ ช่วย แชร์งาน ใน ช่องของ [#sharewarp](https://discordapp.com/channels/443362659522445312/455728466566971393) ด้วยนะครับ เพื่อจะได้ไม่เป็นการรก แชทในหมวดทั่วไปอ่าครับ ขอบคุณครับ")
-        message.author.send(dmembed)
+        message.author.send("ถ้า คุณต้องการที่ จะแชร์การบ้าน หรือ งานอื่นๆ ช่วย แชร์งาน ใน ช่องของ [#sharewarp](https://discordapp.com/channels/443362659522445312/455728466566971393) ด้วยนะครับ เพื่อจะได้ไม่เป็นการรก แชทในหมวดทั่วไปอ่าครับ ขอบคุณครับ")
+        //message.author.send(dmembed)
         .then(msg => {
             msg.delete(10000);
         })
