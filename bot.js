@@ -53,7 +53,7 @@ client.on('message', message => {
         })
         .catch('Error ว่ะ');
 
-    }else if (message.content.search('วาป') !== ''){
+    }else if (!message.content.search('วาป') === ''){
 
         message.author.send("ถ้า คุณต้องการที่ จะแชร์การบ้าน หรือ งานอื่นๆ ช่วย แชร์งาน ใน ช่องของ https://discordapp.com/channels/443362659522445312/455728466566971393 ด้วยนะครับ เพื่อจะได้ไม่เป็นการรก แชทในหมวดทั่วไปอ่าครับ ขอบคุณครับ")
         //message.author.send(dmembed)
@@ -64,7 +64,7 @@ client.on('message', message => {
 
     }
 
-    //if (message.content.search('router') !== ''){
+    //if (!message.content.search('router') === ''){
     //    if (message.channel.type === 'dm') {
     //        message.reply('พูดถึงเรื่อง Router หรอ ? \n ปกติ ก็ใช้แต่ Tenda กับ Ubiquiti นะ \n Tenda จะถูกหน่อย ของดีเหมือนกัน ส่วน Ubiquiti จะแพงมากๆ แต่มีอุปกรณ์ ให้เลือก หลากหลาย');
     //    }
