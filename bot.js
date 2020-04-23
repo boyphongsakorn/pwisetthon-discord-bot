@@ -64,6 +64,12 @@ client.on('message', message => {
 
     }
 
+    if (message.channel.type === 'dm') {
+        if (message.content.search('router') !== ''){
+            message.reply('พูดถึงเรื่อง Router หรอ ? \n ปกติ ก็ใช้แต่ Tenda กับ Ubiquiti นะ \n Tenda จะถูกหน่อย ของดีเหมือนกัน ส่วน Ubiquiti จะแพงมากๆ แต่มีอุปกรณ์ ให้เลือก หลากหลาย');
+        }
+    }
+
 });
 
 client.login(process.env.BOT_TOKEN);
