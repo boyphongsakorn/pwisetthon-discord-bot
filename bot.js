@@ -68,6 +68,10 @@ client.on('message', message => {
         if (message.content.indexOf('router') > -1){
            message.reply('พูดถึงเรื่อง Router หรอ ? \n ปกติ ก็ใช้แต่ Tenda กับ Ubiquiti นะ \n Tenda จะถูกหน่อย ของดีเหมือนกัน ส่วน Ubiquiti จะแพงมากๆ แต่มีอุปกรณ์ ให้เลือก หลากหลาย');
         }
+
+        if (message.content.indexOf('Lan') > -1){
+            message.reply('สาย Lan ทุกวันนี้ ควรไปที่ Cat 5e หรือ 6 ได้แล้วนะ \n ตัวระดับที่วิ่ง 1000Mbps อ่า \n ทุกวันนี้ โปรเน็ตบ้านส่วนมาก ไประดับ 1Gbps แล้วอ่า');
+         }
     }
 
 });
