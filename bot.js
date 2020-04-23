@@ -76,11 +76,11 @@ client.on('message', message => {
     message.channel.fetchMessage('702696945214423070').then(msg => msg.delete());
     message.channel.fetchMessage('702696994136915979').then(msg => msg.delete());
 
-    if (message.content.search('router') !== ''){
-        if (message.channel.type === 'dm') {
-            message.reply('พูดถึงเรื่อง Router หรอ ? \n ปกติ ก็ใช้แต่ Tenda กับ Ubiquiti นะ \n Tenda จะถูกหน่อย ของดีเหมือนกัน ส่วน Ubiquiti จะแพงมากๆ แต่มีอุปกรณ์ ให้เลือก หลากหลาย');
-        }
-    }
+    //if (message.content.search('router') !== ''){
+    //    if (message.channel.type === 'dm') {
+    //        message.reply('พูดถึงเรื่อง Router หรอ ? \n ปกติ ก็ใช้แต่ Tenda กับ Ubiquiti นะ \n Tenda จะถูกหน่อย ของดีเหมือนกัน ส่วน Ubiquiti จะแพงมากๆ แต่มีอุปกรณ์ ให้เลือก หลากหลาย');
+    //    }
+    //}
 
 });
 
