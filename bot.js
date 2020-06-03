@@ -27,7 +27,7 @@ client.on('message', message => {
         message.reply('มีตาดูไหม ฮัลโหล')
         .then(msg => {
             msg.delete(10000);
-            message.delete(20000);
+            //message.delete(20000);
         })
         .catch("Error ว่ะ");
  
@@ -40,7 +40,7 @@ client.on('message', message => {
         message.reply(':foot:')
         .then(msg => {
             msg.delete(10000);
-            message.delete(20000);
+            //message.delete(20000);
         })
         .catch("Error ว่ะ");
 
@@ -49,7 +49,7 @@ client.on('message', message => {
         message.reply('(|)')
         .then(msg => {
             msg.delete(10000);
-            message.delete(20000);
+            //message.delete(20000);
         })
         .catch('Error ว่ะ');
 
