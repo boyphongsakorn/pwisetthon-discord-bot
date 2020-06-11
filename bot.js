@@ -1,3 +1,5 @@
+var api = require('twitch-api-v5');
+
 const Discord = require('discord.js');
 
 const client = new Discord.Client();
