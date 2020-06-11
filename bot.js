@@ -6,7 +6,7 @@ const client = new Discord.Client();
 
 api.clientID = 'o4h7sukfbmu5xrbww01dw4a7sj016u';
  
-api.user.getByID({ userID: '12826' }, (err, res) => {
+api.streams.channel({ userID: '12826' }, (err, res) => {
     if(err) {
         console.log(err);
     } else {
