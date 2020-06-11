@@ -2,6 +2,25 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 
+api.clientID = 'o4h7sukfbmu5xrbww01dw4a7sj016u';
+ 
+api.user.getByID({ userID: '12826' }, (err, res) => {
+    if(err) {
+        console.log(err);
+    } else {
+        console.log(res);
+        /* Example response
+        {
+            display_name: 'Twitch',
+            _id: '12826',
+            name: 'twitch',
+            type: 'user',
+            ...
+        }
+        */
+    }
+});
+
 client.on('ready', () => {
 
     client.user.setPresence({ activity: { name: 'with discord.js' }, status: 'online' });
