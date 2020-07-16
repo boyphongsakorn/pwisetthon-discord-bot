@@ -8,9 +8,9 @@ client.on('ready', () => {
 
     console.log('I am ready!');
 
-    client.users.get("133439202556641280").send("Bot ทำการ Restart เสร็จแล้วนะคุณบอย")
+    client.users.cache.get("133439202556641280").send("Bot ทำการ Restart เสร็จแล้วนะคุณบอย")
     .then(msg => {
-        msg.delete(10000);
+        msg.delete({ timeout: 10000, reason: 'It had to be done.' });
     })
     .catch("Error ว่ะ");
 
@@ -26,7 +26,7 @@ client.on('message', message => {
 
         message.reply('มีตาดูไหม ฮัลโหล')
         .then(msg => {
-            msg.delete(10000);
+            msg.delete({ timeout: 10000, reason: 'It had to be done.' });
             //message.delete(20000);
         })
         .catch("Error ว่ะ");
@@ -39,7 +39,7 @@ client.on('message', message => {
 
         message.reply(':foot:')
         .then(msg => {
-            msg.delete(10000);
+            msg.delete({ timeout: 10000, reason: 'It had to be done.' });
             //message.delete(20000);
         })
         .catch("Error ว่ะ");
@@ -48,7 +48,7 @@ client.on('message', message => {
 
         message.reply('(|)')
         .then(msg => {
-            msg.delete(10000);
+            msg.delete({ timeout: 10000, reason: 'It had to be done.' });
             //message.delete(20000);
         })
         .catch('Error ว่ะ');
@@ -58,7 +58,7 @@ client.on('message', message => {
         message.author.send("ถ้า คุณต้องการที่ จะแชร์การบ้าน หรือ งานอื่นๆ ช่วย แชร์งาน ใน ช่องของ https://discordapp.com/channels/443362659522445312/455728466566971393 ด้วยนะครับ เพื่อจะได้ไม่เป็นการรก แชทในหมวดทั่วไปอ่าครับ ขอบคุณครับ")
         //message.author.send(dmembed)
         .then(msg => {
-            msg.delete(10000);
+            msg.delete({ timeout: 10000, reason: 'It had to be done.' });
         })
         .catch('Error ว่ะ');
 
