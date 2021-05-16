@@ -99,5 +99,4 @@ scheduledMessage.start()
 
 });*/
 
-//client.login(process.env.BOT_TOKEN);
-client.login();
+client.login(process.env.BOT_TOKEN);
