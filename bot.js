@@ -9,8 +9,8 @@ client.on('ready', () => {
 
     console.log('I am ready!');
 
-    client.users.cache.get("133439202556641280").send("Bot ทำการ Restart เสร็จแล้วนะคุณบอย");
-    /*.then(msg => {
+    /*client.users.cache.get("133439202556641280").send("Bot ทำการ Restart เสร็จแล้วนะคุณบอย");
+    .then(msg => {
         msg.delete({ timeout: 10000, reason: 'It had to be done.' });
     })
     .catch("Error ว่ะ");*/
