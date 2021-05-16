@@ -23,7 +23,7 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
     
     let channel = client.channels.cache.get('443362659522445314');
     channel.send('Test');
-    
+
 });
   
 // When you want to start it, use:
@@ -100,4 +100,4 @@ scheduledMessage.start()
 });*/
 
 //client.login(process.env.BOT_TOKEN);
-client.login("NjkxNjEwNTU3MTU2OTUwMDMw.Xniehg.M1MrBusgi6lG1FzrLFqbwW0YIbE");
+client.login();
