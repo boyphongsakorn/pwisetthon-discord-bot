@@ -3,7 +3,15 @@ const cron = require("cron");
 
 const client = new Discord.Client();
 
-client.on('ready', () => {
+client.once('ready', () => {
+
+    client.user.setPresence({ activity: { name: 'ยา' }, status: 'online' });
+
+	console.log('I am ready!');
+
+});
+
+/*client.on('ready', () => {
 
     client.user.setPresence({ activity: { name: 'ยา' }, status: 'online' });
 
@@ -17,7 +25,7 @@ client.on('ready', () => {
 
     //client.channels.cache.get('443362659522445314').send('Super Test');
 
-});
+//});
 
 let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
     
