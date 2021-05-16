@@ -23,6 +23,7 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
     
     let channel = client.channels.cache.get('443362659522445314');
     channel.send('Test');
+    
 });
   
 // When you want to start it, use:
