@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const cron = require("cron");
 
 const client = new Discord.Client();
 
@@ -8,15 +9,27 @@ client.on('ready', () => {
 
     console.log('I am ready!');
 
-    client.users.cache.get("133439202556641280").send("Bot ทำการ Restart เสร็จแล้วนะคุณบอย")
+    /*client.users.cache.get("133439202556641280").send("Bot ทำการ Restart เสร็จแล้วนะคุณบอย")
     .then(msg => {
         msg.delete({ timeout: 10000, reason: 'It had to be done.' });
     })
-    .catch("Error ว่ะ");
+    .catch("Error ว่ะ");*/
+
+    //client.channels.cache.get('443362659522445314').send('Super Test');
 
 });
 
-client.on('message', message => {
+let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
+    
+    let channel = client.channels.cache.get('443362659522445314');
+    channel.send('Test');
+});
+  
+// When you want to start it, use:
+scheduledMessage.start()
+// You could also make a command to pause and resume the job
+
+/*client.on('message', message => {
 
     if (message.content === 'มาเล่นเกมกัน') {
 
@@ -83,6 +96,7 @@ client.on('message', message => {
 
     }
 
-});
+});*/
 
-client.login(process.env.BOT_TOKEN);
+//client.login(process.env.BOT_TOKEN);
+client.login("NjkxNjEwNTU3MTU2OTUwMDMw.Xniehg.M1MrBusgi6lG1FzrLFqbwW0YIbE");
