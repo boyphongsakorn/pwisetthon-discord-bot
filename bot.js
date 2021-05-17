@@ -73,12 +73,12 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 	            .setDescription('เมื่อวันที่ บลาๆๆๆๆ')
 	            .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
 	            .addFields(
-		            { name: 'รางวัลที่หนึ่ง', value: 'Some value here' },
+		            { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
 		            //{ name: '\u200B', value: '\u200B' },
-		            { name: 'เลขหน้าสามตัว', value: 'Some value here', inline: true },
-		            { name: 'เลขท้ายสามตัว', value: 'Some value here', inline: true },
+		            { name: 'เลขหน้าสามตัว', value: json[1][1]+' / '+json[1][2], inline: true },
+		            { name: 'เลขท้ายสามตัว', value: json[2][1]+' / '+json[2][2], inline: true },
 	            )
-	            .addField('เลขท้ายสองตัว', 'Some value here', true)
+	            .addField('เลขท้ายสองตัว', json[3][1], true)
 	            .setImage('https://lotto.teamquadb.in.th/tmpimage/'+date+""+month+""+year)
 	            .setTimestamp()
 	            .setFooter('โดย Phongsakorn Wisetthon');
