@@ -54,7 +54,7 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 
     let settings = { method: "Get" };
 
-    let msg = "สลากฯออกวันนี้"
+    //let msg = "สลากฯออกวันนี้"
 
     fetch(url, settings)
     .then(res => res.json())
@@ -63,11 +63,11 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
         //console.log(json[0][1])
         if(json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "XXXXXX"){
 
-            msg = "สลากฯไม่ได้ออกวันนี้"
+            //msg = "สลากฯไม่ได้ออกวันนี้"
 
         }else{
 
-            msg = new Discord.MessageEmbed()
+            const msg = new Discord.MessageEmbed()
             //const exampleEmbed = new Discord.MessageEmbed()
 	            .setColor('#0099ff')
 	            .setTitle('ผลสลากกินแบ่งรัฐบาล')
@@ -86,10 +86,10 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 	            .setTimestamp()
 	            .setFooter('โดย Phongsakorn Wisetthon');
 
-        }
+            let channel = client.channels.cache.get('443362659522445314');
+            channel.send(msg);
 
-        let channel = client.channels.cache.get('443362659522445314');
-        channel.send(msg);
+        }
 
     });
 
