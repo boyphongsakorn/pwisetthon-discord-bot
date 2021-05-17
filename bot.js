@@ -83,9 +83,9 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 		            { name: 'เลขท้ายสามตัว', value: json[2][1]+' / '+json[2][2], inline: true },
 	            )
 	            .addField('เลขท้ายสองตัว', json[3][1], true)
-	            .setImage(process.env.URL+'/tmpimage/'+date+""+month+""+year)
+	            .setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
 	            .setTimestamp()
-	            .setFooter('โดย Phongsakorn Wisetthon');
+	            .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon');
 
             fetch(process.env.URL+"/discordbot/chlist.txt", settings)
             .then(res => res.json())
