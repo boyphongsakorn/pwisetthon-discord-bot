@@ -83,11 +83,11 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 		            { name: 'เลขท้ายสามตัว', value: json[2][1]+' / '+json[2][2], inline: true },
 	            )
 	            .addField('เลขท้ายสองตัว', json[3][1], true)
-	            .setImage(process.env.BOT_TOKEN+'/tmpimage/'+date+""+month+""+year)
+	            .setImage(process.env.URL+'/tmpimage/'+date+""+month+""+year)
 	            .setTimestamp()
 	            .setFooter('โดย Phongsakorn Wisetthon');
 
-            fetch(process.env.BOT_TOKEN+"/discordbot/chlist.txt", settings)
+            fetch(process.env.URL+"/discordbot/chlist.txt", settings)
             .then(res => res.json())
             .then((json) => {
                 //let channel = client.channels.cache.get('443362659522445314');
@@ -116,7 +116,7 @@ client.on('message', message => {
 
         var options = {
             'method': 'GET',
-            'url': process.env.BOT_TOKEN+'/discordbot/addchannels.php?chid='+message.channel.id,
+            'url': process.env.URL+'/discordbot/addchannels.php?chid='+message.channel.id,
             'headers': {
             }
         };
@@ -133,7 +133,7 @@ client.on('message', message => {
 
         var options = {
             'method': 'GET',
-            'url': process.env.BOT_TOKEN+'/discordbot/delchannels.php?chid='+message.channel.id,
+            'url': process.env.URL+'/discordbot/delchannels.php?chid='+message.channel.id,
             'headers': {
             }
         };
