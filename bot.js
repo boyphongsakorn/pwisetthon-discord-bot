@@ -95,7 +95,9 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 
                 for (i in json) {
                     //x += json[i] + "<br>";
-                    client.channels.cache.get(json[i]).send(msg);
+                    client.channels.cache.get(json[i]).send(msg)
+                    .then(console.log)
+                    .catch(console.error);
                 }
 
             });
