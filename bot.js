@@ -53,9 +53,26 @@ let date = new Date().getDate();
 let month = new Date().getMonth()+1;
 let year = new Date().getFullYear()+543;
 
+let monthtext
+
 date = padLeadingZeros(date, 2);
 month = padLeadingZeros(month, 2);
 year = padLeadingZeros(year, 4);
+
+switch(month){
+    case '01' : monthtext="มกราคม"; break;
+    case '02' : monthtext="กุมภาพันธ์"; break;
+    case '03' : monthtext="มีนาคม"; break;
+    case '04' : monthtext="เมษายน"; break;
+    case '05' : monthtext="พฤษภาคม"; break;
+    case '06' : monthtext="มิถุนายน"; break;
+    case '07' : monthtext="กรกฎาคม"; break;
+    case '08' : monthtext="สิงหาคม"; break;
+    case '09' : monthtext="กันยายน"; break;
+    case '10' : monthtext="ตุลาคม"; break;
+    case '11' : monthtext="พฤศจิกายน"; break;
+    case '12' : monthtext="ธันวาคม"; break;
+}
 
 let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 
@@ -78,22 +95,22 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 
             const msg = new Discord.MessageEmbed()
             //const exampleEmbed = new Discord.MessageEmbed()
-	            .setColor('#0099ff')
-	            .setTitle('ผลสลากกินแบ่งรัฐบาล')
-	            .setURL('https://www.glo.or.th/')
-	            //.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
-	            .setDescription('เมื่อวันที่ บลาๆๆๆๆ')
-	            .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
-	            .addFields(
-		            { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
-		            //{ name: '\u200B', value: '\u200B' },
-		            { name: 'เลขหน้าสามตัว', value: json[1][1]+' / '+json[1][2], inline: true },
-		            { name: 'เลขท้ายสามตัว', value: json[2][1]+' / '+json[2][2], inline: true },
-	            )
-	            .addField('เลขท้ายสองตัว', json[3][1], true)
-	            .setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
-	            .setTimestamp()
-	            .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon');
+	        .setColor('#0099ff')
+	        .setTitle('ผลสลากกินแบ่งรัฐบาล')
+	        .setURL('https://www.glo.or.th/')
+	        //.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
+	        .setDescription('เมื่อวันที่ '+new Date().getDate()+' '+monthtext+' '+year)
+	        .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
+	        .addFields(
+		        { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
+		        //{ name: '\u200B', value: '\u200B' },
+		        { name: 'เลขหน้าสามตัว', value: json[1][1]+' / '+json[1][2], inline: true },
+		        { name: 'เลขท้ายสามตัว', value: json[2][1]+' / '+json[2][2], inline: true },
+	        )
+	        .addField('เลขท้ายสองตัว', json[3][1], true)
+	        .setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
+	        .setTimestamp()
+	        .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon');
 
             fetch(process.env.URL+"/discordbot/chlist.txt", settings)
             .then(res => res.json())
