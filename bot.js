@@ -131,7 +131,7 @@ client.on('message', message => {
 
     if (message.content === '/ยกเลิกติดตามหวย') {
 
-        /*var options = {
+        var options = {
             'method': 'GET',
             'url': process.env.BOT_TOKEN+'/discordbot/delchannels.php?chid='+message.channel.id,
             'headers': {
@@ -142,7 +142,7 @@ client.on('message', message => {
             if (error) throw new Error(error);
             console.log(response.body);
             message.reply("ยกเลิกการติดตามสลากในห้องนี้เรียบร้อยแล้วค่ะเจ๊");
-        });*/
+        });
  
     }
 
