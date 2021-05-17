@@ -114,7 +114,7 @@ client.on('message', message => {
         request(options, function (error, response) {
             if (error) throw new Error(error);
             console.log(response.body);
-            message.reply("ติดตามสลากในห้องนี้ เรียบร้อยแล้วค่ะเจ๊");
+            message.reply("ติดตามสลากในห้องนี้เรียบร้อยแล้วค่ะเจ๊");
         });
  
     }
@@ -123,7 +123,7 @@ client.on('message', message => {
 
         /*var options = {
             'method': 'GET',
-            'url': 'https://lotto.teamquadb.in.th/discordbot/addchannels.php?chid='+message.channel.id,
+            'url': 'https://lotto.teamquadb.in.th/discordbot/delchannels.php?chid='+message.channel.id,
             'headers': {
             }
         };
@@ -131,7 +131,7 @@ client.on('message', message => {
         request(options, function (error, response) {
             if (error) throw new Error(error);
             console.log(response.body);
-            message.reply("ติดตามสลากในห้องนี้ เรียบร้อยแล้วค่ะเจ๊");
+            message.reply("ยกเลิกการติดตามสลากในห้องนี้เรียบร้อยแล้วค่ะเจ๊");
         });*/
  
     }
