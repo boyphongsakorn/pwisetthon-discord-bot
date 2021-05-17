@@ -110,7 +110,7 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 	        .addField('เลขท้ายสองตัว', json[3][1], true)
 	        .setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
 	        .setTimestamp()
-	        .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon');
+	        .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
             fetch(process.env.URL+"/discordbot/chlist.txt", settings)
             .then(res => res.json())
