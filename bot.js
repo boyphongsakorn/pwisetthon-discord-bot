@@ -16,21 +16,21 @@ function padLeadingZeros(num, size) {
 
 const exampleEmbed = new Discord.MessageEmbed()
 	.setColor('#0099ff')
-	.setTitle('ผลสลากกินแบ่งรัฐบาล เมื่อวันที่ บลาๆๆๆๆ')
-	.setURL('https://discord.js.org/')
+	.setTitle('ผลสลากกินแบ่งรัฐบาล')
+	.setURL('https://www.glo.or.th/')
 	//.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
-	.setDescription('Some description here')
-	.setThumbnail('https://i.imgur.com/wSTFkRM.png')
+	.setDescription('เมื่อวันที่ บลาๆๆๆๆ')
+	.setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
 	.addFields(
-		{ name: 'Regular field title', value: 'Some value here' },
-		{ name: '\u200B', value: '\u200B' },
-		{ name: 'Inline field title', value: 'Some value here', inline: true },
-		{ name: 'Inline field title', value: 'Some value here', inline: true },
+		{ name: 'รางวัลที่หนึ่ง', value: 'Some value here' },
+		//{ name: '\u200B', value: '\u200B' },
+		{ name: 'เลขหน้าสามตัว', value: 'Some value here', inline: true },
+		{ name: 'เลขท้ายสามตัว', value: 'Some value here', inline: true },
 	)
-	.addField('Inline field title', 'Some value here', true)
+	.addField('เลขท้ายสองตัว', 'Some value here', true)
 	.setImage('https://api.apiflash.com/v1/urltoimage/cache/6wl4d8od4j.jpeg?access_key=fda71090a5d94be7b45fe09cb2db840c')
 	.setTimestamp()
-	.setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
+	.setFooter('โดย Phongsakorn Wisetthon', '' , 'https://discord.js.org');
 
 client.once('ready', () => {
 
