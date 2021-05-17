@@ -87,8 +87,18 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 	            .setTimestamp()
 	            .setFooter('โดย Phongsakorn Wisetthon');
 
-            let channel = client.channels.cache.get('443362659522445314');
-            channel.send(msg);
+            fetch("https://lotto.teamquadb.in.th/discordbot/chlist.txt", settings)
+            .then(res => res.json())
+            .then((json) => {
+                //let channel = client.channels.cache.get('443362659522445314');
+                //channel.send(msg);
+
+                for (i in json) {
+                    //x += json[i] + "<br>";
+                    client.channels.cache.get(json[i]).send(msg);
+                }
+
+            });
 
         }
 
