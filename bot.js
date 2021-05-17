@@ -4,6 +4,16 @@ const fetch = require('node-fetch');
 
 const client = new Discord.Client();
 
+// functions
+
+function padLeadingZeros(num, size) {
+    var s = num+"";
+    while (s.length < size) s = "0" + s;
+    return s;
+}
+
+// end functions
+
 client.once('ready', () => {
 
     client.user.setPresence({ activity: { name: 'ยา' }, status: 'online' });
@@ -28,10 +38,34 @@ client.once('ready', () => {
 
 //});
 
+let date = new Date().getDate();
+let month = new Date().getMonth()+1;
+let year = new Date().getFullYear()+543;
+
+date = padLeadingZeros(date, 2);
+month = padLeadingZeros(month, 2);
+year = padLeadingZeros(year, 4);
+
 let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
+
+    let url = "https://lottsanook.herokuapp.com/?date="+date+""+month+""+year;
+
+    let settings = { method: "Get" };
+
+    let msg = "สลากฯออกวันนี้"
+
+    fetch(url, settings)
+    .then(res => res.json())
+    .then((json) => {
+        //console.log(json)
+        //console.log(json[0][1])
+        if(json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "XXXXXX"){
+            msg = "สลากฯไม่ได้ออกวันนี้"
+        }
+    });
     
     let channel = client.channels.cache.get('443362659522445314');
-    channel.send('Test');
+    channel.send(msg);
 
 });
   
