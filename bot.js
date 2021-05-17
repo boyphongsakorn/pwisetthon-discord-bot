@@ -28,7 +28,7 @@ const exampleEmbed = new Discord.MessageEmbed()
 		{ name: 'เลขท้ายสามตัว', value: 'Some value here', inline: true },
 	)
 	.addField('เลขท้ายสองตัว', 'Some value here', true)
-	.setImage('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=5&format=jpeg&fresh=true&height=1066&quality=50&url=https%3A%2F%2Flottsanook.herokuapp.com%2Fviewlot.php&width=1600')
+	.setImage('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=5&height=1066&quality=50&response_type=image&url=https%3A%2F%2Flottsanook.herokuapp.com%2Fviewlot.php&width=1600')
 	.setTimestamp()
 	.setFooter('โดย Phongsakorn Wisetthon');
 
