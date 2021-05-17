@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const cron = require("cron");
+const fetch = require('node-fetch');
 
 const client = new Discord.Client();
 
