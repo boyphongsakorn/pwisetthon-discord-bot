@@ -103,9 +103,9 @@ client.on('message', message => {
 
     if (message.content === '/ติดตามหวย') {
 
-        message.reply('Coming Soon นะ');
+        message.reply(message.channel.id);
  
-    } 
+    }
 
     /*if (message.content === 'มาเล่นเกมกัน') {
 
