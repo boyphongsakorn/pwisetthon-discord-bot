@@ -119,6 +119,23 @@ client.on('message', message => {
  
     }
 
+    if (message.content === '/ยกเลิกติดตามหวย') {
+
+        /*var options = {
+            'method': 'GET',
+            'url': 'https://lotto.teamquadb.in.th/discordbot/addchannels.php?chid='+message.channel.id,
+            'headers': {
+            }
+        };
+
+        request(options, function (error, response) {
+            if (error) throw new Error(error);
+            console.log(response.body);
+            message.reply("ติดตามสลากในห้องนี้ เรียบร้อยแล้วค่ะเจ๊");
+        });*/
+ 
+    }
+
     /*if (message.content === 'มาเล่นเกมกัน') {
 
        message.reply('อย่าเหลี่ยมล่ะกันน้าาาา');
