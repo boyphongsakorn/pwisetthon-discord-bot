@@ -48,7 +48,7 @@ date = padLeadingZeros(date, 2);
 month = padLeadingZeros(month, 2);
 year = padLeadingZeros(year, 4);
 
-let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
+let scheduledMessage = new cron.CronJob('00 10 13 * * *', () => {
 
     let url = "https://lottsanook.herokuapp.com/?date="+date+""+month+""+year;
 
