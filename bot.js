@@ -48,7 +48,7 @@ date = padLeadingZeros(date, 2);
 month = padLeadingZeros(month, 2);
 year = padLeadingZeros(year, 4);
 
-let scheduledMessage = new cron.CronJob('00 10 13 * * *', () => {
+let scheduledMessage = new cron.CronJob('00 13 13 * * *', () => {
 
     let url = "https://lottsanook.herokuapp.com/?date="+date+""+month+""+year;
 
@@ -62,8 +62,11 @@ let scheduledMessage = new cron.CronJob('00 10 13 * * *', () => {
         //console.log(json)
         //console.log(json[0][1])
         if(json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "XXXXXX"){
+
             msg = "สลากฯไม่ได้ออกวันนี้"
+
         }else{
+
             msg = new Discord.MessageEmbed()
             //const exampleEmbed = new Discord.MessageEmbed()
 	            .setColor('#0099ff')
@@ -82,11 +85,13 @@ let scheduledMessage = new cron.CronJob('00 10 13 * * *', () => {
 	            .setImage('https://lotto.teamquadb.in.th/tmpimage/'+date+""+month+""+year)
 	            .setTimestamp()
 	            .setFooter('โดย Phongsakorn Wisetthon');
+
         }
+
+        let channel = client.channels.cache.get('443362659522445314');
+        channel.send(msg);
+
     });
-    
-    let channel = client.channels.cache.get('443362659522445314');
-    channel.send(msg);
 
 });
   
