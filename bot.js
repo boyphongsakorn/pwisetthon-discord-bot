@@ -16,9 +16,9 @@ function padLeadingZeros(num, size) {
 
 const exampleEmbed = new Discord.MessageEmbed()
 	.setColor('#0099ff')
-	.setTitle('Some title')
+	.setTitle('ผลสลากกินแบ่งรัฐบาล เมื่อวันที่ บลาๆๆๆๆ')
 	.setURL('https://discord.js.org/')
-	.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
+	//.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
 	.setDescription('Some description here')
 	.setThumbnail('https://i.imgur.com/wSTFkRM.png')
 	.addFields(
@@ -28,7 +28,7 @@ const exampleEmbed = new Discord.MessageEmbed()
 		{ name: 'Inline field title', value: 'Some value here', inline: true },
 	)
 	.addField('Inline field title', 'Some value here', true)
-	.setImage('https://i.imgur.com/wSTFkRM.png')
+	.setImage('https://api.apiflash.com/v1/urltoimage/cache/6wl4d8od4j.jpeg?access_key=fda71090a5d94be7b45fe09cb2db840c')
 	.setTimestamp()
 	.setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
 
