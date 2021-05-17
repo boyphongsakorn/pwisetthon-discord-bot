@@ -91,6 +91,10 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 
             //msg = "สลากฯไม่ได้ออกวันนี้"
 
+            client.users.fetch('133439202556641280').then(dm => {
+                dm.send('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออก')
+            })
+
         }else{
 
             const msg = new Discord.MessageEmbed()
