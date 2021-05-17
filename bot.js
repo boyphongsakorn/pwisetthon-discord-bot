@@ -27,7 +27,7 @@ client.once('ready', () => {
 	.then(console.log)
     .catch(console.error);*/
 
-    bot.users.fetch('133439202556641280').then(dm => {
+    client.users.fetch('133439202556641280').then(dm => {
         dm.send('Bot เริ่มต้นการทำงานแล้ว')
     })
 
