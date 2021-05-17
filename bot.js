@@ -125,8 +125,18 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
                 for (i in json) {
                     //x += json[i] + "<br>";
                     client.channels.cache.get(json[i]).send(msg)
-                    .then(console.log)
-                    .catch(console.error);
+                    .then(
+                        console.log,
+                        client.users.fetch('133439202556641280').then(dm => {
+                            dm.send('Bot ทำงานปกติและได้ทำการส่งผลสลากฯไปยัง Channels '+json[i]+' เรียบร้อยแล้ว')
+                        })
+                    )
+                    .catch(
+                        console.error,
+                        client.users.fetch('133439202556641280').then(dm => {
+                            dm.send('Bot ไม่สามารถส่งข้อความได้เนี่องจาก '+console.error)
+                        })
+                    );
                 }
 
             });
