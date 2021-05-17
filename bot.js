@@ -17,11 +17,15 @@ function padLeadingZeros(num, size) {
 
 client.once('ready', () => {
 
-    client.user.setPresence({ activity: { name: 'การออกรางวัลสลากกินแบ่งรัฐบาล วันที่ บลาๆๆๆ', type: 'WATCHING', url: 'https://www.youtube.com/watch?v=6raygFpmj7g' }, status: 'online' });
+	client.user.setPresence({ activity: { name: 'การออกรางวัลสลากกินแบ่งรัฐบาล วันที่ บลาๆๆๆ', type: 'WATCHING', url: 'https://www.youtube.com/watch?v=6raygFpmj7g' }, status: 'online' });
 
 	console.log('I am ready!');
 
-    //client.channels.cache.get('443362659522445314').send(exampleEmbed);
+	//client.channels.cache.get('443362659522445314').send(exampleEmbed);
+	
+	client.users.cache.get("133439202556641280").send("Bot เริ่มต้นการทำงานแล้ว")
+	.then(console.log)
+        .catch(console.error);
 
 });
 
