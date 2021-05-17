@@ -14,31 +14,13 @@ function padLeadingZeros(num, size) {
 
 // end functions
 
-const exampleEmbed = new Discord.MessageEmbed()
-	.setColor('#0099ff')
-	.setTitle('ผลสลากกินแบ่งรัฐบาล')
-	.setURL('https://www.glo.or.th/')
-	//.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
-	.setDescription('เมื่อวันที่ บลาๆๆๆๆ')
-	.setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
-	.addFields(
-		{ name: 'รางวัลที่หนึ่ง', value: 'Some value here' },
-		//{ name: '\u200B', value: '\u200B' },
-		{ name: 'เลขหน้าสามตัว', value: 'Some value here', inline: true },
-		{ name: 'เลขท้ายสามตัว', value: 'Some value here', inline: true },
-	)
-	.addField('เลขท้ายสองตัว', 'Some value here', true)
-	.setImage('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=5&height=1066&quality=50&response_type=image&url=https%3A%2F%2Flottsanook.herokuapp.com%2Fviewlot.php&width=1600')
-	.setTimestamp()
-	.setFooter('โดย Phongsakorn Wisetthon');
-
 client.once('ready', () => {
 
     client.user.setPresence({ activity: { name: 'ยา' }, status: 'online' });
 
 	console.log('I am ready!');
 
-    client.channels.cache.get('443362659522445314').send(exampleEmbed);
+    //client.channels.cache.get('443362659522445314').send(exampleEmbed);
 
 });
 
@@ -81,6 +63,25 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
         //console.log(json[0][1])
         if(json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "XXXXXX"){
             msg = "สลากฯไม่ได้ออกวันนี้"
+        }else{
+            msg = new Discord.MessageEmbed()
+            //const exampleEmbed = new Discord.MessageEmbed()
+	            .setColor('#0099ff')
+	            .setTitle('ผลสลากกินแบ่งรัฐบาล')
+	            .setURL('https://www.glo.or.th/')
+	            //.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
+	            .setDescription('เมื่อวันที่ บลาๆๆๆๆ')
+	            .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
+	            .addFields(
+		            { name: 'รางวัลที่หนึ่ง', value: 'Some value here' },
+		            //{ name: '\u200B', value: '\u200B' },
+		            { name: 'เลขหน้าสามตัว', value: 'Some value here', inline: true },
+		            { name: 'เลขท้ายสามตัว', value: 'Some value here', inline: true },
+	            )
+	            .addField('เลขท้ายสองตัว', 'Some value here', true)
+	            .setImage('https://lotto.teamquadb.in.th/tmpimage/'+date+""+month+""+year)
+	            .setTimestamp()
+	            .setFooter('โดย Phongsakorn Wisetthon');
         }
     });
     
