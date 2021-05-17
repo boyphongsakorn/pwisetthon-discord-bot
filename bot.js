@@ -99,9 +99,15 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 scheduledMessage.start()
 // You could also make a command to pause and resume the job
 
-/*client.on('message', message => {
+client.on('message', message => {
 
-    if (message.content === 'มาเล่นเกมกัน') {
+    if (message.content === '/ติดตามหวย') {
+
+        message.reply('Coming Soon นะ');
+ 
+    } 
+
+    /*if (message.content === 'มาเล่นเกมกัน') {
 
        message.reply('อย่าเหลี่ยมล่ะกันน้าาาา');
 
@@ -164,8 +170,8 @@ scheduledMessage.start()
         //    message.author.send('จะ ดูด ไวไฟ งั้นหรอก | ก็ไม่ได้ดูเป็นเรื่องยากอะไรนะ \nถ้าดูดแบบข้างบ้าน ใช้แบบ Router มา Repeater ต่อก็ได้นะ (ไม่แนะนำ ถ้าแถวนั้น มีไวไฟหลาย SSID หรือ Channel ที่อัดกันเยอะๆ) \nส่วน ดูดจาก ตรงข้ามบ้าน หรือ ระยะไกลๆ ให้ชื่ออุปกรณ์แบบ Outdoor ที่เอาไว้รับ ไวไฟ อย่างเดียว \nเช่น UBIQUITI Nanostation Loco M5 , Tenda O1 , Tenda O3 , Tenda O6');
         //}
 
-    }
+    }*/
 
-});*/
+});
 
 client.login(process.env.BOT_TOKEN);
