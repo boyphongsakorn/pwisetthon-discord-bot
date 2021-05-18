@@ -17,7 +17,7 @@ function padLeadingZeros(num, size) {
 
 // end functions
 
-client.on('ready', () => {
+client.once('ready', () => {
 
 	client.user.setPresence({ activity: { name: 'ยา' }, status: 'online' });
 
@@ -31,7 +31,7 @@ client.on('ready', () => {
 
     client.users.fetch('133439202556641280').then(dm => {
         dm.send('Bot เริ่มต้นการทำงานแล้ว')
-    })
+    });
 
     let followCommand = new DiscordSlash.CommandBuilder();
     //let unfollowCommand = new DiscordSlash.CommandBuilder();
