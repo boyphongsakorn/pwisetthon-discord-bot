@@ -74,7 +74,7 @@ switch(month){
     case '12' : monthtext="ธันวาคม"; break;
 }
 
-let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
+let scheduledMessage = new cron.CronJob('00 00 18 * * *', () => {
 
     let url = "https://lottsanook.herokuapp.com/?date="+date+""+month+""+year;
 
