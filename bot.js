@@ -184,7 +184,7 @@ client.on('message', message => {
         request(options, function (error, response) {
             if (error) throw new Error(error);
             console.log(response.body);
-            message.reply("ยกเลิกการติดตามสลากในห้องนี้เรียบร้อยแล้วค่ะเจ๊");
+            message.reply("ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย");
         });
  
     }
