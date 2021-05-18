@@ -1,0 +1,23 @@
+{
+  "name": "discord.js-slash-command",
+  "version": "1.2.1",
+  "description": "Slash command extension for discord.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Discord",
+    "dot",
+    "js",
+    "slash",
+    "command",
+    "discord.js"
+  ],
+  "author": "MrAdhit <me@mradhit.net>",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "node-fetch": "^2.6.1"
+  }
+}
