@@ -36,8 +36,8 @@ client.once('ready', () => {
     let followCommand = new DiscordSlash.CommandBuilder();
     //let unfollowCommand = new DiscordSlash.CommandBuilder();
 
-    followCommand.setName("ติดตามหวย");
-    followCommand.setDescription("ตั้งแจ้งเตือนสลากฯเวลาสี่โมงเย็นของวันที่สลากออก");
+    followCommand.setName("test");
+    followCommand.setDescription("test");
 
     /*slash.create(followCommand)
     .catch(console.error);*/
