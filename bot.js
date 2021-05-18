@@ -17,7 +17,7 @@ function padLeadingZeros(num, size) {
 
 client.once('ready', () => {
 
-	client.user.setPresence({ activity: { name: 'ยา', type: 'PLAYING' }, status: 'online' });
+	client.user.setPresence({ activity: { name: 'ยา' }, status: 'online' });
 
 	console.log('I am ready!');
 
