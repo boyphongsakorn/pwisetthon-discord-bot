@@ -67,6 +67,12 @@ client.once('ready', () => {
 
 //});
 
+client.on("guildCreate", guild => {
+    console.log("Joined a new guild: " + guild.id);
+    //Your other stuff like adding to guildArray
+})
+
+
 // datedata
 
 let date = new Date().getDate();
