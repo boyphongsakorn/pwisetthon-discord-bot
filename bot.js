@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const cron = require("cron");
 const fetch = require('node-fetch');
-var request = require('request');
+const request = require('request');
 
 const client = new Discord.Client();
 
@@ -162,7 +162,12 @@ client.on('message', message => {
         request(options, function (error, response) {
             if (error) throw new Error(error);
             console.log(response.body);
-            message.reply("ติดตามสลากในห้องนี้เรียบร้อยแล้วค่ะเจ๊");
+            if(response.body == "debug"){
+                message.reply("ห้องนี้ติดตามสลากฯอยู่แล้ว");
+            }else{
+                message.reply("ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย");
+            }
+            
         });
  
     }
