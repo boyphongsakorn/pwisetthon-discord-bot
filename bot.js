@@ -34,13 +34,17 @@ client.on('ready', () => {
     })
 
     let followCommand = new DiscordSlash.CommandBuilder();
-    let unfollowCommand = new DiscordSlash.CommandBuilder();
+    //let unfollowCommand = new DiscordSlash.CommandBuilder();
 
     followCommand.setName("ติดตามหวย");
     followCommand.setDescription("ตั้งแจ้งเตือนสลากฯเวลาสี่โมงเย็นของวันที่สลากออก");
 
-    slash.create(followCommand)
-    .catch(console.error);
+    /*slash.create(followCommand)
+    .catch(console.error);*/
+
+    slash.create(followCommand /* optional: Guild ID */).then((res) => {
+        console.log(res);
+    })
 
 });
 
