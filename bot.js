@@ -17,7 +17,7 @@ function padLeadingZeros(num, size) {
 
 // end functions
 
-client.once('ready', () => {
+client.on('ready', () => {
 
 	client.user.setPresence({ activity: { name: 'ยา' }, status: 'online' });
 
@@ -272,5 +272,9 @@ client.on('message', message => {
     }*/
 
 });
+
+slash.on("ติดตามหวย", (interaction) => {
+    console.log(interaction)
+})
 
 client.login(process.env.BOT_TOKEN);
