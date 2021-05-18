@@ -40,6 +40,7 @@ client.once('ready', () => {
     followCommand.setDescription("ตั้งแจ้งเตือนสลากฯเวลาสี่โมงเย็นของวันที่สลากออก")
 
     slash.create(followCommand)
+    .catch(console.error)
 
 });
 
