@@ -17,7 +17,7 @@ function padLeadingZeros(num, size) {
 
 // end functions
 
-client.once('ready', () => {
+client.on('ready', () => {
 
 	client.user.setPresence({ activity: { name: 'ยา' }, status: 'online' });
 
