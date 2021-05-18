@@ -17,7 +17,7 @@ function padLeadingZeros(num, size) {
 
 client.once('ready', () => {
 
-	client.user.setPresence({ activity: { name: 'การออกรางวัลสลากกินแบ่งรัฐบาล วันที่ บลาๆๆๆ', type: 'WATCHING', url: 'https://www.youtube.com/watch?v=6raygFpmj7g' }, status: 'online' });
+	client.user.setPresence({ activity: { name: 'ยา', type: 'PLAYING' }, status: 'online' });
 
 	console.log('I am ready!');
 
