@@ -74,7 +74,7 @@ switch(month){
     case '12' : monthtext="ธันวาคม"; break;
 }
 
-let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
+let scheduledMessage = new cron.CronJob('00 00 23 * * *', () => {
 
     let url = "https://lottsanook.vercel.app/api/?date="+date+""+month+""+year;
 	
