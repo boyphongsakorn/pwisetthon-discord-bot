@@ -49,6 +49,8 @@ client.once('ready', () => {
 
 //});
 
+// datedata
+
 let date = new Date().getDate();
 let month = new Date().getMonth()+1;
 let year = new Date().getFullYear()+543;
@@ -73,6 +75,8 @@ switch(month){
     case '11' : monthtext="พฤศจิกายน"; break;
     case '12' : monthtext="ธันวาคม"; break;
 }
+
+// end datedata
 
 let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 
@@ -105,13 +109,13 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 	        .setTitle('ผลสลากกินแบ่งรัฐบาล')
 	        .setURL('https://www.glo.or.th/')
 	        //.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
-	        .setDescription('เมื่อวันที่ '+new Date().getDate()+' '+monthtext+' '+year)
+	        .setDescription('งวดวันที่ '+new Date().getDate()+' '+monthtext+' '+year)
 	        .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
 	        .addFields(
 		        { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
 		        //{ name: '\u200B', value: '\u200B' },
-		        { name: 'เลขหน้าสามตัว', value: json[1][1]+' / '+json[1][2], inline: true },
-		        { name: 'เลขท้ายสามตัว', value: json[2][1]+' / '+json[2][2], inline: true },
+		        { name: 'เลขหน้าสามตัว', value: json[1][1]+' | '+json[1][2], inline: true },
+		        { name: 'เลขท้ายสามตัว', value: json[2][1]+' | '+json[2][2], inline: true },
 	        )
 	        .addField('เลขท้ายสองตัว', json[3][1], true)
 	        .setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
