@@ -33,8 +33,8 @@ client.once('ready', () => {
         dm.send('Bot เริ่มต้นการทำงานแล้ว')
     });
 
-    slash.delete("844267497871507476" /* optional: Guild ID */);
-    slash.delete("844266641574461520" /* optional: Guild ID */);
+    //slash.delete("844267497871507476" /* optional: Guild ID */);
+    //slash.delete("844266641574461520" /* optional: Guild ID */);
 
     //let followCommand = new DiscordSlash.CommandBuilder();
     //let unfollowCommand = new DiscordSlash.CommandBuilder();
