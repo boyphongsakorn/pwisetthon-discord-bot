@@ -1,9 +1,11 @@
 const Discord = require('discord.js');
+const DiscordSlash = require("discord.js-slash-command");
 const cron = require("cron");
 const fetch = require('node-fetch');
 const request = require('request');
 
 const client = new Discord.Client();
+const slash = new DiscordSlash.Slash(client);
 
 // functions
 
@@ -30,6 +32,14 @@ client.once('ready', () => {
     client.users.fetch('133439202556641280').then(dm => {
         dm.send('Bot เริ่มต้นการทำงานแล้ว')
     })
+
+    let followCommand = new DiscordSlash.CommandBuilder();
+    let unfollowCommand = new DiscordSlash.CommandBuilder();
+
+    followCommand.setName("ติดตามหวย")
+    followCommand.setDescription("ตั้งแจ้งเตือนสลากฯเวลาสี่โมงเย็นของวันที่สลากออก")
+
+    slash.create(followCommand)
 
 });
 
