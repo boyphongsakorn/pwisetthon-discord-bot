@@ -36,8 +36,8 @@ client.once('ready', () => {
     let followCommand = new DiscordSlash.CommandBuilder();
     //let unfollowCommand = new DiscordSlash.CommandBuilder();
 
-    followCommand.setName("test");
-    followCommand.setDescription("test");
+    followCommand.setName("fthlotto");
+    followCommand.setDescription("ทดสอบ");
 
     /*slash.create(followCommand)
     .catch(console.error);*/
@@ -277,7 +277,7 @@ client.on('message', message => {
 
 });
 
-slash.on("ติดตามหวย", (interaction) => {
+slash.on("fthlotto", (interaction) => {
     console.log(interaction)
 })
 
