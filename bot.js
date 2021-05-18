@@ -69,6 +69,16 @@ client.once('ready', () => {
 
 client.on("guildCreate", guild => {
     console.log("Joined a new guild: " + guild.id);
+
+    let followCommand = new DiscordSlash.CommandBuilder();
+    followCommand.setName("fthlotto");
+    followCommand.setDescription("แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก");
+
+    slash.create(followCommand, guild.id).then((res) => {
+        console.log(res);
+    })
+    .catch(console.error);
+
     //Your other stuff like adding to guildArray
 })
 
