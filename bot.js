@@ -76,7 +76,7 @@ switch(month){
 
 let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 
-    let url = "https://lottsanook.herokuapp.com/?date="+date+""+month+""+year;
+    let url = "https://lottsanook.vercel.app/api/?date="+date+""+month+""+year;
 	
 	console.log(url)
 
