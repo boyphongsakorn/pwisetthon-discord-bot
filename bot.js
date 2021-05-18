@@ -33,18 +33,21 @@ client.once('ready', () => {
         dm.send('Bot เริ่มต้นการทำงานแล้ว')
     });
 
-    let followCommand = new DiscordSlash.CommandBuilder();
+    slash.delete("844267497871507476" /* optional: Guild ID */);
+    slash.delete("844266641574461520" /* optional: Guild ID */);
+
+    //let followCommand = new DiscordSlash.CommandBuilder();
     //let unfollowCommand = new DiscordSlash.CommandBuilder();
 
-    followCommand.setName("fthlotto");
-    followCommand.setDescription("ทดสอบ");
+    //followCommand.setName("fthlotto");
+    //followCommand.setDescription("ทดสอบ");
 
     /*slash.create(followCommand)
     .catch(console.error);*/
 
-    slash.create(followCommand /* optional: Guild ID */).then((res) => {
-        console.log(res);
-    })
+    //slash.create(followCommand /* optional: Guild ID */).then((res) => {
+        //console.log(res);
+    //})
 
 });
 
@@ -277,8 +280,8 @@ client.on('message', message => {
 
 });
 
-slash.on("fthlotto", (interaction) => {
+/*slash.on("fthlotto", (interaction) => {
     console.log(interaction)
-})
+})*/
 
 client.login(process.env.BOT_TOKEN);
