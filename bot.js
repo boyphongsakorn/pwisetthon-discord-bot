@@ -332,29 +332,8 @@ client.on('message', message => {
 
 });
 
-// attach and event listener for the interactionCreate event
-/*client.on("interactionCreate", async (interaction) => {
-    if (interaction.name === "fthlotto") {
-      // send an initial reply
-      await interaction.reply("Pong");
-  
-      // send a followup
-      const messageId = await interaction.reply({
-        content: "Follow up message",
-        embeds: [new MessageEmbed().setDescription("Follow up test")],
-      });
-  
-      setTimeout(() => {
-        // delete initial reply
-        interaction.delete();
-  
-        // edit 1st followup
-        interaction.edit("Edited follow up message", messageId);
-      }, 5000);
-    }
-});*/
-
 client.ws.on('INTERACTION_CREATE', async (interaction) => {
+    console.log(interaction)
     const command = interaction.data.name.toLowerCase();
 
     console.log(command)
