@@ -1,11 +1,13 @@
 const Discord = require('discord.js');
 const DiscordSlash = require("discord.js-slash-command");
+const interactions = require("discord-slash-commands-client");
 const cron = require("cron");
 const fetch = require('node-fetch');
 const request = require('request');
 
 const client = new Discord.Client();
 const slash = new DiscordSlash.Slash(client);
+client.interactions = new interactions.Client(process.env.BOT_TOKEN, "691610557156950030");
 
 // functions
 
@@ -92,9 +94,9 @@ client.on("guildCreate", guild => {
     //Your other stuff like adding to guildArray
 })
 
-slash.on("slashInteraction", (interaction) => {
+/*slash.on("slashInteraction", (interaction) => {
     console.log(interaction);
-    console.log(interaction.channel.guild.emojis);
+    //console.log(interaction.channel.guild.emojis);
     //test
     /*interaction.callback("4")
     .catch()
@@ -115,7 +117,7 @@ slash.on("slashInteraction", (interaction) => {
     console.log(r);*/
 
     //interaction.callback(json)
-})
+//})
 
 // datedata
 
@@ -329,5 +331,27 @@ client.on('message', message => {
     }*/
 
 });
+
+// attach and event listener for the interactionCreate event
+client.on("interactionCreate", async (interaction) => {
+    if (interaction.name === "fthlotto") {
+      // send an initial reply
+      await interaction.reply("Pong");
+  
+      // send a followup
+      const messageId = await interaction.reply({
+        content: "Follow up message",
+        embeds: [new MessageEmbed().setDescription("Follow up test")],
+      });
+  
+      setTimeout(() => {
+        // delete initial reply
+        interaction.delete();
+  
+        // edit 1st followup
+        interaction.edit("Edited follow up message", messageId);
+      }, 5000);
+    }
+  });
 
 client.login(process.env.BOT_TOKEN);
