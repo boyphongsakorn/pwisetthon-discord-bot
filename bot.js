@@ -94,7 +94,7 @@ client.on("guildCreate", guild => {
 
 slash.on("slashInteraction", (interaction) => {
     console.log(interaction);
-    console.log(interaction.channel.guild.members[0]);
+    console.log(interaction.channel.guild.members);
     //test
     /*interaction.callback("4")
     .catch()
