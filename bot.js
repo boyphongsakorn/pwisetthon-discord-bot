@@ -308,8 +308,10 @@ client.on('message', message => {
 
 slash.on("slashInteraction", (interaction) => {
     console.log(interaction)
-    interaction.callback("put embed or plain text");
-    interaction.channel.send("you can also send message to the channel");
+    interaction.callback("put embed or plain text")
+    .catch(console.error);
+    interaction.channel.send("you can also send message to the channel")
+    .catch(console.error);
 })
 
 client.login(process.env.BOT_TOKEN);
