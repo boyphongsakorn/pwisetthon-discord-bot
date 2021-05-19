@@ -1,4 +1,4 @@
-# boy-discord-bot
+# pwisetthon-discord-bot
 Discord Bot แรกของผม ในตอนนี้มีแต่คำสั่งเกี่ยวกับ การส่งแจ้งเตือนสลากกินแบ่ง
 
 [เชิญบอทเข้าเซิฟที่นี้](https://discord.com/api/oauth2/authorize?client_id=691610557156950030&permissions=10240&redirect_uri=https%3A%2F%2Fminecraft.pwisetthon.com%2Fchecklogin.php&scope=bot%20applications.commands)
