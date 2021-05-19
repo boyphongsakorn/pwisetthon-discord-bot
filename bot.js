@@ -92,6 +92,12 @@ client.on("guildCreate", guild => {
     //Your other stuff like adding to guildArray
 })
 
+slash.on("slashInteraction", (interaction) => {
+    console.log(interaction);
+    //test
+    interaction.callback("success");
+    //interaction.channel.send("you can also send message to the channel");
+})
 
 // datedata
 
@@ -305,11 +311,5 @@ client.on('message', message => {
     }*/
 
 });
-
-slash.on("slashInteraction", (interaction) => {
-    console.log(interaction);
-    interaction.callback(4,"test");
-    //interaction.channel.send("you can also send message to the channel");
-})
 
 client.login(process.env.BOT_TOKEN);
