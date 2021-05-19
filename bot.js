@@ -200,7 +200,7 @@ scheduledMessage.start()
 
 client.on('message', message => {
 
-    if (message.content === '/ติดตามหวย') {
+    /*if (message.content === '/ติดตามหวย') {
 
         var options = {
             'method': 'GET',
@@ -237,7 +237,7 @@ client.on('message', message => {
             message.reply("ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย");
         });
  
-    }
+    }*/
 
     /*if (message.content === 'มาเล่นเกมกัน') {
 
@@ -307,11 +307,9 @@ client.on('message', message => {
 });
 
 slash.on("slashInteraction", (interaction) => {
-    console.log(interaction)
-    interaction.callback("put embed or plain text")
-    .catch(console.error);
-    interaction.channel.send("you can also send message to the channel")
-    .catch(console.error);
+    console.log(interaction);
+    interaction.callback("test");
+    //interaction.channel.send("you can also send message to the channel");
 })
 
 client.login(process.env.BOT_TOKEN);
