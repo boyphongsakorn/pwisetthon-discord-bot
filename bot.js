@@ -358,6 +358,21 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
     const command = interaction.data.name.toLowerCase();
 
     console.log(command)
+
+    if (command === 'fthlotto') {
+        reply(interaction, 'test')
+    }
 })
+
+const reply = (interaction, response) => {
+    client.api.interactions(interaction.id, interaction.token).callback.post({
+        data: {
+            type: 4, 
+            data: {
+                content: 'test',
+            }
+        }
+    })
+}
 
 client.login(process.env.BOT_TOKEN);
