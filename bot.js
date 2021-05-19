@@ -95,9 +95,25 @@ client.on("guildCreate", guild => {
 slash.on("slashInteraction", (interaction) => {
     console.log(interaction);
     //test
-    //console.log(interaction.callback)
-    interaction.callback(["4"]);
+    /*interaction.callback("4")
+    .catch()
+    ;*/
     //interaction.channel.send("you can also send message to the channel");
+
+    //url = "https://discord.com/api/v8/interactions/"+interaction.id+"/<interaction_token>/callback";
+
+    json = {
+        "type": 4,
+        "data": {
+            "content": "Congrats on sending your command!"
+        }
+    };
+
+    /*r = requests.post(url, json=json);
+
+    console.log(r);*/
+
+    interaction.callback(json)
 })
 
 // datedata
