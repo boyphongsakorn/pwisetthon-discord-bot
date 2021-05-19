@@ -205,7 +205,8 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
         request(options, function (error, response) {
             if (error) throw new Error(error);
             console.log(response.body);
-            message.reply("ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย");
+            reply(interaction, 'ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+            //message.reply("ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย");
         });
     }
 
