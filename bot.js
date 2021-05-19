@@ -342,7 +342,7 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
 
         var options = {
             'method': 'GET',
-            'url': process.env.URL+'/discordbot/addchannels.php?chid='+message.channel.id,
+            'url': process.env.URL+'/discordbot/addchannels.php?chid='+interaction.channel_id,
             'headers': {
             }
         };
@@ -365,7 +365,7 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
     if (command === 'cthlotto') {
         var options = {
             'method': 'GET',
-            'url': process.env.URL+'/discordbot/delchannels.php?chid='+message.channel.id,
+            'url': process.env.URL+'/discordbot/delchannels.php?chid='+interaction.channel_id,
             'headers': {
             }
         };
