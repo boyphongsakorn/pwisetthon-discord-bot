@@ -94,13 +94,14 @@ client.on("guildCreate", guild => {
 
 slash.on("slashInteraction", (interaction) => {
     console.log(interaction);
+    console.log(interaction.channel.guild.members[0]);
     //test
     /*interaction.callback("4")
     .catch()
     ;*/
     //interaction.channel.send("you can also send message to the channel");
 
-    //url = "https://discord.com/api/v8/interactions/"+interaction.id+"/<interaction_token>/callback";
+    /*url = "https://discord.com/api/v8/interactions/"+interaction.id+"/<interaction_token>/callback";
 
     json = {
         "type": 4,
@@ -109,11 +110,11 @@ slash.on("slashInteraction", (interaction) => {
         }
     };
 
-    /*r = requests.post(url, json=json);
+    r = requests.post(url, json=json);
 
     console.log(r);*/
 
-    interaction.callback(json)
+    //interaction.callback(json)
 })
 
 // datedata
