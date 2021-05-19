@@ -95,7 +95,6 @@ client.on("guildCreate", guild => {
 slash.on("slashInteraction", (interaction) => {
     console.log(interaction);
     console.log(interaction.channel.guild.emojis);
-    console.log(interaction.callback());
     //test
     /*interaction.callback("4")
     .catch()
