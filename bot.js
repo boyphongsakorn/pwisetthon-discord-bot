@@ -308,7 +308,7 @@ client.on('message', message => {
 
 slash.on("slashInteraction", (interaction) => {
     console.log(interaction);
-    interaction.callback({type: 4,data: {content: "hello world!!!"}});
+    interaction.callback(4,"test");
     //interaction.channel.send("you can also send message to the channel");
 })
 
