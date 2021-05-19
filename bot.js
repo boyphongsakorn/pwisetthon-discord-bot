@@ -1,13 +1,13 @@
 const Discord = require('discord.js');
 const DiscordSlash = require("discord.js-slash-command");
-const interactions = require("discord-slash-commands-client");
+//const interactions = require("discord-slash-commands-client");
 const cron = require("cron");
 const fetch = require('node-fetch');
 const request = require('request');
 
 const client = new Discord.Client();
 const slash = new DiscordSlash.Slash(client);
-client.interactions = new interactions.Client(process.env.BOT_TOKEN, "691610557156950030");
+//client.interactions = new interactions.Client(process.env.BOT_TOKEN, "691610557156950030");
 
 // functions
 
@@ -333,7 +333,7 @@ client.on('message', message => {
 });
 
 // attach and event listener for the interactionCreate event
-client.on("interactionCreate", async (interaction) => {
+/*client.on("interactionCreate", async (interaction) => {
     if (interaction.name === "fthlotto") {
       // send an initial reply
       await interaction.reply("Pong");
@@ -352,6 +352,6 @@ client.on("interactionCreate", async (interaction) => {
         interaction.edit("Edited follow up message", messageId);
       }, 5000);
     }
-  });
+});*/
 
 client.login(process.env.BOT_TOKEN);
