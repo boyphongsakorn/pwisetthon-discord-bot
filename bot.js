@@ -71,10 +71,20 @@ client.on("guildCreate", guild => {
     console.log("Joined a new guild: " + guild.id);
 
     let followCommand = new DiscordSlash.CommandBuilder();
+    let cancelCommand = new DiscordSlash.CommandBuilder();
+
     followCommand.setName("fthlotto");
     followCommand.setDescription("แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก");
 
+    cancelCommand.setName("cthlotto");
+    cancelCommand.setDescription("ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้");
+
     slash.create(followCommand, guild.id).then((res) => {
+        console.log(res);
+    })
+    .catch(console.error);
+
+    slash.create(cancelCommand, guild.id).then((res) => {
         console.log(res);
     })
     .catch(console.error);
@@ -296,8 +306,10 @@ client.on('message', message => {
 
 });
 
-/*slash.on("fthlotto", (interaction) => {
+slash.on("fthlotto", (interaction) => {
     console.log(interaction)
-})*/
+    interaction.callback("put embed or plain text");
+    interaction.channel.send("you can also send message to the channel");
+})
 
 client.login(process.env.BOT_TOKEN);
