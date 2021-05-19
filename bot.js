@@ -1,13 +1,11 @@
 const Discord = require('discord.js');
 const DiscordSlash = require("discord.js-slash-command");
-//const interactions = require("discord-slash-commands-client");
 const cron = require("cron");
 const fetch = require('node-fetch');
 const request = require('request');
 
 const client = new Discord.Client();
 const slash = new DiscordSlash.Slash(client);
-//client.interactions = new interactions.Client(process.env.BOT_TOKEN, "691610557156950030");
 
 // functions
 
@@ -92,16 +90,10 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 
     let settings = { method: "Get" };
 
-    //let msg = "สลากฯออกวันนี้"
-
     fetch(url, settings)
     .then(res => res.json())
     .then((json) => {
-        //console.log(json)
-        //console.log(json[0][1])
         if(json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "XXXXXX"){
-
-            //msg = "สลากฯไม่ได้ออกวันนี้"
 
             client.users.fetch('133439202556641280').then(dm => {
                 dm.send('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออก')
@@ -110,7 +102,6 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
         }else{
 
             const msg = new Discord.MessageEmbed()
-            //const exampleEmbed = new Discord.MessageEmbed()
 	        .setColor('#0099ff')
 	        .setTitle('ผลสลากกินแบ่งรัฐบาล')
 	        .setURL('https://www.glo.or.th/')
@@ -131,11 +122,8 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
             fetch(process.env.URL+"/discordbot/chlist.txt", settings)
             .then(res => res.json())
             .then((json) => {
-                //let channel = client.channels.cache.get('443362659522445314');
-                //channel.send(msg);
 
                 for (i in json) {
-                    //x += json[i] + "<br>";
                     client.channels.cache.get(json[i]).send(msg)
                     .then((log) => {
                         console.log(log);
@@ -184,10 +172,8 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
             console.log(response.body);
             if(response.body == "debug"){
                 reply(interaction, 'ห้องนี้ติดตามสลากฯอยู่แล้ว')
-                //message.reply("ห้องนี้ติดตามสลากฯอยู่แล้ว");
             }else{
                 reply(interaction, 'ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
-                //message.reply("ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย");
             }
             
         });
@@ -206,7 +192,6 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
             if (error) throw new Error(error);
             console.log(response.body);
             reply(interaction, 'ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
-            //message.reply("ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย");
         });
     }
 
