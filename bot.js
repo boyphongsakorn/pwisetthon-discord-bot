@@ -360,8 +360,44 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
     console.log(command)
 
     if (command === 'fthlotto') {
-        reply(interaction, 'test')
+
+        var options = {
+            'method': 'GET',
+            'url': process.env.URL+'/discordbot/addchannels.php?chid='+message.channel.id,
+            'headers': {
+            }
+        };
+
+        request(options, function (error, response) {
+            if (error) throw new Error(error);
+            console.log(response.body);
+            if(response.body == "debug"){
+                reply(interaction, 'ห้องนี้ติดตามสลากฯอยู่แล้ว')
+                //message.reply("ห้องนี้ติดตามสลากฯอยู่แล้ว");
+            }else{
+                reply(interaction, 'ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+                //message.reply("ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย");
+            }
+            
+        });
+
     }
+
+    if (command === 'cthlotto') {
+        var options = {
+            'method': 'GET',
+            'url': process.env.URL+'/discordbot/delchannels.php?chid='+message.channel.id,
+            'headers': {
+            }
+        };
+
+        request(options, function (error, response) {
+            if (error) throw new Error(error);
+            console.log(response.body);
+            message.reply("ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย");
+        });
+    }
+
 })
 
 const reply = (interaction, response) => {
