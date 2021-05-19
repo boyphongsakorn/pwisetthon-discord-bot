@@ -384,7 +384,7 @@ const reply = (interaction, response) => {
         data: {
             type: 4, 
             data: {
-                content: 'test',
+                content: response,
             }
         }
     })
