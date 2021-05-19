@@ -95,7 +95,7 @@ client.on("guildCreate", guild => {
 slash.on("slashInteraction", (interaction) => {
     console.log(interaction);
     //test
-    interaction.callback("success");
+    interaction.callback(4,"success");
     //interaction.channel.send("you can also send message to the channel");
 })
 
