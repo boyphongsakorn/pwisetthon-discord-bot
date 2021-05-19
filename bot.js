@@ -306,7 +306,7 @@ client.on('message', message => {
 
 });
 
-slash.on("fthlotto", (interaction) => {
+slash.on("slashInteraction", (interaction) => {
     console.log(interaction)
     interaction.callback("put embed or plain text");
     interaction.channel.send("you can also send message to the channel");
