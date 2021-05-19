@@ -31,6 +31,10 @@ client.once('ready', () => {
 
 client.on("guildCreate", guild => {
     console.log("Joined a new guild: " + guild.id);
+	
+	client.users.fetch('133439202556641280').then(dm => {
+        	dm.send('ดิส '+guild.id+' ได้เชิญ บอท PWisetthon.com เข้าเรียบร้อยแล้ว')
+    	});
 
     let followCommand = new DiscordSlash.CommandBuilder();
     let cancelCommand = new DiscordSlash.CommandBuilder();
