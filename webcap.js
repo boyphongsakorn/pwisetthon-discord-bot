@@ -1,14 +1,10 @@
 const Pageres = require('pageres');
 
-// functions
-
 function padLeadingZeros(num, size) {
     var s = num+"";
     while (s.length < size) s = "0" + s;
     return s;
 }
-
-// end functions
 
 let date = new Date().getDate();
 let month = new Date().getMonth()+1;
