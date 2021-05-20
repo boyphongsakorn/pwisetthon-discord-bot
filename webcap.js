@@ -18,7 +18,7 @@ var fs = require('fs');
 
 http.createServer(function (req, res) {
     (async () => {
-        await new Pageres({delay: 5,filename: "<%= date %>"})
+        await new Pageres({delay: 5,filename: "<%= date %>",launchOptions: {args: ['--no-sandbox', '--disable-setuid-sandbox']}})
             .src('https://lottsanook.herokuapp.com/viewlot.php', ['1600x1066'])
             .dest(__dirname)
             .run();
