@@ -17,7 +17,7 @@ date = padLeadingZeros(date, 2);
 month = padLeadingZeros(month, 2);
 
 http.createServer(function (req, res) {
-    let url = "https://lottsanook.vercel.app/api/?date="+date+""+month+""+year;
+    let url = "https://lottsanook.vercel.app/api/?date="+date+""+month+""+year+"&fresh";
 
     let settings = { method: "Get" };
 
