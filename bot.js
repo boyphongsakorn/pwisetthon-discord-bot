@@ -18,7 +18,6 @@ function padLeadingZeros(num, size) {
 // end functions
 
 client.once('ready', () => {
-
 	client.user.setPresence({ activity: { name: 'ยา' }, status: 'online' });
 
 	console.log('I am ready!');
@@ -26,15 +25,14 @@ client.once('ready', () => {
     client.users.fetch('133439202556641280').then(dm => {
         dm.send('Bot เริ่มต้นการทำงานแล้ว')
     });
-
 });
 
 client.on("guildCreate", guild => {
     console.log("Joined a new guild: " + guild.id);
 	
 	client.users.fetch('133439202556641280').then(dm => {
-        	dm.send('ดิส '+guild.id+' ได้เชิญ บอท PWisetthon.com เข้าเรียบร้อยแล้ว')
-    	});
+        dm.send('ดิส '+guild.id+' ได้เชิญ บอท PWisetthon.com เข้าเรียบร้อยแล้ว')
+    });
 
     let followCommand = new DiscordSlash.CommandBuilder();
     let cancelCommand = new DiscordSlash.CommandBuilder();
@@ -54,7 +52,6 @@ client.on("guildCreate", guild => {
         console.log(res);
     })
     .catch(console.error);
-
 })
 
 // datedata
@@ -89,8 +86,6 @@ switch(month){
 let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
 
     let url = "https://lottsanook.vercel.app/api/?date="+date+""+month+""+year;
-	
-	console.log(url)
 
     let settings = { method: "Get" };
 
@@ -153,17 +148,12 @@ scheduledMessage.start()
 // You could also make a command to pause and resume the job
 
 client.on('message', message => {
-
 });
 
 client.ws.on('INTERACTION_CREATE', async (interaction) => {
-    console.log(interaction)
     const command = interaction.data.name.toLowerCase();
 
-    console.log(command)
-
     if (command === 'fthlotto') {
-
         var options = {
             'method': 'GET',
             'url': process.env.URL+'/discordbot/addchannels.php?chid='+interaction.channel_id,
@@ -179,9 +169,7 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
             }else{
                 reply(interaction, 'ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
             }
-            
         });
-
     }
 
     if (command === 'cthlotto') {
@@ -198,7 +186,6 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
             reply(interaction, 'ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
         });
     }
-
 })
 
 const reply = (interaction, response) => {
