@@ -26,7 +26,7 @@ http.createServer(function (req, res) {
     .then((json) => {
         if(json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "XXXXXX"){
             (async () => {
-                await new Pageres({delay: 5,filename: "<%= date %>",launchOptions: {args: ['--no-sandbox','--disable-setuid-sandbox','--no-first-run']}})
+                await new Pageres({filename: "<%= date %>",launchOptions: {args: ['--no-sandbox','--disable-setuid-sandbox','--no-first-run']}})
                     .src('https://lottsanook.vercel.app/api/viewlot.php', ['1600x1066'])
                     .dest(__dirname)
                     .run();
