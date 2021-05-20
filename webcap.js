@@ -31,4 +31,4 @@ http.createServer(function (req, res) {
         res.writeHead(200,{'content-type':'image/png'});
         fs.createReadStream(year+'-'+month+'-'+date+'.png').pipe(res);
     })();
-}).listen(8080);
+}).listen(process.env.PORT);
