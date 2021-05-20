@@ -19,7 +19,7 @@ var fs = require('fs');
 http.createServer(function (req, res) {
     (async () => {
         await new Pageres({delay: 5,filename: "<%= date %>",launchOptions: {args: ['--no-sandbox','--disable-setuid-sandbox','--no-first-run']}})
-            .src('https://lottsanook.herokuapp.com/viewlot.php', ['1600x1066'])
+            .src('https://lottsanook.vercel.app/api/viewlot.php', ['1600x1066'])
             .dest(__dirname)
             .run();
     
