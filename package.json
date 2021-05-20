@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "main": "bot.js",
   "scripts": {
-    "start": "npm install"
+    "start": "node webcap.js"
   },
   "dependencies": {
     "cron": "^1.8.2",
