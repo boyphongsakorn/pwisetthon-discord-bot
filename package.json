@@ -6,9 +6,6 @@
   "scripts": {
     "start": "node webcap.js"
   },
-  "engines": {
-    "node": ">= 12.20.0"
-  },
   "dependencies": {
     "cron": "^1.8.2",
     "discord.js": "^12.5.3",
