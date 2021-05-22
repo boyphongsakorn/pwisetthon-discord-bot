@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const DiscordSlash = require("discord.js-slash-command");
+const DS = require("discord-slash-commands-client");
 const cron = require("cron");
 const fetch = require('node-fetch');
 const request = require('request');
@@ -9,7 +9,11 @@ const https = require('https');
 require('dotenv').config();
 
 const client = new Discord.Client();
-const slash = new DiscordSlash.Slash(client);
+
+const DSclient = new DS.Client(
+    process.env.BOT_TOKEN,
+    "691610557156950030"
+);
 
 // functions
 
@@ -29,6 +33,8 @@ client.once('ready', () => {
     client.users.fetch('133439202556641280').then(dm => {
         dm.send('Bot เริ่มต้นการทำงานแล้ว')
     });
+
+    //DSclient.getCommands({commandID: "fthlotto",guildID: "443362659522445312"}).then(console.log).catch(console.error);
 });
 
 client.on("guildCreate", guild => {
@@ -38,23 +44,20 @@ client.on("guildCreate", guild => {
         dm.send('ดิส '+guild.id+' ได้เชิญ บอท PWisetthon.com เข้าเรียบร้อยแล้ว')
     });
 
-    let followCommand = new DiscordSlash.CommandBuilder();
-    let cancelCommand = new DiscordSlash.CommandBuilder();
-
-    followCommand.setName("fthlotto");
-    followCommand.setDescription("แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก");
-
-    cancelCommand.setName("cthlotto");
-    cancelCommand.setDescription("ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้");
-
-    slash.create(followCommand, guild.id).then((res) => {
-        console.log(res);
-    })
+    DSclient
+    .createCommand({
+        name: "fthlotto",
+        description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก",
+    },guild.id)
+    .then(console.log)
     .catch(console.error);
 
-    slash.create(cancelCommand, guild.id).then((res) => {
-        console.log(res);
-    })
+    DSclient
+    .createCommand({
+        name: "cthlotto",
+        description: "ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้",
+    },guild.id)
+    .then(console.log)
     .catch(console.error);
 })
 
