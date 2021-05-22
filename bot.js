@@ -104,11 +104,15 @@ let scheduledMessage = new cron.CronJob('*/30 * 15-17 * * *', () => {
 
             console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออกหรือหวยยังออกไม่หมด');
 
-            fs.writeFile('check.txt', '0', function (err) {
-                if (err){
-                    throw err
-                };
-                console.log('Saved!');
+            fs.readFile('check.txt', function(err, data) {
+                if(data != "0"){
+                    fs.writeFile('check.txt', '0', function (err) {
+                        if (err){
+                            throw err
+                        };
+                        console.log('Saved!');
+                    });
+                }
             });
 
         }else{
