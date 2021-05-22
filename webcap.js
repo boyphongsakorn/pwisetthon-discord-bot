@@ -18,6 +18,13 @@ month = padLeadingZeros(month, 2);
 
 http.createServer(function (req, res) {
     (async () => {
+        try {
+            fs.unlinkSync(year+'-'+month+'-'+date+'.png')
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+
         await new Pageres({filename: "<%= date %>",launchOptions: {args: ['--no-sandbox','--disable-setuid-sandbox','--no-first-run']}})
             .src('https://lottsanook.vercel.app/api/viewlot.php', ['1600x1066'])
             .dest(__dirname)
