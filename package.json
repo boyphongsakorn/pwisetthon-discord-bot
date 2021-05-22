@@ -6,6 +6,10 @@
   "scripts": {
     "start": "node webcap.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/boyphongsakorn/pwisetthon-discord-bot.git"
+  },
   "dependencies": {
     "cron": "^1.8.2",
     "discord-slash-commands-client": "^1.2.1",

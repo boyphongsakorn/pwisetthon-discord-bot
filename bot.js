@@ -90,7 +90,7 @@ switch(month){
 
 // end datedata
 
-let scheduledMessage = new cron.CronJob('*/30 * 15-17 * * *', () => {
+let scheduledMessage = new cron.CronJob('* * 15-17 * * *', () => {
 
     let url = "https://lottsanook.vercel.app/api/?date="+date+""+month+""+year+"&fresh";
 
@@ -99,7 +99,7 @@ let scheduledMessage = new cron.CronJob('*/30 * 15-17 * * *', () => {
     fetch(url, settings)
     .then(res => res.json())
     .then((json) => {
-        if(json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "XXXXXX"){
+        if(json[0][1] == "0" || json[0][1] == 0 || json[0][1].toLowerCase() == "xxxxxx"){
 
             /*client.users.fetch('133439202556641280').then(dm => {
                 dm.send('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออกหรือหวยยังออกไม่หมด')
@@ -122,6 +122,13 @@ let scheduledMessage = new cron.CronJob('*/30 * 15-17 * * *', () => {
 
             fs.readFile('check.txt', function(err, data) {
                 if(data != "1"){
+                    fs.writeFile('check.txt', '1', function (err) {
+                        if (err){
+                            throw err
+                        };
+                        console.log('Saved!');
+                    });
+                    
                     const file = fs.createWriteStream("today.png");
                     const rqimage = https.get("https://boy-discord-bot.herokuapp.com/", function(response) {
                         response.pipe(file);
@@ -139,8 +146,9 @@ let scheduledMessage = new cron.CronJob('*/30 * 15-17 * * *', () => {
 		                //{ name: '\u200B', value: '\u200B' },
 		                { name: 'เลขหน้าสามตัว', value: json[1][1]+' | '+json[1][2], inline: true },
 		                { name: 'เลขท้ายสามตัว', value: json[2][1]+' | '+json[2][2], inline: true },
+                        { name: 'เลขท้ายสองตัว', value: json[3][1] },
 	                )
-	                .addField('เลขท้ายสองตัว', json[3][1], true)
+	                //.addField('เลขท้ายสองตัว', json[3][1], true)
                     .attachFiles(['today.png'])
 	                .setImage('attachment://today.png')
 	                //.setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
@@ -164,13 +172,6 @@ let scheduledMessage = new cron.CronJob('*/30 * 15-17 * * *', () => {
                             });
                         }
 
-                    });
-
-                    fs.writeFile('check.txt', '1', function (err) {
-                        if (err){
-                            throw err
-                        };
-                        console.log('Saved!');
                     });
                 }
             });
