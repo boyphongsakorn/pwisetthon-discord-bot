@@ -1,7 +1,7 @@
 {
   "name": "pwisetthon-first-discord-bot",
   "description": "PWisetthon.com",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "bot.js",
   "scripts": {
     "start": "node webcap.js"
@@ -10,6 +10,7 @@
     "cron": "^1.8.2",
     "discord.js": "^12.5.3",
     "discord.js-slash-command": "^1.2.1",
+    "dotenv": "^9.0.2",
     "node-fetch": "^2.6.1",
     "pageres": "^6.2.1",
     "request": "^2.88.2"

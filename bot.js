@@ -3,6 +3,10 @@ const DiscordSlash = require("discord.js-slash-command");
 const cron = require("cron");
 const fetch = require('node-fetch');
 const request = require('request');
+var fs = require('fs');
+const https = require('https');
+
+require('dotenv').config();
 
 const client = new Discord.Client();
 const slash = new DiscordSlash.Slash(client);
@@ -18,7 +22,7 @@ function padLeadingZeros(num, size) {
 // end functions
 
 client.once('ready', () => {
-	client.user.setPresence({ activity: { name: 'ยา' }, status: 'online' });
+	client.user.setPresence({ activity: { name: '/fthlotto to follow thai lottery' }, status: 'online' });
 
 	console.log('I am ready!');
 
@@ -83,9 +87,9 @@ switch(month){
 
 // end datedata
 
-let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
+let scheduledMessage = new cron.CronJob('*/30 * 15-17 * * *', () => {
 
-    let url = "https://lottsanook.vercel.app/api/?date="+date+""+month+""+year;
+    let url = "https://lottsanook.vercel.app/api/?date="+date+""+month+""+year+"&fresh";
 
     let settings = { method: "Get" };
 
@@ -94,47 +98,74 @@ let scheduledMessage = new cron.CronJob('00 00 16 * * *', () => {
     .then((json) => {
         if(json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "XXXXXX"){
 
-            client.users.fetch('133439202556641280').then(dm => {
-                dm.send('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออก')
-            })
+            /*client.users.fetch('133439202556641280').then(dm => {
+                dm.send('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออกหรือหวยยังออกไม่หมด')
+            })*/
+
+            console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออกหรือหวยยังออกไม่หมด');
+
+            fs.writeFile('check.txt', '0', function (err) {
+                if (err){
+                    throw err
+                };
+                console.log('Saved!');
+            });
 
         }else{
 
-            const msg = new Discord.MessageEmbed()
-	        .setColor('#0099ff')
-	        .setTitle('ผลสลากกินแบ่งรัฐบาล')
-	        .setURL('https://www.glo.or.th/')
-	        //.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
-	        .setDescription('งวดวันที่ '+new Date().getDate()+' '+monthtext+' '+year)
-	        .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
-	        .addFields(
-		        { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
-		        //{ name: '\u200B', value: '\u200B' },
-		        { name: 'เลขหน้าสามตัว', value: json[1][1]+' | '+json[1][2], inline: true },
-		        { name: 'เลขท้ายสามตัว', value: json[2][1]+' | '+json[2][2], inline: true },
-	        )
-	        .addField('เลขท้ายสองตัว', json[3][1], true)
-	        .setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
-	        .setTimestamp()
-	        .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+            fs.readFile('check.txt', function(err, data) {
+                if(data != "1"){
+                    const file = fs.createWriteStream("today.png");
+                    const rqimage = https.get("https://boy-discord-bot.herokuapp.com/", function(response) {
+                        response.pipe(file);
+                    });
 
-            fetch(process.env.URL+"/discordbot/chlist.txt", settings)
-            .then(res => res.json())
-            .then((json) => {
+                    const msg = new Discord.MessageEmbed()
+	                .setColor('#0099ff')
+	                .setTitle('ผลสลากกินแบ่งรัฐบาล')
+	                .setURL('https://www.glo.or.th/')
+	                //.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
+	                .setDescription('งวดวันที่ '+new Date().getDate()+' '+monthtext+' '+year)
+	                .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
+	                .addFields(
+		                { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
+		                //{ name: '\u200B', value: '\u200B' },
+		                { name: 'เลขหน้าสามตัว', value: json[1][1]+' | '+json[1][2], inline: true },
+		                { name: 'เลขท้ายสามตัว', value: json[2][1]+' | '+json[2][2], inline: true },
+	                )
+	                .addField('เลขท้ายสองตัว', json[3][1], true)
+                    .attachFiles(['today.png'])
+	                .setImage('attachment://today.png')
+	                //.setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
+	                .setTimestamp()
+	                .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
-                for (i in json) {
-                    client.channels.cache.get(json[i]).send(msg)
-                    .then((log) => {
-                        console.log(log);
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        client.users.fetch('133439202556641280').then(dm => {
-                            dm.send('Bot ไม่สามารถส่งข้อความได้เนี่องจาก '+error)
-                        })
+                    fetch(process.env.URL+"/discordbot/chlist.txt", settings)
+                    .then(res => res.json())
+                    .then((json) => {
+
+                        for (i in json) {
+                            client.channels.cache.get(json[i]).send(msg)
+                            .then((log) => {
+                                console.log(log);
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                                client.users.fetch('133439202556641280').then(dm => {
+                                    dm.send('Bot ไม่สามารถส่งข้อความได้เนี่องจาก '+error)
+                                })
+                            });
+                        }
+
+                    });
+
+                    fs.writeFile('check.txt', '1', function (err) {
+                        if (err){
+                            throw err
+                        };
+                        console.log('Saved!');
                     });
                 }
-
             });
 
         }
