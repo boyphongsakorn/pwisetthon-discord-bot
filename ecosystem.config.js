@@ -2,9 +2,9 @@ module.exports = {
   apps : [{
     name : 'discordbot',
     script: 'bot.js',
-    watch: true
+    watch: true,
+    error_file : "./err.log"
   }],
-
   deploy : {
     production : {
       user : 'pi',
