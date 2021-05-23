@@ -3,6 +3,8 @@ const fetch = require('node-fetch');
 var http = require('http');
 var fs = require('fs');
 
+require('dotenv').config();
+
 function padLeadingZeros(num, size) {
     var s = num+"";
     while (s.length < size) s = "0" + s;
