@@ -3,7 +3,8 @@ module.exports = {
     name : 'discordbot',
     script: 'bot.js',
     watch: true,
-    error_file : "./err.log"
+    error_file : "./err.log",
+    ignore_watch: ["node_modules","err.log",".env","Procfile"]
   }],
   deploy : {
     production : {
