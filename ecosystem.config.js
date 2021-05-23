@@ -4,11 +4,6 @@ module.exports = {
     script: 'bot.js',
     watch: true,
     error_file : "./err.log"
-  },{
-    name : 'webcap',
-    script: 'webcap.js',
-    watch: true,
-    error_file : "./wcerr.log"
   }],
   deploy : {
     production : {
