@@ -1,15 +1,16 @@
 {
   "name": "pwisetthon-first-discord-bot",
   "description": "PWisetthon.com",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "bot.js",
   "scripts": {
     "start": "node webcap.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/boyphongsakorn/pwisetthon-discord-bot.git"
+    "url": "git+https://github.com/boyphongsakorn/pwisetthon-discord-bot.git"
   },
+  "homepage": "https://github.com/boyphongsakorn/pwisetthon-discord-bot#readme",
   "dependencies": {
     "cron": "^1.8.2",
     "discord-slash-commands-client": "^1.2.1",
