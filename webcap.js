@@ -21,7 +21,9 @@ month = padLeadingZeros(month, 2);
 http.createServer(function (req, res) {
     (async () => {
         try {
-            fs.unlinkSync(year+'-'+month+'-'+date+'.png')
+            if (fs.existsSync(year+'-'+month+'-'+date+'.png')) {
+                fs.unlinkSync(year+'-'+month+'-'+date+'.png')
+            }
             //file removed
         } catch(err) {
             console.error(err)
