@@ -1,5 +1,4 @@
 const Pageres = require('pageres');
-const fetch = require('node-fetch');
 var http = require('http');
 var fs = require('fs');
 
