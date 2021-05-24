@@ -92,9 +92,13 @@ switch(month){
 
 let scheduledMessage = new cron.CronJob('* * 15-17 * * *', () => {
 
-    let url = "https://lottsanook.vercel.app/api/?date="+date+""+month+""+year+"&fresh";
+    let url = "https://thai-lottery1.p.rapidapi.com/?date="+date+""+month+""+year+"&fresh";
 
-    let settings = { method: "Get" };
+    //let url = "https://lottsanook.vercel.app/api/?date="+date+""+month+""+year+"&fresh";
+
+    let settings = {"method": "GET", "headers": { "x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137", "x-rapidapi-host": "thai-lottery1.p.rapidapi.com"}};
+
+    //let settings = { method: "Get" };
 
     fetch(url, settings)
     .then(res => res.json())
