@@ -58,11 +58,11 @@ client.on("guildCreate", guild => {
         if (error) throw new Error(error);
         console.log(response.body);
         if(response.body == "debug"){
-            client.channels.fetch(guild.systemChannelID).send("ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว!")
-            .cache(console.error)
+            client.channels.cache.get(guild.systemChannelID).send('ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ')
+            .catch(console.error);
         }else{
-            client.channels.fetch(guild.systemChannelID).send("ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ")
-            .cache(console.error)
+            client.channels.cache.get(guild.systemChannelID).send('ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว! \nใช้คำสั่ง /cthlotto เพื่อยกเลิก')
+            .catch(console.error);
         }
     });
 
