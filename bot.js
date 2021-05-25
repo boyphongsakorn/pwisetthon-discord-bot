@@ -133,6 +133,8 @@ let scheduledMessage = new cron.CronJob('* * 15-17 * * *', () => {
 
             console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออกหรือหวยยังออกไม่หมด');
 
+            console.log('--------------------------------');
+
             fs.readFile('check.txt', function(err, data) {
                 if(data != "0"){
                     fs.writeFile('check.txt', '0', function (err) {
