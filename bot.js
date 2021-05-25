@@ -58,10 +58,10 @@ client.on("guildCreate", guild => {
         if (error) throw new Error(error);
         console.log(response.body);
         if(response.body == "debug"){
-            client.channels.cache.get(guild.systemChannelID).send("ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว!")
+            client.channels.fetch(guild.systemChannelID).send("ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว!")
             .cache(console.error)
         }else{
-            client.channels.cache.get(guild.systemChannelID).send("ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ")
+            client.channels.fetch(guild.systemChannelID).send("ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ")
             .cache(console.error)
         }
     });
