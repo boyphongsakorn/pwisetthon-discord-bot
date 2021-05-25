@@ -38,10 +38,32 @@ client.once('ready', () => {
 });
 
 client.on("guildCreate", guild => {
+
     console.log("Joined a new guild: " + guild.id);
 	
 	client.users.fetch('133439202556641280').then(dm => {
         dm.send('ดิส '+guild.id+' ได้เชิญ บอท PWisetthon.com เข้าเรียบร้อยแล้ว')
+    });
+
+    console.log("System Channel: "+ guild.systemChannelID);
+
+    var options = {
+        'method': 'GET',
+        'url': process.env.URL+'/discordbot/addchannels.php?chid='+guild.systemChannelID,
+        'headers': {
+        }
+    };
+
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        console.log(response.body);
+        if(response.body == "debug"){
+            client.channels.cache.get(guild.systemChannelID).send("ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว!")
+            .cache(console.error)
+        }else{
+            client.channels.cache.get(guild.systemChannelID).send("ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ")
+            .cache(console.error)
+        }
     });
 
     DSclient
