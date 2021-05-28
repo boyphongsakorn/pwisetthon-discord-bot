@@ -26,15 +26,13 @@ function padLeadingZeros(num, size) {
 // end functions
 
 client.once('ready', () => {
-	client.user.setPresence({ activity: { name: '/fthlotto to follow thai lottery' }, status: 'online' });
+	client.user.setPresence({ activity: { name: 'use /fthlotto to follow thai lottery' }, status: 'online' });
 
 	console.log('I am ready!');
 
     client.users.fetch('133439202556641280').then(dm => {
         dm.send('Bot เริ่มต้นการทำงานแล้ว')
     });
-
-    //DSclient.getCommands({commandID: "fthlotto",guildID: "443362659522445312"}).then(console.log).catch(console.error);
 });
 
 client.on("guildCreate", guild => {
