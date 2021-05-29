@@ -142,13 +142,15 @@ let scheduledMessage = new cron.CronJob('* * 15-17 * * *', () => {
         
             }
 
-            if(fileContents || fileContents != 0){
-                fs.writeFile('check.txt', '0', function (err) {
-                    if (err){
-                        throw err
-                    };
-                    console.log('Saved!');
-                });
+            if(fileContents){
+                if(fileContents != 0){
+                    fs.writeFile('check.txt', '0', function (err) {
+                        if (err){
+                            throw err
+                        };
+                        console.log('Saved!');
+                    });
+                }
             }else{
                 fs.writeFile('check.txt', '0', function (err) {
                     if (err){
