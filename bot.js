@@ -35,7 +35,14 @@ client.once('ready', () => {
     });
 
     try {
-        console.log(fs.statSync("out.log").size)
+        //console.log(fs.statSync("out.log").size)
+        if(fs.statSync("out.log").size > 1000000000){
+            fs.unlink("out.log", function (err) {
+                if (err) throw err;
+                // if no error, file has been deleted successfully
+                console.log('File deleted!');
+            });
+        }
     } catch (error) {
         
     }
