@@ -33,6 +33,12 @@ client.once('ready', () => {
     client.users.fetch('133439202556641280').then(dm => {
         dm.send('Bot เริ่มต้นการทำงานแล้ว')
     });
+
+    try {
+        console.log(fs.statSync("out.log").size)
+    } catch (error) {
+        
+    }
 });
 
 client.on("guildCreate", guild => {
