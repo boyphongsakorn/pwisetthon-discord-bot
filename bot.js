@@ -236,7 +236,7 @@ let scheduledMessage = new cron.CronJob('*/15 * 15-17 * * *', () => {
                     //.attachFiles(['today.png'])
 	                //.setImage('attachment://today.png')
 	                //.setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
-                    .setImage('https://i.imgur.com/wSTFkRM.png')
+                    .setImage('https://boy-discord-bot.herokuapp.com/?date='+date+''+month+''+year)
 	                .setTimestamp()
 	                .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
