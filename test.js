@@ -28,7 +28,7 @@ http.createServer(function (req, res) {
         if(url.parse(req.url,true).query.date){
             datecheck = url.parse(req.url,true).query.date;
         }else{
-            datecheck = date+(month+1)+(year+543);
+            datecheck = date+month+(year+543);
         }
 
         var options = {
@@ -55,7 +55,7 @@ http.createServer(function (req, res) {
 
             let monthtext;
 
-            switch (datecheck)
+            switch (datecheck.substring(2,4))
             {
                 case '01' : monthtext="มกราคม"; break;
                 case '02' : monthtext="กุมภาพันธ์"; break;
