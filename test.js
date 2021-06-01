@@ -14,7 +14,8 @@ function padLeadingZeros(num, size) {
 
 let date = new Date().getDate();
 let month = new Date().getMonth()+1;
-let year = new Date().getFullYear()+543;
+let year = new Date().getFullYear();
+let byear = new Date().getFullYear()+543;
 
 date = padLeadingZeros(date, 2);
 month = padLeadingZeros(month, 2);
@@ -28,7 +29,7 @@ http.createServer(function (req, res) {
         if(url.parse(req.url,true).query.date){
             datecheck = url.parse(req.url,true).query.date;
         }else{
-            datecheck = date+month+year;
+            datecheck = date+month+byear;
         }
 
         var options = {
