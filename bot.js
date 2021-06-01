@@ -217,15 +217,6 @@ let scheduledMessage = new cron.CronJob('*/15 * 15-17 * * *', () => {
                         };
                         console.log('Saved!');
                     });
-                    
-                    try {
-                        const file = fs.createWriteStream("today.png");
-                        const rqimage = https.get("https://boy-discord-bot.herokuapp.com/", function(response) {
-                            response.pipe(file);
-                        });
-                    } catch (e) {
-
-                    }
 
                     const msg = new Discord.MessageEmbed()
 	                .setColor('#0099ff')
@@ -242,9 +233,10 @@ let scheduledMessage = new cron.CronJob('*/15 * 15-17 * * *', () => {
                         { name: 'เลขท้ายสองตัว', value: json[3][1] },
 	                )
 	                //.addField('เลขท้ายสองตัว', json[3][1], true)
-                    .attachFiles(['today.png'])
-	                .setImage('attachment://today.png')
+                    //.attachFiles(['today.png'])
+	                //.setImage('attachment://today.png')
 	                //.setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
+                    .setImage('https://i.imgur.com/wSTFkRM.png')
 	                .setTimestamp()
 	                .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
