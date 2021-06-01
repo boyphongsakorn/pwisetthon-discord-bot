@@ -56,7 +56,7 @@ http.createServer(function (req, res) {
 
             let monthtext;
 
-            switch (datecheck.substring(2,2))
+            switch (datecheck.substring(2,4))
             {
                 case '01' : monthtext="มกราคม"; break;
                 case '02' : monthtext="กุมภาพันธ์"; break;
