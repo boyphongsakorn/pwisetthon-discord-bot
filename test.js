@@ -45,14 +45,14 @@ http.createServer(function (req, res) {
             console.log(response.body[0][1]);
             test = response.body
 
-            try {
+            /*try {
                 if (fs.existsSync(year+'-'+month+'-'+date+'.png')) {
                     fs.unlinkSync(year+'-'+month+'-'+date+'.png')
                 }
                 //file removed
             } catch(err) {
                 //console.error(err)
-            }
+            }*/
 
             let monthtext;
 
