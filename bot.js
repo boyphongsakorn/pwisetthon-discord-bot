@@ -326,7 +326,7 @@ let scheduledMessage = new cron.CronJob('*/15 * 15-17 * * *', () => {
             });*/
 
         }
-    }
+        }
 
     });
 

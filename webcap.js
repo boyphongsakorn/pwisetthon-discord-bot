@@ -29,7 +29,7 @@ http.createServer(function (req, res) {
         }
 
         await new Pageres({filename: "<%= date %>",launchOptions: {args: ['--no-sandbox','--disable-setuid-sandbox','--no-first-run','--disable-extensions']}})
-            .src('https://lottsanook.vercel.app/api/viewlot.php', ['1600x1066'])
+            .src('http://lotpost.pwisetthon.com/viewlot.php', ['1600x1066'])
             .dest(__dirname)
             .run();
             
