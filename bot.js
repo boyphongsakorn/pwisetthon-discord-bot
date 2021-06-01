@@ -132,7 +132,7 @@ switch(month){
 
 // end datedata
 
-let scheduledMessage = new cron.CronJob('* * 15-17 * * *', () => {
+let scheduledMessage = new cron.CronJob('*/15 * 15-17 * * *', () => {
 
     let url = "https://thai-lottery1.p.rapidapi.com/?date="+date+""+month+""+year+"&fresh";
 
@@ -145,6 +145,8 @@ let scheduledMessage = new cron.CronJob('* * 15-17 * * *', () => {
     fetch(url, settings)
     .then(res => res.json())
     .then((json) => {
+        console.log(json.length)
+        if(json.length == 7 || json.length == 8 || json.length == 9){
         if(json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX"){
 
             /*client.users.fetch('133439202556641280').then(dm => {
@@ -214,10 +216,14 @@ let scheduledMessage = new cron.CronJob('* * 15-17 * * *', () => {
                         console.log('Saved!');
                     });
                     
-                    const file = fs.createWriteStream("today.png");
-                    const rqimage = https.get("https://boy-discord-bot.herokuapp.com/", function(response) {
-                        response.pipe(file);
-                    });
+                    try {
+                        const file = fs.createWriteStream("today.png");
+                        const rqimage = https.get("https://boy-discord-bot.herokuapp.com/", function(response) {
+                            response.pipe(file);
+                        });
+                    } catch (e) {
+
+                    }
 
                     const msg = new Discord.MessageEmbed()
 	                .setColor('#0099ff')
@@ -318,6 +324,7 @@ let scheduledMessage = new cron.CronJob('* * 15-17 * * *', () => {
             });*/
 
         }
+    }
 
     });
 
