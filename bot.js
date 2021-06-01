@@ -258,7 +258,7 @@ let scheduledMessage = new cron.CronJob('*/15 * 15-17 * * *', () => {
                             .catch((error) => {
                                 console.error(error);
                                 client.users.fetch('133439202556641280').then(dm => {
-                                    dm.send('Bot ไม่สามารถส่งข้อความได้เนี่องจาก '+error)
+                                    dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว '+ json[i] +' ได้เนี่องจาก '+error)
                                 })
                             });
                         }
