@@ -14,7 +14,7 @@ function padLeadingZeros(num, size) {
 
 let date = new Date().getDate();
 let month = new Date().getMonth()+1;
-let year = new Date().getFullYear();
+let year = new Date().getFullYear()+543;
 
 date = padLeadingZeros(date, 2);
 month = padLeadingZeros(month, 2);
@@ -28,7 +28,7 @@ http.createServer(function (req, res) {
         if(url.parse(req.url,true).query.date){
             datecheck = url.parse(req.url,true).query.date;
         }else{
-            datecheck = date+month+(year+543);
+            datecheck = date+month+year;
         }
 
         var options = {
@@ -55,7 +55,7 @@ http.createServer(function (req, res) {
 
             let monthtext;
 
-            switch (datecheck.substring(2,4))
+            switch (datecheck.substring(2,2))
             {
                 case '01' : monthtext="มกราคม"; break;
                 case '02' : monthtext="กุมภาพันธ์"; break;
