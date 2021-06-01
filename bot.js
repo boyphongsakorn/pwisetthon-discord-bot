@@ -8,6 +8,7 @@ const https = require('https');
 
 require('dotenv').config();
 
+//const client = new Discord.Client({fetchAllMembers: true}); only for get all server and member
 const client = new Discord.Client();
 
 const DSclient = new DS.Client(
@@ -46,6 +47,12 @@ client.once('ready', () => {
     } catch (error) {
         
     }
+
+    /*client.guilds.cache.forEach(guild => {
+        console.log(`${guild.name} | ${guild.id}`);
+        const list = client.guilds.cache.get(guild.id);
+        list.members.cache.forEach(member => console.log(member.user.username));
+    })*/
 });
 
 client.on("guildCreate", guild => {
@@ -138,13 +145,13 @@ let scheduledMessage = new cron.CronJob('* * 15-17 * * *', () => {
     fetch(url, settings)
     .then(res => res.json())
     .then((json) => {
-        if(json[0][1] == "0" || json[0][1] == 0 || json[0][1].toLowerCase() == "xxxxxx"){
+        if(json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX"){
 
             /*client.users.fetch('133439202556641280').then(dm => {
                 dm.send('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออกหรือหวยยังออกไม่หมด')
             })*/
 
-            if(json[0][1].toLowerCase() == "xxxxxx"){
+            if(json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX"){
                 console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยออกแต่ยังออกไม่หมด');
 
                 console.log('--------------------------------');
