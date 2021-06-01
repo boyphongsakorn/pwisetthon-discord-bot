@@ -200,6 +200,8 @@ let scheduledMessage = new cron.CronJob('*/15 * 15-17 * * *', () => {
 
         }else{
 
+            console.log("หวยออกครบแล้ว")
+
             var fileContents = null;
             try {
                 fileContents = fs.readFileSync('check.txt');
