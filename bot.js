@@ -132,7 +132,7 @@ switch(month){
 
 // end datedata
 
-let scheduledMessage = new cron.CronJob('*/15 * 15-17 * * *', () => {
+let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
 
     let url = "https://thai-lottery1.p.rapidapi.com/?date="+date+""+month+""+year+"&fresh";
 
