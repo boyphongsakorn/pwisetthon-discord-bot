@@ -22,8 +22,8 @@ month = padLeadingZeros(month, 2);
 
 http.createServer(function (req, res) {
     if(req.url == '/fbbg'){
-        res.writeHead(200,{'content-type':'image/png'});
-        fs.createReadStream('fbbg.png').pipe(res);
+        res.writeHead(200,{'content-type':'image/jpg'});
+        fs.createReadStream('fbbg.jpg').pipe(res);
     }else{
     (async () => {
 
