@@ -147,184 +147,128 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
     .then(res => res.json())
     .then((json) => {
         console.log(json.length)
-        if(json.length == 7 || json.length == 8 || json.length == 9){
-        if(json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX"){
+        if (json.length == 7 || json.length == 8 || json.length == 9) {
+            if (json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX") {
 
-            /*client.users.fetch('133439202556641280').then(dm => {
-                dm.send('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออกหรือหวยยังออกไม่หมด')
-            })*/
+                /*client.users.fetch('133439202556641280').then(dm => {
+                    dm.send('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออกหรือหวยยังออกไม่หมด')
+                })*/
 
-            if(json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX"){
-                console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยออกแต่ยังออกไม่หมด');
+                if (json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX") {
+                    console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยออกแต่ยังออกไม่หมด');
 
-                console.log('--------------------------------');
-            }else{
-                console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออก');
+                    console.log('--------------------------------');
+                } else {
+                    console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออก');
 
-                console.log('--------------------------------');
-            }
-
-            var fileContents = null;
-            try {
-                fileContents = fs.readFileSync('check.txt');
-            } catch (err) {
-        
-            }
-
-            if(fileContents){
-                if(fileContents != 0){
-                    fs.writeFile('check.txt', '0', function (err) {
-                        if (err){
-                            throw err
-                        };
-                        console.log('Saved!');
-                    });
+                    console.log('--------------------------------');
                 }
-            }else{
-                fs.writeFile('check.txt', '0', function (err) {
-                    if (err){
-                        throw err
-                    };
-                    console.log('Saved!');
-                });
-            }
-            /*fs.readFile('check.txt', function(err, data) {
-                if(data != "0"){
-                    fs.writeFile('check.txt', '0', function (err) {
-                        if (err){
-                            throw err
-                        };
-                        console.log('Saved!');
-                    });
+
+                var fileContents = null;
+                try {
+                    fileContents = fs.readFileSync('check.txt');
+                } catch (err) {
+
                 }
-            });*/
 
-        }else{
-
-            let imgurl = 'https://boy-discord-bot.herokuapp.com/?date=';
-
-            console.log("หวยออกครบแล้ว")
-
-            var fileContents = null;
-            try {
-                fileContents = fs.readFileSync('check.txt');
-            } catch (err) {
-        
-            }
-
-            if(fileContents){
-                if(fileContents != "1"){
-                    fs.writeFile('check.txt', '1', function (err) {
-                        if (err){
-                            throw err
-                        };
-                        console.log('Saved!');
-                    });
-
-                    if(urlExistSync("https://lotimg.pwisetthon.com/?date="+date+''+month+''+year)){
-                        imgurl = 'https://lotimg.pwisetthon.com/?date=';
+                if (fileContents) {
+                    if (fileContents != 0) {
+                        fs.writeFile('check.txt', '0', function (err) {
+                            if (err) {
+                                throw err
+                            };
+                            console.log('Saved!');
+                        });
                     }
-
-                    const msg = new Discord.MessageEmbed()
-	                .setColor('#0099ff')
-	                .setTitle('ผลสลากกินแบ่งรัฐบาล')
-	                .setURL('https://www.glo.or.th/')
-	                //.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
-	                .setDescription('งวดวันที่ '+new Date().getDate()+' '+monthtext+' '+year)
-	                .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
-	                .addFields(
-		                { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
-		                //{ name: '\u200B', value: '\u200B' },
-		                { name: 'เลขหน้าสามตัว', value: json[1][1]+' | '+json[1][2], inline: true },
-		                { name: 'เลขท้ายสามตัว', value: json[2][1]+' | '+json[2][2], inline: true },
-                        { name: 'เลขท้ายสองตัว', value: json[3][1] },
-	                )
-	                //.addField('เลขท้ายสองตัว', json[3][1], true)
-                    //.attachFiles(['today.png'])
-	                //.setImage('attachment://today.png')
-	                //.setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
-                    .setImage(imgurl+''+date+''+month+''+year)
-	                .setTimestamp()
-	                .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
-
-                    fetch(process.env.URL+"/discordbot/chlist.txt", settings)
-                    .then(res => res.json())
-                    .then((json) => {
-
-                        for (i in json) {
-                            client.channels.cache.get(json[i]).send(msg)
-                            .then((log) => {
-                                console.log(log);
-                            })
-                            .catch((error) => {
-                                console.error(error);
-                                client.users.fetch('133439202556641280').then(dm => {
-                                    dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว '+ json[i] +' ได้เนี่องจาก '+error)
-                                })
-                            });
-                        }
-
-                    });
-                }
-            }
-
-            /*fs.readFile('check.txt', function(err, data) {
-                if(data != "1"){
-                    fs.writeFile('check.txt', '1', function (err) {
-                        if (err){
+                } else {
+                    fs.writeFile('check.txt', '0', function (err) {
+                        if (err) {
                             throw err
                         };
                         console.log('Saved!');
                     });
-                    
-                    const file = fs.createWriteStream("today.png");
-                    const rqimage = https.get("https://boy-discord-bot.herokuapp.com/", function(response) {
-                        response.pipe(file);
-                    });
+                }
+                /*fs.readFile('check.txt', function(err, data) {
+                    if(data != "0"){
+                        fs.writeFile('check.txt', '0', function (err) {
+                            if (err){
+                                throw err
+                            };
+                            console.log('Saved!');
+                        });
+                    }
+                });*/
 
-                    const msg = new Discord.MessageEmbed()
-	                .setColor('#0099ff')
-	                .setTitle('ผลสลากกินแบ่งรัฐบาล')
-	                .setURL('https://www.glo.or.th/')
-	                //.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
-	                .setDescription('งวดวันที่ '+new Date().getDate()+' '+monthtext+' '+year)
-	                .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
-	                .addFields(
-		                { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
-		                //{ name: '\u200B', value: '\u200B' },
-		                { name: 'เลขหน้าสามตัว', value: json[1][1]+' | '+json[1][2], inline: true },
-		                { name: 'เลขท้ายสามตัว', value: json[2][1]+' | '+json[2][2], inline: true },
-                        { name: 'เลขท้ายสองตัว', value: json[3][1] },
-	                )
-	                //.addField('เลขท้ายสองตัว', json[3][1], true)
-                    .attachFiles(['today.png'])
-	                .setImage('attachment://today.png')
-	                //.setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
-	                .setTimestamp()
-	                .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+            } else {
 
-                    fetch(process.env.URL+"/discordbot/chlist.txt", settings)
-                    .then(res => res.json())
-                    .then((json) => {
+                let imgurl = 'https://boy-discord-bot.herokuapp.com/?date=';
 
-                        for (i in json) {
-                            client.channels.cache.get(json[i]).send(msg)
-                            .then((log) => {
-                                console.log(log);
-                            })
-                            .catch((error) => {
-                                console.error(error);
-                                client.users.fetch('133439202556641280').then(dm => {
-                                    dm.send('Bot ไม่สามารถส่งข้อความได้เนี่องจาก '+error)
-                                })
-                            });
+                console.log("หวยออกครบแล้ว")
+
+                var fileContents = null;
+                try {
+                    fileContents = fs.readFileSync('check.txt');
+                } catch (err) {
+
+                }
+
+                if (fileContents) {
+                    if (fileContents != "1") {
+                        fs.writeFile('check.txt', '1', function (err) {
+                            if (err) {
+                                throw err
+                            };
+                            console.log('Saved!');
+                        });
+
+                        if (urlExistSync("https://lotimg.pwisetthon.com/?date=" + date + '' + month + '' + year)) {
+                            imgurl = 'https://lotimg.pwisetthon.com/?date=';
                         }
 
-                    });
-                }
-            });*/
+                        const msg = new Discord.MessageEmbed()
+                            .setColor('#0099ff')
+                            .setTitle('ผลสลากกินแบ่งรัฐบาล')
+                            .setURL('https://www.glo.or.th/')
+                            //.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
+                            .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + monthtext + ' ' + year)
+                            .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
+                            .addFields(
+                                { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
+                                //{ name: '\u200B', value: '\u200B' },
+                                { name: 'เลขหน้าสามตัว', value: json[1][1] + ' | ' + json[1][2], inline: true },
+                                { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
+                                { name: 'เลขท้ายสองตัว', value: json[3][1] },
+                            )
+                            //.addField('เลขท้ายสองตัว', json[3][1], true)
+                            //.attachFiles(['today.png'])
+                            //.setImage('attachment://today.png')
+                            //.setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
+                            .setImage(imgurl + '' + date + '' + month + '' + year)
+                            .setTimestamp()
+                            .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
-        }
+                        fetch(process.env.URL + "/discordbot/chlist.txt", settings)
+                            .then(res => res.json())
+                            .then((json) => {
+
+                                for (i in json) {
+                                    client.channels.cache.get(json[i]).send(msg)
+                                        .then((log) => {
+                                            console.log(log);
+                                        })
+                                        .catch((error) => {
+                                            console.error(error);
+                                            client.users.fetch('133439202556641280').then(dm => {
+                                                dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
+                                            })
+                                        });
+                                }
+
+                            });
+                    }
+                }
+
+            }
         }
 
     });
