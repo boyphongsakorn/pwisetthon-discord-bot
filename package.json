@@ -17,7 +17,6 @@
     "discord.js": "^12.5.3",
     "dotenv": "^9.0.2",
     "node-fetch": "^2.6.1",
-    "pageres": "^6.2.1",
     "request": "^2.88.2"
   }
 }
