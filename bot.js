@@ -5,6 +5,7 @@ const fetch = require('node-fetch');
 const request = require('request');
 var fs = require('fs');
 const https = require('https');
+const urlExistSync = require("url-exist-sync");
 
 require('dotenv').config();
 
@@ -200,6 +201,8 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
 
         }else{
 
+            let imgurl = 'https://boy-discord-bot.herokuapp.com/?date=';
+
             console.log("หวยออกครบแล้ว")
 
             var fileContents = null;
@@ -217,6 +220,10 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                         };
                         console.log('Saved!');
                     });
+
+                    if(urlExistSync("https://lotimg.pwisetthon.com/?date="+date+''+month+''+year)){
+                        imgurl = 'https://lotimg.pwisetthon.com/?date=';
+                    }
 
                     const msg = new Discord.MessageEmbed()
 	                .setColor('#0099ff')
@@ -236,7 +243,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                     //.attachFiles(['today.png'])
 	                //.setImage('attachment://today.png')
 	                //.setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
-                    .setImage('https://boy-discord-bot.herokuapp.com/?date='+date+''+month+''+year)
+                    .setImage(imgurl+''+date+''+month+''+year)
 	                .setTimestamp()
 	                .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
