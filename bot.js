@@ -6,6 +6,7 @@ const request = require('request');
 var fs = require('fs');
 //const https = require('https');
 const urlExistSync = require("url-exist-sync");
+var http = require('http');
 
 require('dotenv').config();
 
@@ -26,6 +27,12 @@ function padLeadingZeros(num, size) {
 }
 
 // end functions
+
+//create a server object:
+http.createServer(function (req, res) {
+    res.write('Hello World!'); //write a response to the client
+    res.end(); //end the response
+}).listen(8080); //the server object listens on port 8080
 
 client.once('ready', () => {
 	client.user.setPresence({ activity: { name: 'use /fthlotto to follow thai lottery' }, status: 'online' });
