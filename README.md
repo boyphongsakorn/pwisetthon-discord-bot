@@ -1,8 +1,8 @@
-# pwisetthon-discord-bot
-Discord Bot แรกของผม ในตอนนี้มีแต่คำสั่งเกี่ยวกับ การส่งแจ้งเตือนสลากกินแบ่ง
+---
+description: '"PWisetthon.com" Discord Bot'
+---
 
-[เชิญบอทเข้าเซิฟที่นี้](https://lotto.teamquadb.in.th/discordbot)
+# Introduced
 
-# คำสั่ง
-* /fthlotto = คำสั่งส่งแจ้งเตือนสลากกินแบ่งฯใน แชนแนลนั้นๆ
-* /cthlotto = คำสั่งยกเลิกส่งแจ้งเตือนสลากกินแบ่งฯใน แชนแนลนั้นๆ
+**PWisetthon.com** เป็นบอทแรกของผม ในตอนนี้มีแต่คำสั่งเกี่ยวกับ การส่งแจ้งเตือนสลากกินแบ่ง
+
