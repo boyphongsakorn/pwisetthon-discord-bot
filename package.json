@@ -1,7 +1,7 @@
 {
   "name": "pwisetthon-first-discord-bot",
   "description": "PWisetthon.com",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "bot.js",
   "scripts": {
     "start": "node test.js"
