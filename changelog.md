@@ -2,9 +2,9 @@
 description: การเปลี่ยนแปลง
 ---
 
-# Changelog
+# Changelogs
 
-## 15.0.0 - 2042-12-03
+## 0.0.4 - 09-06-2564
 
 ### Fixed
 
@@ -13,11 +13,6 @@ description: การเปลี่ยนแปลง
 ### Changed
 
 * Animals are now super cute, all of them.
-
-## 14.0.0 - 2042-10-06
-
-### Added
-
 * Introduced animals into the world, we believe they're going to be a neat addition.
 
 

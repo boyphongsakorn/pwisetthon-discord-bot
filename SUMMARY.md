@@ -1,7 +1,7 @@
 # Table of contents
 
 * [Introduced](README.md)
-* [Changelog](changelog-1.md)
+* [Changelogs](changelog.md)
 
 ## commands
 
