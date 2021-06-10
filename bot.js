@@ -4,7 +4,6 @@ const cron = require("cron");
 const fetch = require('node-fetch');
 const request = require('request');
 var fs = require('fs');
-//const https = require('https');
 const urlExistSync = require("url-exist-sync");
 var http = require('http');
 
@@ -144,26 +143,9 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
     let month = new Date().getMonth() + 1;
     let year = new Date().getFullYear() + 543;
 
-    let monthtext
-
     date = padLeadingZeros(date, 2);
     month = padLeadingZeros(month, 2);
     year = padLeadingZeros(year, 4);
-
-    switch (month) {
-        case '01': monthtext = "มกราคม"; break;
-        case '02': monthtext = "กุมภาพันธ์"; break;
-        case '03': monthtext = "มีนาคม"; break;
-        case '04': monthtext = "เมษายน"; break;
-        case '05': monthtext = "พฤษภาคม"; break;
-        case '06': monthtext = "มิถุนายน"; break;
-        case '07': monthtext = "กรกฎาคม"; break;
-        case '08': monthtext = "สิงหาคม"; break;
-        case '09': monthtext = "กันยายน"; break;
-        case '10': monthtext = "ตุลาคม"; break;
-        case '11': monthtext = "พฤศจิกายน"; break;
-        case '12': monthtext = "ธันวาคม"; break;
-    }
 
     // end datedata
 
@@ -262,7 +244,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 .setTitle('ผลสลากกินแบ่งรัฐบาล')
                                 .setURL('https://www.glo.or.th/')
                                 //.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
-                                .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + monthtext + ' ' + year)
+                                .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
                                 .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
                                 .addFields(
                                     { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
@@ -352,7 +334,7 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
     }
 
     if (command === 'lastlotto') {
-        options = {
+        var options = {
             method: 'GET',
             url: 'https://thai-lottery1.p.rapidapi.com/lastlot',
             qs: { info: 'true' },
@@ -372,7 +354,7 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
                     .setColor('#0099ff')
                     .setTitle('ผลสลากกินแบ่งรัฐบาล')
                     .setURL('https://www.glo.or.th/')
-                    .setDescription('งวดวันที่ ' + body.info.date.substring(0, 2) + ' ' + convertmonthtotext(body.info.date.substring(2, 4)) + ' ' + body.info.date.substring(4, 8))
+                    .setDescription('งวดวันที่ ' + parseInt(body.info.date.substring(0, 2)) + ' ' + convertmonthtotext(body.info.date.substring(2, 4)) + ' ' + body.info.date.substring(4, 8))
                     .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
                     .addFields(
                         { name: 'รางวัลที่หนึ่ง', value: body.win },
