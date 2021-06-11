@@ -5,7 +5,7 @@ module.exports = {
     error_file : "./err.log",
     out_file : "./out.log",
     watch : false,
-    ignore_watch: ["node_modules","err.log",".env","Procfile","out.log","check.log"]
+    ignore_watch: ["node_modules","err.log",".env","Procfile","out.log","./check.txt"]
   }],
   deploy : {
     production : {
