@@ -180,14 +180,14 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
 
                     var fileContents = null;
                     try {
-                        fileContents = fs.readFileSync('check.txt');
+                        fileContents = fs.readFileSync('check');
                     } catch (err) {
 
                     }
 
                     if (fileContents) {
                         if (fileContents != '0') {
-                            fs.writeFile('check.txt', '0', function (err) {
+                            fs.writeFile('check', '0', function (err) {
                                 if (err) {
                                     throw err
                                 };
@@ -195,16 +195,16 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                             });
                         }
                     } else {
-                        fs.writeFile('check.txt', '0', function (err) {
+                        fs.writeFile('check', '0', function (err) {
                             if (err) {
                                 throw err
                             };
                             console.log('Saved!');
                         });
                     }
-                    /*fs.readFile('check.txt', function(err, data) {
+                    /*fs.readFile('check', function(err, data) {
                         if(data != "0"){
-                            fs.writeFile('check.txt', '0', function (err) {
+                            fs.writeFile('check', '0', function (err) {
                                 if (err){
                                     throw err
                                 };
@@ -221,14 +221,14 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
 
                     var fileContents = null;
                     try {
-                        fileContents = fs.readFileSync('check.txt');
+                        fileContents = fs.readFileSync('check');
                     } catch (err) {
 
                     }
 
                     if (fileContents) {
                         if (fileContents != "1") {
-                            fs.writeFile('check.txt', '1', function (err) {
+                            fs.writeFile('check', '1', function (err) {
                                 if (err) {
                                     throw err
                                 };

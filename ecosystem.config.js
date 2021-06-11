@@ -4,7 +4,7 @@ module.exports = {
     script: 'bot.js',
     error_file : "./err.log",
     out_file : "./out.log",
-    ignore_watch: ["node_modules","err.log",".env","Procfile","out.log","*.txt"]
+    ignore_watch: ["node_modules","err.log",".env","Procfile","out.log","check"]
   }],
   deploy : {
     production : {
