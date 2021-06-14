@@ -2,6 +2,7 @@ module.exports = {
   apps : [{
     name : 'discordbot',
     script: 'bot.js',
+    log_date_format: 'YYYY-MM-DD HH:mm Z',
     error_file : "./err.log",
     out_file : "./out.log",
     ignore_watch: ["node_modules","err.log",".env","Procfile","out.log","./check.txt"],
