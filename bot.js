@@ -235,7 +235,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 console.log('Saved!');
                             });
 
-                            if (urlExistSync("https://lotimg.pwisetthon.com/?date=" + date + '' + month + '' + year)) {
+                            if (urlExistSync('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)) {
                                 imgurl = 'https://lotimg.pwisetthon.com/?date=';
                             }
 
@@ -243,7 +243,6 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 .setColor('#0099ff')
                                 .setTitle('ผลสลากกินแบ่งรัฐบาล')
                                 .setURL('https://www.glo.or.th/')
-                                //.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
                                 .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
                                 .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
                                 .addFields(
@@ -253,10 +252,6 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                     { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
                                     { name: 'เลขท้ายสองตัว', value: json[3][1] },
                                 )
-                                //.addField('เลขท้ายสองตัว', json[3][1], true)
-                                //.attachFiles(['today.png'])
-                                //.setImage('attachment://today.png')
-                                //.setImage(process.env.URL+'/tmpimage/'+date+''+month+''+year+'.png')
                                 .setImage(imgurl + '' + date + '' + month + '' + year)
                                 .setTimestamp()
                                 .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
@@ -362,7 +357,7 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
                         { name: 'เลขท้ายสามตัว', value: body.threeend.replace(",", " | "), inline: true },
                         { name: 'เลขท้ายสองตัว', value: body.twoend },
                     )
-                    .setImage('https://boy-discord-bot.herokuapp.com/?date='+body.info.date)
+                    .setImage('https://boy-discord-bot.herokuapp.com/?date=' + body.info.date)
                     .setTimestamp()
                     .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
