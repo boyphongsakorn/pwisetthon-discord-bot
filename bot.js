@@ -215,7 +215,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
 
                 } else {
 
-                    let imgurl = 'https://boy-discord-bot.herokuapp.com/?date=';
+                    let imgurl = 'https://lotimg.pwisetthon.com/?date=';
 
                     console.log("หวยออกครบแล้ว")
 
@@ -235,9 +235,9 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 console.log('Saved!');
                             });
 
-                            if (urlExistSync('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)) {
+                            /*if (urlExistSync('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)) {
                                 imgurl = 'https://lotimg.pwisetthon.com/?date=';
-                            }
+                            }*/
 
                             const msg = new Discord.MessageEmbed()
                                 .setColor('#0099ff')
@@ -252,7 +252,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                     { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
                                     { name: 'เลขท้ายสองตัว', value: json[3][1] },
                                 )
-                                .setImage(imgurl + '' + date + '' + month + '' + year)
+                                .setImage(imgurl + date +  month + year)
                                 .setTimestamp()
                                 .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
@@ -357,7 +357,7 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
                         { name: 'เลขท้ายสามตัว', value: body.threeend.replace(",", " | "), inline: true },
                         { name: 'เลขท้ายสองตัว', value: body.twoend },
                     )
-                    .setImage('https://boy-discord-bot.herokuapp.com/?date=' + body.info.date)
+                    .setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                     .setTimestamp()
                     .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
