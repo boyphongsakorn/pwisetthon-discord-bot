@@ -256,6 +256,9 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 .setTimestamp()
                                 .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
+                            console.log(imgurl + date +  month + year)
+                            console.log(imgurl + '' + date + '' +  month + '' + year)
+
                             fetch(process.env.URL + "/discordbot/chlist.txt", settings)
                                 .then(res => res.json())
                                 .then((json) => {
