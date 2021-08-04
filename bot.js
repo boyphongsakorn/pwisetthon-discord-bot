@@ -51,7 +51,7 @@ http.createServer(function (req, res) {
 }).listen(8080); //the server object listens on port 8080
 
 client.once('ready', () => {
-    client.user.setPresence({ activity: { name: 'use /fthlotto to follow thai lottery' }, status: 'online' });
+    client.user.setPresence({ activity: { name: 'discordbot.pwisetthon.com' }, status: 'online' });
 
     console.log('I am ready!');
 
