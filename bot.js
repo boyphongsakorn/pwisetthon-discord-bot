@@ -226,9 +226,34 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
 
                     }
 
+                    var lasttime = null
+
+                    try {
+                        const stats = fs.statSync('lastout.txt');
+                        //const expiry = new Date().getTime()
+                        
+                        lasttime = stats.mtime
+
+                        // print file last modified date
+                        //console.log(`File Data Last Modified: ${stats.mtime}`);
+                        //console.log(`File Status Last Modified: ${stats.ctime}`);
+                        //console.log(Date.getTime() <stats.mtime.getTime())
+                        //if(stats.mtime.getTime() < expiry){
+                        //    console.log('yes')
+                        //}
+                    } catch (error) {
+                        //console.log(error);
+                    }
+
                     if (fileContents) {
-                        if (fileContents != "1") {
+                        if (fileContents != "1" && lasttime.toDateString() != new Date().toDateString()) {
                             fs.writeFile('check.txt', '1', function (err) {
+                                if (err) {
+                                    throw err
+                                };
+                                console.log('Saved!');
+                            });
+                            fs.writeFile('lastout.txt', '1', function (err) {
                                 if (err) {
                                     throw err
                                 };

@@ -5,7 +5,7 @@ module.exports = {
     log_date_format: 'DD/MM/YYYY HH:mm Z',
     error_file : "./err.log",
     out_file : "./out.log",
-    ignore_watch: ["node_modules","err.log",".env","Procfile","out.log","./check.txt"],
+    ignore_watch: ["node_modules","err.log",".env","Procfile","out.log","./check.txt","lastlot.txt"],
     autorestart: true,
     cron_restart: "30 14 * * *"
   }],
