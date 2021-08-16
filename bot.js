@@ -277,12 +277,13 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                     { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
                                     { name: 'เลขท้ายสองตัว', value: json[3][1] },
                                 )
-                                .setImage(imgurl + date +  month + year)
+                                .setImage('https://img.gs/fhcphvsghs/full,quality=low/' +imgurl + date +  month + year)
                                 .setTimestamp()
                                 .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
                             console.log(imgurl + date +  month + year)
                             console.log(imgurl + '' + date + '' +  month + '' + year)
+                            console.log('https://img.gs/fhcphvsghs/full,quality=low/' +imgurl + date +  month + year)
 
                             fetch(process.env.URL + "/discordbot/chlist.txt", settings)
                                 .then(res => res.json())
