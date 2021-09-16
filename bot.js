@@ -215,7 +215,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
 
                 } else {
 
-                    let imgurl = 'https://lotimg.pwisetthon.com/?date=';
+                    let imgurl = 'https://boy-discord-bot.herokuapp.com/?date=';
 
                     console.log("หวยออกครบแล้ว")
 
@@ -260,9 +260,9 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 console.log('Saved!');
                             });
 
-                            /*if (urlExistSync('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)) {
+                            if (urlExistSync('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)) {
                                 imgurl = 'https://lotimg.pwisetthon.com/?date=';
-                            }*/
+                            }
 
                             const msg = new Discord.MessageEmbed()
                                 .setColor('#0099ff')
