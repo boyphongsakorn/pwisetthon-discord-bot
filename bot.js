@@ -290,7 +290,8 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 .then((json) => {
 
                                     for (i in json) {
-                                        if(client.channels.cache.get(json[i])){
+                                        let wow = client.channels.cache.get(json[i])
+                                        if(wow){
                                             client.channels.cache.get(json[i]).send(msg)
                                                 .then((log) => {
                                                     console.log(log);
