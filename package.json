@@ -13,10 +13,10 @@
   "homepage": "https://github.com/boyphongsakorn/pwisetthon-discord-bot#readme",
   "dependencies": {
     "cron": "^1.8.2",
-    "discord-slash-commands-client": "^1.2.1",
+    "discord-slash-commands-client": "^1.2.2",
     "discord.js": "^12.5.3",
     "dotenv": "^9.0.2",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.5",
     "request": "^2.88.2",
     "url-exist-sync": "^1.0.2"
   }
