@@ -290,7 +290,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 .then((json) => {
 
                                     for (i in json) {
-                                        let wow = client.channels.cache.get(json[i])
+                                        /*let wow = client.channels.cache.get(json[i])
                                         if(wow){
                                             try {
                                                 client.channels.cache.get(json[i]).send(msg)
@@ -307,6 +307,20 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                                 console.log('ok')
                                             }
                                             
+                                        }*/
+                                        try {
+                                            client.channels.cache.get(json[i]).send(msg)
+                                            .then((log) => {
+                                                console.log(log);
+                                            })
+                                            .catch((error) => {
+                                                //console.log(error);
+                                                client.users.fetch('133439202556641280').then(dm => {
+                                                    dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
+                                                })
+                                            });
+                                        } catch (error) {
+                                            console.log('ok')
                                         }
                                     }
 
