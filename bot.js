@@ -77,6 +77,26 @@ client.once('ready', () => {
         const list = client.guilds.cache.get(guild.id);
         list.members.cache.forEach(member => console.log(member.user.username));
     })*/
+
+    let testarray = ['844177331190497280','443362659522445314']
+
+    testarray.forEach(element => {
+        try {
+            client.channels.cache.get(element).send("test")
+            .then((log) => {
+                console.log(log);
+            })
+            .catch((error) => {
+                //console.log(error);
+                client.users.fetch('133439202556641280').then(dm => {
+                    dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
+                })
+            });
+        } catch (error) {
+            console.log('ok')
+        }
+    });
+    
 });
 
 client.on("guildCreate", guild => {
