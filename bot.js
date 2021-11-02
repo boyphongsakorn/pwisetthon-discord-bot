@@ -78,7 +78,7 @@ client.once('ready', () => {
         list.members.cache.forEach(member => console.log(member.user.username));
     })*/
 
-    let testarray = ['844177331190497280','443362659522445314']
+    /*let testarray = ['844177331190497280','443362659522445314']
 
     testarray.forEach(element => {
         try {
@@ -93,9 +93,11 @@ client.once('ready', () => {
                 })
             });
         } catch (error) {
-            console.log('ok')
+            client.users.fetch('133439202556641280').then(dm => {
+                dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
+            })
         }
-    });
+    });*/
     
 });
 
@@ -335,12 +337,15 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                             })
                                             .catch((error) => {
                                                 //console.log(error);
-                                                client.users.fetch('133439202556641280').then(dm => {
+                                                /*client.users.fetch('133439202556641280').then(dm => {
                                                     dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
-                                                })
+                                                })*/
                                             });
                                         } catch (error) {
                                             console.log('ok')
+                                            client.users.fetch('133439202556641280').then(dm => {
+                                                dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
+                                            })
                                         }
                                     }
 
