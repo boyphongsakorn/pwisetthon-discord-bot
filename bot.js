@@ -19,10 +19,19 @@ const DSclient = new DS.Client(
 
 //create a server object:
 http.createServer(function (req, res) {
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
+        'Access-Control-Max-Age': 2592000, // 30 days
+        /** add other headers as per requirement */
+    };
+
     if (req.url === '/count') {
+        res.writeHead(200, headers);
         res.write(client.guilds.cache.size.toString()); //write a response to the client
         res.end(); //end the response
     }else{
+        res.writeHead(200, headers);
         res.write('ok'); //write a response to the client
         res.end(); //end the response
     }
