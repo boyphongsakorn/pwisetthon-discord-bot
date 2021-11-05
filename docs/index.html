@@ -140,13 +140,13 @@
               document.getElementById("respo").innerText = result["latency"]+" μs" ;*/
               anime({
                 targets: document.getElementById("botstatus"),
-                innerText: "ปกติ ("+[0, parseInt(result["online_24_hours"])]+"%)",
+                innerText: "ปกติ ("+[parseInt(result["online_24_hours"])]+"%)",
                 round: 1,
                 easing: 'easeInOutExpo'
               });
               anime({
                 targets: document.getElementById("respo"),
-                innerText: [0, parseInt(result["latency"])]+" μs",
+                innerText: [parseInt(result["latency"])]+" μs",
                 round: 1,
                 easing: 'easeInOutExpo'
               });
