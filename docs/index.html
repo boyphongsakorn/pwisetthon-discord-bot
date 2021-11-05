@@ -115,13 +115,10 @@
         .then(response => response.text())
         .then(result => {
           anime({
-            targets: document.getElementById("serverjoin"),
-            count: parseInt(result),
+            targets: document.getElementById("serverjoin").innerText,
+            value: [0, parseInt(result)],
             round: 1,
-            easing: 'linear',
-            update: function() {
-              document.getElementById("serverjoin").innerText = round;
-            }
+            easing: 'easeInOutExpo'
           });
           /*for (let index = 0; index < parseInt(result); index++) {
             document.getElementById("serverjoin").innerText = index;
