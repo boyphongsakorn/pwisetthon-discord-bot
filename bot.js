@@ -20,7 +20,7 @@ const DSclient = new DS.Client(
 //create a server object:
 http.createServer(function (req, res) {
     if (req.url === '/count') {
-        res.write(client.guilds.cache.size); //write a response to the client
+        res.write(client.guilds.cache.size.toString()); //write a response to the client
         res.end(); //end the response
     }else{
         res.write('ok'); //write a response to the client
