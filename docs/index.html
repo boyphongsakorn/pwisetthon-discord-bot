@@ -66,7 +66,7 @@
             <div class="row">
                 <div class="col text-center">
                     <h2><i class="fas fa-user-plus"></i> เชิญไปทั้งหมด</h2><br>
-                    <h3><p class="d-inline" id="serverjoin">sss</p> เซิฟเวอร์</h3>
+                    <h3><p class="d-inline" id="serverjoin"></p> เซิร์ฟเวอร์</h3>
                 </div>
                 <div class="col text-center">
                     <h2><i class="fas fa-signal"></i> ตอนนี้บอททำงาน</h2><br>
@@ -88,10 +88,10 @@
         <div class="container">
             <div class="row">
                 <div class="col text-center my-auto">
-                  <h2 class="mb-2"><i class="fas fa-check"></i> เช็คสลากฯล่าสุด</h2>
+                  <h2 class="mb-2"><i class="fas fa-check"></i> ดูเลขสลากกินแบ่งฯล่าสุด</h2>
                   <figure>
                     <figcaption class="blockquote-footer">
-                      Someone famous in <cite title="Source Title">Source Title</cite>
+                      ใช้คำสั่ง <cite title="Source Title">/lastlotto</cite> ในการดูเลขสลากกินแบ่งฯล่าสุด
                     </figcaption>
                   </figure>
                 </div>
@@ -111,7 +111,9 @@
       fetch("https://dbstatus.pwisetthon.com/count", requestOptions)
         .then(response => response.text())
         .then(result => {
-          document.getElementById("serverjoin").innerText = result;
+          for (let index = 0; index < parseInt(result); index++) {
+            document.getElementById("serverjoin").innerText = index;
+          }
         })
         .catch(error => console.log('error', error));
 
