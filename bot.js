@@ -420,6 +420,14 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
 
     if (command === 'lastlotto') {
         var options = {
+            'method': 'GET',
+            'url': 'http://192.168.31.210:5000/lastlot?info=true',
+            'json': true,
+            'headers': {
+            }
+        };
+
+        /*var options = {
             method: 'GET',
             url: 'https://thai-lottery1.p.rapidapi.com/lastlot',
             qs: { info: 'true' },
@@ -429,7 +437,7 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
                 'x-rapidapi-host': 'thai-lottery1.p.rapidapi.com',
                 useQueryString: true
             }
-        };
+        };*/
 
         await request(options, function (error, response, body) {
             if (error) throw new Error(error);
