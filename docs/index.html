@@ -136,8 +136,20 @@
           .then(response => response.json())
           .then(result => {
             if(result["online"]){
-              document.getElementById("botstatus").innerText = "ปกติ ("+result["online_24_hours"]+"%)";
-              document.getElementById("respo").innerText = result["latency"]+" μs" ;
+              /*document.getElementById("botstatus").innerText = "ปกติ ("+result["online_24_hours"]+"%)";
+              document.getElementById("respo").innerText = result["latency"]+" μs" ;*/
+              anime({
+                targets: document.getElementById("botstatus"),
+                innerText: [0, parseInt(result["online_24_hours"])],
+                round: 1,
+                easing: 'easeInOutExpo'
+              });
+              anime({
+                targets: document.getElementById("respo"),
+                innerText: [0, parseInt(result["latency"])],
+                round: 1,
+                easing: 'easeInOutExpo'
+              });
             }else{
               document.getElementById("botstatus").innerText = "ไม่สามารถติดต่อได้";
               document.getElementById("respo").innerText = "0 μs";
