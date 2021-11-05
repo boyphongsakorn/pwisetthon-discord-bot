@@ -46,8 +46,13 @@ function convertmonthtotext(month) {
 
 //create a server object:
 http.createServer(function (req, res) {
-    res.write('ok'); //write a response to the client
-    res.end(); //end the response
+    if (req.url === '/count') {
+        res.write('test'); //write a response to the client
+        res.end(); //end the response
+    }else{
+        res.write('ok'); //write a response to the client
+        res.end(); //end the response
+    }
 }).listen(8080); //the server object listens on port 8080
 
 client.once('ready', () => {
