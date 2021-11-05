@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    <div class="container-fluid" style="background:linear-gradient(-180deg, #7289da, #99aab5, #5f6061, #abafb3);">
+    <div class="container-fluid bg-primary bg-gradient">
         <div class="container p-3">
             <div class="row">
                 <div class="col text-center">
@@ -88,7 +88,7 @@
         <div class="container">
             <div class="row">
                 <div class="col text-center">
-                    
+                  <i class="fas fa-check"></i> <h2>เช็คสลากฯล่าสุด</h2>
                 </div>
                 <div class="col">
                     
@@ -114,7 +114,8 @@
           method: 'GET',
           redirect: 'follow',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Origin': 'https://status.teamquadb.in.th/api/services/11'
           }
         };
 

@@ -431,7 +431,7 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
             }
         };
 
-        request(options, function (error, response, body) {
+        await request(options, function (error, response, body) {
             if (error) throw new Error(error);
 
             try {
