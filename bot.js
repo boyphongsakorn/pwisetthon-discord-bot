@@ -44,17 +44,6 @@ function convertmonthtotext(month) {
 
 // end functions
 
-//create a server object:
-http.createServer(function (req, res) {
-    if (req.url === '/count') {
-        res.write('test'); //write a response to the client
-        res.end(); //end the response
-    }else{
-        res.write('ok'); //write a response to the client
-        res.end(); //end the response
-    }
-}).listen(8080); //the server object listens on port 8080
-
 client.once('ready', () => {
     client.user.setPresence({ activity: { name: 'discordbot.pwisetthon.com' }, status: 'online' });
 
@@ -76,6 +65,17 @@ client.once('ready', () => {
     } catch (error) {
 
     }
+
+    //create a server object:
+    http.createServer(function (req, res) {
+        if (req.url === '/count') {
+            res.write(client.guilds.cache.size); //write a response to the client
+            res.end(); //end the response
+        }else{
+            res.write('ok'); //write a response to the client
+            res.end(); //end the response
+        }
+    }).listen(8080); //the server object listens on port 8080
 
     /*client.guilds.cache.forEach(guild => {
         console.log(`${guild.name} | ${guild.id}`);
