@@ -66,7 +66,7 @@
             <div class="row">
                 <div class="col text-center">
                     <h2><i class="fas fa-user-plus"></i> เชิญไปทั้งหมด</h2><br>
-                    <h3><p class="d-inline" id="serverjoin"></p> เซิร์ฟเวอร์</h3>
+                    <h3><p class="d-inline serverjoin"></p> เซิร์ฟเวอร์</h3>
                 </div>
                 <div class="col text-center">
                     <h2><i class="fas fa-signal"></i> ตอนนี้บอททำงาน</h2><br>
@@ -115,7 +115,7 @@
         .then(response => response.text())
         .then(result => {
           anime({
-            targets: document.getElementById("serverjoin").innerText,
+            targets: document.querySelector('.serverjoin'),
             value: [0, parseInt(result)],
             round: 1,
             easing: 'easeInOutExpo'
