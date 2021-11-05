@@ -70,7 +70,7 @@
                 </div>
                 <div class="col text-center">
                     <h2><i class="fas fa-signal"></i> ตอนนี้บอททำงาน</h2><br>
-                    <h3 id="botstatus">ปกติ</h3>
+                    <h3>ปกติ</h3>
                 </div>
                 <div class="col text-center">
                     <h2>การตอบสนองของบอท</h2><br>
@@ -140,7 +140,7 @@
               document.getElementById("respo").innerText = result["latency"]+" μs" ;*/
               anime({
                 targets: document.getElementById("botstatus"),
-                innerText: [0, parseInt(result["online_24_hours"])],
+                innerText: "ปกติ ("+[0, parseInt(result["online_24_hours"])]+"%)",
                 round: 1,
                 easing: 'easeInOutExpo'
               });
