@@ -114,8 +114,10 @@
       fetch("https://dbstatus.pwisetthon.com/count", requestOptions)
         .then(response => response.text())
         .then(result => {
+          var roundLogEl = document.querySelector('p.serverjoin');
+
           anime({
-            targets: document.querySelector('.serverjoin'),
+            targets: roundLogEl,
             value: [0, parseInt(result)],
             round: 1,
             easing: 'easeInOutExpo'
