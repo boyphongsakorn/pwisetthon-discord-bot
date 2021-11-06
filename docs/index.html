@@ -152,11 +152,11 @@
         <div class="row">
           <div class="col-4 text-center">
               <h2>Thai Lottery API</h2><br>
-              <h3 id="tlapistatus">ออนไลน์</h3>
+              <h3 id="tlapistatus"></h3>
           </div>
           <div class="col-4 text-center">
               <h2>TL Result Image API</h2><br>
-              <h3 id="tlimageapistatus">ออนไลน์</h3>
+              <h3 id="tlimageapistatus"></h3>
           </div>
           <div class="col-4 text-center mt-3">
               <h2>glo.or.th</h2><br>
@@ -245,6 +245,35 @@
             }
           })
           .catch(error => document.getElementById("tlimageapistatus").innerText = "ออฟไลน์");
+
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+
+          var raw = JSON.stringify({
+            "date": "01",
+            "month": "11",
+            "year": "2021"
+          });
+
+          var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+          };
+
+          fetch("https://www.glo.or.th/api/lottery/getLotteryAward", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+              if(result["status"]){
+                document.getElementById("glowebsitestatus").innerText = "ออนไลน์";
+              }else{
+                document.getElementById("glowebsitestatus").innerText = "ออฟไลน์";
+              }
+            })
+            .catch(error => {
+              document.getElementById("glowebsitestatus").innerText = "ออฟไลน์";
+            });
     </script>
 </body>
 </html>
