@@ -209,7 +209,7 @@
             }
         };
 
-        fetch("https://cors-anywhere.herokuapp.com/https://status.teamquadb.in.th/api/services/11", requestOptions)
+        fetch("https://status.teamquadb.in.th/api/services/11", requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result["online"]) {
@@ -235,7 +235,7 @@
                 document.getElementById("respo").innerText = "0 μs";
             });
 
-        fetch("https://cors-anywhere.herokuapp.com/https://status.teamquadb.in.th/api/services/9", requestOptions)
+        fetch("https://status.teamquadb.in.th/api/services/9", requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result["online"]) {
@@ -246,7 +246,7 @@
             })
             .catch(error => document.getElementById("tlapistatus").innerText = "ออฟไลน์");
 
-        fetch("https://cors-anywhere.herokuapp.com/https://status.teamquadb.in.th/api/services/12", requestOptions)
+        fetch("https://status.teamquadb.in.th/api/services/12", requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result["online"]) {
@@ -273,7 +273,7 @@
             redirect: 'follow'
         };
 
-        fetch("https://cors-anywhere.herokuapp.com/https://www.glo.or.th/api/lottery/getLotteryAward", requestOptions)
+        fetch("https://www.glo.or.th/api/lottery/getLotteryAward", requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result["status"]) {
