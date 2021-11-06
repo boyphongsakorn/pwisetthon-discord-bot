@@ -262,7 +262,7 @@
             redirect: 'follow'
           };
 
-          fetch("https://www.glo.or.th/api/lottery/getLotteryAward", requestOptions)
+          fetch("https://cors-anywhere.herokuapp.com/https://www.glo.or.th/api/lottery/getLotteryAward", requestOptions)
             .then(response => response.json())
             .then(result => {
               if(result["status"]){
