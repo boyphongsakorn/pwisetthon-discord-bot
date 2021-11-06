@@ -152,15 +152,15 @@
         <div class="row">
           <div class="col-4 text-center">
               <h2>Thai Lottery API</h2><br>
-              <h3>ออนไลน์</h3>
+              <h3 id="tlapistatus">ออนไลน์</h3>
           </div>
           <div class="col-4 text-center">
-              <h2>Thai Lottery Result Image API</h2><br>
-              <h3>ออนไลน์</h3>
+              <h2>TL Result Image API</h2><br>
+              <h3 id="tlimageapistatus">ออนไลน์</h3>
           </div>
           <div class="col-4 text-center mt-3">
               <h2>glo.or.th</h2><br>
-              <h3>ออนไลน์</h3>
+              <h3 id="glowebsitestatus">ออนไลน์</h3>
           </div>
         </div>
       </div>
@@ -185,7 +185,9 @@
             easing: 'easeInOutExpo'
           });
         })
-        .catch(error => console.log('error', error));
+        .catch(error => {
+          document.getElementById("serverjoin").innerText = "N/A"
+        });
 
         var requestOptions = {
           method: 'GET',
@@ -200,8 +202,6 @@
           .then(response => response.json())
           .then(result => {
             if(result["online"]){
-              /*document.getElementById("botstatus").innerText = "ปกติ ("+result["online_24_hours"]+"%)";
-              document.getElementById("respo").innerText = result["latency"]+" μs" ;*/
               anime({
                 targets: document.getElementById("botstatus"),
                 innerText: "ปกติ ("+[parseInt(result["online_24_hours"])]+"%)",
@@ -219,7 +219,32 @@
               document.getElementById("respo").innerText = "0 μs";
             }
           })
-          .catch(error => console.log('error', error));
+          .catch(error => {
+            document.getElementById("botstatus").innerText = "ไม่สามารถติดต่อได้";
+            document.getElementById("respo").innerText = "0 μs";
+          });
+
+        fetch("https://cors-anywhere.herokuapp.com/https://status.teamquadb.in.th/api/services/9", requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            if(result["online"]){
+              document.getElementById("tlapistatus").innerText = "ออนไลน์";
+            }else{
+              document.getElementById("tlapistatus").innerText = "ออฟไลน์";
+            }
+          })
+          .catch(error => document.getElementById("tlapistatus").innerText = "ออฟไลน์");
+
+        fetch("https://cors-anywhere.herokuapp.com/https://status.teamquadb.in.th/api/services/12", requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            if(result["online"]){
+              document.getElementById("tlimageapistatus").innerText = "ออนไลน์";
+            }else{
+              document.getElementById("tlimageapistatus").innerText = "ออฟไลน์";
+            }
+          })
+          .catch(error => document.getElementById("tlimageapistatus").innerText = "ออฟไลน์");
     </script>
 </body>
 </html>
