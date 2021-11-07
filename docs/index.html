@@ -324,17 +324,17 @@
         });
     };
 
-    var lazyLoadInstance = new LazyLoad({
-        // Your custom settings go here
-    });
-
-    window.lazyFunctions = {
-        foo: function (element) {
-            alert('foo');
-        }
-    };
-
     function fuckingload() {
+        var lazyLoadInstance = new LazyLoad({
+            // Your custom settings go here
+        });
+
+        window.lazyFunctions = {
+            foo: function (element) {
+                alert('foo');
+            }
+        };
+
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
