@@ -290,6 +290,22 @@
                 fuckingload()
             }
         })
+
+        anime({
+            targets: '.col-*',
+            opacity: 0,
+            translateX: -50,
+            duration: 2000,
+            direction: 'reverse',
+            easing: 'linear',
+            begin: function(anim) {
+                document.getElementsByClassName("row")[0].style.setProperty("display", "flex", "important")
+                document.getElementsByClassName("row")[1].style.setProperty("display", "flex", "important")
+            },
+            delay: function(el, i) {
+			  return 600 * i;
+		    },
+        });
     };
 
     function fuckingload() {
