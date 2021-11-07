@@ -166,17 +166,17 @@
     </div>
 
     <div class="container-fluid py-3 bg-primary bg-gradient">
-        <div class="container">
+        <div class="container lazy" data-lazy-function="foo">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-4 lazy text-center" data-lazy-function="foo">
+                <div class="col-12 col-md-6 col-lg-4 text-center">
                     <h2>Thai Lottery API</h2><br>
                     <h3 id="tlapistatus"></h3>
                 </div>
-                <div class="col-12 col-md-6 col-lg-4 lazy text-center" data-lazy-function="foo">
+                <div class="col-12 col-md-6 col-lg-4 text-center">
                     <h2>TL Result Image API</h2><br>
                     <h3 id="tlimageapistatus"></h3>
                 </div>
-                <div class="col-12 col-md-12 col-lg-4 lazy text-center" data-lazy-function="foo">
+                <div class="col-12 col-md-12 col-lg-4 text-center">
                     <h2>glo.or.th</h2><br>
                     <h3 id="glowebsitestatus"></h3>
                 </div>
@@ -327,7 +327,7 @@
     function fuckingload() {
         window.lazyFunctions = {
             foo: function (element) {
-                alert('foo');
+                //alert('foo');
                 anime({
                     targets: '.col-lg-4',
                     opacity: 0,
