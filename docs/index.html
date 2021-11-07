@@ -187,19 +187,21 @@
     </div>
 
     <!-- container-fluid > container -->
-    <div class="container-fluid py-3 bg-dark bg-gradient">
+    <div class="container-fluid py-3 bg-dark bg-gradient text-white">
         <div class="container">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
-                  <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
-                  <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+                  <button class="nav-link active" id="nav-sendfail-tab" data-bs-toggle="tab" data-bs-target="#nav-sendfail" type="button" role="tab" aria-controls="nav-sendfail" aria-selected="true">สลากฯออกครบหมดแล้ว แต่ไม่เห็นบอทส่งอะไรมาเลย</button>
+                  <button class="nav-link" id="nav-nocommand-tab" data-bs-toggle="tab" data-bs-target="#nav-nocommand" type="button" role="tab" aria-controls="nav-nocommand" aria-selected="false">ไม่มีคำสั่งในดิสของฉัน</button>
+                  <button class="nav-link" id="nav-response-tab" data-bs-toggle="tab" data-bs-target="#nav-response" type="button" role="tab" aria-controls="nav-response" aria-selected="false">ใช้คำสั่งแล้วขึ้นข้อความสีแดง</button>
+                  <button class="nav-link" id="nav-longimgresponse-tab" data-bs-toggle="tab" data-bs-target="#nav-longimgresponse" type="button" role="tab" aria-controls="nav-longimgresponse" aria-selected="false">ข้อความสรุปผลสลากฯไม่ขึ้นรูปหรือรูปขาว</button>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+                <div class="tab-pane fade show active" id="nav-sendfail" role="tabpanel" aria-labelledby="nav-sendfail-tab">1</div>
+                <div class="tab-pane fade" id="nav-nocommand" role="tabpanel" aria-labelledby="nav-profile-tab">2</div>
+                <div class="tab-pane fade" id="nav-response" role="tabpanel" aria-labelledby="nav-response-tab">3</div>
+                <div class="tab-pane fade" id="nav-longimgresponse" role="tabpanel" aria-labelledby="nav-longimgresponse-tab">3</div>
             </div>
         </div>
     </div>
