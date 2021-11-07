@@ -168,15 +168,15 @@
     <div class="container-fluid py-3 bg-primary bg-gradient">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-4 text-center">
+                <div class="col-12 col-md-6 col-lg-4 lazy text-center" data-lazy-function="foo">
                     <h2>Thai Lottery API</h2><br>
                     <h3 id="tlapistatus"></h3>
                 </div>
-                <div class="col-12 col-md-6 col-lg-4 text-center">
+                <div class="col-12 col-md-6 col-lg-4 lazy text-center" data-lazy-function="foo">
                     <h2>TL Result Image API</h2><br>
                     <h3 id="tlimageapistatus"></h3>
                 </div>
-                <div class="col-12 col-md-12 col-lg-4 text-center">
+                <div class="col-12 col-md-12 col-lg-4 lazy text-center" data-lazy-function="foo">
                     <h2>glo.or.th</h2><br>
                     <h3 id="glowebsitestatus"></h3>
                 </div>
@@ -270,9 +270,9 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.5.0/dist/lazyload.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     <script>
     window.onload = (event) => {
@@ -322,6 +322,16 @@
 			  return 600 * i;
 		    },
         });
+    };
+
+    var lazyLoadInstance = new LazyLoad({
+        // Your custom settings go here
+    });
+
+    window.lazyFunctions = {
+        foo: function (element) {
+            alert('foo');
+        }
     };
 
     function fuckingload() {
