@@ -188,7 +188,7 @@
 
     <!-- container-fluid > container -->
     <div class="container-fluid py-3 bg-dark bg-gradient text-white">
-        <div class="container">
+        <div class="container px-3">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                   <button class="nav-link active" id="nav-sendfail-tab" data-bs-toggle="tab" data-bs-target="#nav-sendfail" type="button" role="tab" aria-controls="nav-sendfail" aria-selected="true">สลากฯออกครบหมดแล้ว แต่ไม่เห็นบอทส่งอะไรมาเลย</button>
@@ -198,7 +198,24 @@
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-sendfail" role="tabpanel" aria-labelledby="nav-sendfail-tab">1</div>
+                <div class="tab-pane fade show active" id="nav-sendfail" role="tabpanel" aria-labelledby="nav-sendfail-tab">
+                    ปัญหาเกิดจากบอทอาจจะไม่ทำงานในเวลานั้นเพราะ
+                    <ul class="list-group">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        ไฟฟ้าที่ตั้งเซิฟเวอร์ดับ
+                        <span class="badge bg-primary rounded-pill">14</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        เน็ตที่ตั้งเซิฟเวอร์ไม่สามารถใช้งานได้เซิฟเวอร์ไม่ทำงาน
+                        <span class="badge bg-primary rounded-pill">2</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        หรือเป็นที่ API ของ สลากฯ หรือ เป็นที่ตัวบอทโดยไม่มีสาเหตุ
+                        <span class="badge bg-primary rounded-pill">1</span>
+                      </li>
+                    </ul>
+                    สามารถเช็คสถานะของดิสบอทได้ที่นี้ เมื่อบอทกลับมาทำงานในเวลา 15:00 ถึง 18:00 ดิสจะทำการส่งสลากฯให้ทันที ถ้าหลังจากเวลา 18:00 แล้วไม่มีการส่งเกิดขึ้นก็จะไม่มีการส่งอะไรอีกในวันนั้น
+                </div>
                 <div class="tab-pane fade" id="nav-nocommand" role="tabpanel" aria-labelledby="nav-profile-tab">2</div>
                 <div class="tab-pane fade" id="nav-response" role="tabpanel" aria-labelledby="nav-response-tab">3</div>
                 <div class="tab-pane fade" id="nav-longimgresponse" role="tabpanel" aria-labelledby="nav-longimgresponse-tab">3</div>
