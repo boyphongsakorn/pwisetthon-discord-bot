@@ -263,8 +263,8 @@
     <div class="container-fluid py-3 bg-light bg-gradient">
         <div class="container">
             <p class="fs-2 text-center">สนันสนุนและช่วยออกค่าเซิฟเวอร์</p>
-            ซื้อกาแฟให้ผม (จ่ายรายเดือน มีแชทซับพอร์ตพิเศษในดิสคอร์ด)
-            ซื้อกา-แฟให้ผม (จ่ายรายเดือน มีแชทซับพอร์ตพิเศษในดิสคอร์ด)
+            ซื้อกาแฟให้ผม (จ่ายรายเดือน มีแชทซับพอร์ตพิเศษในดิสคอร์ด)<br>
+            ซื้อกา-แฟให้ผม (จ่ายรายเดือน มีแชทซับพอร์ตพิเศษในดิสคอร์ด)<br>
             <a type="button" class="btn btn-primary position-relative" href="https://discord.gg/j7xce5hxUf">
                 ดิสคอร์ดซับพอร์ต
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="usercount">
@@ -399,8 +399,7 @@
             method: 'GET',
             redirect: 'follow',
             headers: {
-                'Content-Type': 'application/json',
-                'Origin': 'https://status.teamquadb.in.th/api/services/11'
+                'Content-Type': 'application/json'
             }
         };
 
@@ -481,7 +480,7 @@
                 document.getElementById("glowebsitestatus").innerText = "ออฟไลน์";
             });
 
-        fetch("https://discordapp.com/api/guilds/844173039520317470/widget.json", requestOptions)
+        fetch("https://discordapp.com/api/guilds/844173039520317470/widget.json")
             .then(response => response.json())
             .then(result => {
                 document.getElementById("usercount").innerText = result["presence_count"];
