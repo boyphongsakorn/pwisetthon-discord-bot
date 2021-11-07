@@ -297,7 +297,7 @@
             translateX: -50,
             duration: 2000,
             direction: 'reverse',
-            easing: 'linear',
+            easing: 'spring(1, 80, 10, 0)',
             begin: function(anim) {
                 document.getElementsByClassName("row")[0].style.setProperty("display", "flex", "important")
                 document.getElementsByClassName("row")[1].style.setProperty("display", "flex", "important")
