@@ -325,15 +325,23 @@
     };
 
     function fuckingload() {
-        var lazyLoadInstance = new LazyLoad({
-            // Your custom settings go here
-        });
-
         window.lazyFunctions = {
             foo: function (element) {
                 alert('foo');
             }
         };
+
+        function executeLazyScript(element) {
+          //logElementEvent("🔑 ENTERED", element);
+          var lazyFunctionName = element.getAttribute("data-lazy-function");
+          var lazyFunction = lazyFunctions[lazyFunctionName];
+          if (!lazyFunction) return;
+          lazyFunction(element);
+        }
+
+        var lazyLoadInstance = new LazyLoad({
+            callback_enter: executeLazyScript
+        });
 
         var requestOptions = {
             method: 'GET',
