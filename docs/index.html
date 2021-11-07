@@ -263,6 +263,12 @@
     <div class="container-fluid py-3 bg-light bg-gradient">
         <div class="container">
             <p class="fs-2 text-center">สนันสนุนและช่วยออกค่าเซิฟเวอร์</p>
+            //ko-fi logo
+            <div class="d-flex justify-content-center">
+                <a href="https://ko-fi.com/boyphongsakorn" target="_blank">
+                    <img src="https://cdn.ko-fi.com/cdn/kofi5.png?v=2" alt="Buy Me a Coffee at ko-fi.com" border="0" width="200" height="auto" />
+                </a>
+            </div>
             ซื้อกาแฟให้ผม (จ่ายรายเดือน มีแชทซับพอร์ตพิเศษในดิสคอร์ด)<br>
             ซื้อกา-แฟให้ผม (จ่ายรายเดือน มีแชทซับพอร์ตพิเศษในดิสคอร์ด)<br>
             <a type="button" class="btn btn-primary position-relative" href="https://discord.gg/j7xce5hxUf">
@@ -483,7 +489,7 @@
         fetch("https://discordapp.com/api/guilds/844173039520317470/widget.json")
             .then(response => response.json())
             .then(result => {
-                document.getElementById("usercount").innerText = result["presence_count"];
+                document.getElementById("usercount").innerText = result["presence_count"]+" คน";
             })
             .catch(error => document.getElementById("usercount").innerText = "N/A");
     }
