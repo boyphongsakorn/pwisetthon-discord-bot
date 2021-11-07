@@ -99,9 +99,7 @@
                         </div>
                         <div class="col-6 col-lg-3 text-center">
                             <p class="fs-3"><i class="fas fa-spinner"></i> การตอบสนองของบอท</p><br>
-                            <p class="fs-3" id="respo">
-                                <span class="placeholder col-12"></span>
-                            </p>
+                            <p class="fs-3" id="respo"><span class="placeholder col-12"></span></p>
                         </div>
                         <div class="col-6 col-lg-3 text-center">
                             <p class="fs-2"><i class="fas fa-server"></i> เวอร์ชั่นบอท</p><br>
@@ -172,15 +170,15 @@
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4 text-center">
                     <h2>Thai Lottery API</h2><br>
-                    <h3 id="tlapistatus"></h3>
+                    <h3 id="tlapistatus"><span class="placeholder col-12"></span></h3>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 text-center">
                     <h2>TL Result Image API</h2><br>
-                    <h3 id="tlimageapistatus"></h3>
+                    <h3 id="tlimageapistatus"><span class="placeholder col-12"></span></h3>
                 </div>
                 <div class="col-12 col-md-12 col-lg-4 text-center">
                     <h2>glo.or.th</h2><br>
-                    <h3 id="glowebsitestatus"></h3>
+                    <h3 id="glowebsitestatus"><span class="placeholder col-12"></span></h3>
                 </div>
             </div>
         </div>
@@ -258,6 +256,22 @@
                     ถ้าคุณสังเกตแล้วว่ารูปไม่ขึ้นหลายครั้ง โปรดติดต่อที่ดิส <a href="https://discord.gg/j7xce5hxUf">Support</a> ของเรา
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- container-fluid > container -->
+    <div class="container-fluid py-3 bg-light bg-gradient">
+        <div class="container">
+            <p class="fs-2 text-center">สนันสนุนและช่วยออกค่าเซิฟเวอร์</p>
+            ซื้อกาแฟให้ผม (จ่ายรายเดือน มีแชทซับพอร์ตพิเศษในดิสคอร์ด)
+            ซื้อกา-แฟให้ผม (จ่ายรายเดือน มีแชทซับพอร์ตพิเศษในดิสคอร์ด)
+            <a type="button" class="btn btn-primary position-relative" href="https://discord.gg/j7xce5hxUf">
+                ดิสคอร์ดซับพอร์ต
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="usercount">
+                  
+                  <span class="visually-hidden">Discord Users</span>
+                </span>
+            </a>
         </div>
     </div>
 
@@ -466,6 +480,13 @@
             .catch(error => {
                 document.getElementById("glowebsitestatus").innerText = "ออฟไลน์";
             });
+
+        fetch("https://discordapp.com/api/guilds/844173039520317470/widget.json", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById("tlimageapistatus").innerText = result["presence_count"];
+            })
+            .catch(error => document.getElementById("tlimageapistatus").innerText = "N/A");
     }
     </script>
 </body>
