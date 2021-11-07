@@ -14,7 +14,8 @@
     <link rel="icon" href="https://i.ibb.co/4mvNWrt/favlogo.png" type="image/png">
 </head>
 
-<body style="font-family: 'Mitr', sans-serif;">
+<body style="font-family: 'Mitr', sans-serif;overflow: hidden">
+    <div style="z-index: 1000;width:100%;height:100%;background-color: white;position: absolute;font-size: 100px;text-align: center;background-image: url(https://wpamelia.com/wp-content/uploads/2018/11/ezgif-2-6d0b072c3d3f.gif);background-position: center;background-repeat: no-repeat;" id="loadingdiv"><!--img src="https://upload.wikimedia.org/wikipedia/commons/5/54/Ajux_loader.gif" style="display: block;margin: 0 auto;"--></div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="#">
@@ -176,8 +177,7 @@
         </div>
     </div>
 
-    //footer
-    <footer class="bg-dark text-white">
+    <footer class="bg-dark bg-gradient text-white">
         <div class="container">
             <div class="row">
                 <div class="col text-center">
@@ -187,12 +187,45 @@
                 </div>
             </div>
         </div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
 
     <script>
+    window.onload = (event) => {
+        //alert('test');
+        document.body.style.overflow = 'auto';
+        anime({
+            targets: '#loadingdiv',
+            opacity: 0,
+            duration: 1500,
+            easing: 'linear',
+            direction: 'alternate',
+            loop: false,
+            complete: function(anim) {
+                document.getElementById('loadingdiv').style.display = 'none';
+                fuckingload()
+            }
+        })
+        //animejs fadein
+        anime({
+            targets: '.col-6',
+            opacity: 1,
+            duration: 1500,
+            easing: 'linear',
+            direction: 'alternate',
+            loop: false
+            /*complete: function(anim) {
+                fuckingload()
+            }*/
+        })
+
+        //document.getElementById('loadingdiv').style.display = 'none';
+    };
+
+    function fuckingload() {
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
@@ -297,6 +330,7 @@
             .catch(error => {
                 document.getElementById("glowebsitestatus").innerText = "ออฟไลน์";
             });
+    }
     </script>
 </body>
 
