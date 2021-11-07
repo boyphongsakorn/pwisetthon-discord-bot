@@ -484,9 +484,9 @@
         fetch("https://discordapp.com/api/guilds/844173039520317470/widget.json", requestOptions)
             .then(response => response.json())
             .then(result => {
-                document.getElementById("tlimageapistatus").innerText = result["presence_count"];
+                document.getElementById("usercount").innerText = result["presence_count"];
             })
-            .catch(error => document.getElementById("tlimageapistatus").innerText = "N/A");
+            .catch(error => document.getElementById("usercount").innerText = "N/A");
     }
     </script>
 </body>
