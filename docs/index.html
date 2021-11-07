@@ -308,7 +308,7 @@
         });
 
         anime({
-            targets: '.col-12',
+            targets: '.col-lg-6',
             opacity: 0,
             translateY: [0, 100],
             duration: 2000,
@@ -328,6 +328,21 @@
         window.lazyFunctions = {
             foo: function (element) {
                 alert('foo');
+                anime({
+                    targets: '.col-lg-4',
+                    opacity: 0,
+                    translateY: [0, 100],
+                    duration: 2000,
+                    direction: 'reverse',
+                    easing: 'easeInOutSine',
+                    begin: function(anim) {
+                        document.getElementsByClassName("row")[0].style.setProperty("display", "flex", "important")
+                        document.getElementsByClassName("row")[1].style.setProperty("display", "flex", "important")
+                    },
+                    delay: function(el, i) {
+                    return 600 * i;
+                    },
+                });
             }
         };
 
