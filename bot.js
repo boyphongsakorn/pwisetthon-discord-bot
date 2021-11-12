@@ -146,7 +146,21 @@ client.on("guildCreate", guild => {
         });
     }
 
-    DSclient
+    const guild = client.guilds.cache.get(guild.id);
+    let commands
+
+    if (guild){
+        commands = guild.commands
+    }else{
+        commands = client.applications?.commands
+    }
+
+    command?.create({
+        name: 'fthlotto',
+        description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก"
+    },guild.id)
+
+    /*DSclient
         .createCommand({
             name: "fthlotto",
             description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก",
@@ -184,7 +198,7 @@ client.on("guildCreate", guild => {
             ]
         }, guild.id)
         .then(console.log)
-        .catch(console.error);
+        .catch(console.error);*/
 })
 
 let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
