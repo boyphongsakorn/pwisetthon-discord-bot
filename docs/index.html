@@ -450,7 +450,7 @@
                         var minute = date.getMinutes();
                         anime({
                             targets: document.getElementById("botstatus"),
-                            innerText: "ปกติ (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"popover\" title=\"ก่อนหน้านี้ไม่สามารถติดต่อได้\" data-bs-content=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+hour+":"+minute+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
+                            innerHTML: "ปกติ (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"popover\" title=\"ก่อนหน้านี้ไม่สามารถติดต่อได้\" data-bs-content=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+hour+":"+minute+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
                             round: 1,
                             easing: 'easeInOutExpo'
                         });
