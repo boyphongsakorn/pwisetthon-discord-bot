@@ -458,6 +458,10 @@
                     }else{
                         
                     }
+                    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                        return new bootstrap.Tooltip(tooltipTriggerEl)
+                    })
                     anime({
                         targets: document.getElementById("respo"),
                         innerText: [parseInt(result["latency"])] + " μs",
