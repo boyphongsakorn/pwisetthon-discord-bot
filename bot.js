@@ -173,12 +173,12 @@ client.on("guildCreate", guild => {
     commands?.create({
         name: 'srchlot',
         description: "ตรวจสลากฯ ล่าสุดด้วยเลข",
-        options?: {
+        options: [
             type: require('discord.js').Constants.ClientApplicationAssetTypes.NUMBER,
             name: 'number',
             description: 'ตัวเลขที่ต้องการตรวจสลากฯ',
             require: true
-        }
+        ]
     },guild.id)
 
     /*DSclient
