@@ -535,7 +535,7 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
 
             var optionss = {
                 'method': 'GET',
-                'url': 'http://192.168.31.210:5000/checklottery?by='+body[body.length-1]+'&search='+interaction.options.getString('input'),
+                'url': 'http://192.168.31.210:5000/checklottery?by='+body[body.length-1]+'&search='+interaction.options.getString('number'),
                 'json': false,
                 'headers': {
                 }
