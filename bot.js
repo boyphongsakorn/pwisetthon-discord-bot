@@ -179,7 +179,6 @@ client.on("guildCreate", guild => {
                 name: "ตัวเลข",
                 description: "เลขที่ต้องการจะตรวจในงวดล่าสุด",
                 type: 3,// Type for this option. for a list of types see https://discord.com/developers/docs/interactions/slash-commands#applicationcommandoptiontype
-                default?: true,
                 required?: true,
                 }
             ]
