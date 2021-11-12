@@ -146,11 +146,11 @@ client.on("guildCreate", guild => {
         });
     }
 
-    const guild = client.guilds.cache.get(guild.id);
+    const thatguild = client.guilds.cache.get(guild.id);
     let commands
 
-    if (guild){
-        commands = guild.commands
+    if (thatguild){
+        commands = thatguild.commands
     }else{
         commands = client.applications?.commands
     }
