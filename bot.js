@@ -432,7 +432,7 @@ scheduledMessage.start()
 client.on('messageCreate', message => {
 });
 
-client.ws.on('INTERACTION_CREATE', async (interaction) => {
+/*client.ws.on('INTERACTION_CREATE', async (interaction) => {
     const command = interaction.data.name.toLowerCase();
 
     if (command === 'fthlotto') {
@@ -490,7 +490,7 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
             }
         };*/
 
-        await request(options, function (error, response, body) {
+        /*await request(options, function (error, response, body) {
             if (error) throw new Error(error);
 
             try {
@@ -570,7 +570,64 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
 
         });
     }
-})
+})*/
+
+client.on('interactionCreate', async interaction => {
+	if (!interaction.isCommand()) return;
+
+	if (interaction.commandName === 'srchlot') {
+		console.log(interaction.options.getString('number'));
+        //get this year in buddhist year
+        const year = new Date().getFullYear() + 543;
+
+        var options = {
+            'method': 'GET',
+            'url': 'http://192.168.31.210:5000/gdpy?year='+year,
+            'json': true,
+            'headers': {
+            }
+        };
+
+        await request(options, async function (error, response, body) {
+            if (error) throw new Error(error);
+
+            var optionss = {
+                'method': 'GET',
+                'url': 'http://192.168.31.210:5000/checklottery?by='+body[body.length-1]+'&search='+interaction.options.getString('number'),
+                'json': false,
+                'headers': {
+                }
+            };
+
+            await request(optionss, async function (errors, responses, bodys) {
+                if (errors) throw new Error(errors);
+
+                if(bodys.search("111111") != -1){
+                    reply(interaction, 'คุณถูกรางวัลที่หนึ่ง')
+                }else if(bodys.search("222222") != -1){
+                    reply(interaction, 'คุณถูกรางวัลที่สอง')
+                }else if(bodys.search("333333") != -1){
+                    reply(interaction, 'คุณถูกรางวัลที่สาม')
+                }else if(bodys.search("444444") != -1){
+                    reply(interaction, 'คุณถูกรางวัลที่สี่')
+                }else if(bodys.search("555555") != -1){
+                    reply(interaction, 'คุณถูกรางวัลที่ห้า')
+                }else if(bodys.search("333000") != -1){
+                    reply(interaction, 'คุณถูกรางวัลเลขหน้าสามตัว')
+                }else if(bodys.search("000333") != -1){
+                    reply(interaction, 'คุณถูกรางวัลเลขท้ายสามตัว')
+                }else if(bodys.search("000022") != -1){
+                    reply(interaction, 'คุณถูกรางวัลเลขท้ายสองตัว')
+                }else if(bodys.search("111112") != -1){
+                    reply(interaction, 'คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
+                }else{
+                    reply(interaction, 'คุณไม่ถูกรางวัล')
+                }
+            });
+
+        });
+	}
+});
 
 const reply = (interaction, response) => {
     client.api.interactions(interaction.id, interaction.token).callback.post({
