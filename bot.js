@@ -160,6 +160,32 @@ client.on("guildCreate", guild => {
         description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก"
     },guild.id)
 
+    commands?.create({
+        name: 'cthlotto',
+        description: "ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้"
+    },guild.id)
+
+    commands?.create({
+        name: 'lastlotto',
+        description: "ดูสลากกินแบ่งรัฐบาลล่าสุด"
+    },guild.id)
+
+    commands?.create({
+        name: 'srchlot',
+        description: "ตรวจสลากฯ ล่าสุดด้วยเลข",
+        options: {
+            args: [
+                {
+                    id: 'number',
+                    type: 'integer',
+                    prompt: {
+                        start: 'กรุณากรอกหมายเลขที่ต้องการตรวจสลากฯ'
+                    }
+                }
+            ]
+        }
+    },guild.id)
+
     /*DSclient
         .createCommand({
             name: "fthlotto",
