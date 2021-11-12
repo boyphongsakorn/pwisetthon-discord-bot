@@ -177,7 +177,7 @@ client.on("guildCreate", guild => {
             type: 3,
             name: 'number',
             description: 'ตัวเลขที่ต้องการตรวจสลากฯ',
-            require: true
+            required: true
         }]
     },guild.id)
 
