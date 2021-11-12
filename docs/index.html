@@ -441,8 +441,6 @@
             .then(result => {
                 if (result["online"]) {
                     if(result["online_24_hours"] < 100){
-
-                    }else{
                         //convert from 2021-11-12T17:36:19.167819114Z to day month year hour minute
                         var date = new Date(result["last_success"]);
                         var day = date.getDate();
@@ -456,6 +454,8 @@
                             round: 1,
                             easing: 'easeInOutExpo'
                         });
+                    }else{
+                        
                     }
                     anime({
                         targets: document.getElementById("respo"),
