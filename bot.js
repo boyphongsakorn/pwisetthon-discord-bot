@@ -155,7 +155,7 @@ client.on("guildCreate", guild => {
         commands = client.applications?.commands
     }
 
-    command?.create({
+    commands?.create({
         name: 'fthlotto',
         description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก"
     },guild.id)
