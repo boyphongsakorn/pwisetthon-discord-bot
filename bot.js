@@ -627,7 +627,7 @@ client.on('interactionCreate', async interaction => {
                     .setTitle('ผลสลากกินแบ่งรัฐบาล')
                     .setURL('https://www.glo.or.th/')
                     .setDescription('งวดวันที่ ' + parseInt(body.info.date.substring(0, 2)) + ' ' + convertmonthtotext(body.info.date.substring(2, 4)) + ' ' + body.info.date.substring(4, 8))
-                    .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
+                    .setThumbnail('https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/docs/glologo.png')
                     .addFields(
                         { name: 'รางวัลที่หนึ่ง', value: body.win },
                         { name: 'เลขหน้าสามตัว', value: body.threefirst.replace(",", " | "), inline: true },
@@ -636,7 +636,7 @@ client.on('interactionCreate', async interaction => {
                     )
                     .setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                     .setTimestamp()
-                    .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+                    .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
                 replyembedtype(interaction, msg)
                 //interaction.reply({ embeds: [msg] })
