@@ -408,7 +408,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
 scheduledMessage.start()
 // You could also make a command to pause and resume the job
 
-client.on('message', message => {
+client.on('messageCreate', message => {
 });
 
 client.ws.on('INTERACTION_CREATE', async (interaction) => {
