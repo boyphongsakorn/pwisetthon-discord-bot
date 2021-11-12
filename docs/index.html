@@ -541,7 +541,9 @@
             .then(result => {
                 document.getElementById("usercount").innerText = result["presence_count"]+" คน";
             })
-            .catch(error => document.getElementById("usercount").innerText = "N/A");
+            .catch(error => {
+                document.getElementById("usercount").innerText = "N/A";
+            });
     }
     </script>
 </body>
