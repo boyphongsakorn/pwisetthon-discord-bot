@@ -1,4 +1,4 @@
-const Discord,{ Intents } = require('discord.js');
+const {MessageEmbed, Client, Intents } = require('discord.js');
 //const DS = require("discord-slash-commands-client");
 const cron = require("cron");
 const fetch = require('node-fetch');
@@ -10,7 +10,7 @@ var http = require('http');
 require('dotenv').config();
 
 //const client = new Discord.Client({fetchAllMembers: true}); only for get all server and member
-const client = new Discord.Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 /*const DSclient = new DS.Client(
     process.env.BOT_TOKEN,
@@ -622,7 +622,7 @@ client.on('interactionCreate', async interaction => {
             if (error) throw new Error(error);
 
             try {
-                const msg = new Discord.MessageEmbed()
+                const msg = new MessageEmbed()
                     .setColor('#0099ff')
                     .setTitle('ผลสลากกินแบ่งรัฐบาล')
                     .setURL('https://www.glo.or.th/')
@@ -638,8 +638,8 @@ client.on('interactionCreate', async interaction => {
                     .setTimestamp()
                     .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
-                //replyembedtype(interaction, msg)
-                interaction.reply({ embeds: [msg] })
+                replyembedtype(interaction, msg)
+                //interaction.reply({ embeds: [msg] })
             } catch (error) {
                 console.log(error)
             }
