@@ -443,11 +443,13 @@
                     if(result["online_24_hours"] < 100){
                         //convert from 2021-11-12T17:36:19.167819114Z to day month year hour minute
                         var date = new Date(result["last_success"]);
-                        var day = date.getDate();
+                        var day = date.getDate()-1;
                         var month = date.getMonth() + 1;
                         var year = date.getFullYear();
-                        var hour = date.getHours();
-                        var minute = date.getMinutes();
+                        //var hour = date.getHours();
+                        //var minute = date.getMinutes();
+                        var hour = result["last_success"].match(/\d\d:\d\d/);
+                        var minute = "";
                         anime({
                             targets: document.getElementById("botstatus"),
                             //innerHTML: "ปกติ (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"popover\" title=\"ก่อนหน้านี้ไม่สามารถติดต่อได้\" data-bs-content=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+hour+":"+minute+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
