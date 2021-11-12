@@ -65,7 +65,7 @@ function convertmonthtotext(month) {
 // end functions
 
 client.once('ready', () => {
-    client.user.setPresence({ activities: { name: 'discordbot.pwisetthon.com',type: 'WATCHING' }, status: 'online' });
+    client.user.setPresence({ activities: { name: 'discordbot.pwisetthon.com' }, status: 'online' });
 
     console.log('I am ready!');
 
