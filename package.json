@@ -16,7 +16,7 @@
     "discord-slash-commands-client": "^1.2.2",
     "discord.js": "^12.5.3",
     "dotenv": "^9.0.2",
-    "node-fetch": "^2.6.5",
+    "node-fetch": "^2.6.6",
     "request": "^2.88.2",
     "url-exist-sync": "^1.0.2"
   }
