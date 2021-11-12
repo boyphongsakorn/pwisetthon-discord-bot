@@ -451,17 +451,24 @@
                         anime({
                             targets: document.getElementById("botstatus"),
                             //innerHTML: "ปกติ (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"popover\" title=\"ก่อนหน้านี้ไม่สามารถติดต่อได้\" data-bs-content=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+hour+":"+minute+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
-                            innerHTML: "ปกติ (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+hour+":"+minute+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
+                            innerHTML: "มีปัญหาเล็กน้อย (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+hour+":"+minute+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
+                            round: 1,
+                            easing: 'easeInOutExpo',
+                            complete: function() {
+                                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                                    return new bootstrap.Tooltip(tooltipTriggerEl)
+                                })
+                            }
+                        });
+                    }else{
+                        anime({
+                            targets: document.getElementById("botstatus"),
+                            innerText: "ปกติ (" + [parseInt(result["online_24_hours"])] + "%)",
                             round: 1,
                             easing: 'easeInOutExpo'
                         });
-                    }else{
-                        
                     }
-                    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-                    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                        return new bootstrap.Tooltip(tooltipTriggerEl)
-                    })
                     anime({
                         targets: document.getElementById("respo"),
                         innerText: [parseInt(result["latency"])] + " μs",
