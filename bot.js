@@ -519,6 +519,7 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
     }
 
     if (command === 'srchlot') {
+        console.log(interaction.options.getString('number'));
         //get this year in buddhist year
         const year = new Date().getFullYear() + 543;
 
