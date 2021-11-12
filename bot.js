@@ -641,7 +641,7 @@ client.on('interactionCreate', async interaction => {
                 //replyembedtype(interaction, msg)
                 interaction.reply({ embeds: [msg] })
             } catch (error) {
-
+                console.log(error)
             }
 
         });
