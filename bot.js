@@ -30,7 +30,7 @@ http.createServer(function (req, res) {
         res.writeHead(200, headers);
         res.write(client.guilds.cache.size.toString()); //write a response to the client
         res.end(); //end the response
-    }else{
+    } else {
         res.writeHead(200, headers);
         res.write('ok'); //write a response to the client
         res.end(); //end the response
@@ -112,7 +112,7 @@ client.once('ready', () => {
             })
         }
     });*/
-    
+
 });
 
 client.on("guildCreate", guild => {
@@ -166,6 +166,23 @@ client.on("guildCreate", guild => {
         .createCommand({
             name: "lastlotto",
             description: "ดูสลากกินแบ่งรัฐบาลล่าสุด",
+        }, guild.id)
+        .then(console.log)
+        .catch(console.error);
+
+    DSclient
+        .createCommand({
+            name: "srchlot",
+            description: "ตรวจสลากฯ ล่าสุดด้วยเลข",
+            options?: [
+                {
+                name: "ตัวเลข",
+                description: "เลขที่ต้องการจะตรวจในงวดล่าสุด",
+                type: 3,// Type for this option. for a list of types see https://discord.com/developers/docs/interactions/slash-commands#applicationcommandoptiontype
+                default?: true,
+                required?: true,
+                }
+            ]
         }, guild.id)
         .then(console.log)
         .catch(console.error);
@@ -267,7 +284,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                     try {
                         const stats = fs.statSync('lastout.txt');
                         //const expiry = new Date().getTime()
-                        
+
                         lasttime = stats.mtime
 
                         // print file last modified date
@@ -313,13 +330,13 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                     { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
                                     { name: 'เลขท้ายสองตัว', value: json[3][1] },
                                 )
-                                .setImage('https://img.gs/fhcphvsghs/full,quality=low/' +imgurl + date +  month + year)
+                                .setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
                                 .setTimestamp()
                                 .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
-                            console.log(imgurl + date +  month + year)
-                            console.log(imgurl + '' + date + '' +  month + '' + year)
-                            console.log('https://img.gs/fhcphvsghs/full,quality=low/' +imgurl + date +  month + year)
+                            console.log(imgurl + date + month + year)
+                            console.log(imgurl + '' + date + '' + month + '' + year)
+                            console.log('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
 
                             fetch(process.env.URL + "/discordbot/chlist.txt", settings)
                                 .then(res => res.json())
@@ -346,15 +363,15 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                         }*/
                                         try {
                                             client.channels.cache.get(json[i]).send(msg)
-                                            .then((log) => {
-                                                console.log(log);
-                                            })
-                                            .catch((error) => {
-                                                //console.log(error);
-                                                /*client.users.fetch('133439202556641280').then(dm => {
-                                                    dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
-                                                })*/
-                                            });
+                                                .then((log) => {
+                                                    console.log(log);
+                                                })
+                                                .catch((error) => {
+                                                    //console.log(error);
+                                                    /*client.users.fetch('133439202556641280').then(dm => {
+                                                        dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
+                                                    })*/
+                                                });
                                         } catch (error) {
                                             console.log('ok')
                                             client.users.fetch('133439202556641280').then(dm => {
