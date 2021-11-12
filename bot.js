@@ -574,6 +574,89 @@ client.on('messageCreate', message => {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
+    
+    if (interaction.commandName === 'fthlotto') {
+        var options = {
+            'method': 'GET',
+            'url': process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channel_id,
+            'headers': {
+            }
+        };
+
+        request(options, function (error, response) {
+            if (error) throw new Error(error);
+            console.log(response.body);
+            if (response.body == "debug") {
+                reply(interaction, 'ห้องนี้ติดตามสลากฯอยู่แล้ว')
+            } else {
+                reply(interaction, 'ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+            }
+        });
+    }
+
+    if(interaction.commandName === 'cthlotto'){
+        var options = {
+            'method': 'GET',
+            'url': process.env.URL + '/discordbot/delchannels.php?chid=' + interaction.channel_id,
+            'headers': {
+            }
+        };
+
+        request(options, function (error, response) {
+            if (error) throw new Error(error);
+            console.log(response.body);
+            reply(interaction, 'ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+        });
+    }
+
+    if(interaction.commandName === 'lastlotto'){
+        var options = {
+            'method': 'GET',
+            'url': 'http://192.168.31.210:5000/lastlot?info=true',
+            'json': true,
+            'headers': {
+            }
+        };
+
+        /*var options = {
+            method: 'GET',
+            url: 'https://thai-lottery1.p.rapidapi.com/lastlot',
+            qs: { info: 'true' },
+            json: true,
+            headers: {
+                'x-rapidapi-key': 'c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137',
+                'x-rapidapi-host': 'thai-lottery1.p.rapidapi.com',
+                useQueryString: true
+            }
+        };*/
+
+        await request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+
+            try {
+                const msg = new Discord.MessageEmbed()
+                    .setColor('#0099ff')
+                    .setTitle('ผลสลากกินแบ่งรัฐบาล')
+                    .setURL('https://www.glo.or.th/')
+                    .setDescription('งวดวันที่ ' + parseInt(body.info.date.substring(0, 2)) + ' ' + convertmonthtotext(body.info.date.substring(2, 4)) + ' ' + body.info.date.substring(4, 8))
+                    .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
+                    .addFields(
+                        { name: 'รางวัลที่หนึ่ง', value: body.win },
+                        { name: 'เลขหน้าสามตัว', value: body.threefirst.replace(",", " | "), inline: true },
+                        { name: 'เลขท้ายสามตัว', value: body.threeend.replace(",", " | "), inline: true },
+                        { name: 'เลขท้ายสองตัว', value: body.twoend },
+                    )
+                    .setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+                    .setTimestamp()
+                    .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+
+                replyembedtype(interaction, msg)
+            } catch (error) {
+
+            }
+
+        });
+    }
 
 	if (interaction.commandName === 'srchlot') {
 		console.log(interaction.options.getString('number'));
