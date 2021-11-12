@@ -618,18 +618,6 @@ client.on('interactionCreate', async interaction => {
             }
         };
 
-        /*var options = {
-            method: 'GET',
-            url: 'https://thai-lottery1.p.rapidapi.com/lastlot',
-            qs: { info: 'true' },
-            json: true,
-            headers: {
-                'x-rapidapi-key': 'c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137',
-                'x-rapidapi-host': 'thai-lottery1.p.rapidapi.com',
-                useQueryString: true
-            }
-        };*/
-
         await request(options, function (error, response, body) {
             if (error) throw new Error(error);
 
@@ -650,7 +638,8 @@ client.on('interactionCreate', async interaction => {
                     .setTimestamp()
                     .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
-                replyembedtype(interaction, msg)
+                //replyembedtype(interaction, msg)
+                interaction.reply({ embeds: [msg] })
             } catch (error) {
 
             }
