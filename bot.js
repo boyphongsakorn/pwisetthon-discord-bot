@@ -1,4 +1,4 @@
-const Discord,{Intents} = require('discord.js');
+const { Client, Intents } = require('discord.js');
 const DS = require("discord-slash-commands-client");
 const cron = require("cron");
 const fetch = require('node-fetch');
@@ -10,12 +10,12 @@ var http = require('http');
 require('dotenv').config();
 
 //const client = new Discord.Client({fetchAllMembers: true}); only for get all server and member
-const client = new Discord.Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
-const DSclient = new DS.Client(
+/*const DSclient = new DS.Client(
     process.env.BOT_TOKEN,
     "691610557156950030"
-);
+);*/
 
 //create a server object:
 http.createServer(function (req, res) {
