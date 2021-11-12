@@ -326,11 +326,6 @@
 
     <script>
     window.onload = (event) => {
-        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-            return new bootstrap.Popover(popoverTriggerEl)
-        })
-
         //alert('test');
         document.body.style.overflow = 'auto';
         anime({
@@ -455,7 +450,8 @@
                         var minute = date.getMinutes();
                         anime({
                             targets: document.getElementById("botstatus"),
-                            innerHTML: "ปกติ (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"popover\" title=\"ก่อนหน้านี้ไม่สามารถติดต่อได้\" data-bs-content=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+hour+":"+minute+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
+                            //innerHTML: "ปกติ (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"popover\" title=\"ก่อนหน้านี้ไม่สามารถติดต่อได้\" data-bs-content=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+hour+":"+minute+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
+                            innerHTML: "ปกติ (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+hour+":"+minute+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
                             round: 1,
                             easing: 'easeInOutExpo'
                         });
