@@ -330,6 +330,12 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                         //}
                     } catch (error) {
                         //console.log(error);
+                        fs.writeFile('lastout.txt', '0', function (err) {
+                            if (err) {
+                                throw err
+                            };
+                            console.log('Saved!');
+                        });
                     }
 
                     if (fileContents) {
