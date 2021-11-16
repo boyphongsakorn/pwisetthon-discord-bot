@@ -263,6 +263,31 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                         console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออก');
 
                         console.log('--------------------------------');
+                        
+                        var lasttime = null
+
+                        try {
+                            const stats = fs.statSync('lastout.txt');
+                            //const expiry = new Date().getTime()
+
+                            lasttime = stats.mtime
+
+                            // print file last modified date
+                            //console.log(`File Data Last Modified: ${stats.mtime}`);
+                            //console.log(`File Status Last Modified: ${stats.ctime}`);
+                            //console.log(Date.getTime() <stats.mtime.getTime())
+                            //if(stats.mtime.getTime() < expiry){
+                            //    console.log('yes')
+                            //}
+                        } catch (error) {
+                            //console.log(error);
+                            fs.writeFile('lastout.txt', '0', function (err) {
+                                if (err) {
+                                    throw err
+                                };
+                                console.log('Saved!');
+                            });
+                        }
                     }
 
                     var fileContents = null;
