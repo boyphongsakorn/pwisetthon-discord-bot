@@ -412,7 +412,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                 
                             const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year+'.png');
 
-                            const msg = new Discord.MessageEmbed()
+                            const msg = new MessageEmbed()
                                 .setColor('#0099ff')
                                 .setTitle('ผลสลากกินแบ่งรัฐบาล')
                                 .setURL('https://www.glo.or.th/')
