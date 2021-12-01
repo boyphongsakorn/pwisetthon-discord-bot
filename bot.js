@@ -1,4 +1,4 @@
-const {MessageEmbed, Client, Intents } = require('discord.js');
+const {MessageAttachment,MessageEmbed, Client, Intents } = require('discord.js');
 //const DS = require("discord-slash-commands-client");
 const cron = require("cron");
 const fetch = require('node-fetch');
@@ -687,6 +687,8 @@ client.on('interactionCreate', async interaction => {
                 .then(res =>
                     res.body.pipe(fs.createWriteStream('./lottery.png'))
                 )
+
+                const file = new MessageAttachment('./lottery.png');
 
                 const msg = new MessageEmbed()
                     .setColor('#0099ff')
