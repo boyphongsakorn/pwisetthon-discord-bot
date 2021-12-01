@@ -707,8 +707,8 @@ client.on('interactionCreate', async interaction => {
                     .setTimestamp()
                     .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
-                replyembedtype(interaction, msg)
-                //interaction.reply({ embeds: [msg] })
+                //replyembedtype(interaction, msg)
+                interaction.reply({ embeds: [msg],files: [file] })
             } catch (error) {
                 console.log(error)
             }
