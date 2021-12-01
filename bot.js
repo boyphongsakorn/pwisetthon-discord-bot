@@ -397,10 +397,18 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                         });
                                 });*/
 
-                            fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)
-                            .then(res =>
-                                res.body.pipe(fs.createWriteStream('./lottery_' + date + '' + month + '' + year+'.png'))
-                            )
+                            fs.access(path, fs.F_OK, (err) => {
+                                if (err) {
+                                    //console.error(err)
+                                    //return
+                                    fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)
+                                    .then(res =>
+                                        res.body.pipe(fs.createWriteStream('./lottery_' + date + '' + month + '' + year+'.png'))
+                                    )
+                                }
+                                  
+                                //file exists
+                            })
                 
                             const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year+'.png');
 
@@ -417,7 +425,8 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                     { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
                                     { name: 'เลขท้ายสองตัว', value: json[3][1] },
                                 )
-                                .setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
+                                //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
+                                .setImage('attachment://lottery_' + date + '' + month + '' + year+'.png')
                                 .setTimestamp()
                                 .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
@@ -690,10 +699,14 @@ client.on('interactionCreate', async interaction => {
                         });
                 });*/
 
-                fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
-                .then(res =>
-                    res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
-                )
+                fs.access(path, fs.F_OK, (err) => {
+                    if (err) {
+                        fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+                        .then(res =>
+                            res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
+                        )
+                    }
+                });
 
                 const file = new MessageAttachment('./lottery_'+body.info.date+'.png');
 
