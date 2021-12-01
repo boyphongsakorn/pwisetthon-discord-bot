@@ -383,7 +383,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                             }
 
                             // use node-fetch to download image from imgurl variable
-                            fetch(imgurl + date + '' + month + '' + year)
+                            /*fetch(imgurl + date + '' + month + '' + year)
                                 .then(res => res.buffer())
                                 .then(buf => {
                                     // use sharp to convert image to png
@@ -395,7 +395,14 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                             }
                                             console.log('Image converted to png');
                                         });
-                                });
+                                });*/
+
+                            fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)
+                            .then(res =>
+                                res.body.pipe(fs.createWriteStream('./lottery_' + date + '' + month + '' + year+'.png'))
+                            )
+                
+                            const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year+'.png');
 
                             const msg = new Discord.MessageEmbed()
                                 .setColor('#0099ff')
@@ -442,7 +449,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                             
                                         }*/
                                         try {
-                                            client.channels.cache.get(json[i]).send(msg)
+                                            client.channels.cache.get(json[i]).send({ embeds: [msg], files: [file] })
                                                 .then((log) => {
                                                     console.log(log);
                                                 })
@@ -685,10 +692,10 @@ client.on('interactionCreate', async interaction => {
 
                 fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                 .then(res =>
-                    res.body.pipe(fs.createWriteStream('./lottery.png'))
+                    res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
                 )
 
-                const file = new MessageAttachment('./lottery.png');
+                const file = new MessageAttachment('./lottery_'+body.info.date+'.png');
 
                 const msg = new MessageEmbed()
                     .setColor('#0099ff')
@@ -703,7 +710,7 @@ client.on('interactionCreate', async interaction => {
                         { name: 'เลขท้ายสองตัว', value: body.twoend },
                     )
                     //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
-                    .setImage('attachment://lottery.png')
+                    .setImage('attachment://lottery_'+body.info.date+'.png')
                     .setTimestamp()
                     .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
