@@ -397,7 +397,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                         });
                                 });*/
 
-                            fs.access(path, fs.F_OK, (err) => {
+                            fs.access('lottery_' + date + '' + month + '' + year+'.png', fs.F_OK, (err) => {
                                 if (err) {
                                     //console.error(err)
                                     //return
@@ -699,7 +699,7 @@ client.on('interactionCreate', async interaction => {
                         });
                 });*/
 
-                fs.access(path, fs.F_OK, (err) => {
+                fs.access('lottery_'+body.info.date+'.png', fs.F_OK, (err) => {
                     if (err) {
                         fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                         .then(res =>
