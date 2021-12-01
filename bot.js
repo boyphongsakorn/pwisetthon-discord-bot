@@ -669,7 +669,7 @@ client.on('interactionCreate', async interaction => {
 
             try {
                 // use node-fetch to download image from imgurl variable
-                fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+                /*fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                 .then(res => res.buffer())
                 .then(buf => {
                     // use sharp to convert image to png
@@ -681,7 +681,12 @@ client.on('interactionCreate', async interaction => {
                             }
                             console.log('Image converted to png');
                         });
-                });
+                });*/
+
+                fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+                .then(res =>
+                    res.body.pipe(fs.createWriteStream('./lottery.png'))
+                )
 
                 const msg = new MessageEmbed()
                     .setColor('#0099ff')
