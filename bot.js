@@ -669,7 +669,7 @@ client.on('interactionCreate', async interaction => {
 
             try {
                 // use node-fetch to download image from imgurl variable
-                fetch(imgurl + date + '' + month + '' + year)
+                fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                 .then(res => res.buffer())
                 .then(buf => {
                     // use sharp to convert image to png
