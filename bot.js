@@ -437,7 +437,6 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                             fetch(process.env.URL + "/discordbot/chlist.txt", settings)
                                 .then(res => res.json())
                                 .then((json) => {
-
                                     for (i in json) {
                                         /*let wow = client.channels.cache.get(json[i])
                                         if(wow){
