@@ -7,7 +7,7 @@ module.exports = {
     out_file : "./out.log",
     ignore_watch: ["node_modules","err.log",".env","Procfile","out.log","./check.txt","lastlot.txt"],
     autorestart: true,
-    cron_restart: "30 14 * * *"
+    //cron_restart: "30 14 * * *"
   }],
   deploy : {
     production : {
