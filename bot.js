@@ -123,7 +123,7 @@ client.on("guildCreate", guild => {
         dm.send('ดิส ' + guild.name + '(' + guild.id + ') ได้เชิญ บอท PWisetthon.com เข้าเรียบร้อยแล้ว')
     });
 
-    if (guild.systemChannelID != null) {
+    if (guild.systemChannelID != null && guild.systemChannelID != undefined) {
         console.log("System Channel: " + guild.systemChannelID);
 
         var options = {
@@ -649,7 +649,9 @@ client.on('interactionCreate', async interaction => {
             console.log(response.body);
             if (response.body == "debug") {
                 reply(interaction, 'ห้องนี้ติดตามสลากฯอยู่แล้ว')
-            } else {
+            } else if(response.body == "error"){
+                reply(interaction, 'ไม่สามารถติดตามสลากฯได้')
+            }else{
                 reply(interaction, 'ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
             }
         });
