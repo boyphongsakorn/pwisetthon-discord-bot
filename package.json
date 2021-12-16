@@ -16,6 +16,7 @@
     "discord-slash-commands-client": "^1.2.2",
     "discord.js": "^13.3.1",
     "dotenv": "^9.0.2",
+    "get-image-colors": "^2.0.1",
     "node-fetch": "^2.6.6",
     "request": "^2.88.2",
     "url-exist-sync": "^2.0.0"
