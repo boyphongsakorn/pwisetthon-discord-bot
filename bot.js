@@ -4,7 +4,7 @@ const cron = require("cron");
 const fetch = require('node-fetch');
 const request = require('request');
 var fs = require('fs');
-const urlExistSync = require("url-exist-sync");
+//const urlExistSync = require("url-exist-sync");
 var http = require('http');
 
 require('dotenv').config();
@@ -378,9 +378,19 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 console.log('Saved!');
                             });
 
-                            if (urlExistSync('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)) {
-                                imgurl = 'https://lotimg.pwisetthon.com/?date=';
-                            }
+                            //use nodefetch to check url exist
+                            fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year, { method: "Get" })
+                                .then(res => res.json())
+                                .then((json) => {
+                                    imgurl = 'https://lotimg.pwisetthon.com/?date=';
+                                })
+                                .catch(err => {
+                                    console.log(err)
+                                });
+
+                            //if (urlExistSync('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)) {
+                                //imgurl = 'https://lotimg.pwisetthon.com/?date=';
+                            //}
 
                             // use node-fetch to download image from imgurl variable
                             /*fetch(imgurl + date + '' + month + '' + year)
