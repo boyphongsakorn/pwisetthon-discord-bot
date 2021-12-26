@@ -645,6 +645,8 @@ client.on('messageCreate', message => {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
+
+    console.log(interaction.channel_id)
     
     if (interaction.commandName === 'fthlotto') {
         var options = {
