@@ -661,6 +661,7 @@ client.on('interactionCreate', async interaction => {
                 reply(interaction, 'ห้องนี้ติดตามสลากฯอยู่แล้ว')
             } else if(response.body == "error"){
                 reply(interaction, 'ไม่สามารถติดตามสลากฯได้')
+                console.log(interaction.channel_id)
             }else{
                 reply(interaction, 'ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
             }
