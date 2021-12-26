@@ -509,7 +509,7 @@ client.on('messageCreate', message => {
     if (command === 'fthlotto') {
         var options = {
             'method': 'GET',
-            'url': process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channel_id,
+            'url': process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channelId,
             'headers': {
             }
         };
@@ -528,7 +528,7 @@ client.on('messageCreate', message => {
     if (command === 'cthlotto') {
         var options = {
             'method': 'GET',
-            'url': process.env.URL + '/discordbot/delchannels.php?chid=' + interaction.channel_id,
+            'url': process.env.URL + '/discordbot/delchannels.php?chid=' + interaction.channelId,
             'headers': {
             }
         };
@@ -645,13 +645,11 @@ client.on('messageCreate', message => {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
-
-    console.log(interaction.channel_id)
     
     if (interaction.commandName === 'fthlotto') {
         var options = {
             'method': 'GET',
-            'url': process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channel_id,
+            'url': process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channelId,
             'headers': {
             }
         };
@@ -663,7 +661,7 @@ client.on('interactionCreate', async interaction => {
                 reply(interaction, 'ห้องนี้ติดตามสลากฯอยู่แล้ว')
             } else if(response.body == "error"){
                 reply(interaction, 'ไม่สามารถติดตามสลากฯได้')
-                console.log(interaction.channel_id)
+                console.log(interaction.channelId)
             }else{
                 reply(interaction, 'ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
             }
@@ -673,7 +671,7 @@ client.on('interactionCreate', async interaction => {
     if(interaction.commandName === 'cthlotto'){
         var options = {
             'method': 'GET',
-            'url': process.env.URL + '/discordbot/delchannels.php?chid=' + interaction.channel_id,
+            'url': process.env.URL + '/discordbot/delchannels.php?chid=' + interaction.channelId,
             'headers': {
             }
         };
