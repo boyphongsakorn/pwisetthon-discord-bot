@@ -411,7 +411,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 if (err) {
                                     //console.error(err)
                                     //return
-                                    fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)
+                                    fetch('http://192.168.31.210:4000/?date=' + date + '' + month + '' + year)
                                     .then(res =>
                                         res.body.pipe(fs.createWriteStream('./lottery_' + date + '' + month + '' + year+'.png'))
                                     )
