@@ -419,35 +419,37 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                   
                                 //file exists
                             })
-                
-                            const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year+'.png');
-
-                            const msg = new MessageEmbed()
-                                .setColor('#0099ff')
-                                .setTitle('ผลสลากกินแบ่งรัฐบาล')
-                                .setURL('https://www.glo.or.th/')
-                                .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
-                                .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
-                                .addFields(
-                                    { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
-                                    //{ name: '\u200B', value: '\u200B' },
-                                    { name: 'เลขหน้าสามตัว', value: json[1][1] + ' | ' + json[1][2], inline: true },
-                                    { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
-                                    { name: 'เลขท้ายสองตัว', value: json[3][1] },
-                                )
-                                //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
-                                .setImage('attachment://lottery_' + date + '' + month + '' + year+'.png')
-                                .setTimestamp()
-                                .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
-
-                            console.log(imgurl + date + month + year)
-                            console.log(imgurl + '' + date + '' + month + '' + year)
-                            console.log('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
+            
 
                             fetch(process.env.URL + "/discordbot/chlist.txt", settings)
                                 .then(res => res.json())
                                 .then((json) => {
                                     for (i in json) {
+
+                                        const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year+'.png');
+
+                                        const msg = new MessageEmbed()
+                                            .setColor('#0099ff')
+                                            .setTitle('ผลสลากกินแบ่งรัฐบาล')
+                                            .setURL('https://www.glo.or.th/')
+                                            .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
+                                            .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
+                                            .addFields(
+                                                { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
+                                                //{ name: '\u200B', value: '\u200B' },
+                                                { name: 'เลขหน้าสามตัว', value: json[1][1] + ' | ' + json[1][2], inline: true },
+                                                { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
+                                                { name: 'เลขท้ายสองตัว', value: json[3][1] },
+                                            )
+                                            //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
+                                            .setImage('attachment://lottery_' + date + '' + month + '' + year+'.png')
+                                            .setTimestamp()
+                                            .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+
+                                        console.log(imgurl + date + month + year)
+                                        console.log(imgurl + '' + date + '' + month + '' + year)
+                                        console.log('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
+
                                         /*let wow = client.channels.cache.get(json[i])
                                         if(wow){
                                             try {
