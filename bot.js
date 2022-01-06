@@ -766,6 +766,7 @@ client.on('interactionCreate', async interaction => {
                         //file exists
                     })
                 } catch (error) {
+                    console.log('start download lottery image');
                     fetch('http://192.168.31.210:4000/?date=' + body.info.date)
                         .then(res =>
                             res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
@@ -775,6 +776,7 @@ client.on('interactionCreate', async interaction => {
                 //wait for image to be downloaded
                 while (!fs.existsSync('./lottery_'+body.info.date+'.png')) {
                     console.log('Waiting for image to be downloaded');
+                    console.log(fs.existsSync('./lottery_'+body.info.date+'.png'))
                 }
 
                 const file = new MessageAttachment('./lottery_'+body.info.date+'.png');
