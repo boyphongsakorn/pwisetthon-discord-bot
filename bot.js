@@ -788,16 +788,18 @@ client.on('interactionCreate', async interaction => {
                     res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
                 )*/
 
-                const options = {
-                    url: 'http://192.168.31.210:4000/?date=' + body.info.date,
-                    dest: './lottery_'+body.info.date+'.png'             
+                if (fs.existsSync('./lottery_'+body.info.date+'.png') == false) {
+                    const options = {
+                        url: 'http://192.168.31.210:4000/?date=' + body.info.date,
+                        dest: './lottery_'+body.info.date+'.png'             
+                    }
+    
+                    await download.image(options)
+                        .then(({ filename }) => {
+                            console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
+                        })
+                        .catch((err) => console.error(err))
                 }
-
-                await download.image(options)
-                    .then(({ filename }) => {
-                        console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
-                    })
-                    .catch((err) => console.error(err))
 
                 const file = new MessageAttachment('./lottery_' + body.info.date + '.png');
 
