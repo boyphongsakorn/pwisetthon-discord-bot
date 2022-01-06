@@ -745,7 +745,8 @@ client.on('interactionCreate', async interaction => {
                 //replyembedtype(interaction, msg)
                 interaction.reply({ embeds: [msg],files: [file] })
             } catch (error) {
-                console.log(error)
+                console.log('error')
+                //console.log(error)
             }
 
         });
