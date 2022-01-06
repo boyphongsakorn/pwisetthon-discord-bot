@@ -790,7 +790,7 @@ client.on('interactionCreate', async interaction => {
                         console.log('Image downloaded');
                         break;
                     }
-                    await sleep(1000);
+                    sleep(1000);
                 }
 
                 const file = new MessageAttachment('./lottery_'+body.info.date+'.png');
