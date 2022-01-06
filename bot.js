@@ -713,7 +713,7 @@ client.on('interactionCreate', async interaction => {
                         });
                 });*/
 
-                if (!fs.existsSync('./lottery_'+body.info.date+'.png')) {
+                /*if (!fs.existsSync('./lottery_'+body.info.date+'.png')) {
                     fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                         .then(res =>
                             res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
@@ -726,17 +726,17 @@ client.on('interactionCreate', async interaction => {
 
                 if(fs.existsSync('./lottery_'+body.info.date+'.png')){
                     console.log('Image downloaded');
-                }
+                }*/
 
-                /*fs.accessSync('lottery_'+body.info.date+'.png', fs.F_OK, async (err) => {
+                fs.access('./lottery_'+body.info.date+'.png', fs.F_OK, (err) => {
                     if (err) {
                         console.log('error when checking lottery image');
-                        await fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+                        fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                         .then(res =>
                             res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
                         )
                     }
-                });*/
+                });
 
                 const file = new MessageAttachment('./lottery_'+body.info.date+'.png');
 
