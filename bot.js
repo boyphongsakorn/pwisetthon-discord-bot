@@ -731,7 +731,7 @@ client.on('interactionCreate', async interaction => {
                 fs.access('./lottery_'+body.info.date+'.png', fs.constants.R_OK, (err) => {
                     if (err) {
                         console.log('error when checking lottery image');
-                        fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+                        fetch('http://192.168.31.210:4000/?date=' + body.info.date)
                         .then(res =>
                             res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
                         )
