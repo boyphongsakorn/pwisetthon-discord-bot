@@ -696,7 +696,7 @@ client.on('interactionCreate', async interaction => {
             }
         };
 
-        await request(options, function (error, response, body) {
+        await request(options, async function (error, response, body) {
             if (error) throw new Error(error);
 
             try {
@@ -793,7 +793,7 @@ client.on('interactionCreate', async interaction => {
                     dest: './lottery_'+body.info.date+'.png'             
                 }
 
-                download.image(options)
+                await download.image(options)
                     .then(({ filename }) => {
                         console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
                     })
