@@ -724,6 +724,10 @@ client.on('interactionCreate', async interaction => {
                     console.log('Waiting for image to be downloaded');
                 }
 
+                if(fs.existsSync('lottery_'+body.info.date+'.png')){
+                    console.log('Image downloaded');
+                }
+
                 /*fs.accessSync('lottery_'+body.info.date+'.png', fs.F_OK, async (err) => {
                     if (err) {
                         console.log('error when checking lottery image');
