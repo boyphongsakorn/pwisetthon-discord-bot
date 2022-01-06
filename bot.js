@@ -713,9 +713,9 @@ client.on('interactionCreate', async interaction => {
                         });
                 });*/
 
-                fs.access('lottery_'+body.info.date+'.png', fs.F_OK, (err) => {
+                fs.access('lottery_'+body.info.date+'.png', fs.F_OK, async (err) => {
                     if (err) {
-                        fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+                        await fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                         .then(res =>
                             res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
                         )
