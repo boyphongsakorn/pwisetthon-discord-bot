@@ -746,10 +746,6 @@ client.on('interactionCreate', async interaction => {
                             res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
                         )
                 }
-                //wait for image to be downloaded
-                while (!fs.exists('./lottery_'+body.info.date+'.png')) {
-                    console.log('Waiting for image to be downloaded');
-                }
 
                 const file = new MessageAttachment('./lottery_'+body.info.date+'.png');
 
