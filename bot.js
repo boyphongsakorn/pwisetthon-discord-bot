@@ -409,7 +409,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                         });
                                 });*/
 
-                            fs.access('lottery_' + date + '' + month + '' + year + '.png', fs.F_OK, (err) => {
+                            /*fs.access('lottery_' + date + '' + month + '' + year + '.png', fs.F_OK, (err) => {
                                 if (err) {
                                     //console.error(err)
                                     //return
@@ -420,8 +420,20 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 }
 
                                 //file exists
-                            })
+                            })*/
 
+                            if (fs.existsSync('./lottery_'+ date + '' + month + '' + year+'.png') == false) {
+                                const options = {
+                                    url: 'http://192.168.31.210:4000/?date=' + date + '' + month + '' + year,
+                                    dest: './lottery_'+ date + '' + month + '' + year+'.png'             
+                                }
+                
+                                download.image(options)
+                                    .then(({ filename }) => {
+                                        console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
+                                    })
+                                    .catch((err) => console.error(err))
+                            }
 
                             fetch(process.env.URL + "/discordbot/chlist.txt", settings)
                                 .then(res => res.json())
