@@ -713,18 +713,18 @@ client.on('interactionCreate', async interaction => {
                         });
                 });*/
 
-                if (!fs.existsSync('lottery_'+body.info.date+'.png')) {
+                if (!fs.existsSync('./lottery_'+body.info.date+'.png')) {
                     fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                         .then(res =>
                             res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
                         )
                 }
 
-                while (!fs.existsSync('lottery_'+body.info.date+'.png')) {
+                while (!fs.existsSync('./lottery_'+body.info.date+'.png')) {
                     console.log('Waiting for image to be downloaded');
                 }
 
-                if(fs.existsSync('lottery_'+body.info.date+'.png')){
+                if(fs.existsSync('./lottery_'+body.info.date+'.png')){
                     console.log('Image downloaded');
                 }
 
