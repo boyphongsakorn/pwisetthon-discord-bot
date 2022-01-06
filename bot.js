@@ -713,6 +713,14 @@ client.on('interactionCreate', async interaction => {
                         });
                 });*/
 
+                // check if image exists
+                if (!fs.existsSync('lottery_'+body.info.date+'.png')) {
+                    fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+                        .then(res =>
+                            res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
+                        )
+                }
+
                 fs.accessSync('lottery_'+body.info.date+'.png', fs.F_OK, async (err) => {
                     if (err) {
                         console.log('error when checking lottery image');
