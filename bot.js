@@ -3,6 +3,7 @@ const {MessageAttachment,MessageEmbed, Client, Intents } = require('discord.js')
 const cron = require("cron");
 const fetch = require('node-fetch');
 const request = require('request');
+var sleep = require('system-sleep');
 var fs = require('fs');
 //const urlExistSync = require("url-exist-sync");
 var http = require('http');
