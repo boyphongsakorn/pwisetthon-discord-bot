@@ -1,9 +1,10 @@
-const {MessageAttachment,MessageEmbed, Client, Intents } = require('discord.js');
+const { MessageAttachment, MessageEmbed, Client, Intents } = require('discord.js');
 //const DS = require("discord-slash-commands-client");
 const cron = require("cron");
 const fetch = require('node-fetch');
 const request = require('request');
-var sleep = require('system-sleep');
+//var sleep = require('system-sleep');
+const download = require('image-downloader')
 var fs = require('fs');
 //const urlExistSync = require("url-exist-sync");
 var http = require('http');
@@ -150,26 +151,26 @@ client.on("guildCreate", guild => {
     const thatguild = client.guilds.cache.get(guild.id);
     let commands
 
-    if (thatguild){
+    if (thatguild) {
         commands = thatguild.commands
-    }else{
+    } else {
         commands = client.applications?.commands
     }
 
     commands?.create({
         name: 'fthlotto',
         description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก"
-    },guild.id)
+    }, guild.id)
 
     commands?.create({
         name: 'cthlotto',
         description: "ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้"
-    },guild.id)
+    }, guild.id)
 
     commands?.create({
         name: 'lastlotto',
         description: "ดูสลากกินแบ่งรัฐบาลล่าสุด"
-    },guild.id)
+    }, guild.id)
 
     commands?.create({
         name: 'srchlot',
@@ -180,7 +181,7 @@ client.on("guildCreate", guild => {
             description: 'ตัวเลขที่ต้องการตรวจสลากฯ',
             required: true
         }]
-    },guild.id)
+    }, guild.id)
 
     /*DSclient
         .createCommand({
@@ -264,7 +265,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                         console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออก');
 
                         console.log('--------------------------------');
-                        
+
                         var lasttime = null
 
                         try {
@@ -390,7 +391,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 });
 
                             //if (urlExistSync('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)) {
-                                //imgurl = 'https://lotimg.pwisetthon.com/?date=';
+                            //imgurl = 'https://lotimg.pwisetthon.com/?date=';
                             //}
 
                             // use node-fetch to download image from imgurl variable
@@ -408,26 +409,26 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                         });
                                 });*/
 
-                            fs.access('lottery_' + date + '' + month + '' + year+'.png', fs.F_OK, (err) => {
+                            fs.access('lottery_' + date + '' + month + '' + year + '.png', fs.F_OK, (err) => {
                                 if (err) {
                                     //console.error(err)
                                     //return
                                     fetch('http://192.168.31.210:4000/?date=' + date + '' + month + '' + year)
-                                    .then(res =>
-                                        res.body.pipe(fs.createWriteStream('./lottery_' + date + '' + month + '' + year+'.png'))
-                                    )
+                                        .then(res =>
+                                            res.body.pipe(fs.createWriteStream('./lottery_' + date + '' + month + '' + year + '.png'))
+                                        )
                                 }
-                                  
+
                                 //file exists
                             })
-            
+
 
                             fetch(process.env.URL + "/discordbot/chlist.txt", settings)
                                 .then(res => res.json())
                                 .then((json) => {
                                     for (i in json) {
 
-                                        const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year+'.png');
+                                        const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '.png');
 
                                         const msg = new MessageEmbed()
                                             .setColor('#0099ff')
@@ -443,7 +444,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                                 { name: 'เลขท้ายสองตัว', value: json[3][1] },
                                             )
                                             //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
-                                            .setImage('attachment://lottery_' + date + '' + month + '' + year+'.png')
+                                            .setImage('attachment://lottery_' + date + '' + month + '' + year + '.png')
                                             .setTimestamp()
                                             .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
@@ -564,91 +565,91 @@ client.on('messageCreate', message => {
             }
         };*/
 
-        /*await request(options, function (error, response, body) {
-            if (error) throw new Error(error);
+/*await request(options, function (error, response, body) {
+    if (error) throw new Error(error);
 
-            try {
-                const msg = new Discord.MessageEmbed()
-                    .setColor('#0099ff')
-                    .setTitle('ผลสลากกินแบ่งรัฐบาล')
-                    .setURL('https://www.glo.or.th/')
-                    .setDescription('งวดวันที่ ' + parseInt(body.info.date.substring(0, 2)) + ' ' + convertmonthtotext(body.info.date.substring(2, 4)) + ' ' + body.info.date.substring(4, 8))
-                    .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
-                    .addFields(
-                        { name: 'รางวัลที่หนึ่ง', value: body.win },
-                        { name: 'เลขหน้าสามตัว', value: body.threefirst.replace(",", " | "), inline: true },
-                        { name: 'เลขท้ายสามตัว', value: body.threeend.replace(",", " | "), inline: true },
-                        { name: 'เลขท้ายสองตัว', value: body.twoend },
-                    )
-                    .setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
-                    .setTimestamp()
-                    .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+    try {
+        const msg = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('ผลสลากกินแบ่งรัฐบาล')
+            .setURL('https://www.glo.or.th/')
+            .setDescription('งวดวันที่ ' + parseInt(body.info.date.substring(0, 2)) + ' ' + convertmonthtotext(body.info.date.substring(2, 4)) + ' ' + body.info.date.substring(4, 8))
+            .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
+            .addFields(
+                { name: 'รางวัลที่หนึ่ง', value: body.win },
+                { name: 'เลขหน้าสามตัว', value: body.threefirst.replace(",", " | "), inline: true },
+                { name: 'เลขท้ายสามตัว', value: body.threeend.replace(",", " | "), inline: true },
+                { name: 'เลขท้ายสองตัว', value: body.twoend },
+            )
+            .setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+            .setTimestamp()
+            .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
-                replyembedtype(interaction, msg)
-            } catch (error) {
+        replyembedtype(interaction, msg)
+    } catch (error) {
 
-            }
-
-        });
     }
 
-    if (command === 'srchlot') {
-        console.log(interaction.options.getString('number'));
-        //get this year in buddhist year
-        const year = new Date().getFullYear() + 543;
+});
+}
 
-        var options = {
-            'method': 'GET',
-            'url': 'http://192.168.31.210:5000/gdpy?year='+year,
-            'json': true,
-            'headers': {
-            }
-        };
+if (command === 'srchlot') {
+console.log(interaction.options.getString('number'));
+//get this year in buddhist year
+const year = new Date().getFullYear() + 543;
 
-        await request(options, async function (error, response, body) {
-            if (error) throw new Error(error);
-
-            var optionss = {
-                'method': 'GET',
-                'url': 'http://192.168.31.210:5000/checklottery?by='+body[body.length-1]+'&search='+interaction.options.getString('number'),
-                'json': false,
-                'headers': {
-                }
-            };
-
-            await request(optionss, async function (errors, responses, bodys) {
-                if (errors) throw new Error(errors);
-
-                if(bodys.search("111111") != -1){
-                    reply(interaction, 'คุณถูกรางวัลที่หนึ่ง')
-                }else if(bodys.search("222222") != -1){
-                    reply(interaction, 'คุณถูกรางวัลที่สอง')
-                }else if(bodys.search("333333") != -1){
-                    reply(interaction, 'คุณถูกรางวัลที่สาม')
-                }else if(bodys.search("444444") != -1){
-                    reply(interaction, 'คุณถูกรางวัลที่สี่')
-                }else if(bodys.search("555555") != -1){
-                    reply(interaction, 'คุณถูกรางวัลที่ห้า')
-                }else if(bodys.search("333000") != -1){
-                    reply(interaction, 'คุณถูกรางวัลเลขหน้าสามตัว')
-                }else if(bodys.search("000333") != -1){
-                    reply(interaction, 'คุณถูกรางวัลเลขท้ายสามตัว')
-                }else if(bodys.search("000022") != -1){
-                    reply(interaction, 'คุณถูกรางวัลเลขท้ายสองตัว')
-                }else if(bodys.search("111112") != -1){
-                    reply(interaction, 'คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
-                }else{
-                    reply(interaction, 'คุณไม่ถูกรางวัล')
-                }
-            });
-
-        });
+var options = {
+    'method': 'GET',
+    'url': 'http://192.168.31.210:5000/gdpy?year='+year,
+    'json': true,
+    'headers': {
     }
+};
+
+await request(options, async function (error, response, body) {
+    if (error) throw new Error(error);
+
+    var optionss = {
+        'method': 'GET',
+        'url': 'http://192.168.31.210:5000/checklottery?by='+body[body.length-1]+'&search='+interaction.options.getString('number'),
+        'json': false,
+        'headers': {
+        }
+    };
+
+    await request(optionss, async function (errors, responses, bodys) {
+        if (errors) throw new Error(errors);
+
+        if(bodys.search("111111") != -1){
+            reply(interaction, 'คุณถูกรางวัลที่หนึ่ง')
+        }else if(bodys.search("222222") != -1){
+            reply(interaction, 'คุณถูกรางวัลที่สอง')
+        }else if(bodys.search("333333") != -1){
+            reply(interaction, 'คุณถูกรางวัลที่สาม')
+        }else if(bodys.search("444444") != -1){
+            reply(interaction, 'คุณถูกรางวัลที่สี่')
+        }else if(bodys.search("555555") != -1){
+            reply(interaction, 'คุณถูกรางวัลที่ห้า')
+        }else if(bodys.search("333000") != -1){
+            reply(interaction, 'คุณถูกรางวัลเลขหน้าสามตัว')
+        }else if(bodys.search("000333") != -1){
+            reply(interaction, 'คุณถูกรางวัลเลขท้ายสามตัว')
+        }else if(bodys.search("000022") != -1){
+            reply(interaction, 'คุณถูกรางวัลเลขท้ายสองตัว')
+        }else if(bodys.search("111112") != -1){
+            reply(interaction, 'คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
+        }else{
+            reply(interaction, 'คุณไม่ถูกรางวัล')
+        }
+    });
+
+});
+}
 })*/
 
 client.on('interactionCreate', async interaction => {
-	if (!interaction.isCommand()) return;
-    
+    if (!interaction.isCommand()) return;
+
     if (interaction.commandName === 'fthlotto') {
         var options = {
             'method': 'GET',
@@ -662,16 +663,16 @@ client.on('interactionCreate', async interaction => {
             console.log(response.body);
             if (response.body == "debug") {
                 reply(interaction, 'ห้องนี้ติดตามสลากฯอยู่แล้ว')
-            } else if(response.body == "error"){
+            } else if (response.body == "error") {
                 reply(interaction, 'ไม่สามารถติดตามสลากฯได้')
                 console.log(interaction.channelId)
-            }else{
+            } else {
                 reply(interaction, 'ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
             }
         });
     }
 
-    if(interaction.commandName === 'cthlotto'){
+    if (interaction.commandName === 'cthlotto') {
         var options = {
             'method': 'GET',
             'url': process.env.URL + '/discordbot/delchannels.php?chid=' + interaction.channelId,
@@ -686,7 +687,7 @@ client.on('interactionCreate', async interaction => {
         });
     }
 
-    if(interaction.commandName === 'lastlotto'){
+    if (interaction.commandName === 'lastlotto') {
         var options = {
             'method': 'GET',
             'url': 'http://192.168.31.210:5000/lastlot?info=true',
@@ -752,7 +753,7 @@ client.on('interactionCreate', async interaction => {
                 while (!fs.existsSync('./lottery_'+body.info.date+'.png')) {
                     console.log('Waiting for image to be downloaded');
                 }*/
-                
+
                 /*try {
                     fs.access('./lottery_'+body.info.date+'.png', fs.F_OK, async (err) => {
                         if (err) {
@@ -780,12 +781,25 @@ client.on('interactionCreate', async interaction => {
                     console.log(fs.existsSync('./lottery_'+body.info.date+'.png'))
                 }*/
 
-                fetch('http://192.168.31.210:4000/?date=' + body.info.date)
+                //node-fetch download image with process % completed
+
+                /*fetch('http://192.168.31.210:4000/?date=' + body.info.date)
                 .then(res =>
                     res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
-                )
+                )*/
 
-                const file = new MessageAttachment('./lottery_'+body.info.date+'.png');
+                const options = {
+                    url: 'http://192.168.31.210:4000/?date=' + body.info.date,
+                    dest: './lottery_'+body.info.date+'.png'             
+                }
+
+                download.image(options)
+                    .then(({ filename }) => {
+                        console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
+                    })
+                    .catch((err) => console.error(err))
+
+                const file = new MessageAttachment('./lottery_' + body.info.date + '.png');
 
                 const msg = new MessageEmbed()
                     .setColor('#0099ff')
@@ -800,12 +814,12 @@ client.on('interactionCreate', async interaction => {
                         { name: 'เลขท้ายสองตัว', value: body.twoend },
                     )
                     //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
-                    .setImage('attachment://lottery_'+body.info.date+'.png')
+                    .setImage('attachment://lottery_' + body.info.date + '.png')
                     .setTimestamp()
-                    .setFooter({text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn'});
+                    .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
                 //replyembedtype(interaction, msg)
-                interaction.reply({ embeds: [msg],files: [file] })
+                interaction.reply({ embeds: [msg], files: [file] })
             } catch (error) {
                 console.log('error')
                 console.log(error)
@@ -814,14 +828,14 @@ client.on('interactionCreate', async interaction => {
         });
     }
 
-	if (interaction.commandName === 'srchlot') {
-		console.log(interaction.options.getString('number'));
+    if (interaction.commandName === 'srchlot') {
+        console.log(interaction.options.getString('number'));
         //get this year in buddhist year
         const year = new Date().getFullYear() + 543;
 
         var options = {
             'method': 'GET',
-            'url': 'http://192.168.31.210:5000/gdpy?year='+year,
+            'url': 'http://192.168.31.210:5000/gdpy?year=' + year,
             'json': true,
             'headers': {
             }
@@ -832,7 +846,7 @@ client.on('interactionCreate', async interaction => {
 
             var optionss = {
                 'method': 'GET',
-                'url': 'http://192.168.31.210:5000/checklottery?by='+body[body.length-1]+'&search='+interaction.options.getString('number'),
+                'url': 'http://192.168.31.210:5000/checklottery?by=' + body[body.length - 1] + '&search=' + interaction.options.getString('number'),
                 'json': false,
                 'headers': {
                 }
@@ -841,31 +855,31 @@ client.on('interactionCreate', async interaction => {
             await request(optionss, async function (errors, responses, bodys) {
                 if (errors) throw new Error(errors);
 
-                if(bodys.search("111111") != -1){
+                if (bodys.search("111111") != -1) {
                     reply(interaction, 'คุณถูกรางวัลที่หนึ่ง')
-                }else if(bodys.search("222222") != -1){
+                } else if (bodys.search("222222") != -1) {
                     reply(interaction, 'คุณถูกรางวัลที่สอง')
-                }else if(bodys.search("333333") != -1){
+                } else if (bodys.search("333333") != -1) {
                     reply(interaction, 'คุณถูกรางวัลที่สาม')
-                }else if(bodys.search("444444") != -1){
+                } else if (bodys.search("444444") != -1) {
                     reply(interaction, 'คุณถูกรางวัลที่สี่')
-                }else if(bodys.search("555555") != -1){
+                } else if (bodys.search("555555") != -1) {
                     reply(interaction, 'คุณถูกรางวัลที่ห้า')
-                }else if(bodys.search("333000") != -1){
+                } else if (bodys.search("333000") != -1) {
                     reply(interaction, 'คุณถูกรางวัลเลขหน้าสามตัว')
-                }else if(bodys.search("000333") != -1){
+                } else if (bodys.search("000333") != -1) {
                     reply(interaction, 'คุณถูกรางวัลเลขท้ายสามตัว')
-                }else if(bodys.search("000022") != -1){
+                } else if (bodys.search("000022") != -1) {
                     reply(interaction, 'คุณถูกรางวัลเลขท้ายสองตัว')
-                }else if(bodys.search("111112") != -1){
+                } else if (bodys.search("111112") != -1) {
                     reply(interaction, 'คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
-                }else{
+                } else {
                     reply(interaction, 'คุณไม่ถูกรางวัล')
                 }
             });
 
         });
-	}
+    }
 });
 
 const reply = (interaction, response) => {
