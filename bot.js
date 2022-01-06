@@ -785,15 +785,6 @@ client.on('interactionCreate', async interaction => {
                     res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
                 )
 
-                //for 10 seconds
-                for (let i = 0; i < 10; i++) {
-                    if(fs.existsSync('./lottery_'+body.info.date+'.png')){
-                        console.log('Image downloaded');
-                        break;
-                    }
-                    sleep(1000);
-                }
-
                 const file = new MessageAttachment('./lottery_'+body.info.date+'.png');
 
                 const msg = new MessageEmbed()
