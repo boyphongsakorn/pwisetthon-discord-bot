@@ -720,7 +720,7 @@ client.on('interactionCreate', async interaction => {
                         )
                 }
 
-                while (!fs.existsSync('./lottery_'+body.info.date+'.png')) {
+                while (!fs.exists('./lottery_'+body.info.date+'.png')) {
                     console.log('Waiting for image to be downloaded');
                 }
 
