@@ -713,9 +713,9 @@ client.on('interactionCreate', async interaction => {
                         });
                 });*/
 
-                fs.access('lottery_'+body.info.date+'.png', fs.F_OK, async (err) => {
+                fs.accessSync('lottery_'+body.info.date+'.png', fs.F_OK, async (err) => {
                     if (err) {
-                        console.log(err)
+                        console.log('error when checking lottery image');
                         await fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                         .then(res =>
                             res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
