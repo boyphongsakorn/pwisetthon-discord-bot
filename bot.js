@@ -766,7 +766,7 @@ client.on('interactionCreate', async interaction => {
                         //file exists
                     })
                 } catch (error) {
-                    await fetch('http://192.168.31.210:4000/?date=' + body.info.date)
+                    fetch('http://192.168.31.210:4000/?date=' + body.info.date)
                         .then(res =>
                             res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
                         )
