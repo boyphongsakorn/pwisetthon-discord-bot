@@ -713,7 +713,7 @@ client.on('interactionCreate', async interaction => {
                         });
                 });*/
 
-                // check if image exists
+                // check if image not exist
                 if (!fs.existsSync('lottery_'+body.info.date+'.png')) {
                     fetch('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                         .then(res =>
