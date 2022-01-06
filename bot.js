@@ -772,6 +772,11 @@ client.on('interactionCreate', async interaction => {
                         )
                 }
 
+                //wait for image to be downloaded
+                while (!fs.existsSync('./lottery_'+body.info.date+'.png')) {
+                    console.log('Waiting for image to be downloaded');
+                }
+
                 const file = new MessageAttachment('./lottery_'+body.info.date+'.png');
 
                 const msg = new MessageEmbed()
