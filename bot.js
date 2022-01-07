@@ -700,8 +700,9 @@ client.on('interactionCreate', async interaction => {
     }
 
     if (interaction.commandName === 'lastlotto') {
+        //await interaction.reply('Loading!');
         await interaction.deferReply();
-
+        
         var options = {
             'method': 'GET',
             'url': 'http://192.168.31.210:5000/lastlot?info=true',
@@ -846,6 +847,7 @@ client.on('interactionCreate', async interaction => {
 
     if (interaction.commandName === 'srchlot') {
         console.log(interaction.options.getString('number'));
+        await interaction.deferReply();
         //get this year in buddhist year
         const year = new Date().getFullYear() + 543;
 
@@ -872,25 +874,35 @@ client.on('interactionCreate', async interaction => {
                 if (errors) throw new Error(errors);
 
                 if (bodys.search("111111") != -1) {
-                    reply(interaction, 'คุณถูกรางวัลที่หนึ่ง')
+                    //reply(interaction, 'คุณถูกรางวัลที่หนึ่ง')
+                    await interaction.editReply('คุณถูกรางวัลที่หนึ่ง')
                 } else if (bodys.search("222222") != -1) {
-                    reply(interaction, 'คุณถูกรางวัลที่สอง')
+                    //reply(interaction, 'คุณถูกรางวัลที่สอง')
+                    await interaction.editReply('คุณถูกรางวัลที่สอง')
                 } else if (bodys.search("333333") != -1) {
-                    reply(interaction, 'คุณถูกรางวัลที่สาม')
+                    //reply(interaction, 'คุณถูกรางวัลที่สาม')
+                    await interaction.editReply('คุณถูกรางวัลที่สาม')
                 } else if (bodys.search("444444") != -1) {
-                    reply(interaction, 'คุณถูกรางวัลที่สี่')
+                    //reply(interaction, 'คุณถูกรางวัลที่สี่')
+                    await interaction.editReply('คุณถูกรางวัลที่สี่')
                 } else if (bodys.search("555555") != -1) {
-                    reply(interaction, 'คุณถูกรางวัลที่ห้า')
+                    //reply(interaction, 'คุณถูกรางวัลที่ห้า')
+                    await interaction.editReply('คุณถูกรางวัลที่ห้า')
                 } else if (bodys.search("333000") != -1) {
-                    reply(interaction, 'คุณถูกรางวัลเลขหน้าสามตัว')
+                    //reply(interaction, 'คุณถูกรางวัลเลขหน้าสามตัว')
+                    await interaction.editReply('คุณถูกรางวัลเลขหน้าสามตัว')
                 } else if (bodys.search("000333") != -1) {
-                    reply(interaction, 'คุณถูกรางวัลเลขท้ายสามตัว')
+                    //reply(interaction, 'คุณถูกรางวัลเลขท้ายสามตัว')
+                    await interaction.editReply('คุณถูกรางวัลเลขท้ายสามตัว')
                 } else if (bodys.search("000022") != -1) {
-                    reply(interaction, 'คุณถูกรางวัลเลขท้ายสองตัว')
+                    //reply(interaction, 'คุณถูกรางวัลเลขท้ายสองตัว')
+                    await interaction.editReply('คุณถูกรางวัลเลขท้ายสองตัว')
                 } else if (bodys.search("111112") != -1) {
-                    reply(interaction, 'คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
+                    //reply(interaction, 'คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
+                    await interaction.editReply('คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
                 } else {
-                    reply(interaction, 'คุณไม่ถูกรางวัล')
+                    //reply(interaction, 'คุณไม่ถูกรางวัล')
+                    await interaction.editReply('คุณไม่ถูกรางวัล')
                 }
             });
 
