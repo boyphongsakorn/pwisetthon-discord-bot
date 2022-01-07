@@ -184,8 +184,7 @@ client.on("guildCreate", guild => {
     }, guild.id)
 
     commands?.create({
-        name: 'srchlotmessage',
-        description: "ตรวจสลากฯ ล่าสุดด้วยเลข",
+        name: 'ตรวจสลากฯ',
         type: 3
     }, guild.id)
 
