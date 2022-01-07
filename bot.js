@@ -857,9 +857,8 @@ client.on('interactionCreate', async interaction => {
         //console.log(interaction.options.getString('number'));
         let numbertofind = interaction.options.getString('number');
         if(interaction.options.getString('number') == null && interaction.commandName === 'ตรวจสลากฯ') {
-            /*let ohmygod = await interaction.channel.message.fetch(interaction.targetId);
-            numbertofind = ohmygod.content;*/
-            console.log(interaction);
+            let ohmygod = interaction.channel.message.fetch(interaction.targetId);
+            numbertofind = ohmygod.content;
         }
         console.log(numbertofind);
         await interaction.deferReply();
