@@ -700,8 +700,8 @@ client.on('interactionCreate', async interaction => {
     }
 
     if (interaction.commandName === 'lastlotto') {
-        await interaction.reply('Loading!');
-        
+        await interaction.deferReply();
+
         var options = {
             'method': 'GET',
             'url': 'http://192.168.31.210:5000/lastlot?info=true',
