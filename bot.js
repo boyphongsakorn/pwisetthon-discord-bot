@@ -700,6 +700,8 @@ client.on('interactionCreate', async interaction => {
     }
 
     if (interaction.commandName === 'lastlotto') {
+        await interaction.reply('Loading!');
+        
         var options = {
             'method': 'GET',
             'url': 'http://192.168.31.210:5000/lastlot?info=true',
@@ -799,8 +801,6 @@ client.on('interactionCreate', async interaction => {
                 .then(res =>
                     res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
                 )*/
-
-                await interaction.reply('Loading!');
 
                 if (fs.existsSync('./lottery_'+body.info.date+'.png') == false) {
                     const options = {
