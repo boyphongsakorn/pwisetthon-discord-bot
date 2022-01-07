@@ -183,6 +183,12 @@ client.on("guildCreate", guild => {
         }]
     }, guild.id)
 
+    commands?.create({
+        name: 'srchlotmessage',
+        description: "ตรวจสลากฯ ล่าสุดด้วยเลข",
+        type: 3
+    }, guild.id)
+
     /*DSclient
         .createCommand({
             name: "fthlotto",
@@ -845,7 +851,7 @@ client.on('interactionCreate', async interaction => {
         });
     }
 
-    if (interaction.commandName === 'srchlot') {
+    if (interaction.commandName === 'srchlot' || interaction.commandName === 'srchlotmessage') {
         console.log(interaction.options.getString('number'));
         await interaction.deferReply();
         //get this year in buddhist year
