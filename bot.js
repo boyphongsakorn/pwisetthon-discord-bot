@@ -850,7 +850,7 @@ client.on('interactionCreate', async interaction => {
         });
     }
 
-    if (interaction.commandName === 'srchlot' || interaction.commandName === 'srchlotmessage') {
+    if (interaction.commandName === 'srchlot' || interaction.commandName === 'ตรวจสลากฯ') {
         console.log(interaction.options.getString('number'));
         await interaction.deferReply();
         //get this year in buddhist year
