@@ -668,7 +668,7 @@ await request(options, async function (error, response, body) {
 })*/
 
 client.on('interactionCreate', async interaction => {
-    if (!interaction.isCommand()) return;
+    if (!interaction.isCommand() && !interaction.isContextMenu()) return;
 
     if (interaction.commandName === 'fthlotto') {
         var options = {
