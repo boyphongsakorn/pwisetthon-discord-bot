@@ -854,7 +854,12 @@ client.on('interactionCreate', async interaction => {
     }
 
     if (interaction.commandName === 'srchlot' || interaction.commandName === 'ตรวจสลากฯ') {
-        console.log(interaction.options.getString('number'));
+        //console.log(interaction.options.getString('number'));
+        let numbertofind = interaction.options.getString('number');
+        if(interaction.options.getString('number') == null && interaction.commandName === 'ตรวจสลากฯ') {
+            numbertofind = interaction.message.content.replace('ตรวจสลากฯ ', '');
+        }
+        console.log(numbertofind);
         await interaction.deferReply();
         //get this year in buddhist year
         const year = new Date().getFullYear() + 543;
@@ -872,7 +877,7 @@ client.on('interactionCreate', async interaction => {
 
             var optionss = {
                 'method': 'GET',
-                'url': 'http://192.168.31.210:5000/checklottery?by=' + body.info.date + '&search=' + interaction.options.getString('number'),
+                'url': 'http://192.168.31.210:5000/checklottery?by=' + body.info.date + '&search=' + numbertofind,
                 'json': false,
                 'headers': {
                 }
@@ -886,7 +891,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลที่หนึ่ง')
                     const msg = new MessageEmbed()
                         .setColor('#FFD700')
-                        .setTitle('เลขที่คุณตรวจคือ '+interaction.options.getString('number')+' ถูกรางวัลที่หนึ่ง')
+                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' ถูกรางวัลที่หนึ่ง')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("222222") != -1) {
@@ -894,7 +899,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลที่สอง')
                     const msg = new MessageEmbed()
                         .setColor('#DAA520')
-                        .setTitle('เลขที่คุณตรวจคือ '+interaction.options.getString('number')+' คุณถูกรางวัลที่สอง')
+                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลที่สอง')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("333333") != -1) {
@@ -902,7 +907,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลที่สาม')
                     const msg = new MessageEmbed()
                         .setColor('#F0E68C')
-                        .setTitle('เลขที่คุณตรวจคือ '+interaction.options.getString('number')+' คุณถูกรางวัลที่สาม')
+                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลที่สาม')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("444444") != -1) {
@@ -910,7 +915,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลที่สี่')
                     const msg = new MessageEmbed()
                         .setColor('#EEE8AA')
-                        .setTitle('เลขที่คุณตรวจคือ '+interaction.options.getString('number')+' คุณถูกรางวัลที่สี่')
+                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลที่สี่')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("555555") != -1) {
@@ -918,7 +923,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลที่ห้า')
                     const msg = new MessageEmbed()
                         .setColor('#FAFAD2')
-                        .setTitle('เลขที่คุณตรวจคือ '+interaction.options.getString('number')+' คุณถูกรางวัลที่ห้า')
+                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลที่ห้า')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("333000") != -1) {
@@ -926,7 +931,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลเลขหน้าสามตัว')
                     const msg = new MessageEmbed()
                         .setColor('#D4AF37')
-                        .setTitle('เลขที่คุณตรวจคือ '+interaction.options.getString('number')+' คุณถูกรางวัลเลขหน้าสามตัว')
+                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลเลขหน้าสามตัว')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("000333") != -1) {
@@ -934,7 +939,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลเลขท้ายสามตัว')
                     const msg = new MessageEmbed()
                         .setColor('#CFB53B')
-                        .setTitle('เลขที่คุณตรวจคือ '+interaction.options.getString('number')+' คุณถูกรางวัลเลขท้ายสามตัว')
+                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลเลขท้ายสามตัว')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("000022") != -1) {
@@ -942,7 +947,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลเลขท้ายสองตัว')
                     const msg = new MessageEmbed()
                         .setColor('#C5B358')
-                        .setTitle('เลขที่คุณตรวจคือ '+interaction.options.getString('number')+' คุณถูกรางวัลเลขท้ายสองตัว')
+                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลเลขท้ายสองตัว')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("111112") != -1) {
@@ -950,7 +955,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
                     const msg = new MessageEmbed()
                         .setColor('#FFDF00')
-                        .setTitle('เลขที่คุณตรวจคือ '+interaction.options.getString('number')+' คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
+                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else {
@@ -958,7 +963,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณไม่ถูกรางวัล')
                     const msg = new MessageEmbed()
                         .setColor('#ff0000')
-                        .setTitle('เลขที่คุณตรวจคือ '+interaction.options.getString('number')+' คุณไม่ถูกรางวัล')
+                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณไม่ถูกรางวัล')
 
                     await interaction.editReply({ embeds: [msg] })
                 }
