@@ -800,6 +800,8 @@ client.on('interactionCreate', async interaction => {
                     res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
                 )*/
 
+                await interaction.reply('Loading!');
+
                 if (fs.existsSync('./lottery_'+body.info.date+'.png') == false) {
                     const options = {
                         url: 'http://192.168.31.210:4000/?date=' + body.info.date,
@@ -833,7 +835,7 @@ client.on('interactionCreate', async interaction => {
                     .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
                 //replyembedtype(interaction, msg)
-                interaction.reply({ embeds: [msg], files: [file] })
+                await interaction.editReply({ embeds: [msg], files: [file] })
             } catch (error) {
                 console.log('error')
                 console.log(error)
@@ -849,7 +851,7 @@ client.on('interactionCreate', async interaction => {
 
         var options = {
             'method': 'GET',
-            'url': 'http://192.168.31.210:5000/gdpy?year=' + year,
+            'url': 'http://192.168.31.210:5000/lastlot?info=true',
             'json': true,
             'headers': {
             }
@@ -860,7 +862,7 @@ client.on('interactionCreate', async interaction => {
 
             var optionss = {
                 'method': 'GET',
-                'url': 'http://192.168.31.210:5000/checklottery?by=' + body[body.length - 1] + '&search=' + interaction.options.getString('number'),
+                'url': 'http://192.168.31.210:5000/checklottery?by=' + body.info.date + '&search=' + interaction.options.getString('number'),
                 'json': false,
                 'headers': {
                 }
