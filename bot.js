@@ -860,6 +860,7 @@ client.on('interactionCreate', async interaction => {
             //let ohmygod = interaction.channel.message.fetch(interaction.targetId);
             //numbertofind = ohmygod.content;
             console.log(interaction.options.get('message'));
+            numbertofind = interaction.options.get('message').message.content;
         }
         console.log(numbertofind);
         await interaction.deferReply();
