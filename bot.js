@@ -703,7 +703,11 @@ client.on('interactionCreate', async interaction => {
         request(options, function (error, response) {
             if (error) throw new Error(error);
             console.log(response.body);
-            reply(interaction, 'ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+            if(response.body == "debug"){
+                reply(interaction, 'เอ้! ห้องนี้ไม่ได้ติดตามสลากฯ')
+            }else {
+                reply(interaction, 'ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+            }
         });
     }
 
