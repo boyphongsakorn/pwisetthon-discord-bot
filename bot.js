@@ -248,7 +248,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
 
     fetch(url, settings)
         .then(res => res.json())
-        .then((json) => {
+        .then(async (json) => {
             console.log(json.length)
             if (json.length == 7 || json.length == 8 || json.length == 9) {
                 if (json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX") {
@@ -428,7 +428,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                     dest: './lottery_'+ date + '' + month + '' + year+'.png'             
                                 }
                 
-                                download.image(options)
+                                await download.image(options)
                                     .then(({ filename }) => {
                                         console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
                                     })
