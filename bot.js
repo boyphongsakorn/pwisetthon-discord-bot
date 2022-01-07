@@ -125,12 +125,12 @@ client.on("guildCreate", guild => {
         dm.send('ดิส ' + guild.name + '(' + guild.id + ') ได้เชิญ บอท PWisetthon.com เข้าเรียบร้อยแล้ว')
     });
 
-    if (guild.systemChannelID != null && guild.systemChannelID != undefined) {
-        console.log("System Channel: " + guild.systemChannelID);
+    if (guild.systemChannelId != null && guild.systemChannelId != undefined) {
+        console.log("System Channel: " + guild.systemChannelId);
 
         var options = {
             'method': 'GET',
-            'url': process.env.URL + '/discordbot/addchannels.php?chid=' + guild.systemChannelID,
+            'url': process.env.URL + '/discordbot/addchannels.php?chid=' + guild.systemChannelId,
             'headers': {
             }
         };
@@ -139,10 +139,10 @@ client.on("guildCreate", guild => {
             if (error) throw new Error(error);
             console.log(response.body);
             if (response.body == "debug") {
-                client.channels.cache.get(guild.systemChannelID).send('ขอบคุณ! ที่เชิญเราเข้าส่วนหนึ่งในดิสของคุณ')
+                client.channels.cache.get(guild.systemChannelId).send('ขอบคุณ! ที่เชิญเราเข้าส่วนหนึ่งในดิสของคุณ')
                     .catch(console.error);
             } else {
-                client.channels.cache.get(guild.systemChannelID).send('ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว! \nใช้คำสั่ง /cthlotto เพื่อยกเลิก')
+                client.channels.cache.get(guild.systemChannelId).send('ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว! \nใช้คำสั่ง /cthlotto เพื่อยกเลิก')
                     .catch(console.error);
             }
         });
