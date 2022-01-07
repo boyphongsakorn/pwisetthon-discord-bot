@@ -875,34 +875,84 @@ client.on('interactionCreate', async interaction => {
 
                 if (bodys.search("111111") != -1) {
                     //reply(interaction, 'คุณถูกรางวัลที่หนึ่ง')
-                    await interaction.editReply('คุณถูกรางวัลที่หนึ่ง')
+                    //await interaction.editReply('คุณถูกรางวัลที่หนึ่ง')
+                    const msg = new MessageEmbed()
+                        .setColor('#FFD700')
+                        .setTitle('คุณถูกรางวัลที่หนึ่ง')
+
+                    await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("222222") != -1) {
                     //reply(interaction, 'คุณถูกรางวัลที่สอง')
-                    await interaction.editReply('คุณถูกรางวัลที่สอง')
+                    //await interaction.editReply('คุณถูกรางวัลที่สอง')
+                    const msg = new MessageEmbed()
+                        .setColor('#DAA520')
+                        .setTitle('คุณถูกรางวัลที่สอง')
+
+                    await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("333333") != -1) {
                     //reply(interaction, 'คุณถูกรางวัลที่สาม')
-                    await interaction.editReply('คุณถูกรางวัลที่สาม')
+                    //await interaction.editReply('คุณถูกรางวัลที่สาม')
+                    const msg = new MessageEmbed()
+                        .setColor('#F0E68C')
+                        .setTitle('คุณถูกรางวัลที่สาม')
+
+                    await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("444444") != -1) {
                     //reply(interaction, 'คุณถูกรางวัลที่สี่')
-                    await interaction.editReply('คุณถูกรางวัลที่สี่')
+                    //await interaction.editReply('คุณถูกรางวัลที่สี่')
+                    const msg = new MessageEmbed()
+                        .setColor('#EEE8AA')
+                        .setTitle('คุณถูกรางวัลที่สี่')
+
+                    await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("555555") != -1) {
                     //reply(interaction, 'คุณถูกรางวัลที่ห้า')
-                    await interaction.editReply('คุณถูกรางวัลที่ห้า')
+                    //await interaction.editReply('คุณถูกรางวัลที่ห้า')
+                    const msg = new MessageEmbed()
+                        .setColor('#FAFAD2')
+                        .setTitle('คุณถูกรางวัลที่ห้า')
+
+                    await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("333000") != -1) {
                     //reply(interaction, 'คุณถูกรางวัลเลขหน้าสามตัว')
-                    await interaction.editReply('คุณถูกรางวัลเลขหน้าสามตัว')
+                    //await interaction.editReply('คุณถูกรางวัลเลขหน้าสามตัว')
+                    const msg = new MessageEmbed()
+                        .setColor('#D4AF37')
+                        .setTitle('คุณถูกรางวัลเลขหน้าสามตัว')
+
+                    await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("000333") != -1) {
                     //reply(interaction, 'คุณถูกรางวัลเลขท้ายสามตัว')
-                    await interaction.editReply('คุณถูกรางวัลเลขท้ายสามตัว')
+                    //await interaction.editReply('คุณถูกรางวัลเลขท้ายสามตัว')
+                    const msg = new MessageEmbed()
+                        .setColor('#CFB53B')
+                        .setTitle('คุณถูกรางวัลเลขท้ายสามตัว')
+
+                    await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("000022") != -1) {
                     //reply(interaction, 'คุณถูกรางวัลเลขท้ายสองตัว')
-                    await interaction.editReply('คุณถูกรางวัลเลขท้ายสองตัว')
+                    //await interaction.editReply('คุณถูกรางวัลเลขท้ายสองตัว')
+                    const msg = new MessageEmbed()
+                        .setColor('#C5B358')
+                        .setTitle('คุณถูกรางวัลเลขท้ายสองตัว')
+
+                    await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("111112") != -1) {
                     //reply(interaction, 'คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
-                    await interaction.editReply('คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
+                    //await interaction.editReply('คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
+                    const msg = new MessageEmbed()
+                        .setColor('#FFDF00')
+                        .setTitle('คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
+
+                    await interaction.editReply({ embeds: [msg] })
                 } else {
                     //reply(interaction, 'คุณไม่ถูกรางวัล')
-                    await interaction.editReply('คุณไม่ถูกรางวัล')
+                    //await interaction.editReply('คุณไม่ถูกรางวัล')
+                    const msg = new MessageEmbed()
+                        .setColor('#ff0000')
+                        .setTitle('คุณไม่ถูกรางวัล')
+
+                    await interaction.editReply({ embeds: [msg] })
                 }
             });
 
