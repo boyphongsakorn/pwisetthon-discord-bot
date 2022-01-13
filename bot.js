@@ -173,6 +173,11 @@ client.on("guildCreate", guild => {
     }, guild.id)
 
     commands?.create({
+        name: 'aithing',
+        description: "ดูเลขเด็ด 10 อันดับจากการใช้ Ai"
+    }, guild.id)
+
+    commands?.create({
         name: 'srchlot',
         description: "ตรวจสลากฯ ล่าสุดด้วยเลข",
         options: [{
@@ -977,6 +982,23 @@ client.on('interactionCreate', async interaction => {
             });
 
         });
+    }
+
+    if (interaction.commandName === 'aithing') {
+        //deferReply
+        await interaction.deferReply('กรุณารอสักครู่นะคะ');
+
+        //create MessageEmbed
+        const msg = new MessageEmbed()
+            .setColor('#5454c5')
+            .setTitle('คำนวณเลขเด็ดจากข่าว โดยใช้ AI')
+            .setImage('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280')
+            .setDescription('คุณถูกรางวัลเลขท้ายสองตัว')
+            //.setFooter('ขอบคุณที่ใช้บริการ')
+            .setFooter({ text: 'ข้อมูลจาก https://lottsanook-chitai-production.up.railway.app/ai \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+
+        //send message
+        await interaction.reply(msg);
     }
 });
 
