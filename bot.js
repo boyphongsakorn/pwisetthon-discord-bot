@@ -986,7 +986,7 @@ client.on('interactionCreate', async interaction => {
 
     if (interaction.commandName === 'aithing') {
         //deferReply
-        await interaction.deferReply('กรุณารอสักครู่นะคะ');
+        await interaction.deferReply();
 
         //create MessageEmbed
         const msg = new MessageEmbed()
