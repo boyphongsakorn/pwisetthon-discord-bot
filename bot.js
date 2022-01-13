@@ -435,12 +435,12 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 //file exists
                             })*/
 
-                            if (fs.existsSync('./lottery_'+ date + '' + month + '' + year+'.png') == false) {
+                            if (fs.existsSync('./lottery_' + date + '' + month + '' + year + '.png') == false) {
                                 const options = {
                                     url: 'http://192.168.31.210:4000/?date=' + date + '' + month + '' + year,
-                                    dest: './lottery_'+ date + '' + month + '' + year+'.png'             
+                                    dest: './lottery_' + date + '' + month + '' + year + '.png'
                                 }
-                
+
                                 await download.image(options)
                                     .then(({ filename }) => {
                                         console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
@@ -708,9 +708,9 @@ client.on('interactionCreate', async interaction => {
         request(options, function (error, response) {
             if (error) throw new Error(error);
             console.log(response.body);
-            if(response.body == "debug"){
+            if (response.body == "debug") {
                 reply(interaction, 'เอ้! ห้องนี้ไม่ได้ติดตามสลากฯ')
-            }else {
+            } else {
                 reply(interaction, 'ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
             }
         });
@@ -719,7 +719,7 @@ client.on('interactionCreate', async interaction => {
     if (interaction.commandName === 'lastlotto') {
         //await interaction.reply('Loading!');
         await interaction.deferReply();
-        
+
         var options = {
             'method': 'GET',
             'url': 'http://192.168.31.210:5000/lastlot?info=true',
@@ -820,12 +820,12 @@ client.on('interactionCreate', async interaction => {
                     res.body.pipe(fs.createWriteStream('./lottery_'+body.info.date+'.png'))
                 )*/
 
-                if (fs.existsSync('./lottery_'+body.info.date+'.png') == false) {
+                if (fs.existsSync('./lottery_' + body.info.date + '.png') == false) {
                     const options = {
                         url: 'http://192.168.31.210:4000/?date=' + body.info.date,
-                        dest: './lottery_'+body.info.date+'.png'             
+                        dest: './lottery_' + body.info.date + '.png'
                     }
-    
+
                     await download.image(options)
                         .then(({ filename }) => {
                             console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
@@ -865,7 +865,7 @@ client.on('interactionCreate', async interaction => {
     if (interaction.commandName === 'srchlot' || interaction.commandName === 'ตรวจสลากฯ') {
         //console.log(interaction.options.getString('number'));
         let numbertofind = interaction.options.getString('number');
-        if(interaction.options.getString('number') == null && interaction.commandName === 'ตรวจสลากฯ') {
+        if (interaction.options.getString('number') == null && interaction.commandName === 'ตรวจสลากฯ') {
             //let ohmygod = interaction.channel.message.fetch(interaction.targetId);
             //numbertofind = ohmygod.content;
             console.log(interaction.options.get('message'));
@@ -903,7 +903,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลที่หนึ่ง')
                     const msg = new MessageEmbed()
                         .setColor('#FFD700')
-                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' ถูกรางวัลที่หนึ่ง')
+                        .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' ถูกรางวัลที่หนึ่ง')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("222222") != -1) {
@@ -911,7 +911,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลที่สอง')
                     const msg = new MessageEmbed()
                         .setColor('#DAA520')
-                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลที่สอง')
+                        .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลที่สอง')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("333333") != -1) {
@@ -919,7 +919,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลที่สาม')
                     const msg = new MessageEmbed()
                         .setColor('#F0E68C')
-                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลที่สาม')
+                        .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลที่สาม')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("444444") != -1) {
@@ -927,7 +927,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลที่สี่')
                     const msg = new MessageEmbed()
                         .setColor('#EEE8AA')
-                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลที่สี่')
+                        .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลที่สี่')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("555555") != -1) {
@@ -935,7 +935,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลที่ห้า')
                     const msg = new MessageEmbed()
                         .setColor('#FAFAD2')
-                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลที่ห้า')
+                        .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลที่ห้า')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("333000") != -1) {
@@ -943,7 +943,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลเลขหน้าสามตัว')
                     const msg = new MessageEmbed()
                         .setColor('#D4AF37')
-                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลเลขหน้าสามตัว')
+                        .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลเลขหน้าสามตัว')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("000333") != -1) {
@@ -951,7 +951,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลเลขท้ายสามตัว')
                     const msg = new MessageEmbed()
                         .setColor('#CFB53B')
-                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลเลขท้ายสามตัว')
+                        .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลเลขท้ายสามตัว')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("000022") != -1) {
@@ -959,7 +959,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลเลขท้ายสองตัว')
                     const msg = new MessageEmbed()
                         .setColor('#C5B358')
-                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลเลขท้ายสองตัว')
+                        .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลเลขท้ายสองตัว')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else if (bodys.search("111112") != -1) {
@@ -967,7 +967,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
                     const msg = new MessageEmbed()
                         .setColor('#FFDF00')
-                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
+                        .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
 
                     await interaction.editReply({ embeds: [msg] })
                 } else {
@@ -975,7 +975,7 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('คุณไม่ถูกรางวัล')
                     const msg = new MessageEmbed()
                         .setColor('#ff0000')
-                        .setTitle('เลขที่คุณตรวจคือ '+numbertofind+' คุณไม่ถูกรางวัล')
+                        .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณไม่ถูกรางวัล')
 
                     await interaction.editReply({ embeds: [msg] })
                 }
@@ -988,17 +988,33 @@ client.on('interactionCreate', async interaction => {
         //deferReply
         await interaction.deferReply();
 
+        // download image from url
+        const options = {
+            url: 'https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280',
+            dest: './aithing.png'
+        }
+
+        await download.image(options)
+            .then(({ filename }) => {
+                console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
+            })
+            .catch((err) => console.error(err))
+
+        const file = new MessageAttachment('./aithing.png');
+
         //create MessageEmbed
         const msg = new MessageEmbed()
             .setColor('#5454c5')
             .setTitle('คำนวณเลขเด็ดจากข่าว โดยใช้ AI')
-            .setImage('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280')
             .setDescription('คุณถูกรางวัลเลขท้ายสองตัว')
+            //.setImage('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280')
+            .setImage('attachment://aithing.png')
             .setTimestamp()
             .setFooter({ text: 'ข้อมูลจาก https://lottsanook-chitai-production.up.railway.app/ai \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
         //edit message
-        await interaction.editReply({ embeds: [msg] })
+        //await interaction.editReply({ embeds: [msg] })
+        await interaction.editReply({ files: [file], embeds: [msg] })
     }
 });
 
