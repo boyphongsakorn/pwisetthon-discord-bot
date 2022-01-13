@@ -1098,7 +1098,7 @@ client.on('interactionCreate', async interaction => {
             .addComponents(
                 new MessageSelectMenu()
                 .setCustomId('lottsheet')
-                .setPlaceholder('เลือกวันที่ต้องการ')
+                .setPlaceholder('เลือกวันที่ต้องการ (25 งวดล่าสุด)')
                 .addOptions(datearray)
             )
 
@@ -1123,14 +1123,21 @@ client.on('interactionCreate', async interaction => {
         await interaction.deferReply();
 
         if (fs.existsSync('./lotsheet_' + interaction.value + '.pdf') == false) {
-            //download pdf
-            const file = fs.createWriteStream("lotsheet_" + interaction.value + ".pdf");
+            //use node-fetch to download pdf from https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c
+            //let url = 'https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c'
+            const https = require('https');
+            let url = 'https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c'
+            let file = fs.createWriteStream('./lotsheet_' + interaction.value + '.pdf')
+            let request = https.get(url, function (response) {
+                response.pipe(file)
+            })
+            /*const file = fs.createWriteStream("lotsheet_" + interaction.value + ".pdf");
             const testwow = await http.get("https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c", function(response) {
                 response.pipe(file);
             });
             testwow.on('error', function(err) {
                 console.log(err);
-            });
+            });*/
             var PDFImage = require("pdf-image").PDFImage;
             var pdfImage = new PDFImage("./lotsheet_" + interaction.value + ".pdf",{
                 combinedImage: true
