@@ -1089,6 +1089,8 @@ client.on('interactionCreate', async interaction => {
             }
         });
 
+        console.log(datearray)
+
         const row = new MessageActionRow()
             .addComponents(
                 new MessageSelectMenu()
