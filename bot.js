@@ -1061,7 +1061,7 @@ client.on('interactionCreate', async interaction => {
 
         //request from https://raw.githubusercontent.com/boyphongsakorn/testrepo/main/godcombothtext to json
         let datearray = []
-        await request('https://raw.githubusercontent.com/boyphongsakorn/testrepo/main/godcombothtext', function (error, response, body) {
+        await request('https://raw.githubusercontent.com/boyphongsakorn/testrepo/main/godcombothtext', async function (error, response, body) {
             if (error) throw new Error(error);
             //console.log(body);
             //loop body for push to array
@@ -1087,11 +1087,8 @@ client.on('interactionCreate', async interaction => {
                     value: i[0]
                 })
             }
-        });
 
-        console.log(datearray)
-
-        const row = new MessageActionRow()
+            const row = new MessageActionRow()
             .addComponents(
                 new MessageSelectMenu()
                 .setCustomId('lottsheet')
@@ -1099,7 +1096,20 @@ client.on('interactionCreate', async interaction => {
                 .addOptions(datearray)
             )
 
-        await interaction.editReply({ content: 'ใบตรวจสลาก!', components: [row] })
+            await interaction.editReply({ content: 'ใบตรวจสลาก!', components: [row] })
+        });
+
+        //console.log(datearray)
+
+        /*const row = new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                .setCustomId('lottsheet')
+                .setPlaceholder('เลือกวันที่ต้องการ')
+                .addOptions(datearray)
+            )
+
+        await interaction.editReply({ content: 'ใบตรวจสลาก!', components: [row] })*/
     }
 
     if(interaction.customId === 'lottsheet'){
