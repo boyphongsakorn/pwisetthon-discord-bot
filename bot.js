@@ -997,8 +997,8 @@ client.on('interactionCreate', async interaction => {
             //.setFooter('ขอบคุณที่ใช้บริการ')
             .setFooter({ text: 'ข้อมูลจาก https://lottsanook-chitai-production.up.railway.app/ai \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
-        //send message
-        await interaction.reply(msg);
+        //edit message
+        await interaction.editReply(msg);
     }
 });
 
