@@ -1082,9 +1082,9 @@ client.on('interactionCreate', async interaction => {
             //start body array from index 528
             for (let i of body.slice(528)) {
                 datearray.push({
-                    label: i[1],
-                    description: i[0],
-                    value: i[0]
+                    label: String(i[1]),
+                    description: String(i[0]),
+                    value: String(i[0])
                 })
             }
 
