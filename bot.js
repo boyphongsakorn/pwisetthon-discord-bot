@@ -1130,7 +1130,7 @@ client.on('interactionCreate', async interaction => {
             const https = require('https');
             let url = 'https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c'
             let file = fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf')
-            let request = https.get(url, function (response) {
+            let request = await https.get(url, function (response) {
                 response.pipe(file)
             })
             console.log('downloading')
@@ -1145,7 +1145,7 @@ client.on('interactionCreate', async interaction => {
             var pdfImage = new PDFImage("./lotsheet_" + interaction.values[0] + ".pdf",{
                 combinedImage: true
               });
-            pdfImage.convertFile().then(function (imagePath) {
+            await pdfImage.convertFile().then(function (imagePath) {
                 // 0-th page (first page) of the slide.pdf is available as slide-0.png
                 fs.existsSync("./lotsheet_" + interaction.values[0] + ".png") // => true
             });
