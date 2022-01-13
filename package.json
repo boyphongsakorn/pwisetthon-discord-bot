@@ -17,6 +17,7 @@
     "dotenv": "^9.0.2",
     "image-downloader": "^4.0.3",
     "node-fetch": "^2.6.6",
+    "pdf-image": "^2.0.0",
     "request": "^2.88.2"
   }
 }

@@ -1,4 +1,4 @@
-const { MessageAttachment, MessageEmbed, Client, Intents } = require('discord.js');
+const { MessageAttachment, MessageEmbed, Client, Intents, MessageActionRow, MessageSelectMenu } = require('discord.js');
 //const DS = require("discord-slash-commands-client");
 const cron = require("cron");
 const fetch = require('node-fetch');
@@ -175,6 +175,11 @@ client.on("guildCreate", guild => {
     commands?.create({
         name: 'aithing',
         description: "ดูเลขเด็ด 10 อันดับจากการใช้ Ai"
+    }, guild.id)
+
+    commands?.create({
+        name: 'lotsheet',
+        description: "ใบตรวจสลากกินแบ่งรัฐบาล"
     }, guild.id)
 
     commands?.create({
@@ -673,7 +678,7 @@ await request(options, async function (error, response, body) {
 })*/
 
 client.on('interactionCreate', async interaction => {
-    if (!interaction.isCommand() && !interaction.isContextMenu()) return;
+    if (!interaction.isCommand() && !interaction.isContextMenu() && !interaction.isSelectMenu()) return;
 
     if (interaction.commandName === 'fthlotto') {
         var options = {
@@ -1015,6 +1020,93 @@ client.on('interactionCreate', async interaction => {
         //edit message
         //await interaction.editReply({ embeds: [msg] })
         await interaction.editReply({ files: [file], embeds: [msg] })
+    }
+
+    if (interaction.commandName === 'lotsheet') {
+        //deferReply
+        await interaction.deferReply({ ephemeral: true });
+
+        let datearray = []
+
+        //loop from 2012 to this year
+        for (let i = 2012; i <= new Date().getFullYear(); i++) {
+            var options = {
+                'method': 'GET',
+                'url': 'https://thai-lottery1.p.rapidapi.com/gdpy?year='+(i+543),
+                'json': true,
+                'headers': {
+                    'x-rapidapi-host': 'thai-lottery1.p.rapidapi.com',
+                    'x-rapidapi-key': 'c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137'
+                }
+            };
+            
+            request(options, function (error, response) {
+                if (error) throw new Error(error);
+                console.log(response.body);
+                //loop body for push to array
+                for (let i = 0; i < response.body.length; i++) {
+                    let datetofulldate = ""
+                    //thai month array
+                    //let thaimonth = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"]
+                    //convert date to full date
+                    datetofulldate = response.body[i].substring(0, 2) + " " + convertmonthtotext(response.body[i].substring(2, 4)) + " " + response.body[i].substring(4, 8)
+                    datearray.push({
+                        label: datetofulldate,
+                        description: response.body[i],
+                        value: response.body[i]
+                    })
+                }
+            });
+        }
+
+        const row = new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                .setCustomId('lottsheet')
+                .setPlaceholder('เลือกวันที่ต้องการ')
+                .addOptions(datearray),
+            )
+
+        await interaction.editReply({ content: 'ใบตรวจสลาก!', components: [row] })
+    }
+
+    if(interaction.customId === 'lottsheet'){
+        //deferReply
+        await interaction.deferReply();
+
+        if (fs.existsSync('./lotsheet_' + interaction.value + '.pdf') == false) {
+            //download pdf
+            const file = fs.createWriteStream("lotsheet_" + interaction.value + ".pdf");
+            const testwow = await http.get("https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c", function(response) {
+                response.pipe(file);
+            });
+            testwow.on('error', function(err) {
+                console.log(err);
+            });
+            var PDFImage = require("pdf-image").PDFImage;
+            var pdfImage = new PDFImage("./lotsheet_" + interaction.value + ".pdf",{
+                combinedImage: true
+              });
+            pdfImage.convertFile().then(function (imagePath) {
+                // 0-th page (first page) of the slide.pdf is available as slide-0.png
+                fs.existsSync("./lotsheet_" + interaction.value + ".png") // => true
+            });
+        }
+
+        const file = new MessageAttachment('./lotsheet_'+interaction.value+'.png');
+
+        //create MessageEmbed
+        const msg = new MessageEmbed()
+            .setColor('#5454c5')
+            .setTitle('ใบตรวจสลาก')
+            .setDescription('ของวันที่ ' + parseInt(interaction.value.substring(0, 2)) + ' ' + convertmonthtotext(interaction.value.substring(2, 4)) + ' ' + parseInt(interaction.value.substring(4, 8)))
+            //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.value)
+            .setImage('attachment://lotsheet_'+interaction.value+'.png')
+            .setTimestamp()
+            .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+
+        //edit message
+        await interaction.editReply({ embeds: [msg] })
     }
 });
 
