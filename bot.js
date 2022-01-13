@@ -1119,19 +1119,21 @@ client.on('interactionCreate', async interaction => {
     }
 
     if(interaction.customId === 'lottsheet'){
+        console.log(interaction)
+
         //deferReply
         await interaction.deferReply();
 
-        if (fs.existsSync('./lotsheet_' + interaction.value + '.pdf') == false) {
+        if (fs.existsSync('./lotsheet_' + interaction.values[0] + '.pdf') == false) {
             //use node-fetch to download pdf from https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c
             //let url = 'https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c'
             const https = require('https');
             let url = 'https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c'
-            let file = fs.createWriteStream('./lotsheet_' + interaction.value + '.pdf')
+            let file = fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf')
             let request = https.get(url, function (response) {
                 response.pipe(file)
             })
-            /*const file = fs.createWriteStream("lotsheet_" + interaction.value + ".pdf");
+            /*const file = fs.createWriteStream("lotsheet_" + interaction.values[0] + ".pdf");
             const testwow = await http.get("https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c", function(response) {
                 response.pipe(file);
             });
@@ -1139,24 +1141,24 @@ client.on('interactionCreate', async interaction => {
                 console.log(err);
             });*/
             var PDFImage = require("pdf-image").PDFImage;
-            var pdfImage = new PDFImage("./lotsheet_" + interaction.value + ".pdf",{
+            var pdfImage = new PDFImage("./lotsheet_" + interaction.values[0] + ".pdf",{
                 combinedImage: true
               });
             pdfImage.convertFile().then(function (imagePath) {
                 // 0-th page (first page) of the slide.pdf is available as slide-0.png
-                fs.existsSync("./lotsheet_" + interaction.value + ".png") // => true
+                fs.existsSync("./lotsheet_" + interaction.values[0] + ".png") // => true
             });
         }
 
-        const file = new MessageAttachment('./lotsheet_'+interaction.value+'.png');
+        const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'.png');
 
         //create MessageEmbed
         const msg = new MessageEmbed()
             .setColor('#5454c5')
             .setTitle('ใบตรวจสลาก')
-            .setDescription('ของวันที่ ' + parseInt(interaction.value.substring(0, 2)) + ' ' + convertmonthtotext(interaction.value.substring(2, 4)) + ' ' + parseInt(interaction.value.substring(4, 8)))
-            //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.value)
-            .setImage('attachment://lotsheet_'+interaction.value+'.png')
+            .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
+            //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
+            .setImage('attachment://lotsheet_'+interaction.values[0]+'.png')
             .setTimestamp()
             .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
