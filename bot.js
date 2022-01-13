@@ -1133,6 +1133,7 @@ client.on('interactionCreate', async interaction => {
             let request = https.get(url, function (response) {
                 response.pipe(file)
             })
+            console.log('downloading')
             /*const file = fs.createWriteStream("lotsheet_" + interaction.values[0] + ".pdf");
             const testwow = await http.get("https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c", function(response) {
                 response.pipe(file);
