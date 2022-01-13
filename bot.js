@@ -1080,7 +1080,9 @@ client.on('interactionCreate', async interaction => {
             }*/
             //use for .. of
             //start body array from index 528
-            for (let i of body.slice(528)) {
+            //convert from text json to json
+            let json = JSON.parse(body)
+            for (let i of json.slice(528)) {
                 datearray.push({
                     label: String(i[1]),
                     description: String(i[0]),
