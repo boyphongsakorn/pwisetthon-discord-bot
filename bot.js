@@ -994,11 +994,11 @@ client.on('interactionCreate', async interaction => {
             .setTitle('คำนวณเลขเด็ดจากข่าว โดยใช้ AI')
             .setImage('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280')
             .setDescription('คุณถูกรางวัลเลขท้ายสองตัว')
-            //.setFooter('ขอบคุณที่ใช้บริการ')
+            .setTimestamp()
             .setFooter({ text: 'ข้อมูลจาก https://lottsanook-chitai-production.up.railway.app/ai \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
         //edit message
-        await interaction.editReply(msg);
+        await interaction.editReply({ embeds: [msg] })
     }
 });
 
