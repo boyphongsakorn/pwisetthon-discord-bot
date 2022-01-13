@@ -1005,8 +1005,8 @@ client.on('interactionCreate', async interaction => {
         //create MessageEmbed
         const msg = new MessageEmbed()
             .setColor('#5454c5')
-            .setTitle('คำนวณเลขเด็ดจากข่าว โดยใช้ AI')
-            .setDescription('คุณถูกรางวัลเลขท้ายสองตัว')
+            .setTitle('เลขเด็ด')
+            .setDescription('คำนวณเลขเด็ดจากข่าว โดยใช้ AI')
             //.setImage('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280')
             .setImage('attachment://aithing.png')
             .setTimestamp()
