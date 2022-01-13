@@ -1082,7 +1082,9 @@ client.on('interactionCreate', async interaction => {
             //start body array from index 528
             //convert from text json to json
             let json = JSON.parse(body)
-            for (let i of json.slice(528)) {
+            //slice array only last 25 array
+            json = json.slice(json.length-25, json.length)
+            for (let i of json) {
                 datearray.push({
                     label: String(i[1]),
                     description: String(i[0]),
