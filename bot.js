@@ -1040,7 +1040,7 @@ client.on('interactionCreate', async interaction => {
                 }
             };
             
-            request(options, function (error, response) {
+            await request(options, function (error, response) {
                 if (error) throw new Error(error);
                 console.log(response.body);
                 //loop body for push to array
