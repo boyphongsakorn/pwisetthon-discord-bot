@@ -1155,7 +1155,7 @@ client.on('interactionCreate', async interaction => {
                 const result = ImageMagick.convert('./lotsheet_' + interaction.values[0] + '.pdf', '/app/docs', './lotsheet_' + interaction.values[0]);
                 console.log(result)
 
-                const file = new MessageAttachment('./docs/lotsheet_'+interaction.values[0]+'.png');
+                const file = new MessageAttachment('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png');
 
                 //create MessageEmbed
                 const msg = new MessageEmbed()
