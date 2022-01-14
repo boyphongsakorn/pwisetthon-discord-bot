@@ -1141,14 +1141,17 @@ client.on('interactionCreate', async interaction => {
             testwow.on('error', function(err) {
                 console.log(err);
             });*/
-            var PDFImage = require("pdf-image").PDFImage;
+            /*var PDFImage = require("pdf-image").PDFImage;
             var pdfImage = new PDFImage("./lotsheet_" + interaction.values[0] + ".pdf",{
                 combinedImage: true
               });
             await pdfImage.convertFile().then(function (imagePath) {
                 // 0-th page (first page) of the slide.pdf is available as slide-0.png
                 fs.existsSync("./lotsheet_" + interaction.values[0] + ".png") // => true
-            });
+            });*/
+            const { Poppler } = require('pdf-images');
+            const result = Poppler.convert('./lotsheet_' + interaction.values[0] + '.pdf', './', './lotsheet_' + interaction.values[0]);
+            console.log(result)
         }
 
         const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'.png');
