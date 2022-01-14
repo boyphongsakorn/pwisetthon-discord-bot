@@ -1128,14 +1128,26 @@ client.on('interactionCreate', async interaction => {
             //use node-fetch to download pdf from https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c
             //let url = 'https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c'
             //const https = require('https');
-            let url = 'https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c'
+            //let url = 'https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c'
             /*let file = fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf')
             let request = await https.get(url, function (response) {
                 response.pipe(file)
             })
             console.log('downloading')*/
-            const testwow = await fetch(url);
-            const testdata = await testwow.body.pipe(fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf'));
+            //const testwow = await fetch(url);
+            //const testdata = await testwow.body.pipe(fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf'));
+            var download = function(uri, filename, callback){
+                request.head(uri, function(err, res, body){
+                  console.log('content-type:', res.headers['content-type']);
+                  console.log('content-length:', res.headers['content-length']);
+              
+                  request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+                });
+            ;
+
+            await download('https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c', './lotsheet_' + interaction.values[0] + '.pdf', function(){
+                console.log('done');
+            });
             /*const file = fs.createWriteStream("lotsheet_" + interaction.values[0] + ".pdf");
             const testwow = await http.get("https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c", function(response) {
                 response.pipe(file);
