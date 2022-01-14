@@ -1168,7 +1168,7 @@ client.on('interactionCreate', async interaction => {
                     .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
                 //edit message
-                await interaction.editReply({ embed: msg, files: [file] })
+                await interaction.editReply({ embeds: [msg], files: [file] })
             });
             /*const file = fs.createWriteStream("lotsheet_" + interaction.values[0] + ".pdf");
             const testwow = await http.get("https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c", function(response) {
@@ -1199,7 +1199,7 @@ client.on('interactionCreate', async interaction => {
                 .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
             //edit message
-            await interaction.editReply({ embed: msg, files: [file] })
+            await interaction.editReply({ embeds: [msg], files: [file] })
         }
     }
 });
