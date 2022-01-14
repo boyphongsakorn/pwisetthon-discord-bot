@@ -1170,7 +1170,7 @@ client.on('interactionCreate', async interaction => {
                     console.error(err);
                 });
 
-                const file = new MessageAttachment('./lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png');
+                const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'.png');
 
                 //create MessageEmbed
                 const msg = new MessageEmbed()
