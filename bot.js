@@ -1147,6 +1147,25 @@ client.on('interactionCreate', async interaction => {
 
             await download('https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c', './lotsheet_' + interaction.values[0] + '.pdf', function(){
                 console.log('done');
+
+                const { Poppler } = require('pdf-images');
+                const result = Poppler.convert('./lotsheet_' + interaction.values[0] + '.pdf', './', './lotsheet_' + interaction.values[0]);
+                console.log(result)
+
+                const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'.png');
+
+                //create MessageEmbed
+                const msg = new MessageEmbed()
+                    .setColor('#5454c5')
+                    .setTitle('ใบตรวจสลาก')
+                    .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
+                    //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
+                    .setImage('attachment://lotsheet_'+interaction.values[0]+'.png')
+                    .setTimestamp()
+                    .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+
+                //edit message
+                await interaction.editReply({ embed: msg, files: [file] })
             });
             /*const file = fs.createWriteStream("lotsheet_" + interaction.values[0] + ".pdf");
             const testwow = await http.get("https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c", function(response) {
@@ -1163,25 +1182,22 @@ client.on('interactionCreate', async interaction => {
                 // 0-th page (first page) of the slide.pdf is available as slide-0.png
                 fs.existsSync("./lotsheet_" + interaction.values[0] + ".png") // => true
             });*/
-            const { Poppler } = require('pdf-images');
-            const result = Poppler.convert('./lotsheet_' + interaction.values[0] + '.pdf', './', './lotsheet_' + interaction.values[0]);
-            console.log(result)
+        }else{
+            const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'.png');
+
+            //create MessageEmbed
+            const msg = new MessageEmbed()
+                .setColor('#5454c5')
+                .setTitle('ใบตรวจสลาก')
+                .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
+                //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
+                .setImage('attachment://lotsheet_'+interaction.values[0]+'.png')
+                .setTimestamp()
+                .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+
+            //edit message
+            await interaction.editReply({ embeds: [msg] })
         }
-
-        const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'.png');
-
-        //create MessageEmbed
-        const msg = new MessageEmbed()
-            .setColor('#5454c5')
-            .setTitle('ใบตรวจสลาก')
-            .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
-            //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
-            .setImage('attachment://lotsheet_'+interaction.values[0]+'.png')
-            .setTimestamp()
-            .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
-
-        //edit message
-        await interaction.editReply({ embeds: [msg] })
     }
 });
 
