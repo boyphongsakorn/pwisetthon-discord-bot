@@ -1152,10 +1152,10 @@ client.on('interactionCreate', async interaction => {
                 //const result = Poppler.convert('./lotsheet_' + interaction.values[0] + '.pdf', './', './lotsheet_' + interaction.values[0]);
                 
                 const { ImageMagick } = require('pdf-images');
-                const result = ImageMagick.convert('./lotsheet_' + interaction.values[0] + '.pdf', '/lotsheet', './lotsheet_' + interaction.values[0]);
+                const result = ImageMagick.convert('./lotsheet_' + interaction.values[0] + '.pdf', '/docs', './lotsheet_' + interaction.values[0]);
                 console.log(result)
 
-                const file = new MessageAttachment('./lotsheet/lotsheet_'+interaction.values[0]+'.png');
+                const file = new MessageAttachment('./docs/lotsheet_'+interaction.values[0]+'.png');
 
                 //create MessageEmbed
                 const msg = new MessageEmbed()
@@ -1186,7 +1186,7 @@ client.on('interactionCreate', async interaction => {
                 fs.existsSync("./lotsheet_" + interaction.values[0] + ".png") // => true
             });*/
         }else{
-            const file = new MessageAttachment('./lotsheet/lotsheet_'+interaction.values[0]+'.png');
+            const file = new MessageAttachment('./docs/lotsheet_'+interaction.values[0]+'.png');
 
             //create MessageEmbed
             const msg = new MessageEmbed()
