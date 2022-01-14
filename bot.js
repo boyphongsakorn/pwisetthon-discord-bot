@@ -1165,13 +1165,13 @@ client.on('interactionCreate', async interaction => {
                     //.quality(60) // set JPEG quality
                     //.greyscale() // set greyscale
                     .background(0xFFFFFFFF)
-                    .write('./lotsheet_'+interaction.values[0]+'.png'); // save
+                    .write('lotsheet_'+interaction.values[0]+'_edit.png'); // save
                 })
                 .catch(err => {
                     console.error(err);
                 });
 
-                const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'.png');
+                const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'_edit.png');
 
                 //create MessageEmbed
                 const msg = new MessageEmbed()
@@ -1179,7 +1179,7 @@ client.on('interactionCreate', async interaction => {
                     .setTitle('ใบตรวจสลาก')
                     .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
                     //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
-                    .setImage('attachment://lotsheet_'+interaction.values[0]+'.png')
+                    .setImage('attachment://lotsheet_'+interaction.values[0]+'_edit.png')
                     .setTimestamp()
                     .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
