@@ -1136,7 +1136,7 @@ client.on('interactionCreate', async interaction => {
             console.log('downloading')*/
             //const testwow = await fetch(url);
             //const testdata = await testwow.body.pipe(fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf'));
-            var download = async function(uri, filename, callback){
+            var testdownload = async function(uri, filename, callback){
                 request.head(uri, function(err, res, body){
                   console.log('content-type:', res.headers['content-type']);
                   console.log('content-length:', res.headers['content-length']);
@@ -1145,7 +1145,7 @@ client.on('interactionCreate', async interaction => {
                 });
             };
 
-            await download('https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c', './lotsheet_' + interaction.values[0] + '.pdf', async function(){
+            await testdownload('https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c', './lotsheet_' + interaction.values[0] + '.pdf', async function(){
                 console.log('done');
 
                 //const { Poppler } = require('pdf-images');
