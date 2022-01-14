@@ -1152,10 +1152,10 @@ client.on('interactionCreate', async interaction => {
                 //const result = Poppler.convert('./lotsheet_' + interaction.values[0] + '.pdf', './', './lotsheet_' + interaction.values[0]);
                 
                 const { ImageMagick } = require('pdf-images');
-                const result = ImageMagick.convert('./lotsheet_' + interaction.values[0] + '.pdf', './', './lotsheet_' + interaction.values[0]);
+                const result = ImageMagick.convert('./lotsheet_' + interaction.values[0] + '.pdf', '', './lotsheet_' + interaction.values[0]);
                 console.log(result)
 
-                const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'-001.png');
+                const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'.png');
 
                 //create MessageEmbed
                 const msg = new MessageEmbed()
@@ -1163,7 +1163,7 @@ client.on('interactionCreate', async interaction => {
                     .setTitle('ใบตรวจสลาก')
                     .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
                     //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
-                    .setImage('attachment://lotsheet_'+interaction.values[0]+'-001.png')
+                    .setImage('attachment://lotsheet_'+interaction.values[0]+'.png')
                     .setTimestamp()
                     .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
