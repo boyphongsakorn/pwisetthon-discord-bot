@@ -1143,7 +1143,7 @@ client.on('interactionCreate', async interaction => {
               
                   request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
                 });
-            ;
+            };
 
             await download('https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c', './lotsheet_' + interaction.values[0] + '.pdf', function(){
                 console.log('done');
