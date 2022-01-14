@@ -1145,7 +1145,7 @@ client.on('interactionCreate', async interaction => {
                 });
             };
 
-            await download('https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c', './lotsheet_' + interaction.values[0] + '.pdf', function(){
+            await download('https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c', './lotsheet_' + interaction.values[0] + '.pdf', async function(){
                 console.log('done');
 
                 const { Poppler } = require('pdf-images');
