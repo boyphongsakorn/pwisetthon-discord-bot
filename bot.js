@@ -1196,7 +1196,7 @@ client.on('interactionCreate', async interaction => {
                 .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
             //edit message
-            await interaction.editReply({ embeds: [msg] })
+            await interaction.editReply({ embed: msg, files: [file] })
         }
     }
 });
