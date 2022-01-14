@@ -1152,7 +1152,7 @@ client.on('interactionCreate', async interaction => {
                 //const result = Poppler.convert('./lotsheet_' + interaction.values[0] + '.pdf', './', './lotsheet_' + interaction.values[0]);
                 
                 const { ImageMagick } = require('pdf-images');
-                const result = ImageMagick.convert('./lotsheet_' + interaction.values[0] + '.pdf', '/docs', './lotsheet_' + interaction.values[0]);
+                const result = ImageMagick.convert('./lotsheet_' + interaction.values[0] + '.pdf', '/app/docs', './lotsheet_' + interaction.values[0]);
                 console.log(result)
 
                 const file = new MessageAttachment('./docs/lotsheet_'+interaction.values[0]+'.png');
