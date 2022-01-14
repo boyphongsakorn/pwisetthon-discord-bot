@@ -1157,7 +1157,7 @@ client.on('interactionCreate', async interaction => {
                 console.log(result)
 
                 //add white background to image
-                Jimp.read('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
+                await Jimp.read('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
                 .then(lenna => {
                     return lenna
                     //.resize(256, 256) // resize
