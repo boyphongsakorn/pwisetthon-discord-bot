@@ -1124,7 +1124,7 @@ client.on('interactionCreate', async interaction => {
         //deferReply
         await interaction.deferReply();
 
-        if (fs.existsSync('./lotsheet_' + interaction.values[0] + '.pdf') == false) {
+        if (fs.existsSync('./lotsheet_' + interaction.values[0] + '.pdf') == false && fs.existsSync('./lotsheet_' + interaction.values[0] + '.png') == false) {
             //use node-fetch to download pdf from https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c
             //let url = 'https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c'
             //const https = require('https');
