@@ -1159,12 +1159,13 @@ client.on('interactionCreate', async interaction => {
                 //add white background to image
                 await Jimp.read('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
                 .then(lenna => {
+                    console.log('ok');
                     return lenna
                     //.resize(256, 256) // resize
                     //.quality(60) // set JPEG quality
                     //.greyscale() // set greyscale
                     .background(0xFFFFFFFF)
-                    .write('lotsheet_'+interaction.values[0]+'.png'); // save
+                    .write('./lotsheet_'+interaction.values[0]+'.png'); // save
                 })
                 .catch(err => {
                     console.error(err);
