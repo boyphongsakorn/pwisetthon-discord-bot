@@ -1127,13 +1127,15 @@ client.on('interactionCreate', async interaction => {
         if (fs.existsSync('./lotsheet_' + interaction.values[0] + '.pdf') == false) {
             //use node-fetch to download pdf from https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c
             //let url = 'https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c'
-            const https = require('https');
+            /*const https = require('https');
             let url = 'https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c'
             let file = fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf')
             let request = await https.get(url, function (response) {
                 response.pipe(file)
             })
-            console.log('downloading')
+            console.log('downloading')*/
+            const testwow = await fetch(url);
+            const testdata = await testwow.body.pipe(fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf'));
             /*const file = fs.createWriteStream("lotsheet_" + interaction.values[0] + ".pdf");
             const testwow = await http.get("https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c", function(response) {
                 response.pipe(file);
@@ -1145,9 +1147,12 @@ client.on('interactionCreate', async interaction => {
             var pdfImage = new PDFImage("./lotsheet_" + interaction.values[0] + ".pdf",{
                 combinedImage: true
               });
-            await pdfImage.convertFile().then(function (imagePath) {
+            pdfImage.convertFile().then(function (imagePath) {
                 // 0-th page (first page) of the slide.pdf is available as slide-0.png
-                fs.existsSync("./lotsheet_" + interaction.values[0] + ".png") // => true
+                //fs.existsSync("./lotsheet_" + interaction.values[0] + ".png") // => true
+                if(fs.existsSync("./lotsheet_" + interaction.values[0] + ".png")){
+                    console.log('convert complete')
+                }
             });
         }
 
