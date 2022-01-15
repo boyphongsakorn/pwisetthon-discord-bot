@@ -1147,7 +1147,29 @@ client.on('interactionCreate', async interaction => {
                 });
             };
 
-            await testdownload('https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c', './lotsheet_' + interaction.values[0] + '.pdf', async function(){
+            let pdfurl
+
+            var options = {
+                'method': 'POST',
+                'url': 'https://www.glo.or.th/api/checking/getLotteryResult',
+                'headers': {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                'json': true,
+                form: {
+                  'date': interaction.values[0].substring(0,2),
+                  'month': interaction.values[0].substring(2,4),
+                  'year': parseInt(interaction.values[0].substring(4,8))-543
+                }
+              };
+
+            await request(options, function (error, response) {
+                if (error) throw new Error(error);
+                console.log(response.body);
+                pdfurl = response.body.response.result.pdf_url
+            });
+
+            await testdownload(pdfurl, './lotsheet_' + interaction.values[0] + '.pdf', async function(){
                 console.log('done');
 
                 //const { Poppler } = require('pdf-images');
@@ -1171,10 +1193,10 @@ client.on('interactionCreate', async interaction => {
 
                 //add white background to image
                 gm('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
-                .background("#ffffff")
-                .write('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'_edit.png', function (err) {
-                    if (!err) console.log('done');
-                });
+                    .background("#ffffff")
+                    .write('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'_edit.png', function (err) {
+                        if (!err) console.log('done');
+                    });
 
                 //wait 10 seconds
                 await new Promise(resolve => setTimeout(resolve, 10000));
