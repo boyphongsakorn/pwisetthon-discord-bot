@@ -9,6 +9,7 @@ var fs = require('fs');
 //const urlExistSync = require("url-exist-sync");
 var http = require('http');
 var Jimp = require('jimp');
+var gm = require('gm').subClass({imageMagick: true});
 
 require('dotenv').config();
 
@@ -1157,7 +1158,7 @@ client.on('interactionCreate', async interaction => {
                 console.log(result)
 
                 //add white background to image
-                await Jimp.read('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
+                /*await Jimp.read('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
                 .then(lenna => {
                     console.log('ok');
                     return lenna
@@ -1166,6 +1167,13 @@ client.on('interactionCreate', async interaction => {
                 })
                 .catch(err => {
                     console.error(err);
+                });*/
+
+                //add white background to image
+                gm('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
+                .background('white')
+                .write('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png', function (err) {
+                    if (!err) console.log('done');
                 });
 
                 //wait 10 seconds
