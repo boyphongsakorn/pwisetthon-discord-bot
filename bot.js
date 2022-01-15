@@ -8,8 +8,8 @@ const download = require('image-downloader')
 var fs = require('fs');
 //const urlExistSync = require("url-exist-sync");
 var http = require('http');
-var Jimp = require('jimp');
-var gm = require('gm').subClass({imageMagick: true});
+//var Jimp = require('jimp');
+//var gm = require('gm').subClass({imageMagick: true});
 const pngToJpeg = require('png-to-jpeg');
 
 require('dotenv').config();
