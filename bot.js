@@ -1165,7 +1165,7 @@ client.on('interactionCreate', async interaction => {
                     //.quality(60) // set JPEG quality
                     //.greyscale() // set greyscale
                     .background(0xFFFFFFFF)
-                    .write('lotsheet_'+interaction.values[0]+'_edit.png'); // save
+                    .write('/app/docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'_edit.png'); // save
                 })
                 .catch(err => {
                     console.error(err);
