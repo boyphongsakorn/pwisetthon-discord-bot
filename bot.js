@@ -1216,7 +1216,7 @@ client.on('interactionCreate', async interaction => {
                         //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
                         .setImage('attachment://lotsheet_'+interaction.values[0]+'_edit.jpeg')
                         .setTimestamp()
-                        .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+                        .setFooter({ text: 'ข้อมูลจาก glo.or.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
     
                     //edit message
                     await interaction.editReply({ embeds: [msg], files: [file] })
