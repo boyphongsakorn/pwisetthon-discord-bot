@@ -1171,7 +1171,7 @@ client.on('interactionCreate', async interaction => {
 
                 //add white background to image
                 gm('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
-                .background('white')
+                .background("#ffffff")
                 .write('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'_edit.png', function (err) {
                     if (!err) console.log('done');
                 });
