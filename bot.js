@@ -1162,13 +1162,13 @@ client.on('interactionCreate', async interaction => {
                     console.log('ok');
                     return lenna
                         .background(0xFFFFFFFF)
-                        .write('lotsheet_'+interaction.values[0]+'_edit.png'); // save
+                        .write('lotsheet_edit.png'); // save
                 })
                 .catch(err => {
                     console.error(err);
                 });
 
-                const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'_edit.png');
+                const file = new MessageAttachment('./lotsheet_edit.png');
 
                 //create MessageEmbed
                 const msg = new MessageEmbed()
