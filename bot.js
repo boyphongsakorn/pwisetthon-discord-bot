@@ -1161,12 +1161,13 @@ client.on('interactionCreate', async interaction => {
                   'month': interaction.values[0].substring(2,4),
                   'year': parseInt(interaction.values[0].substring(4,8))-543
                 }
-              };
+            };
 
             await request(options, function (error, response) {
                 if (error) throw new Error(error);
                 console.log(response.body);
                 pdfurl = response.body.response.result.pdf_url
+                console.log(pdfurl)
             });
 
             await testdownload(pdfurl, './lotsheet_' + interaction.values[0] + '.pdf', async function(){
