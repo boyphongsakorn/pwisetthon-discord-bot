@@ -1163,7 +1163,7 @@ client.on('interactionCreate', async interaction => {
                 }
             };
 
-            await request(options, function (error, response) {
+            await request(options, async function (error, response) {
                 if (error) throw new Error(error);
                 console.log(response.body);
                 pdfurl = response.body.response.result.pdf_url
