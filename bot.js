@@ -1201,12 +1201,12 @@ client.on('interactionCreate', async interaction => {
 
                     let buffer = fs.readFileSync("./docs/lotsheet_" + interaction.values[0]+"/lotsheet_"+interaction.values[0]+"_edit.png");
                     pngToJpeg({quality: 90})(buffer)
-                        .then(output => fs.writeFileSync("./lotsheet_"+interaction.values[0]+"_edit.png", output));
+                        .then(output => fs.writeFileSync("./lotsheet_"+interaction.values[0]+"_edit.jpeg", output));
     
                     //wait 10 seconds
                     await new Promise(resolve => setTimeout(resolve, 10000));
     
-                    const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'_edit.png');
+                    const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'_edit.jpeg');
     
                     //create MessageEmbed
                     const msg = new MessageEmbed()
@@ -1214,7 +1214,7 @@ client.on('interactionCreate', async interaction => {
                         .setTitle('ใบตรวจสลาก')
                         .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
                         //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
-                        .setImage('attachment://lotsheet_'+interaction.values[0]+'_edit.png')
+                        .setImage('attachment://lotsheet_'+interaction.values[0]+'_edit.jpeg')
                         .setTimestamp()
                         .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
     
