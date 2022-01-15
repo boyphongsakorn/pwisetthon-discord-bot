@@ -1161,17 +1161,14 @@ client.on('interactionCreate', async interaction => {
                 .then(lenna => {
                     console.log('ok');
                     return lenna
-                    //.resize(256, 256) // resize
-                    //.quality(60) // set JPEG quality
-                    //.greyscale() // set greyscale
-                    .background(0xFFFFFFFF)
-                    .write('/app/docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'_edit.png'); // save
+                        .background(0xFFFFFFFF)
+                        .write('lotsheet_'+interaction.values[0]+'_edit.png'); // save
                 })
                 .catch(err => {
                     console.error(err);
                 });
 
-                const file = new MessageAttachment('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'_edit.png');
+                const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'_edit.png');
 
                 //create MessageEmbed
                 const msg = new MessageEmbed()
