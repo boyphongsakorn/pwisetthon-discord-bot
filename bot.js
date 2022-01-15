@@ -1172,14 +1172,14 @@ client.on('interactionCreate', async interaction => {
                 //add white background to image
                 gm('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
                 .background('white')
-                .write('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png', function (err) {
+                .write('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'_edit.png', function (err) {
                     if (!err) console.log('done');
                 });
 
                 //wait 10 seconds
                 await new Promise(resolve => setTimeout(resolve, 10000));
 
-                const file = new MessageAttachment('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png');
+                const file = new MessageAttachment('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'_edit.png');
 
                 //create MessageEmbed
                 const msg = new MessageEmbed()
@@ -1187,12 +1187,13 @@ client.on('interactionCreate', async interaction => {
                     .setTitle('ใบตรวจสลาก')
                     .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
                     //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
-                    .setImage('attachment://lotsheet_'+interaction.values[0]+'.png')
+                    .setImage('attachment://lotsheet_'+interaction.values[0]+'_edit.png')
                     .setTimestamp()
                     .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
                 //edit message
                 await interaction.editReply({ embeds: [msg], files: [file] })
+                console.log('ok')
             });
             /*const file = fs.createWriteStream("lotsheet_" + interaction.values[0] + ".pdf");
             const testwow = await http.get("https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c", function(response) {
