@@ -20,6 +20,7 @@
     "jimp": "^0.16.1",
     "node-fetch": "^2.6.6",
     "pdf-images": "^1.0.2",
+    "png-to-jpeg": "^1.0.1",
     "request": "^2.88.2"
   }
 }

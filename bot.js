@@ -10,6 +10,7 @@ var fs = require('fs');
 var http = require('http');
 var Jimp = require('jimp');
 var gm = require('gm').subClass({imageMagick: true});
+const pngToJpeg = require('png-to-jpeg');
 
 require('dotenv').config();
 
@@ -1192,16 +1193,20 @@ client.on('interactionCreate', async interaction => {
                     });*/
     
                     //add white background to image
-                    gm('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
-                        .background("#ffffff")
+                    /*gm('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
+                        .background("#FFFFFF")
                         .write('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'_edit.png', function (err) {
                             if (!err) console.log('done');
-                        });
+                        });*/
+
+                    let buffer = fs.readFileSync("./docs/lotsheet_" + interaction.values[0]+"/lotsheet_"+interaction.values[0]+"_edit.png");
+                    pngToJpeg({quality: 90})(buffer)
+                        .then(output => fs.writeFileSync("./lotsheet_"+interaction.values[0]+"_edit.png", output));
     
                     //wait 10 seconds
                     await new Promise(resolve => setTimeout(resolve, 10000));
     
-                    const file = new MessageAttachment('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'_edit.png');
+                    const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'_edit.png');
     
                     //create MessageEmbed
                     const msg = new MessageEmbed()
