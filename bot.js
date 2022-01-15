@@ -1199,7 +1199,7 @@ client.on('interactionCreate', async interaction => {
                             if (!err) console.log('done');
                         });*/
 
-                    let buffer = fs.readFileSync("./docs/lotsheet_" + interaction.values[0]+"/lotsheet_"+interaction.values[0]+"_edit.png");
+                    let buffer = fs.readFileSync("./docs/lotsheet_" + interaction.values[0]+"/lotsheet_"+interaction.values[0]+".png");
                     pngToJpeg({quality: 90})(buffer)
                         .then(output => fs.writeFileSync("./lotsheet_"+interaction.values[0]+"_edit.jpeg", output));
     
