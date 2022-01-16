@@ -226,6 +226,11 @@ client.on("guildCreate", guild => {
         type: 3
     }, guild.id)
 
+    commands?.create({
+        name: 'checkconnection',
+        description: 'เช็คการเชื่อมต่อ'
+    }, guild.id)
+
     /*DSclient
         .createCommand({
             name: "fthlotto",
@@ -1341,6 +1346,106 @@ client.on('interactionCreate', async interaction => {
                 await interaction.editReply('บันทึกข้อมูลเรียบร้อยแล้ว');
             }
         });
+    }
+
+    if(interaction.commandName === 'checkconnection'){
+        await interaction.deferReply();
+        let lotapistatus, lotimgstatus, gloapistatus, sqlstatus;
+        con.ping(function (err) {
+            if (err) {
+                console.log(err);
+                sqlstatus = 0;
+            }else{
+                console.log('Database is connected!');
+                sqlstatus = 1;
+            }
+        })
+        var myHeaders = {
+            'content-type': 'application/json'
+        };
+        var smackdown = JSON.stringify({
+            'date': '01',
+            'month': '11',
+            'year': '2021'
+        })
+        var reop = {
+            method: 'POST',
+            headers: myHeaders,
+            body: smackdown,
+            redirect: 'follow'
+        }
+        await fetch('https://anywhere.pwisetthon.com/https://www.glo.or.th/api/lottery/getLotteryAward', reop)
+            .then(response => response.json())
+            .then(result => {
+                if(result['status']){
+                    gloapistatus = 1;
+                }else{
+                    gloapistatus = 0;
+                }
+            })
+            .catch(error => {
+                console.log('error', error)
+                gloapistatus = 0;
+            });
+        await fetch('https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/9', {method: 'GET',headers: {'Content-Type': 'application/json'}})
+            .then(response => response.json())
+            .then(result => {
+                if(result['online']){
+                    lotapistatus = 1;
+                }else{
+                    lotapistatus = 0;
+                }
+            })
+            .catch(error => {
+                console.log('error', error)
+                lotapistatus = 0;
+            });
+        await fetch('https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/12', {method: 'GET',headers: {'Content-Type': 'application/json'}})
+            .then(response => response.json())
+            .then(result => {
+                if(result['online']){
+                    lotimgstatus = 1;
+                }else{
+                    lotimgstatus = 0;
+                }
+            })
+            .catch(error => {
+                console.log('error', error)
+                lotimgstatus = 0;
+            });
+
+        //if lotapistatus true then create text of status = '✔️ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
+        let lotapistatustext = lotapistatus ? '✔️ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
+        //if lotimgstatus true then create text of status = '✔️ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
+        let lotimgstatustext = lotimgstatus ? '✔️ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
+        //if gloapistatus true then create text of status = '✔️ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
+        let gloapistatustext = gloapistatus ? '✔️ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
+        //if sqlstatus true then create text of status = '✔️ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
+        let sqlstatustext = sqlstatus ? '✔️ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
+
+        //create message embed
+        let msg = new MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('สถานะการเชื่อมต่อ')
+            .setURL('https://status.teamquadb.in.th')
+            .setDescription('เช็คสถานะการเชื่อมต่อของบอท ระหว่าง ลอตเตอรรี่ API,รูปภาพลอตเตอรรี่ API, ฐานข้อมูล และ เว็บไซต์ glo.or.th')
+            .setThumbnail('https://i.ibb.co/4mvNWrt/favlogo.png')
+            .addFields(
+                { name: 'ฐานข้อมูล', value: sqlstatustext },
+                { name: 'ลอตเตอรรี่ API', value: lotapistatustext, inline: true },
+                { name: 'รูปภาพลอตเตอรรี่ API', value: lotimgstatustext, inline: true },
+                { name: 'เว็บไซต์ glo.or.th', value: gloapistatustext },
+            )
+            //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+            //.setImage('attachment://lottery_' + body.info.date + '.png')
+            .setTimestamp()
+            .setFooter({ text: 'ข้อมูลจาก status.teamquadb.in.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+
+        await interaction.editReply({embeds: [msg]});
+        //after 30s delete message
+        setTimeout(() => {
+            interaction.deleteReply();
+        }, 30000);
     }
 });
 
