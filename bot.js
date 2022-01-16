@@ -1291,11 +1291,13 @@ client.on('interactionCreate', async interaction => {
         //convert date to YYYY-MM-DD h:m:s
         let dateformat = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
         //time now
-        let time = date.getTime();
+        //let time = date.getTime();
+        //convert time to hms
+        let timeformat = date.getHours() + '' + date.getMinutes() + '' + date.getSeconds();
         //get last 4 userid
         let last4userid = userid.substring(userid.length - 4);
         //create lott id = date/time/last4userid
-        let lottid = date.getDate()+date.getMonth()+date.getFullYear() +'/'+time+'/'+ last4userid;
+        let lottid = date.getDate() +''+date.getMonth()+''+date.getFullYear() +'/'+timeformat+'/'+ last4userid;
         var sql = "INSERT INTO lott_table VALUES ('"+lottid+"', '"+userid+"', 'notyet', '"+numbertosave+"', 'waiting', '"+dateformat+"', '0000-00-00')";
         con.query(sql, async function (err, result) {
             if (err) {
