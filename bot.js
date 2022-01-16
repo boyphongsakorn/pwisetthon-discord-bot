@@ -1285,7 +1285,7 @@ client.on('interactionCreate', async interaction => {
         await interaction.deferReply();
         let numbertosave = interaction.options.getString('number');
         //discord user id
-        let userid = interaction.message.author.id;
+        let userid = interaction.user.id;
         //date now
         let date = new Date();
         //time now
