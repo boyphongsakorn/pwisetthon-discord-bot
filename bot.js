@@ -1318,11 +1318,11 @@ client.on('interactionCreate', async interaction => {
         //time now
         //let time = date.getTime();
         //convert time to hms
-        let timeformat = date.getHours() + '' + date.getMinutes() + '' + date.getSeconds();
+        let timeformat = padLeadingZeros(date.getHours(),2) + '' + padLeadingZeros(date.getMinutes(),2) + '' + padLeadingZeros(date.getSeconds(),2);
         //get last 4 userid
         let last4userid = userid.substring(userid.length - 4);
         //create lott id = date/time/last4userid
-        let lottid = date.getDate() +''+date.getMonth()+''+date.getFullYear() +'/'+timeformat+'/'+ last4userid;
+        let lottid = padLeadingZeros(date.getDate(),2) +''+padLeadingZeros(date.getMonth()+1,2)+''+date.getFullYear() +'/'+timeformat+'/'+ last4userid;
         var sql = "INSERT INTO lott_table VALUES ('"+lottid+"', '"+userid+"', 'notyet', '"+numbertosave+"', 'waiting', '"+dateformat+"', '0000-00-00')";
         con.query(sql, async function (err, result) {
             if (err) {
