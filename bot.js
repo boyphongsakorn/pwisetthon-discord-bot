@@ -11,6 +11,7 @@ var http = require('http');
 //var Jimp = require('jimp');
 //var gm = require('gm').subClass({imageMagick: true});
 const pngToJpeg = require('png-to-jpeg');
+var mysql = require('mysql');
 
 require('dotenv').config();
 
@@ -21,6 +22,14 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
     process.env.BOT_TOKEN,
     "691610557156950030"
 );*/
+
+//create mysql connection
+var con = mysql.createConnection({
+    host: "192.168.31.210",
+    user: "boyphongsakorn",
+    password: "team1556th",
+    database: "discordbot"
+});
 
 //create a server object:
 http.createServer(function (req, res) {
@@ -70,6 +79,11 @@ function convertmonthtotext(month) {
 // end functions
 
 client.once('ready', () => {
+    con.connect(function(err) {
+        if (err) throw err;
+        console.log("Connected!");
+    });
+
     client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
 
     console.log('I am ready!');
@@ -183,6 +197,17 @@ client.on("guildCreate", guild => {
     commands?.create({
         name: 'lotsheet',
         description: "ใบตรวจสลากกินแบ่งรัฐบาล"
+    }, guild.id)
+
+    commands?.create({
+        name: 'synumber',
+        description: "บันทึกเลขสลากฯที่คุณซื้อ เพื่อรับแจ้งเตือน",
+        options: [{
+            type: 3,
+            name: 'number',
+            description: 'ตัวเลขที่คุณซื้อหรือเลขที่คุณต้องการแจ้งเตือน',
+            required: true
+        }]
     }, guild.id)
 
     commands?.create({
@@ -1254,6 +1279,31 @@ client.on('interactionCreate', async interaction => {
             //edit message
             await interaction.editReply({ embeds: [msg], files: [file] })
         }
+    }
+
+    if (interaction.commandName === 'synumber') {
+        await interaction.deferReply();
+        let numbertosave = interaction.options.getString('number');
+        //discord user id
+        let userid = interaction.message.author.id;
+        //date now
+        let date = new Date();
+        //time now
+        let time = date.getTime();
+        //get last 4 userid
+        let last4userid = userid.substring(userid.length - 4);
+        //create lott id = date/time/last4userid
+        let lottid = date.getDate()+date.getMonth()+date.getFullYear() +'/'+time+'/'+ last4userid;
+        var sql = "INSERT INTO lott_table VALUES ('"+lottid+"', '"+userid+"', 'notyet', '"+numbertosave+"', 'waiting', '"+time+"', '0000-00-00')";
+        con.query(sql, function (err, result) {
+            if (err) {
+                await interaction.editReply('ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง');
+                console.log(err);
+            }else{
+                console.log("1 record inserted");
+                await interaction.editReply('บันทึกข้อมูลเรียบร้อยแล้ว');
+            }
+        });
     }
 });
 
