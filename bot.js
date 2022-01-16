@@ -427,7 +427,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                             });
 
                             //use nodefetch to check url exist
-                            fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year, { method: "Get" })
+                            fetch('https://lotimg.pwisetthon.com/fbbg', { method: "Get" })
                                 .then(res => res.json())
                                 .then((json) => {
                                     imgurl = 'https://lotimg.pwisetthon.com/?date=';
@@ -548,6 +548,31 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                     }
 
                                 });
+
+                            //check number user save
+                            con.query("SELECT * FROM lott_table", function (err, result, fields) {
+                                if (err) throw err;
+                                console.log(result);
+                                //loop result
+                                for (i in result) {
+                                    console.log(result[i].numberbuy)
+                                    let optitot = {"method": "GET","headers": {"x-rapidapi-host": "thai-lottery1.p.rapidapi.com","x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137"}};
+                                    fetch("https://thai-lottery1.p.rapidapi.com/checklottery?by="+date +""+ month +""+ year+"&search="+result[i].numberbuy, optitot)
+                                        .then(res => res.text())
+                                        .then((json) => {
+                                            //if json is null or empty send message to result[i].discord_id
+                                            if (json == '' || json == null) {
+                                                client.users.fetch(result[i].discord_id).then(dm => {
+                                                    dm.send('ขออภัยค่ะ เลข '+result[i].numberbuy+' ยังไม่ถูกรางวัลนี้ค่ะ')
+                                                })
+                                            } else {
+                                                client.users.fetch(result[i].discord_id).then(dm => {
+                                                    dm.send('ขอบคุณค่ะ เลข '+result[i].numberbuy+' ถูกรางวัลนี้ค่ะ')
+                                                })
+                                            }
+                                        });
+                                }
+                            });
                         }
                     }
 
