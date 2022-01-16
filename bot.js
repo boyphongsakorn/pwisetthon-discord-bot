@@ -1414,14 +1414,14 @@ client.on('interactionCreate', async interaction => {
                 lotimgstatus = 0;
             });
 
-        //if lotapistatus true then create text of status = '✔️ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
-        let lotapistatustext = lotapistatus ? '✔️ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
-        //if lotimgstatus true then create text of status = '✔️ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
-        let lotimgstatustext = lotimgstatus ? '✔️ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
-        //if gloapistatus true then create text of status = '✔️ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
-        let gloapistatustext = gloapistatus ? '✔️ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
-        //if sqlstatus true then create text of status = '✔️ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
-        let sqlstatustext = sqlstatus ? '✔️ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
+        //if lotapistatus true then create text of status = '✅ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
+        let lotapistatustext = lotapistatus ? '✅ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
+        //if lotimgstatus true then create text of status = '✅ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
+        let lotimgstatustext = lotimgstatus ? '✅ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
+        //if gloapistatus true then create text of status = '✅ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
+        let gloapistatustext = gloapistatus ? '✅ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
+        //if sqlstatus true then create text of status = '✅ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
+        let sqlstatustext = sqlstatus ? '✅ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
 
         //create message embed
         let msg = new MessageEmbed()
