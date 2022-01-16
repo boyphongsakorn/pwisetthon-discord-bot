@@ -1296,7 +1296,7 @@ client.on('interactionCreate', async interaction => {
         let last4userid = userid.substring(userid.length - 4);
         //create lott id = date/time/last4userid
         let lottid = date.getDate()+date.getMonth()+date.getFullYear() +'/'+time+'/'+ last4userid;
-        var sql = "INSERT INTO lott_table VALUES ('"+lottid+"', '"+userid+"', 'notyet', '"+numbertosave+"', 'waiting', '"+time+"', '0000-00-00')";
+        var sql = "INSERT INTO lott_table VALUES ('"+lottid+"', '"+userid+"', 'notyet', '"+numbertosave+"', 'waiting', '"+dateformat+"', '0000-00-00')";
         con.query(sql, async function (err, result) {
             if (err) {
                 await interaction.editReply('ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง');
