@@ -562,13 +562,21 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                         .then((json) => {
                                             //if json is null or empty send message to result[i].discord_id
                                             if (json == '' || json == null) {
-                                                client.users.fetch(result[i].discord_id).then(dm => {
-                                                    dm.send('ขออภัยค่ะ เลข '+result[i].numberbuy+' ยังไม่ถูกรางวัลนี้ค่ะ')
-                                                })
+                                                var sql = "UPDATE lott_table SET status = 'ไม่ถูก',lotround = '"+(year-543)+"-"+ month +"-"+date+"' WHERE lott_id = '"+result[i].lott_id+"'";
+                                                con.query(sql, function (err, result) {
+                                                    if (err) throw err;
+                                                    client.users.fetch(result[i].discord_id).then(dm => {
+                                                        dm.send('ขออภัยค่ะ เลข '+result[i].numberbuy+' ยังไม่ถูกรางวัลนี้ค่ะ')
+                                                    })
+                                                });
                                             } else {
-                                                client.users.fetch(result[i].discord_id).then(dm => {
-                                                    dm.send('ขอบคุณค่ะ เลข '+result[i].numberbuy+' ถูกรางวัลนี้ค่ะ')
-                                                })
+                                                var sql = "UPDATE lott_table SET status = 'win',lotround = '"+(year-543)+"-"+ month +"-"+date+"' WHERE lott_id = '"+result[i].lott_id+"'";
+                                                con.query(sql, function (err, result) {
+                                                    if (err) throw err;
+                                                    client.users.fetch(result[i].discord_id).then(dm => {
+                                                        dm.send('ขออภัยค่ะ เลข '+result[i].numberbuy+' ถูกรางวัลนี้ค่ะ')
+                                                    })
+                                                });
                                             }
                                         });
                                 }
