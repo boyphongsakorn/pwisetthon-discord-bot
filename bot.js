@@ -1288,6 +1288,8 @@ client.on('interactionCreate', async interaction => {
         let userid = interaction.user.id;
         //date now
         let date = new Date();
+        //convert date to YYYY-MM-DD h:m:s
+        let dateformat = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
         //time now
         let time = date.getTime();
         //get last 4 userid
