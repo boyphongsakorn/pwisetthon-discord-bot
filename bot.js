@@ -388,7 +388,16 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                     try {
                         fileContents = fs.readFileSync('check.txt');
                     } catch (err) {
-
+                        fs.writeFileSync('check.txt', '0', function (err) {
+                            if (err) {
+                                throw err
+                            };
+                            console.log('Saved!');
+                            /*var d = new Date();
+                            d.setDate(d.getDate() - 2);
+                            fs.utimesSync(path.join(__dirname, 'check.txt'), new Date(), d)
+                            fileContents = fs.readFileSync('check.txt');*/
+                        });
                     }
 
                     var lasttime = null
@@ -413,11 +422,29 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 throw err
                             };
                             console.log('Saved!');
+                            var d = new Date();
+                            d.setDate(d.getDate() - 2);
+                            fs.utimesSync(path.join(__dirname, 'lastout.txt'), new Date(), d)
+                            fileContents = fs.readFileSync('lastout.txt');
                         });
                     }
 
                     if (fileContents) {
-                        if (fileContents != "1" && lasttime.toDateString() != new Date().toDateString()) {
+                        let lastdatefromsql
+                        con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", function (err, result, fields) {
+                            if (err) throw err;
+                            //console.log(result);
+                            lastdatefromsql = result[0].round; //YYYY-MM-DD
+                        });
+                        let today = new Date();
+                        // convert today to yyyy-mm-dd
+                        let dd = today.getDate();
+                        let mm = today.getMonth() + 1; //January is 0!
+                        let yyyy = today.getFullYear();
+                        dd = padLeadingZeros(dd, 2);
+                        mm = padLeadingZeros(mm, 2);
+                        todayformat = yyyy + '-' + mm + '-' + dd;
+                        if (fileContents != "1" && (lasttime.toDateString() != today.toDateString() || todayformat != lastdatefromsql)) {
                             fs.writeFile('check.txt', '1', function (err) {
                                 if (err) {
                                     throw err
@@ -429,6 +456,12 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                     throw err
                                 };
                                 console.log('Saved!');
+                            });
+                            //insert to sql
+                            con.query("INSERT INTO lott_round (id, round) VALUES ('" + date + "" + month + "" + year + "', '" + todayformat + "')", function (err, result, fields) {
+                                if (err) throw err;
+                                //console.log(result);
+                                console.log('Insert complete');
                             });
 
                             //use nodefetch to check url exist
