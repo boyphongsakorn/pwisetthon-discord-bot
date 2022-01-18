@@ -82,18 +82,15 @@ function convertmonthtotext(month) {
 client.once('ready', () => {
     con.connect(function (err) {
         if (err) throw err;
-        console.log("Connected!");
+        console.log("Database Connected!");
+        client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
+        client.users.fetch('133439202556641280').then(dm => {
+            dm.send('Bot เริ่มต้นการทำงานแล้ว')
+        });
+        console.log('I am ready!');
     });
 
-    client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
-
-    console.log('I am ready!');
-
-    client.users.fetch('133439202556641280').then(dm => {
-        dm.send('Bot เริ่มต้นการทำงานแล้ว')
-    });
-
-    try {
+    /*try {
         //console.log(fs.statSync("out.log").size)
         if (fs.statSync("out.log").size > 1000000000) {
             fs.unlink("out.log", function (err) {
@@ -104,7 +101,7 @@ client.once('ready', () => {
         }
     } catch (error) {
 
-    }
+    }*/
 
     /*client.guilds.cache.forEach(guild => {
         console.log(`${guild.name} | ${guild.id}`);
