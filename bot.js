@@ -1506,7 +1506,7 @@ client.on('interactionCreate', async interaction => {
         let sqlselecttesttextplus543
         if(sqlselecttest != 0){
             //add lastlottdateplus543toformat after text of sqlselecttesttext
-            sqlselecttesttextplus543 = '('+sqlselecttesttext + ' ' + lastlottdateplus543toformat+')';
+            sqlselecttesttextplus543 = sqlselecttesttext + ' ( ' + lastlottdateplus543toformat+' )';
         }
 
         //create message embed
