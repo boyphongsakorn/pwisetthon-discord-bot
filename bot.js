@@ -425,7 +425,8 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                             var d = new Date();
                             d.setDate(d.getDate() - 2);
                             fs.utimesSync(path.join(__dirname, 'lastout.txt'), new Date(), d)
-                            fileContents = fs.readFileSync('lastout.txt');
+                            const stats = fs.statSync('lastout.txt');
+                            lasttime = stats.mtime
                         });
                     }
 
@@ -1383,7 +1384,7 @@ client.on('interactionCreate', async interaction => {
 
     if (interaction.commandName === 'checkconnection') {
         await interaction.deferReply();
-        let lotapistatus, lotimgstatus, gloapistatus, sqlstatus, sqlinserttest, sqldeletetest;
+        let lotapistatus, lotimgstatus, gloapistatus, sqlstatus, sqlinserttest, sqldeletetest, sqlselecttest;
         con.ping(function (err) {
             if (err) {
                 console.log(err);
@@ -1467,13 +1468,23 @@ client.on('interactionCreate', async interaction => {
             //console.log(result);
         });
         //delete old data
-        con.query("DELETE FROM lott_table WHERE id = '" + dd + "" + mm + "" + (yyyy+543) + "'", function (err, result, fields) {
+        con.query("DELETE FROM lott_round WHERE id = '" + dd + "" + mm + "" + (yyyy+543) + "'", function (err, result, fields) {
             if (err) {
                 console.log(err);
                 sqldeletetest = 0;
             }else{
                 sqldeletetest = 1;
                 console.log('Delete complete');
+            }
+        });
+        let lastlottdate;
+        con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", function (err, result, fields) {
+            if (err) {
+                sqlselecttest = 0;
+            }else{
+                sqlselecttest = 1;
+                lastlottdate = result[0].round;
+                console.log(result);
             }
         });
 
@@ -1489,6 +1500,14 @@ client.on('interactionCreate', async interaction => {
         let sqlinserttesttext = sqlinserttest ? '✅ เพิ่มข้อมูลสำเร็จ' : '❌ เพิ่มข้อมูลไม่สำเร็จ';
         //if sqldeletetest true then create text of status = '✅ ลบข้อมูลสำเร็จ' else create text of status = '❌ ลบข้อมูลไม่สำเร็จ'
         let sqldeletetesttext = sqldeletetest ? '✅ ลบข้อมูลสำเร็จ' : '❌ ลบข้อมูลไม่สำเร็จ';
+        //if sqlselecttest true then create text of status = '✅ ดึงข้อมูลสำเร็จ' else create text of status = '❌ ดึงข้อมูลไม่สำเร็จ'
+        let sqlselecttesttext = sqlselecttest ? '✅ ดึงข้อมูลสำเร็จ' : '❌ ดึงข้อมูลไม่สำเร็จ';
+        //plus 543 year to lastlottdate
+        let lastlottdateplus543 = moment(lastlottdate).add(543, 'years').format('YYYY-MM-DD');
+        //convert lastlottdateplus543 to dd/mm/yyyy
+        let lastlottdateplus543toformat = moment(lastlottdateplus543).format('DD/MM/YYYY');
+        //add lastlottdateplus543toformat after text of sqlselecttesttext
+        let sqlselecttesttextplus543 = '('+sqlselecttesttext + ' ' + lastlottdateplus543toformat+')';
 
         //create message embed
         let msg = new MessageEmbed()
@@ -1501,6 +1520,7 @@ client.on('interactionCreate', async interaction => {
                 { name: 'ฐานข้อมูล', value: sqlstatustext },
                 { name: 'ทดสอบเพิ่มข้อมูล', value: sqlinserttesttext, inline: true },
                 { name: 'ทดสอบลบข้อมูล', value: sqldeletetesttext, inline: true },
+                { name: 'ทดสอบดึงข้อมูล', value: sqlselecttesttextplus543, inline: true },
                 { name: 'ลอตเตอรรี่ API', value: lotapistatustext, inline: true },
                 { name: 'รูปภาพลอตเตอรรี่ API', value: lotimgstatustext, inline: true },
                 { name: 'เว็บไซต์ glo.or.th', value: gloapistatustext },
