@@ -1395,6 +1395,45 @@ client.on('interactionCreate', async interaction => {
                 sqlstatus = 1;
             }
         })
+        let today = new Date();
+        // convert today to yyyy-mm-dd
+        let dd = today.getDate();
+        let mm = today.getMonth() + 1; //January is 0!
+        let yyyy = today.getFullYear();
+        dd = padLeadingZeros(dd, 2);
+        mm = padLeadingZeros(mm, 2);
+        todayformat = yyyy + '-' + mm + '-' + dd;
+        //insert to sql
+        con.query("INSERT INTO lott_round (id, round) VALUES ('" + dd + "" + mm + "" + (yyyy+543) + "', '" + todayformat + "')", function (err, result, fields) {
+            if (err) {
+                console.log(err);
+                sqlinserttest = 0;
+            }else{
+                sqlinserttest = 1;
+                console.log('Insert complete');
+            }
+            //console.log(result);
+        });
+        //delete old data
+        con.query("DELETE FROM lott_round WHERE id = '" + dd + "" + mm + "" + (yyyy+543) + "'", function (err, result, fields) {
+            if (err) {
+                console.log(err);
+                sqldeletetest = 0;
+            }else{
+                sqldeletetest = 1;
+                console.log('Delete complete');
+            }
+        });
+        let lastlottdate;
+        con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", function (err, result, fields) {
+            if (err) {
+                sqlselecttest = 0;
+            }else{
+                sqlselecttest = 1;
+                lastlottdate = result[0].round;
+                console.log(result);
+            }
+        });
         var myHeaders = {
             'content-type': 'application/json'
         };
@@ -1448,46 +1487,6 @@ client.on('interactionCreate', async interaction => {
                 console.log('error', error)
                 lotimgstatus = 0;
             });
-
-        let today = new Date();
-        // convert today to yyyy-mm-dd
-        let dd = today.getDate();
-        let mm = today.getMonth() + 1; //January is 0!
-        let yyyy = today.getFullYear();
-        dd = padLeadingZeros(dd, 2);
-        mm = padLeadingZeros(mm, 2);
-        todayformat = yyyy + '-' + mm + '-' + dd;
-        //insert to sql
-        con.query("INSERT INTO lott_round (id, round) VALUES ('" + dd + "" + mm + "" + (yyyy+543) + "', '" + todayformat + "')", function (err, result, fields) {
-            if (err) {
-                console.log(err);
-                sqlinserttest = 0;
-            }else{
-                sqlinserttest = 1;
-                console.log('Insert complete');
-            }
-            //console.log(result);
-        });
-        //delete old data
-        con.query("DELETE FROM lott_round WHERE id = '" + dd + "" + mm + "" + (yyyy+543) + "'", function (err, result, fields) {
-            if (err) {
-                console.log(err);
-                sqldeletetest = 0;
-            }else{
-                sqldeletetest = 1;
-                console.log('Delete complete');
-            }
-        });
-        let lastlottdate;
-        con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", function (err, result, fields) {
-            if (err) {
-                sqlselecttest = 0;
-            }else{
-                sqlselecttest = 1;
-                lastlottdate = result[0].round;
-                console.log(result);
-            }
-        });
 
         //if lotapistatus true then create text of status = '✅ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
         let lotapistatustext = lotapistatus ? '✅ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
