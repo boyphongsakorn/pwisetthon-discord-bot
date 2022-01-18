@@ -12,6 +12,7 @@ var http = require('http');
 //var gm = require('gm').subClass({imageMagick: true});
 const pngToJpeg = require('png-to-jpeg');
 var mysql = require('mysql');
+var moment = require('moment');
 
 require('dotenv').config();
 
@@ -1505,7 +1506,7 @@ client.on('interactionCreate', async interaction => {
         //plus 543 year to lastlottdate
         let lastlottdateplus543 = moment(lastlottdate).add(543, 'years').format('YYYY-MM-DD');
         //convert lastlottdateplus543 to dd/mm/yyyy
-        let lastlottdateplus543toformat = moment(lastlottdateplus543).format('DD/MM/YYYY');.
+        let lastlottdateplus543toformat = moment(lastlottdateplus543).format('DD/MM/YYYY');
         let sqlselecttesttextplus543
         if(sqlselecttest != 0){
             //add lastlottdateplus543toformat after text of sqlselecttesttext
