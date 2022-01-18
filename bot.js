@@ -79,7 +79,7 @@ function convertmonthtotext(month) {
 // end functions
 
 client.once('ready', () => {
-    con.connect(function(err) {
+    con.connect(function (err) {
         if (err) throw err;
         console.log("Connected!");
     });
@@ -594,25 +594,25 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                 //loop result
                                 for (i in result) {
                                     console.log(result[i].numberbuy)
-                                    let optitot = {"method": "GET","headers": {"x-rapidapi-host": "thai-lottery1.p.rapidapi.com","x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137"}};
-                                    fetch("https://thai-lottery1.p.rapidapi.com/checklottery?by="+date +""+ month +""+ year+"&search="+result[i].numberbuy, optitot)
+                                    let optitot = { "method": "GET", "headers": { "x-rapidapi-host": "thai-lottery1.p.rapidapi.com", "x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137" } };
+                                    fetch("https://thai-lottery1.p.rapidapi.com/checklottery?by=" + date + "" + month + "" + year + "&search=" + result[i].numberbuy, optitot)
                                         .then(res => res.text())
                                         .then((json) => {
                                             //if json is null or empty send message to result[i].discord_id
                                             if (json == '' || json == null) {
-                                                var sql = "UPDATE lott_table SET status = 'ไม่ถูก',lotround = '"+(year-543)+"-"+ month +"-"+date+"' WHERE lott_id = '"+result[i].lott_id+"'";
+                                                var sql = "UPDATE lott_table SET status = 'ไม่ถูก',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + result[i].lott_id + "'";
                                                 con.query(sql, function (err, result) {
                                                     if (err) throw err;
                                                     client.users.fetch(result[i].discord_id).then(dm => {
-                                                        dm.send('ขออภัยค่ะ เลข '+result[i].numberbuy+' ยังไม่ถูกรางวัลนี้ค่ะ')
+                                                        dm.send('ขออภัยค่ะ เลข ' + result[i].numberbuy + ' ยังไม่ถูกรางวัลนี้ค่ะ')
                                                     })
                                                 });
                                             } else {
-                                                var sql = "UPDATE lott_table SET status = 'win',lotround = '"+(year-543)+"-"+ month +"-"+date+"' WHERE lott_id = '"+result[i].lott_id+"'";
+                                                var sql = "UPDATE lott_table SET status = 'win',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + result[i].lott_id + "'";
                                                 con.query(sql, function (err, result) {
                                                     if (err) throw err;
                                                     client.users.fetch(result[i].discord_id).then(dm => {
-                                                        dm.send('ขออภัยค่ะ เลข '+result[i].numberbuy+' ถูกรางวัลนี้ค่ะ')
+                                                        dm.send('ขออภัยค่ะ เลข ' + result[i].numberbuy + ' ถูกรางวัลนี้ค่ะ')
                                                     })
                                                 });
                                             }
@@ -1182,7 +1182,7 @@ client.on('interactionCreate', async interaction => {
             //convert from text json to json
             let json = JSON.parse(body)
             //slice array only last 25 array
-            json = json.slice(json.length-25, json.length)
+            json = json.slice(json.length - 25, json.length)
             for (let i of json) {
                 datearray.push({
                     label: String(i[1]),
@@ -1194,12 +1194,12 @@ client.on('interactionCreate', async interaction => {
             console.log(datearray)
 
             const row = new MessageActionRow()
-            .addComponents(
-                new MessageSelectMenu()
-                .setCustomId('lottsheet')
-                .setPlaceholder('เลือกวันที่ต้องการ (25 งวดล่าสุด)')
-                .addOptions(datearray)
-            )
+                .addComponents(
+                    new MessageSelectMenu()
+                        .setCustomId('lottsheet')
+                        .setPlaceholder('เลือกวันที่ต้องการ (25 งวดล่าสุด)')
+                        .addOptions(datearray)
+                )
 
             await interaction.editReply({ content: 'ใบตรวจสลาก!', components: [row] })
         });
@@ -1217,7 +1217,7 @@ client.on('interactionCreate', async interaction => {
         await interaction.editReply({ content: 'ใบตรวจสลาก!', components: [row] })*/
     }
 
-    if(interaction.customId === 'lottsheet'){
+    if (interaction.customId === 'lottsheet') {
         console.log(interaction)
 
         //deferReply
@@ -1235,12 +1235,12 @@ client.on('interactionCreate', async interaction => {
             console.log('downloading')*/
             //const testwow = await fetch(url);
             //const testdata = await testwow.body.pipe(fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf'));
-            var testdownload = async function(uri, filename, callback){
-                request.head(uri, function(err, res, body){
-                  console.log('content-type:', res.headers['content-type']);
-                  console.log('content-length:', res.headers['content-length']);
-              
-                  request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+            var testdownload = async function (uri, filename, callback) {
+                request.head(uri, function (err, res, body) {
+                    console.log('content-type:', res.headers['content-type']);
+                    console.log('content-length:', res.headers['content-length']);
+
+                    request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
                 });
             };
 
@@ -1250,13 +1250,13 @@ client.on('interactionCreate', async interaction => {
                 'method': 'POST',
                 'url': 'https://www.glo.or.th/api/checking/getLotteryResult',
                 'headers': {
-                  'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 'json': true,
                 form: {
-                  'date': interaction.values[0].substring(0,2),
-                  'month': interaction.values[0].substring(2,4),
-                  'year': parseInt(interaction.values[0].substring(4,8))-543
+                    'date': interaction.values[0].substring(0, 2),
+                    'month': interaction.values[0].substring(2, 4),
+                    'year': parseInt(interaction.values[0].substring(4, 8)) - 543
                 }
             };
 
@@ -1266,16 +1266,16 @@ client.on('interactionCreate', async interaction => {
                 pdfurl = response.body.response.result.pdf_url
                 console.log(pdfurl)
 
-                await testdownload(pdfurl, './lotsheet_' + interaction.values[0] + '.pdf', async function(){
+                await testdownload(pdfurl, './lotsheet_' + interaction.values[0] + '.pdf', async function () {
                     console.log('done');
-    
+
                     //const { Poppler } = require('pdf-images');
                     //const result = Poppler.convert('./lotsheet_' + interaction.values[0] + '.pdf', './', './lotsheet_' + interaction.values[0]);
-                    
+
                     const { ImageMagick } = require('pdf-images');
                     const result = ImageMagick.convert('./lotsheet_' + interaction.values[0] + '.pdf', '/app/docs', './lotsheet_' + interaction.values[0]);
                     console.log(result)
-    
+
                     //add white background to image
                     /*await Jimp.read('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
                     .then(lenna => {
@@ -1287,7 +1287,7 @@ client.on('interactionCreate', async interaction => {
                     .catch(err => {
                         console.error(err);
                     });*/
-    
+
                     //add white background to image
                     /*gm('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
                         .background("#FFFFFF")
@@ -1295,25 +1295,25 @@ client.on('interactionCreate', async interaction => {
                             if (!err) console.log('done');
                         });*/
 
-                    let buffer = fs.readFileSync("./docs/lotsheet_" + interaction.values[0]+"/lotsheet_"+interaction.values[0]+".png");
-                    pngToJpeg({quality: 90})(buffer)
-                        .then(output => fs.writeFileSync("./lotsheet_"+interaction.values[0]+"_edit.jpeg", output));
-    
+                    let buffer = fs.readFileSync("./docs/lotsheet_" + interaction.values[0] + "/lotsheet_" + interaction.values[0] + ".png");
+                    pngToJpeg({ quality: 90 })(buffer)
+                        .then(output => fs.writeFileSync("./lotsheet_" + interaction.values[0] + "_edit.jpeg", output));
+
                     //wait 10 seconds
                     await new Promise(resolve => setTimeout(resolve, 10000));
-    
-                    const file = new MessageAttachment('./lotsheet_'+interaction.values[0]+'_edit.jpeg');
-    
+
+                    const file = new MessageAttachment('./lotsheet_' + interaction.values[0] + '_edit.jpeg');
+
                     //create MessageEmbed
                     const msg = new MessageEmbed()
                         .setColor('#5454c5')
                         .setTitle('ใบตรวจสลาก')
                         .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
                         //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
-                        .setImage('attachment://lotsheet_'+interaction.values[0]+'_edit.jpeg')
+                        .setImage('attachment://lotsheet_' + interaction.values[0] + '_edit.jpeg')
                         .setTimestamp()
                         .setFooter({ text: 'ข้อมูลจาก glo.or.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
-    
+
                     //edit message
                     await interaction.editReply({ embeds: [msg], files: [file] })
                     console.log('ok')
@@ -1334,8 +1334,8 @@ client.on('interactionCreate', async interaction => {
                 // 0-th page (first page) of the slide.pdf is available as slide-0.png
                 fs.existsSync("./lotsheet_" + interaction.values[0] + ".png") // => true
             });*/
-        }else{
-            const file = new MessageAttachment('./docs/lotsheet_'+interaction.values[0]+'.png');
+        } else {
+            const file = new MessageAttachment('./docs/lotsheet_' + interaction.values[0] + '.png');
 
             //create MessageEmbed
             const msg = new MessageEmbed()
@@ -1343,7 +1343,7 @@ client.on('interactionCreate', async interaction => {
                 .setTitle('ใบตรวจสลาก')
                 .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
                 //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
-                .setImage('attachment://lotsheet_'+interaction.values[0]+'.png')
+                .setImage('attachment://lotsheet_' + interaction.values[0] + '.png')
                 .setTimestamp()
                 .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
@@ -1364,31 +1364,31 @@ client.on('interactionCreate', async interaction => {
         //time now
         //let time = date.getTime();
         //convert time to hms
-        let timeformat = padLeadingZeros(date.getHours(),2) + '' + padLeadingZeros(date.getMinutes(),2) + '' + padLeadingZeros(date.getSeconds(),2);
+        let timeformat = padLeadingZeros(date.getHours(), 2) + '' + padLeadingZeros(date.getMinutes(), 2) + '' + padLeadingZeros(date.getSeconds(), 2);
         //get last 4 userid
         let last4userid = userid.substring(userid.length - 4);
         //create lott id = date/time/last4userid
-        let lottid = padLeadingZeros(date.getDate(),2) +''+padLeadingZeros(date.getMonth()+1,2)+''+date.getFullYear() +'/'+timeformat+'/'+ last4userid;
-        var sql = "INSERT INTO lott_table VALUES ('"+lottid+"', '"+userid+"', 'notyet', '"+numbertosave+"', 'waiting', '"+dateformat+"', '0000-00-00')";
+        let lottid = padLeadingZeros(date.getDate(), 2) + '' + padLeadingZeros(date.getMonth() + 1, 2) + '' + date.getFullYear() + '/' + timeformat + '/' + last4userid;
+        var sql = "INSERT INTO lott_table VALUES ('" + lottid + "', '" + userid + "', 'notyet', '" + numbertosave + "', 'waiting', '" + dateformat + "', '0000-00-00')";
         con.query(sql, async function (err, result) {
             if (err) {
                 await interaction.editReply('ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง');
                 console.log(err);
-            }else{
+            } else {
                 console.log("1 record inserted");
                 await interaction.editReply('บันทึกข้อมูลเรียบร้อยแล้ว');
             }
         });
     }
 
-    if(interaction.commandName === 'checkconnection'){
+    if (interaction.commandName === 'checkconnection') {
         await interaction.deferReply();
-        let lotapistatus, lotimgstatus, gloapistatus, sqlstatus;
+        let lotapistatus, lotimgstatus, gloapistatus, sqlstatus, sqlinserttest, sqldeletetest;
         con.ping(function (err) {
             if (err) {
                 console.log(err);
                 sqlstatus = 0;
-            }else{
+            } else {
                 console.log('Database is connected!');
                 sqlstatus = 1;
             }
@@ -1410,9 +1410,9 @@ client.on('interactionCreate', async interaction => {
         await fetch('https://anywhere.pwisetthon.com/https://www.glo.or.th/api/lottery/getLotteryAward', reop)
             .then(response => response.json())
             .then(result => {
-                if(result['status']){
+                if (result['status']) {
                     gloapistatus = 1;
-                }else{
+                } else {
                     gloapistatus = 0;
                 }
             })
@@ -1420,12 +1420,12 @@ client.on('interactionCreate', async interaction => {
                 console.log('error', error)
                 gloapistatus = 0;
             });
-        await fetch('https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/9', {method: 'GET',headers: {'Content-Type': 'application/json'}})
+        await fetch('https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/9', { method: 'GET', headers: { 'Content-Type': 'application/json' } })
             .then(response => response.json())
             .then(result => {
-                if(result['online']){
+                if (result['online']) {
                     lotapistatus = 1;
-                }else{
+                } else {
                     lotapistatus = 0;
                 }
             })
@@ -1433,12 +1433,12 @@ client.on('interactionCreate', async interaction => {
                 console.log('error', error)
                 lotapistatus = 0;
             });
-        await fetch('https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/12', {method: 'GET',headers: {'Content-Type': 'application/json'}})
+        await fetch('https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/12', { method: 'GET', headers: { 'Content-Type': 'application/json' } })
             .then(response => response.json())
             .then(result => {
-                if(result['online']){
+                if (result['online']) {
                     lotimgstatus = 1;
-                }else{
+                } else {
                     lotimgstatus = 0;
                 }
             })
@@ -1446,6 +1446,36 @@ client.on('interactionCreate', async interaction => {
                 console.log('error', error)
                 lotimgstatus = 0;
             });
+
+        let today = new Date();
+        // convert today to yyyy-mm-dd
+        let dd = today.getDate();
+        let mm = today.getMonth() + 1; //January is 0!
+        let yyyy = today.getFullYear();
+        dd = padLeadingZeros(dd, 2);
+        mm = padLeadingZeros(mm, 2);
+        todayformat = yyyy + '-' + mm + '-' + dd;
+        //insert to sql
+        con.query("INSERT INTO lott_round (id, round) VALUES ('" + dd + "" + mm + "" + (yyyy+543) + "', '" + todayformat + "')", function (err, result, fields) {
+            if (err) {
+                console.log(err);
+                sqlinserttest = 0;
+            }else{
+                sqlinserttest = 1;
+                console.log('Insert complete');
+            }
+            //console.log(result);
+        });
+        //delete old data
+        con.query("DELETE FROM lott_table WHERE id = '" + dd + "" + mm + "" + (yyyy+543) + "'", function (err, result, fields) {
+            if (err) {
+                console.log(err);
+                sqldeletetest = 0;
+            }else{
+                sqldeletetest = 1;
+                console.log('Delete complete');
+            }
+        });
 
         //if lotapistatus true then create text of status = '✅ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
         let lotapistatustext = lotapistatus ? '✅ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
@@ -1455,6 +1485,10 @@ client.on('interactionCreate', async interaction => {
         let gloapistatustext = gloapistatus ? '✅ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
         //if sqlstatus true then create text of status = '✅ เชื่อมต่อได้' else create text of status = '❌ เชื่อมต่อไม่ได้'
         let sqlstatustext = sqlstatus ? '✅ เชื่อมต่อได้' : '❌ เชื่อมต่อไม่ได้';
+        //if sqlinserttest true then create text of status = '✅ เพิ่มข้อมูลสำเร็จ' else create text of status = '❌ เพิ่มข้อมูลไม่สำเร็จ'
+        let sqlinserttesttext = sqlinserttest ? '✅ เพิ่มข้อมูลสำเร็จ' : '❌ เพิ่มข้อมูลไม่สำเร็จ';
+        //if sqldeletetest true then create text of status = '✅ ลบข้อมูลสำเร็จ' else create text of status = '❌ ลบข้อมูลไม่สำเร็จ'
+        let sqldeletetesttext = sqldeletetest ? '✅ ลบข้อมูลสำเร็จ' : '❌ ลบข้อมูลไม่สำเร็จ';
 
         //create message embed
         let msg = new MessageEmbed()
@@ -1465,6 +1499,8 @@ client.on('interactionCreate', async interaction => {
             .setThumbnail('https://i.ibb.co/4mvNWrt/favlogo.png')
             .addFields(
                 { name: 'ฐานข้อมูล', value: sqlstatustext },
+                { name: 'ทดสอบเพิ่มข้อมูล', value: sqlinserttesttext, inline: true },
+                { name: 'ทดสอบลบข้อมูล', value: sqldeletetesttext, inline: true },
                 { name: 'ลอตเตอรรี่ API', value: lotapistatustext, inline: true },
                 { name: 'รูปภาพลอตเตอรรี่ API', value: lotimgstatustext, inline: true },
                 { name: 'เว็บไซต์ glo.or.th', value: gloapistatustext },
@@ -1474,7 +1510,7 @@ client.on('interactionCreate', async interaction => {
             .setTimestamp()
             .setFooter({ text: 'ข้อมูลจาก status.teamquadb.in.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
-        await interaction.editReply({embeds: [msg]});
+        await interaction.editReply({ embeds: [msg] });
         //after 30s delete message
         setTimeout(() => {
             interaction.deleteReply();
