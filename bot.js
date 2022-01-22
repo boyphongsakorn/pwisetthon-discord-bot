@@ -1375,7 +1375,7 @@ client.on('interactionCreate', async interaction => {
                 console.log(err);
             } else {
                 console.log("1 record inserted");
-                await interaction.editReply('บันทึกข้อมูลเรียบร้อยแล้ว');
+                await interaction.editReply('บันทึกข้อมูลเรียบร้อยแล้ว (เลข '+numbertosave+')');
             }
         });
     }
