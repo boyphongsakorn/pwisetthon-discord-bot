@@ -603,7 +603,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                                 con.query(sql, function (err, result) {
                                                     if (err) throw err;
                                                     client.users.fetch(result[i].discord_id).then(dm => {
-                                                        dm.send('ขออภัยค่ะ เลข ' + result[i].numberbuy + ' ยังไม่ถูกรางวัลนี้ค่ะ')
+                                                        dm.send('ขออภัยค่ะ! เลข ' + result[i].numberbuy + ' ยังไม่ถูกรางวัลนี้ค่ะ')
                                                     })
                                                 });
                                             } else {
@@ -611,7 +611,7 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                                 con.query(sql, function (err, result) {
                                                     if (err) throw err;
                                                     client.users.fetch(result[i].discord_id).then(dm => {
-                                                        dm.send('ขออภัยค่ะ เลข ' + result[i].numberbuy + ' ถูกรางวัลนี้ค่ะ')
+                                                        dm.send('ยินดีด้วย! เลข ' + result[i].numberbuy + ' ถูกรางวัลนี้ค่ะ')
                                                     })
                                                 });
                                             }
