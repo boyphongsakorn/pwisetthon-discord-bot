@@ -1091,12 +1091,19 @@ client.on('interactionCreate', async interaction => {
                 if(result.length != 0){
                     sqlselecttest = 1;
                     lastlottdate = result[0].round;
+                    waitwhat = 0;
                     console.log(result);
                 }else{
                     waitwhat = 1;
                 }
             }
         });
+        //if waitwhat = 1 then plus 1 day to dd
+        if(waitwhat == 1){
+            dd = parseInt(dd) + 1;
+            dd = padLeadingZeros(dd, 2);
+            todayformat = yyyy + '-' + mm + '-' + dd;
+        }
         //insert to sql
         con.query("INSERT INTO lott_round (id, round) VALUES ('" + dd + "" + mm + "" + (yyyy+543) + "', '" + todayformat + "')", function (err, result, fields) {
             if (err) {
