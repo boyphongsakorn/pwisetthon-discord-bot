@@ -1084,28 +1084,41 @@ client.on('interactionCreate', async interaction => {
         let waitwhat;
         let lastlottdate;
         //select to sql
-        con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", function (err, result, fields) {
+        con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", async function (err, result, fields) {
             if (err) {
                 sqlselecttest = 0;
             }else{
-                if(result.length != 0){
+                //if result[0].round == todayformat
+                if(result[0].round == todayformat){
+                    waitwhat = 1;
+                }else{
+                    waitwhat = 0;
+                }
+                lastlottdate = result[0].round;
+                sqlselecttest = 1;
+                if(waitwhat == 1){
+                    dd = parseInt(dd) + 1;
+                    dd = padLeadingZeros(dd, 2);
+                    todayformat = yyyy + '-' + mm + '-' + dd;
+                }
+                /*if(result.length != 0){
                     sqlselecttest = 1;
                     lastlottdate = result[0].round;
                     waitwhat = 0;
                     console.log(result);
                 }else{
                     waitwhat = 1;
-                }
+                }*/
             }
         });
         //if waitwhat = 1 then plus 1 day to dd
-        if(waitwhat == 1){
+        /*if(waitwhat == 1){
             dd = parseInt(dd) + 1;
             dd = padLeadingZeros(dd, 2);
             todayformat = yyyy + '-' + mm + '-' + dd;
-        }
+        }*/
         //insert to sql
-        con.query("INSERT INTO lott_round (id, round) VALUES ('" + dd + "" + mm + "" + (yyyy+543) + "', '" + todayformat + "')", function (err, result, fields) {
+        con.query("INSERT INTO lott_round (id, round) VALUES ('" + dd + "" + mm + "" + (yyyy+543) + "', '" + todayformat + "')", async function (err, result, fields) {
             if (err) {
                 console.log(err);
                 sqlinserttest = 0;
@@ -1116,7 +1129,7 @@ client.on('interactionCreate', async interaction => {
             //console.log(result);
         });
         //delete old data
-        con.query("DELETE FROM lott_round WHERE id = '" + dd + "" + mm + "" + (yyyy+543) + "'", function (err, result, fields) {
+        con.query("DELETE FROM lott_round WHERE id = '" + dd + "" + mm + "" + (yyyy+543) + "'", async function (err, result, fields) {
             if (err) {
                 console.log(err);
                 sqldeletetest = 0;
