@@ -121,7 +121,7 @@
                     Lottery Result Image API : <span id="tlimageapistatus"></span>
                 </div>
                 <div class="col">
-                    Database : ออนไลน์
+                    Database : <span id="databasestatus"></span>
                 </div>
                 <div class="col">
                     glo.or.th : <span id="glowebsitestatus"></span>
@@ -572,6 +572,17 @@
             .catch(error => document.getElementById("tlapistatus").innerText = "ออฟไลน์");
 
         fetch("https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/12", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result["online"]) {
+                    document.getElementById("tlimageapistatus").innerText = "ออนไลน์";
+                } else {
+                    document.getElementById("tlimageapistatus").innerText = "ออฟไลน์";
+                }
+            })
+            .catch(error => document.getElementById("tlimageapistatus").innerText = "ออฟไลน์");
+
+        fetch("https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/19", requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result["online"]) {
