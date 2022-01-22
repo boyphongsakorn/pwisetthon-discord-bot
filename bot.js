@@ -1352,7 +1352,7 @@ client.on('interactionCreate', async interaction => {
     }
 
     if (interaction.commandName === 'synumber') {
-        await interaction.deferReply();
+        await interaction.deferReply({ ephemeral: true });
         let numbertosave = interaction.options.getString('number');
         //discord user id
         let userid = interaction.user.id;
