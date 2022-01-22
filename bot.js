@@ -1081,6 +1081,22 @@ client.on('interactionCreate', async interaction => {
         dd = padLeadingZeros(dd, 2);
         mm = padLeadingZeros(mm, 2);
         todayformat = yyyy + '-' + mm + '-' + dd;
+        let waitwhat;
+        let lastlottdate;
+        //select to sql
+        con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", function (err, result, fields) {
+            if (err) {
+                sqlselecttest = 0;
+            }else{
+                if(result.length != 0){
+                    sqlselecttest = 1;
+                    lastlottdate = result[0].round;
+                    console.log(result);
+                }else{
+                    waitwhat = 1;
+                }
+            }
+        });
         //insert to sql
         con.query("INSERT INTO lott_round (id, round) VALUES ('" + dd + "" + mm + "" + (yyyy+543) + "', '" + todayformat + "')", function (err, result, fields) {
             if (err) {
@@ -1100,16 +1116,6 @@ client.on('interactionCreate', async interaction => {
             }else{
                 sqldeletetest = 1;
                 console.log('Delete complete');
-            }
-        });
-        let lastlottdate;
-        con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", function (err, result, fields) {
-            if (err) {
-                sqlselecttest = 0;
-            }else{
-                sqlselecttest = 1;
-                lastlottdate = result[0].round;
-                console.log(result);
             }
         });
         var myHeaders = {
