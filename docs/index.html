@@ -586,12 +586,12 @@
             .then(response => response.json())
             .then(result => {
                 if (result["online"]) {
-                    document.getElementById("tlimageapistatus").innerText = "ออนไลน์";
+                    document.getElementById("databasestatus").innerText = "ออนไลน์";
                 } else {
-                    document.getElementById("tlimageapistatus").innerText = "ออฟไลน์";
+                    document.getElementById("databasestatus").innerText = "ออฟไลน์";
                 }
             })
-            .catch(error => document.getElementById("tlimageapistatus").innerText = "ออฟไลน์");
+            .catch(error => document.getElementById("databasestatus").innerText = "ออฟไลน์");
 
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
