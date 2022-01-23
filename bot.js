@@ -1263,6 +1263,7 @@ client.on('interactionCreate', async interaction => {
                 //push { name: result[i].datetime, value: result[i].numberbuy } to history
                 history.push({ name: result[i].datetime, value: result[i].numberbuy,inline: true });
             }
+            console.log(history);
 
             let msg = new MessageEmbed()
                 .setColor('#0099ff')
