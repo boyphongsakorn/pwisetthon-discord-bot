@@ -1264,6 +1264,7 @@ client.on('interactionCreate', async interaction => {
                 history.push({ name: result[i].datetime, value: result[i].numberbuy,inline: true });
             }
             console.log(history);
+            console.log(history[0]);
 
             let msg = new MessageEmbed()
                 .setColor('#0099ff')
