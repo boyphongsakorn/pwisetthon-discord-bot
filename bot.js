@@ -1288,9 +1288,9 @@ client.on('interactionCreate', async interaction => {
                 console.log(result[i].numberbuy);
                 //convert from datetime sql to datetime js
                 let datejs = new Date(result[i].datetime);
-                //convert from datetime js to datetime string
-                let datestring = datejs.toLocaleString();
-                msg.addField(result[i].numberbuy,datestring,true);
+                //convert from datetime js to datetime string with 24 hour format
+                let datestring = datejs.toLocaleString('th-TH', { timeZone: 'Asia/Bangkok', hour12: false });
+                msg.addField(result[i].numberbuy +" ("+result[i].status+")",datestring,true);
             }
 
             await interaction.editReply({ embeds: [msg] });
