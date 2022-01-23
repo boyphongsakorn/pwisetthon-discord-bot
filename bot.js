@@ -1262,9 +1262,8 @@ client.on('interactionCreate', async interaction => {
                 //push { name: result[i].datetime, value: result[i].numberbuy } to history
                 history.push({ name: result[i].datetime, value: result[i].numberbuy,inline: true });
             }
-        });
 
-        let msg = new MessageEmbed()
+            let msg = new MessageEmbed()
             .setColor('#0099ff')
             .setTitle('ประวัติการบันทึกเลข')
             .setURL('https://lotto.teamquadb.in.th')
@@ -1276,7 +1275,8 @@ client.on('interactionCreate', async interaction => {
             .setTimestamp()
             .setFooter({ text: 'ข้อมูลจาก Database \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
-        await interaction.editReply({ embeds: [msg] });
+            await interaction.editReply({ embeds: [msg] });
+        });
     }
 });
 
