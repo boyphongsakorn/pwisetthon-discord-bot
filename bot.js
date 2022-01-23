@@ -1286,7 +1286,11 @@ client.on('interactionCreate', async interaction => {
             for(let i = 0; i < result.length; i++){
                 console.log(result[i]);
                 console.log(result[i].numberbuy);
-                msg.addField(result[i].numberbuy,result[i].datetime,true);
+                //convert from datetime sql to datetime js
+                let datejs = new Date(result[i].datetime);
+                //convert from datetime js to datetime string
+                let datestring = datejs.toLocaleString();
+                msg.addField(result[i].numberbuy,datestring,true);
             }
 
             await interaction.editReply({ embeds: [msg] });
