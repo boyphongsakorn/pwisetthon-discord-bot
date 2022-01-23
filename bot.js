@@ -1259,21 +1259,22 @@ client.on('interactionCreate', async interaction => {
             let history = [];
             //for each result
             for(let i = 0; i < result.length; i++){
+                console.log(result[i]);
                 //push { name: result[i].datetime, value: result[i].numberbuy } to history
                 history.push({ name: result[i].datetime, value: result[i].numberbuy,inline: true });
             }
 
             let msg = new MessageEmbed()
-            .setColor('#0099ff')
-            .setTitle('ประวัติการบันทึกเลข')
-            .setURL('https://lotto.teamquadb.in.th')
-            .setDescription('ประวัติการบันทึกเลขของคุณในดิสคอร์ดบอทนี้')
-            .setThumbnail('https://i.ibb.co/4mvNWrt/favlogo.png')
-            .addFields(history)
-            //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
-            //.setImage('attachment://lottery_' + body.info.date + '.png')
-            .setTimestamp()
-            .setFooter({ text: 'ข้อมูลจาก Database \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+                .setColor('#0099ff')
+                .setTitle('ประวัติการบันทึกเลข')
+                .setURL('https://lotto.teamquadb.in.th')
+                .setDescription('ประวัติการบันทึกเลขของคุณในดิสคอร์ดบอทนี้')
+                .setThumbnail('https://i.ibb.co/4mvNWrt/favlogo.png')
+                .addFields(history)
+                //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+                //.setImage('attachment://lottery_' + body.info.date + '.png')
+                .setTimestamp()
+                .setFooter({ text: 'ข้อมูลจาก Database \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
             await interaction.editReply({ embeds: [msg] });
         });
