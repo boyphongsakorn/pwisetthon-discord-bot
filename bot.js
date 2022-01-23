@@ -1282,7 +1282,7 @@ client.on('interactionCreate', async interaction => {
                 .setFooter({ text: 'ข้อมูลจาก Database \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
             for(let i = 0; i < result.length; i++){
-                msg.addField({ name: result[i].datetime, value: result[i].numberbuy,inline: true });
+                msg.addField(result[i].datetime,result[i].numberbuy,true );
             }
 
             await interaction.editReply({ embeds: [msg] });
