@@ -176,6 +176,11 @@ client.on("guildCreate", guild => {
         name: 'checkconnection',
         description: 'เช็คการเชื่อมต่อ'
     }, guild.id)
+
+    commands?.create({
+        name: 'syhistory',
+        description: 'ประวัติการบันทึกสลากฯ'
+    }, guild.id)
 })
 
 let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
@@ -1242,6 +1247,36 @@ client.on('interactionCreate', async interaction => {
         setTimeout(() => {
             interaction.deleteReply();
         }, 30000);
+    }
+
+    if(interaction.commandName == 'syhistory'){
+        await interaction.deferReply({ephemeral: true});
+        //get user id
+        let userid = interaction.user.id;
+        //select * from lott_table where discord_id = userid
+        con.query(`SELECT * FROM lott_table WHERE discord_id = '${userid}'`, async (err, result) => {
+            //2d {} array
+            let history = [];
+            //for each result
+            for(let i = 0; i < result.length; i++){
+                //push { name: result[i].datetime, value: result[i].numberbuy } to history
+                history.push({ name: result[i].datetime, value: result[i].numberbuy,inline: true });
+            }
+        });
+
+        let msg = new MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('ประวัติการบันทึกเลข')
+            .setURL('https://lotto.teamquadb.in.th')
+            .setDescription('ประวัติการบันทึกเลขของคุณในดิสคอร์ดบอทนี้')
+            .setThumbnail('https://i.ibb.co/4mvNWrt/favlogo.png')
+            .addFields(history)
+            //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+            //.setImage('attachment://lottery_' + body.info.date + '.png')
+            .setTimestamp()
+            .setFooter({ text: 'ข้อมูลจาก Database \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+
+        await interaction.editReply({ embeds: [msg] });
     }
 });
 
