@@ -1263,8 +1263,11 @@ client.on('interactionCreate', async interaction => {
                 //push { name: result[i].datetime, value: result[i].numberbuy } to history
                 history.push({ name: result[i].datetime, value: result[i].numberbuy,inline: true });
             }
+            let wowwowwow = [];
             console.log(history);
             console.log(history[0]);
+            //push history to wowwowwow
+            wowwowwow.push(history);
 
             let msg = new MessageEmbed()
                 .setColor('#0099ff')
@@ -1272,7 +1275,7 @@ client.on('interactionCreate', async interaction => {
                 .setURL('https://lotto.teamquadb.in.th')
                 .setDescription('ประวัติการบันทึกเลขของคุณในดิสคอร์ดบอทนี้')
                 .setThumbnail('https://i.ibb.co/4mvNWrt/favlogo.png')
-                .addFields(history)
+                .addFields(wowwowwow[0])
                 //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                 //.setImage('attachment://lottery_' + body.info.date + '.png')
                 .setTimestamp()
