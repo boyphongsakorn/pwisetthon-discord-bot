@@ -1256,18 +1256,18 @@ client.on('interactionCreate', async interaction => {
         //select * from lott_table where discord_id = userid
         con.query(`SELECT * FROM lott_table WHERE discord_id = '${userid}'`, async (err, result) => {
             //2d {} array
-            let history = [];
+            let history = {};
             //for each result
             for(let i = 0; i < result.length; i++){
                 console.log(result[i]);
                 //push { name: result[i].datetime, value: result[i].numberbuy } to history
                 history.push({ name: result[i].datetime, value: result[i].numberbuy,inline: true });
             }
-            let wowwowwow = [];
+            //let wowwowwow = [];
             console.log(history);
-            console.log(history[0]);
+            //console.log(history[0]);
             //push history to wowwowwow
-            wowwowwow.push(history);
+            //wowwowwow.push(history);
 
             let msg = new MessageEmbed()
                 .setColor('#0099ff')
@@ -1275,7 +1275,7 @@ client.on('interactionCreate', async interaction => {
                 .setURL('https://lotto.teamquadb.in.th')
                 .setDescription('ประวัติการบันทึกเลขของคุณในดิสคอร์ดบอทนี้')
                 .setThumbnail('https://i.ibb.co/4mvNWrt/favlogo.png')
-                .addFields(wowwowwow[0])
+                .addFields(history)
                 //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                 //.setImage('attachment://lottery_' + body.info.date + '.png')
                 .setTimestamp()
