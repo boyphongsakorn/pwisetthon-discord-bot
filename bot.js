@@ -1281,7 +1281,11 @@ client.on('interactionCreate', async interaction => {
                 .setTimestamp()
                 .setFooter({ text: 'ข้อมูลจาก Database \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
+            console.log(result);
+
             for(let i = 0; i < result.length; i++){
+                console.log(result[i]);
+                console.log(result[i].numberbuy);
                 msg.addField(result[i].numberbuy,result[i].datetime,true);
             }
 
