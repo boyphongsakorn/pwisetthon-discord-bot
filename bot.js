@@ -1288,8 +1288,8 @@ client.on('interactionCreate', async interaction => {
                 console.log(result[i].numberbuy);
                 //convert from datetime sql to datetime js
                 let datejs = new Date(result[i].datetime);
-                //convert from datetime js to datetime string with 24 hour format
-                let datestring = datejs.toLocaleString('th-TH', { timeZone: 'Asia/Bangkok', hour12: false });
+                //convert from datetime js to datetime string with 24 hour format and dd/mm/yyyy format without time
+                let datestring = datejs.toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit' });
                 msg.addField(result[i].numberbuy +" ("+result[i].status+")",datestring,true);
             }
 
