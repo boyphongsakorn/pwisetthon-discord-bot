@@ -1290,7 +1290,13 @@ client.on('interactionCreate', async interaction => {
                 let datejs = new Date(result[i].datetime);
                 //convert from datetime js to datetime string with 24 hour format and dd/mm/yyyy format without time
                 let datestring = datejs.toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit' });
-                msg.addField(result[i].numberbuy +" ("+result[i].status+")",datestring,true);
+                let ssus
+                if(result[i].status == 'waiting'){
+                    ssus = 'รอสลากฯออก'
+                }else{
+                    ssus = result[i].status
+                }
+                msg.addField(result[i].numberbuy +" ("+ssus+")",datestring,true);
             }
 
             await interaction.editReply({ embeds: [msg] });
