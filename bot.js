@@ -161,6 +161,13 @@ client.once('ready', () => {
         });
         //get all guilds
         client.guilds.cache.forEach(guild => {
+            //delete all commands in guild
+            //if guild.id == '309312041632661504'
+            if(guild.id == '309312041632661504'){
+                guild.commands.forEach(command => {
+                    command.delete()
+                })
+            }
             guildCommandCreate(guild.id);
         });
         console.log('I am ready!');
