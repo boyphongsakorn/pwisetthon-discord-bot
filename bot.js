@@ -175,7 +175,9 @@ client.once('ready', () => {
                 guild.commands.fetch()
                     .then(commands => {
                         commands.forEach(command => {
-                            command.delete();
+                            command.delete()
+                            .then(console.log)
+                            .catch(console.error);
                         });
                     });
                 guildCommandCreate(guild.id);
