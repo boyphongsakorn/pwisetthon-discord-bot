@@ -163,10 +163,20 @@ client.once('ready', () => {
         client.guilds.cache.forEach(guild => {
             //delete all commands in guild
             //if guild.id == '309312041632661504'
+            /*guild.commands.fetch.then(commands => {
+                commands.forEach(command => {
+                    command.delete();
+                });
+            });*/
             if(guild.id == '309312041632661504'){
-                guild.commands.forEach(command => {
+                /*guild.commands.forEach(command => {
                     command.delete()
-                })
+                })*/
+                guild.commands.fetch.then(commands => {
+                    commands.forEach(command => {
+                        command.delete();
+                    });
+                });
                 guildCommandCreate(guild.id);
             }
         });
