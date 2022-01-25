@@ -167,8 +167,8 @@ client.once('ready', () => {
                 guild.commands.forEach(command => {
                     command.delete()
                 })
+                guildCommandCreate(guild.id);
             }
-            guildCommandCreate(guild.id);
         });
         console.log('I am ready!');
     });
