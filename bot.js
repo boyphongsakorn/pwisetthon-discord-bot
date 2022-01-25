@@ -172,11 +172,12 @@ client.once('ready', () => {
                 /*guild.commands.forEach(command => {
                     command.delete()
                 })*/
-                guild.commands.fetch.then(commands => {
-                    commands.forEach(command => {
-                        command.delete();
+                guild.commands.fetch()
+                    .then(commands => {
+                        commands.forEach(command => {
+                            command.delete();
+                        });
                     });
-                });
                 guildCommandCreate(guild.id);
             }
         });
