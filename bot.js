@@ -66,6 +66,89 @@ function convertmonthtotext(month) {
     }
 }
 
+async function guildCommandCreate(guildid){
+    //if guildid is array
+    if(Array.isArray(guildid)){
+        for(let i = 0; i < guildid.length; i++){
+            await guildCommandCreate(guildid[i]);
+        }
+    }else{
+        const thatguild = client.guilds.cache.get(guildid);
+        let commands
+
+        if (thatguild) {
+            commands = thatguild.commands
+        } else {
+            commands = client.applications?.commands
+        }
+
+        commands?.create({
+            name: 'fthlotto',
+            description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก"
+        }, guild.id)
+    
+        commands?.create({
+            name: 'cthlotto',
+            description: "ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้"
+        }, guild.id)
+    
+        commands?.create({
+            name: 'lastlotto',
+            description: "ดูสลากกินแบ่งรัฐบาลล่าสุด"
+        }, guild.id)
+    
+        commands?.create({
+            name: 'aithing',
+            description: "ดูเลขเด็ด 10 อันดับจากการใช้ Ai"
+        }, guild.id)
+    
+        commands?.create({
+            name: 'lotsheet',
+            description: "ใบตรวจสลากกินแบ่งรัฐบาล"
+        }, guild.id)
+    
+        commands?.create({
+            name: 'synumber',
+            description: "บันทึกเลขสลากฯที่คุณซื้อ เพื่อรับแจ้งเตือน",
+            options: [{
+                type: 3,
+                name: 'number',
+                description: 'ตัวเลขที่คุณซื้อหรือเลขที่คุณต้องการแจ้งเตือน',
+                required: true
+            }]
+        }, guild.id)
+    
+        commands?.create({
+            name: 'srchlot',
+            description: "ตรวจสลากฯ ล่าสุดด้วยเลข",
+            options: [{
+                type: 3,
+                name: 'number',
+                description: 'ตัวเลขที่ต้องการตรวจสลากฯ',
+                required: true
+            }]
+        }, guild.id)
+    
+        commands?.create({
+            name: 'ตรวจสลากฯ',
+            type: 3
+        }, guild.id)
+    
+        commands?.create({
+            name: 'checkconnection',
+            description: 'เช็คการเชื่อมต่อ'
+        }, guild.id)
+    
+        commands?.create({
+            name: 'syhistory',
+            description: 'ประวัติการบันทึกสลากฯ'
+        }, guild.id)
+
+        //return good
+        return true;
+    }
+}
+
 // end functions
 
 client.once('ready', () => {
@@ -75,6 +158,10 @@ client.once('ready', () => {
         client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
         client.users.fetch('133439202556641280').then(dm => {
             dm.send('Bot เริ่มต้นการทำงานแล้ว')
+        });
+        //get all guilds
+        client.guilds.cache.forEach(guild => {
+            guildCommandCreate(guild.id);
         });
         console.log('I am ready!');
     });
@@ -111,7 +198,10 @@ client.on("guildCreate", guild => {
         });
     }
 
-    const thatguild = client.guilds.cache.get(guild.id);
+    //use guildCommandCreate
+    guildCommandCreate(guild.id);
+
+    /*const thatguild = client.guilds.cache.get(guild.id);
     let commands
 
     if (thatguild) {
@@ -180,7 +270,7 @@ client.on("guildCreate", guild => {
     commands?.create({
         name: 'syhistory',
         description: 'ประวัติการบันทึกสลากฯ'
-    }, guild.id)
+    }, guild.id)*/
 })
 
 let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
