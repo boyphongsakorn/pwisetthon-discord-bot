@@ -176,11 +176,11 @@ client.once('ready', () => {
                     .then(commands => {
                         commands.forEach(command => {
                             command.delete()
-                            .then(console.log)
-                            .catch(console.error);
+                                .then(console.log)
+                                .catch(console.error);
                         });
+                        guildCommandCreate(guild.id);
                     });
-                guildCommandCreate(guild.id);
             }
         });
         console.log('I am ready!');
