@@ -85,27 +85,27 @@ async function guildCommandCreate(guildid){
         commands?.create({
             name: 'fthlotto',
             description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก"
-        }, guild.id)
+        }, guildid)
     
         commands?.create({
             name: 'cthlotto',
             description: "ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้"
-        }, guild.id)
+        }, guildid)
     
         commands?.create({
             name: 'lastlotto',
             description: "ดูสลากกินแบ่งรัฐบาลล่าสุด"
-        }, guild.id)
+        }, guildid)
     
         commands?.create({
             name: 'aithing',
             description: "ดูเลขเด็ด 10 อันดับจากการใช้ Ai"
-        }, guild.id)
+        }, guildid)
     
         commands?.create({
             name: 'lotsheet',
             description: "ใบตรวจสลากกินแบ่งรัฐบาล"
-        }, guild.id)
+        }, guildid)
     
         commands?.create({
             name: 'synumber',
@@ -116,7 +116,7 @@ async function guildCommandCreate(guildid){
                 description: 'ตัวเลขที่คุณซื้อหรือเลขที่คุณต้องการแจ้งเตือน',
                 required: true
             }]
-        }, guild.id)
+        }, guildid)
     
         commands?.create({
             name: 'srchlot',
@@ -127,22 +127,22 @@ async function guildCommandCreate(guildid){
                 description: 'ตัวเลขที่ต้องการตรวจสลากฯ',
                 required: true
             }]
-        }, guild.id)
+        }, guildid)
     
         commands?.create({
             name: 'ตรวจสลากฯ',
             type: 3
-        }, guild.id)
+        }, guildid)
     
         commands?.create({
             name: 'checkconnection',
             description: 'เช็คการเชื่อมต่อ'
-        }, guild.id)
+        }, guildid)
     
         commands?.create({
             name: 'syhistory',
             description: 'ประวัติการบันทึกสลากฯ'
-        }, guild.id)
+        }, guildid)
 
         //return good
         return true;
