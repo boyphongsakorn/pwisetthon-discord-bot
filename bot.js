@@ -552,6 +552,7 @@ client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand() && !interaction.isContextMenu() && !interaction.isSelectMenu()) return;
 
     if (interaction.commandName === 'fthlotto') {
+        await interaction.deferReply();
         var options = {
             'method': 'GET',
             'url': process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channelId,
@@ -559,21 +560,25 @@ client.on('interactionCreate', async interaction => {
             }
         };
 
-        request(options, function (error, response) {
+        request(options, async function (error, response) {
             if (error) throw new Error(error);
             console.log(response.body);
             if (response.body == "debug") {
-                reply(interaction, 'ห้องนี้ติดตามสลากฯอยู่แล้ว')
+                //reply(interaction, 'ห้องนี้ติดตามสลากฯอยู่แล้ว')
+                await interaction.editReply('ห้องนี้ติดตามสลากฯอยู่แล้ว')
             } else if (response.body == "error") {
-                reply(interaction, 'ไม่สามารถติดตามสลากฯได้')
+                //reply(interaction, 'ไม่สามารถติดตามสลากฯได้')
+                await interaction.editReply('ไม่สามารถติดตามสลากฯได้')
                 console.log(interaction.channelId)
             } else {
-                reply(interaction, 'ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+                //reply(interaction, 'ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+                await interaction.editReply('ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
             }
         });
     }
 
     if (interaction.commandName === 'cthlotto') {
+        await interaction.deferReply();
         var options = {
             'method': 'GET',
             'url': process.env.URL + '/discordbot/delchannels.php?chid=' + interaction.channelId,
@@ -581,13 +586,15 @@ client.on('interactionCreate', async interaction => {
             }
         };
 
-        request(options, function (error, response) {
+        request(options, async function (error, response) {
             if (error) throw new Error(error);
             console.log(response.body);
             if (response.body == "debug") {
-                reply(interaction, 'เอ้! ห้องนี้ไม่ได้ติดตามสลากฯ')
+                //reply(interaction, 'เอ้! ห้องนี้ไม่ได้ติดตามสลากฯ')
+                await interaction.editReply('เอ้! ห้องนี้ไม่ได้ติดตามสลากฯ')
             } else {
-                reply(interaction, 'ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+                //reply(interaction, 'ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+                await interaction.editReply('ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
             }
         });
     }
