@@ -172,22 +172,22 @@ client.once('ready', () => {
             dm.send('Bot เริ่มต้นการทำงานแล้ว')
         });
         //get all guilds
-        client.guilds.cache.forEach(guild => {
-            //delete all commands in guild
-            //if guild.id == '309312041632661504'
-            /*guild.commands.fetch.then(commands => {
-                commands.forEach(command => {
-                    command.delete();
-                });
-            });*/
-            if (guild.id == '309312041632661504') {
-                /*guild.commands.forEach(command => {
-                    command.delete()
-                })*/
-                guildCommandDelete(guild);
-                guildCommandCreate(guild.id);
-            }
-        });
+        client.guilds.cache.forEach(async function (guild) {
+                //delete all commands in guild
+                //if guild.id == '309312041632661504'
+                /*guild.commands.fetch.then(commands => {
+                    commands.forEach(command => {
+                        command.delete();
+                    });
+                });*/
+                if (guild.id == '309312041632661504') {
+                    /*guild.commands.forEach(command => {
+                        command.delete()
+                    })*/
+                    await guildCommandDelete(guild);
+                    await guildCommandCreate(guild.id);
+                }
+            });
         console.log('I am ready!');
     });
 });
