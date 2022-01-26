@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@themesberg/flowbite@1.3.0/dist/flowbite.min.css" />
 </head>
 <body>
     <div class="flex">
@@ -14,8 +15,12 @@
                 <img src="https://i.ibb.co/4mvNWrt/favlogo.png">
             </div>
             <hr class="bg-gray-200 dark:bg-gray-800 border border-gray-200 dark:border-gray-800 rounded-full mx-2">
-            <div class="relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto text-white bg-gray-400 hover:bg-indigo-600 dark:bg-gray-800 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg" onclick="window.open('https://lotto.teamquadb.in.th/discordbot', '_blank')">
+            <div data-tooltip-target="tooltip-right" class="relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto text-white bg-gray-400 hover:bg-indigo-600 dark:bg-gray-800 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg" onclick="window.open('https://lotto.teamquadb.in.th/discordbot', '_blank')">
                 <i data-feather="plus"></i>
+            </div>
+            <div id="tooltip-right" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                เชิญบอทเข้าดิส
+                <div class="tooltip-arrow" data-popper-arrow></div>
             </div>
             <div class="relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto text-white bg-gray-400 hover:bg-indigo-600 dark:bg-gray-800 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg" onclick="window.open('https://status.teamquadb.in.th', '_blank')">
                 <i data-feather="rss"></i>
@@ -27,6 +32,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/@themesberg/flowbite@1.3.0/dist/flowbite.bundle.js"></script>
 
     <script>
         //document load complete
