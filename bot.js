@@ -66,13 +66,13 @@ function convertmonthtotext(month) {
     }
 }
 
-async function guildCommandCreate(guildid){
+async function guildCommandCreate(guildid) {
     //if guildid is array
-    if(Array.isArray(guildid)){
-        for(let i = 0; i < guildid.length; i++){
+    if (Array.isArray(guildid)) {
+        for (let i = 0; i < guildid.length; i++) {
             await guildCommandCreate(guildid[i]);
         }
-    }else{
+    } else {
         const thatguild = client.guilds.cache.get(guildid);
         let commands
 
@@ -86,27 +86,27 @@ async function guildCommandCreate(guildid){
             name: 'fthlotto',
             description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก"
         }, guildid)
-    
+
         commands?.create({
             name: 'cthlotto',
             description: "ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้"
         }, guildid)
-    
+
         commands?.create({
             name: 'lastlotto',
             description: "ดูสลากกินแบ่งรัฐบาลล่าสุด"
         }, guildid)
-    
+
         commands?.create({
             name: 'aithing',
             description: "ดูเลขเด็ด 10 อันดับจากการใช้ Ai"
         }, guildid)
-    
+
         commands?.create({
             name: 'lotsheet',
             description: "ใบตรวจสลากกินแบ่งรัฐบาล"
         }, guildid)
-    
+
         commands?.create({
             name: 'synumber',
             description: "บันทึกเลขสลากฯที่คุณซื้อ เพื่อรับแจ้งเตือน",
@@ -117,7 +117,7 @@ async function guildCommandCreate(guildid){
                 required: true
             }]
         }, guildid)
-    
+
         commands?.create({
             name: 'srchlot',
             description: "ตรวจสลากฯ ล่าสุดด้วยเลข",
@@ -128,17 +128,17 @@ async function guildCommandCreate(guildid){
                 required: true
             }]
         }, guildid)
-    
+
         commands?.create({
             name: 'ตรวจสลากฯ',
             type: 3
         }, guildid)
-    
+
         commands?.create({
             name: 'checkconnection',
             description: 'เช็คการเชื่อมต่อ'
         }, guildid)
-    
+
         commands?.create({
             name: 'syhistory',
             description: 'ประวัติการบันทึกสลากฯ'
@@ -147,6 +147,18 @@ async function guildCommandCreate(guildid){
         //return good
         return true;
     }
+}
+
+async function guildCommandDelete(guild) {
+    await guild.commands.fetch()
+        .then(commands => {
+            await commands.forEach(command => {
+                command.delete()
+                    .then(console.log)
+                    .catch(console.error);
+            });
+            return true;
+        });
 }
 
 // end functions
@@ -168,19 +180,12 @@ client.once('ready', () => {
                     command.delete();
                 });
             });*/
-            if(guild.id == '309312041632661504'){
+            if (guild.id == '309312041632661504') {
                 /*guild.commands.forEach(command => {
                     command.delete()
                 })*/
-                guild.commands.fetch()
-                    .then(commands => {
-                        commands.forEach(command => {
-                            command.delete()
-                                .then(console.log)
-                                .catch(console.error);
-                        });
-                        guildCommandCreate(guild.id);
-                    });
+                guildCommandDelete(guild);
+                guildCommandCreate(guild.id);
             }
         });
         console.log('I am ready!');
@@ -1178,7 +1183,7 @@ client.on('interactionCreate', async interaction => {
                 console.log(err);
             } else {
                 console.log("1 record inserted");
-                await interaction.editReply('บันทึกข้อมูลเรียบร้อยแล้ว (เลข '+numbertosave+')');
+                await interaction.editReply('บันทึกข้อมูลเรียบร้อยแล้ว (เลข ' + numbertosave + ')');
             }
         });
     }
@@ -1209,16 +1214,16 @@ client.on('interactionCreate', async interaction => {
         con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", async function (err, result, fields) {
             if (err) {
                 sqlselecttest = 0;
-            }else{
+            } else {
                 //if result[0].round == todayformat
-                if(result[0].round == todayformat){
+                if (result[0].round == todayformat) {
                     waitwhat = 1;
-                }else{
+                } else {
                     waitwhat = 0;
                 }
                 lastlottdate = result[0].round;
                 sqlselecttest = 1;
-                if(waitwhat == 1){
+                if (waitwhat == 1) {
                     dd = parseInt(dd) + 1;
                     dd = padLeadingZeros(dd, 2);
                     todayformat = yyyy + '-' + mm + '-' + dd;
@@ -1240,22 +1245,22 @@ client.on('interactionCreate', async interaction => {
             todayformat = yyyy + '-' + mm + '-' + dd;
         }*/
         //insert to sql
-        con.query("INSERT INTO lott_round (id, round) VALUES ('" + dd + "" + mm + "" + (yyyy+543) + "', '" + todayformat + "')", async function (err, result, fields) {
+        con.query("INSERT INTO lott_round (id, round) VALUES ('" + dd + "" + mm + "" + (yyyy + 543) + "', '" + todayformat + "')", async function (err, result, fields) {
             if (err) {
                 console.log(err);
                 sqlinserttest = 0;
-            }else{
+            } else {
                 sqlinserttest = 1;
                 console.log('Insert complete');
             }
             //console.log(result);
         });
         //delete old data
-        con.query("DELETE FROM lott_round WHERE id = '" + dd + "" + mm + "" + (yyyy+543) + "'", async function (err, result, fields) {
+        con.query("DELETE FROM lott_round WHERE id = '" + dd + "" + mm + "" + (yyyy + 543) + "'", async function (err, result, fields) {
             if (err) {
                 console.log(err);
                 sqldeletetest = 0;
-            }else{
+            } else {
                 sqldeletetest = 1;
                 console.log('Delete complete');
             }
@@ -1333,9 +1338,9 @@ client.on('interactionCreate', async interaction => {
         //convert lastlottdateplus543 to dd/mm/yyyy
         let lastlottdateplus543toformat = moment(lastlottdateplus543).format('DD/MM/YYYY');
         let sqlselecttesttextplus543
-        if(sqlselecttest != 0){
+        if (sqlselecttest != 0) {
             //add lastlottdateplus543toformat after text of sqlselecttesttext
-            sqlselecttesttextplus543 = sqlselecttesttext + ' ( ' + lastlottdateplus543toformat+' )';
+            sqlselecttesttextplus543 = sqlselecttesttext + ' ( ' + lastlottdateplus543toformat + ' )';
         }
 
         //create message embed
@@ -1366,8 +1371,8 @@ client.on('interactionCreate', async interaction => {
         }, 30000);
     }
 
-    if(interaction.commandName == 'syhistory'){
-        await interaction.deferReply({ephemeral: true});
+    if (interaction.commandName == 'syhistory') {
+        await interaction.deferReply({ ephemeral: true });
         //get user id
         let userid = interaction.user.id;
         //select * from lott_table where discord_id = userid
@@ -1400,7 +1405,7 @@ client.on('interactionCreate', async interaction => {
 
             console.log(result);
 
-            for(let i = 0; i < result.length; i++){
+            for (let i = 0; i < result.length; i++) {
                 console.log(result[i]);
                 console.log(result[i].numberbuy);
                 //convert from datetime sql to datetime js
@@ -1408,12 +1413,12 @@ client.on('interactionCreate', async interaction => {
                 //convert from datetime js to datetime string with 24 hour format and dd/mm/yyyy format without time
                 let datestring = datejs.toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit' });
                 let ssus
-                if(result[i].status == 'waiting'){
+                if (result[i].status == 'waiting') {
                     ssus = 'รอสลากฯออก'
-                }else{
+                } else {
                     ssus = result[i].status
                 }
-                msg.addField(result[i].numberbuy +" ("+ssus+")",datestring,true);
+                msg.addField(result[i].numberbuy + " (" + ssus + ")", datestring, true);
             }
 
             await interaction.editReply({ embeds: [msg] });
