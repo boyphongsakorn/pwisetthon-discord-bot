@@ -7,24 +7,62 @@
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/@themesberg/flowbite@1.3.0/dist/flowbite.min.css" />
+    <style>
+        .vl::before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: white;
+            position: absolute;
+            border-radius: 5px;
+            top: 50%;
+            transform: translate(-85%, -50%) scale(0);
+        }
+
+        .vl:hover::before {
+            transform: translate(-85%, -50%) scale(0.5);
+        }
+
+        .vf::before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: white;
+            position: absolute;
+            border-radius: 5px;
+            top: 50%;
+            transform: translate(-109%, -50%) scale(1);
+        }
+    </style>
 </head>
 <body>
     <div class="flex">
         <div class="fixed top-0 left-0 h-screen w-16 flex flex-col bg-white dark:bg-gray-900 shadow-lg">
-            <div class="relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto bg-gray-400 hover:bg-indigo-600 dark:bg-gray-800 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg">
+            <!--div class="vl rounded-r-xl h-12"></div-->
+            <div data-tooltip-target="homebot" data-tooltip-placement="right" class="vf relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto bg-indigo-600 rounded-xl transition-all duration-300 ease-linear cursor-pointer shadow-lg">
                 <img src="https://i.ibb.co/4mvNWrt/favlogo.png">
             </div>
             <hr class="bg-gray-200 dark:bg-gray-800 border border-gray-200 dark:border-gray-800 rounded-full mx-2">
-            <div data-tooltip-target="invitebot" data-tooltip-placement="right" class="relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto text-white bg-gray-400 hover:bg-indigo-600 dark:bg-gray-800 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg" onclick="window.open('https://lotto.teamquadb.in.th/discordbot', '_blank')">
+            <div data-tooltip-target="pwdev" data-tooltip-placement="right" class="vl relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto text-white bg-gray-400 hover:bg-indigo-600 dark:bg-gray-800 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg" onclick="window.open('https://lotto.teamquadb.in.th/discordbot', '_blank')" style="background-image: url(https://i.ibb.co/YB96zzC/PW-DEV.jpg);background-size: cover;">
+            </div>
+            <div data-tooltip-target="invitebot" data-tooltip-placement="right" class="vl relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto text-white bg-gray-400 hover:bg-indigo-600 dark:bg-gray-800 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg" onclick="window.open('https://lotto.teamquadb.in.th/discordbot', '_blank')">
                 <i data-feather="plus"></i>
             </div>
-            <div data-tooltip-target="statusbot" data-tooltip-placement="right" class="relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto text-white bg-gray-400 hover:bg-indigo-600 dark:bg-gray-800 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg" onclick="window.open('https://status.teamquadb.in.th', '_blank')">
+            <div data-tooltip-target="statusbot" data-tooltip-placement="right" class="vl relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto text-white bg-gray-400 hover:bg-indigo-600 dark:bg-gray-800 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg" onclick="window.open('https://status.teamquadb.in.th', '_blank')">
                 <i data-feather="rss"></i>
+            </div>
+            <hr class="bg-gray-200 dark:bg-gray-800 border border-gray-200 dark:border-gray-800 rounded-full mx-2">
+            <div data-tooltip-target="troublebot" data-tooltip-placement="right" class="vl relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto text-white bg-gray-400 hover:bg-indigo-600 dark:bg-gray-800 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg" onclick="window.open('https://discordbot.pwisetthon.com/#troubleshooting', '_blank')">
+                <i data-feather="alert-circle"></i>
             </div>
         </div>
         <div class="w-full h-screen m-0 ml-16 bg-gray-200 dark:bg-gray-800 overflow-hidden">
             <iframe style="width: 100%; height: 100%;" src="https://discordbot.pwisetthon.com/?betaindex=1"></iframe>
         </div>
+    </div>
+    <div id="homebot" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-black rounded-lg shadow-sm opacity-0 tooltip">
+        หน้าหลัก
+        <div class="tooltip-arrow" data-popper-arrow></div>
     </div>
     <div id="invitebot" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-black rounded-lg shadow-sm opacity-0 tooltip">
         เชิญบอทเข้าดิส
@@ -32,6 +70,14 @@
     </div>
     <div id="statusbot" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-black rounded-lg shadow-sm opacity-0 tooltip">
         สถานะบอท
+        <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
+    <div id="troublebot" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-black rounded-lg shadow-sm opacity-0 tooltip">
+        บอทมีปัญหา
+        <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
+    <div id="pwdev" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-black rounded-lg shadow-sm opacity-0 tooltip">
+        PW DEV
         <div class="tooltip-arrow" data-popper-arrow></div>
     </div>
 

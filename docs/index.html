@@ -264,7 +264,7 @@
     </div-->
 
     <!-- container-fluid > container -->
-    <div class="container-fluid py-3 bg-dark bg-gradient text-white">
+    <div class="container-fluid py-3 bg-dark bg-gradient text-white" id="troubleshooting">
         <div class="container px-5">
             <p class="fs-1 text-center">แก้ไขปัญหาเบื้องต้น</p>
             <nav>
@@ -393,7 +393,7 @@
             <div class="row">
                 <div class="col text-center">
                     <p class="lead">
-                        <span id="copyright">&copy; Copyright 2021. <a href="https://pwisetthon.com" class="text-decoration-none text-reset">PWisetthon.com</a> All Rights Reserved.</span>
+                        <span id="copyright">&copy; Copyright <p class="d-inline" id="thisyear"></p>. <a href="https://pwisetthon.com" class="text-decoration-none text-reset">PWisetthon.com</a> All Rights Reserved.</span>
                     </p>
                 </div>
             </div>
@@ -476,6 +476,11 @@
             document.getElementsByClassName("navbar")[0].style.setProperty("display", "none", "important")
             document.getElementsByClassName("alert-warning")[0].style.setProperty("display", "none", "important")
         }
+
+        //innerText this year to thisyear id
+        var d = new Date();
+        var n = d.getFullYear();
+        document.getElementById("thisyear").innerText = n;
     };
 
     function fuckingload() {
