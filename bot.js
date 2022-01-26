@@ -180,13 +180,13 @@ client.once('ready', () => {
                         command.delete();
                     });
                 });*/
-                if (guild.id == '309312041632661504') {
+                //if (guild.id == '309312041632661504') {
                     /*guild.commands.forEach(command => {
                         command.delete()
                     })*/
                     await guildCommandDelete(guild);
                     await guildCommandCreate(guild.id);
-                }
+                //}
             });
         console.log('I am ready!');
     });
