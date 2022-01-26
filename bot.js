@@ -151,7 +151,7 @@ async function guildCommandCreate(guildid) {
 
 async function guildCommandDelete(guild) {
     await guild.commands.fetch()
-        .then(commands => {
+        .then(async function (commands) {
             await commands.forEach(command => {
                 command.delete()
                     .then(console.log)
