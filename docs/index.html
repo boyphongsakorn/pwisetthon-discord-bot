@@ -450,10 +450,10 @@
         anime({
             targets: '.test-kak',
             opacity: 0,
-            translateY: [0, 100],
+            translateX: 50,
             duration: 2000,
             direction: 'reverse',
-            easing: 'easeInOutSine',
+            easing: 'spring(1, 80, 10, 0)',
             begin: function(anim) {
                 document.getElementsByClassName("row")[2].style.setProperty("display", "flex", "important")
                 //document.getElementsByClassName("row")[1].style.setProperty("display", "flex", "important")
