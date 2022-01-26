@@ -462,6 +462,13 @@
 			  return 600 * i;
 		    },
         });
+
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var c = url.searchParams.get("betaindex");
+        if(c==1 || c== '1'){
+            document.getElementsByClassName("navbar")[0].style.setProperty("display", "none", "important")
+        }
     };
 
     function fuckingload() {
