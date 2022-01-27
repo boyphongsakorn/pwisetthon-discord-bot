@@ -392,8 +392,8 @@
         <div class="container pt-3">
             <div class="row">
                 <div class="col text-center">
-                    <p class="lead">
-                        <span id="copyright">&copy; Copyright <p class="d-inline" id="thisyear"></p>. <a href="https://pwisetthon.com" class="text-decoration-none text-reset">PWisetthon.com</a> All Rights Reserved.</span>
+                    <p class="lead" id="thisyear">
+                        <span id="copyright">&copy; Copyright . <a href="https://pwisetthon.com" class="text-decoration-none text-reset">PWisetthon.com</a> All Rights Reserved.</span>
                     </p>
                 </div>
             </div>
@@ -480,7 +480,7 @@
         //innerText this year to thisyear id
         var d = new Date();
         var n = d.getFullYear();
-        document.getElementById("thisyear").innerText = n;
+        document.getElementById("thisyear").innerHTML = "<span id=\"copyright\">&copy; Copyright "+n+". <a href=\"https://pwisetthon.com\" class=\"text-decoration-none text-reset\">PWisetthon.com</a> All Rights Reserved.</span>"
     };
 
     function fuckingload() {
