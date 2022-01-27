@@ -167,10 +167,6 @@ client.once('ready', () => {
     con.connect(function (err) {
         if (err) throw err;
         console.log("Database Connected!");
-        client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
-        client.users.fetch('133439202556641280').then(dm => {
-            dm.send('Bot เริ่มต้นการทำงานแล้ว')
-        });
         //get all guilds
         client.guilds.cache.forEach(async function (guild) {
                 //delete all commands in guild
@@ -188,6 +184,10 @@ client.once('ready', () => {
                     await guildCommandCreate(guild.id);
                 //}
             });
+        client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
+        client.users.fetch('133439202556641280').then(dm => {
+            dm.send('Bot เริ่มต้นการทำงานแล้ว')
+        });
         console.log('I am ready!');
     });
 });
