@@ -1469,7 +1469,7 @@ client.on('interactionCreate', async interaction => {
             .setTitle('สถานะการเชื่อมต่อ')
             .setURL('https://status.teamquadb.in.th')
             .setDescription('เช็คสถานะการเชื่อมต่อของบอท ระหว่าง ลอตเตอรรี่ API,รูปภาพลอตเตอรรี่ API, ฐานข้อมูล และ เว็บไซต์ glo.or.th')
-            .setThumbnail('https://i.ibb.co/4mvNWrt/favlogo.png')
+            .setThumbnail('https://dbstatus.pwisetthon.com/botimage')
             .addFields(
                 { name: 'ฐานข้อมูล', value: sqlstatustext },
                 { name: 'ทดสอบเพิ่มข้อมูล', value: sqlinserttesttext, inline: true },
@@ -1516,7 +1516,7 @@ client.on('interactionCreate', async interaction => {
                 .setTitle('ประวัติการบันทึกเลข')
                 .setURL('https://lotto.teamquadb.in.th')
                 .setDescription('ประวัติการบันทึกเลขของคุณในดิสคอร์ดบอทนี้')
-                .setThumbnail('https://i.ibb.co/4mvNWrt/favlogo.png')
+                .setThumbnail('https://dbstatus.pwisetthon.com/botimage')
                 //.addFields(history)
                 //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                 //.setImage('attachment://lottery_' + body.info.date + '.png')
@@ -1543,6 +1543,9 @@ client.on('interactionCreate', async interaction => {
 
             await interaction.editReply({ embeds: [msg] });
         });
+    }
+
+    if (interaction.customId === 'lottomode') {
     }
 });
 
