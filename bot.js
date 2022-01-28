@@ -34,6 +34,24 @@ http.createServer(function (req, res) {
         res.writeHead(200, headers);
         res.write(client.guilds.cache.size.toString()); //write a response to the client
         res.end(); //end the response
+    } else if (req.url === '/botimage') {
+        //use node-fetch to download image from client.user.defaultAvatarURL
+        fetch(client.user.defaultAvatarURL)
+            .then(res => res.buffer())
+            .then(buf => {
+                //convert buffer to base64
+                const base64 = buf.toString('base64');
+                //add 'content-type':'image/jpg' to headers
+                headers['content-type'] = 'image/jpg';
+                //send response
+                res.writeHead(200, headers);
+                res.write(base64);
+                res.end();
+            });
+        //res.writeHead(200, {'Access-Control-Allow-Origin': '*','Access-Control-Allow-Methods': 'OPTIONS, POST, GET','Access-Control-Max-Age': 2592000,'content-type':'image/jpg'});
+        //res.write(client.guilds.cache.size.toString()); //write a response to the client
+        //res.end(); //end the response
+        //fs.createReadStream('./avimage.jpg').pipe(res);
     } else {
         res.writeHead(200, headers);
         res.write('ok'); //write a response to the client
