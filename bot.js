@@ -35,7 +35,7 @@ http.createServer(function (req, res) {
         res.write(client.guilds.cache.size.toString()); //write a response to the client
         res.end(); //end the response
     } else if (req.url === '/botimage') {
-        console.log(client.user.defaultAvatarURL);
+        console.log(client.user.avatarURL);
         //use node-fetch to download image from client.user.defaultAvatarURL
         fetch(client.user.defaultAvatarURL)
             .then(res => res.buffer())
