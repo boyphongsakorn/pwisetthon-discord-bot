@@ -36,12 +36,24 @@ http.createServer(async function (req, res) {
         res.end(); //end the response
     } else if (req.url === '/botimage') {
         console.log(client.user.avatarURL({ format: 'jpg', dynamic: true, size: 512 }));
-        //download image from url and response to client
-        download.image({
-            url: client.user.avatarURL({ format: 'jpg', dynamic: true, size: 512 }),
-            dest: './botimage.jpg'
-        }).then(({ filename, image }) => {
-            console.log('File saved to', filename)
+        //if botimage.jpg is exist don't download
+        if (!fs.existsSync('./botimage.jpg')) {
+            //download image from url and response to client
+            download.image({
+                url: client.user.avatarURL({ format: 'jpg', dynamic: true, size: 512 }),
+                dest: './botimage.jpg'
+            }).then(({ filename, image }) => {
+                console.log('File saved to', filename)
+                fs.readFile('./botimage.jpg', function (err, data) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'image/jpg' });
+                    res.write(data);
+                    res.end();
+                });
+            })
+        }else{
             fs.readFile('./botimage.jpg', function (err, data) {
                 if (err) {
                     throw err;
@@ -50,7 +62,7 @@ http.createServer(async function (req, res) {
                 res.write(data);
                 res.end();
             });
-        })
+        }
     } else {
         res.writeHead(200, headers);
         res.write('ok'); //write a response to the client
