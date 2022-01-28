@@ -40,13 +40,9 @@ http.createServer(function (req, res) {
         fetch(client.user.avatarURL({ format: 'jpg', dynamic: true, size: 128 }))
             .then(res => res.buffer())
             .then(buf => {
-                //convert buffer to base64
-                const base64 = buf.toString('base64');
-                //add 'content-type':'image/jpg' to headers
-                headers['content-type'] = 'image/jpg';
-                //send response
-                res.writeHead(200, headers);
-                res.write(base64);
+                //convert buffer to base64 and send to client
+                res.writeHead(200, { 'Access-Control-Allow-Origin': '*','Content-Type': 'image/jpeg' });
+                res.write(buf.toString('base64'));
                 res.end();
             });
         //res.writeHead(200, {'Access-Control-Allow-Origin': '*','Access-Control-Allow-Methods': 'OPTIONS, POST, GET','Access-Control-Max-Age': 2592000,'content-type':'image/jpg'});
