@@ -87,6 +87,12 @@ async function guildCommandCreate(guildid) {
             description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก"
         }, guildid)
 
+
+        commands?.create({
+            name: 'flottomode',
+            description: "ปรับโหมดการแจ้งเตือนสลากกินแบ่งฯ"
+        }, guildid)
+
         commands?.create({
             name: 'cthlotto',
             description: "ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้"
@@ -161,6 +167,102 @@ async function guildCommandDelete(guild) {
         });
 }
 
+async function guildCommandDeleteandCreate(guild) {
+    await guild.commands.fetch()
+        .then(async function (commands) {
+            await commands.forEach(command => {
+                command.delete()
+                    .then(console.log)
+                    .catch(console.error);
+            });
+        });
+
+    // wait 5 sec
+
+    await new Promise(resolve => setTimeout(resolve, 5000));
+
+    let guildid = guild.id;
+    const thatguild = client.guilds.cache.get(guildid);
+    let commands
+
+    if (thatguild) {
+        commands = thatguild.commands
+    } else {
+        commands = client.applications?.commands
+    }
+
+    commands?.create({
+        name: 'fthlotto',
+        description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก"
+    }, guildid)
+
+
+    commands?.create({
+        name: 'flottomode',
+        description: "ปรับโหมดการแจ้งเตือนสลากกินแบ่งฯ"
+    }, guildid)
+
+    commands?.create({
+        name: 'cthlotto',
+        description: "ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้"
+    }, guildid)
+
+    commands?.create({
+        name: 'lastlotto',
+        description: "ดูสลากกินแบ่งรัฐบาลล่าสุด"
+    }, guildid)
+
+    commands?.create({
+        name: 'aithing',
+        description: "ดูเลขเด็ด 10 อันดับจากการใช้ Ai"
+    }, guildid)
+
+    commands?.create({
+        name: 'lotsheet',
+        description: "ใบตรวจสลากกินแบ่งรัฐบาล"
+    }, guildid)
+
+    commands?.create({
+        name: 'synumber',
+        description: "บันทึกเลขสลากฯที่คุณซื้อ เพื่อรับแจ้งเตือน",
+        options: [{
+            type: 3,
+            name: 'number',
+            description: 'ตัวเลขที่คุณซื้อหรือเลขที่คุณต้องการแจ้งเตือน',
+            required: true
+        }]
+    }, guildid)
+
+    commands?.create({
+        name: 'srchlot',
+        description: "ตรวจสลากฯ ล่าสุดด้วยเลข",
+        options: [{
+            type: 3,
+            name: 'number',
+            description: 'ตัวเลขที่ต้องการตรวจสลากฯ',
+            required: true
+        }]
+    }, guildid)
+
+    commands?.create({
+        name: 'ตรวจสลากฯ',
+        type: 3
+    }, guildid)
+
+    commands?.create({
+        name: 'checkconnection',
+        description: 'เช็คการเชื่อมต่อ'
+    }, guildid)
+
+    commands?.create({
+        name: 'syhistory',
+        description: 'ประวัติการบันทึกสลากฯ'
+    }, guildid)
+
+    //return good
+    return true;
+}
+
 // end functions
 
 client.once('ready', () => {
@@ -169,21 +271,22 @@ client.once('ready', () => {
         console.log("Database Connected!");
         //get all guilds
         client.guilds.cache.forEach(async function (guild) {
-                //delete all commands in guild
-                //if guild.id == '309312041632661504'
-                /*guild.commands.fetch.then(commands => {
-                    commands.forEach(command => {
-                        command.delete();
-                    });
-                });*/
-                //if (guild.id == '309312041632661504') {
-                    /*guild.commands.forEach(command => {
-                        command.delete()
-                    })*/
-                    await guildCommandDelete(guild);
-                    await guildCommandCreate(guild.id);
-                //}
-            });
+            //delete all commands in guild
+            //if guild.id == '309312041632661504'
+            /*guild.commands.fetch.then(commands => {
+                commands.forEach(command => {
+                    command.delete();
+                });
+            });*/
+            //if (guild.id == '309312041632661504') {
+            /*guild.commands.forEach(command => {
+                command.delete()
+            })*/
+            /*await guildCommandDelete(guild);
+            await guildCommandCreate(guild.id);*/
+            //}
+            await guildCommandDeleteandCreate(guild);
+        });
         client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
         client.users.fetch('133439202556641280').then(dm => {
             dm.send('Bot เริ่มต้นการทำงานแล้ว')
