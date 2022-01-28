@@ -22,7 +22,7 @@ var con = mysql.createConnection({
 });
 
 //create a server object:
-http.createServer(function (req, res) {
+http.createServer(async function (req, res) {
     const headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
@@ -36,19 +36,21 @@ http.createServer(function (req, res) {
         res.end(); //end the response
     } else if (req.url === '/botimage') {
         console.log(client.user.avatarURL({ format: 'jpg', dynamic: true, size: 512 }));
-        //use node-fetch to download image from client.user.defaultAvatarURL
-        fetch(client.user.avatarURL({ format: 'jpg', dynamic: true, size: 128 }))
-            .then(res => res.buffer())
-            .then(buf => {
-                //convert buffer to base64 and send to client
-                res.writeHead(200, { 'Access-Control-Allow-Origin': '*','Content-Type': 'image/jpeg' });
-                res.write(buf.toString('base64'));
+        //download image from url and response to client
+        download.image({
+            url: client.user.avatarURL({ format: 'jpg', dynamic: true, size: 512 }),
+            dest: './botimage.jpg'
+        }).then(({ filename, image }) => {
+            console.log('File saved to', filename)
+            fs.readFile('./botimage.jpg', function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                res.writeHead(200, { 'Content-Type': 'image/jpg' });
+                res.write(data);
                 res.end();
             });
-        //res.writeHead(200, {'Access-Control-Allow-Origin': '*','Access-Control-Allow-Methods': 'OPTIONS, POST, GET','Access-Control-Max-Age': 2592000,'content-type':'image/jpg'});
-        //res.write(client.guilds.cache.size.toString()); //write a response to the client
-        //res.end(); //end the response
-        //fs.createReadStream('./avimage.jpg').pipe(res);
+        })
     } else {
         res.writeHead(200, headers);
         res.write('ok'); //write a response to the client
