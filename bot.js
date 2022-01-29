@@ -53,7 +53,7 @@ http.createServer(async function (req, res) {
                     res.end();
                 });
             })
-        }else{
+        } else {
             fs.readFile('./botimage.jpg', function (err, data) {
                 if (err) {
                     throw err;
@@ -208,7 +208,7 @@ async function guildCommandDeleteandCreate(guild) {
 
     // wait 5 sec
 
-    await new Promise(resolve => setTimeout(resolve, 5000));
+    await new Promise(resolve => setTimeout(resolve, 3000));
 
     let guildid = guild.id;
     const thatguild = client.guilds.cache.get(guildid);
@@ -1557,11 +1557,33 @@ client.on('interactionCreate', async interaction => {
         });
     }
 
+    if (interaction.commandName == 'flottomode') {
+        let modearray = [{
+            label: 'โหมดปกติ',
+            description: 'รูปสรุปสลากกินแบ่งฯ',
+            value: 'normal'
+        }, {
+            label: 'โหมดสลากฯบวกราคาทอง',
+            description: 'รูปสรุปสลากกินแบ่งฯบวกกับราคาทอง',
+            value: 'gold'
+        }]
+
+        const row = new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                    .setCustomId('lottomode')
+                    .setPlaceholder('เลือกโหมดการสรุปสลากฯที่ต้องการ')
+                    .addOptions(modearray)
+            )
+
+        await interaction.editReply({ content: 'เปลี่ยนโหมดการแสดงสรุปสลากกินแบ่งฯ!', components: [row] })
+    }
+
     if (interaction.customId === 'lottomode') {
     }
 });
 
-const reply = (interaction, response) => {
+/*const reply = (interaction, response) => {
     client.api.interactions(interaction.id, interaction.token).callback.post({
         data: {
             type: 4,
@@ -1583,6 +1605,6 @@ const replyembedtype = (interaction, response) => {
             }
         }
     })
-}
+}*/
 
 client.login(process.env.BOT_TOKEN);
