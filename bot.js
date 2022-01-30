@@ -1571,6 +1571,8 @@ client.on('interactionCreate', async interaction => {
     }
 
     if (interaction.commandName == 'flottomode') {
+        await interaction.deferReply();
+
         let modearray = [{
             label: 'โหมดปกติ',
             description: 'รูปสรุปสลากกินแบ่งฯ',
