@@ -201,7 +201,7 @@ async function guildCommandDeleteandCreate(guild) {
         .then(async function (commands) {
             await commands.forEach(command => {
                 command.delete()
-                    .then(console.log)
+                    .then(/*console.log*/)
                     .catch(console.error);
             });
         });
@@ -679,12 +679,12 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                     })
                                     .catch((err) => console.error(err))
 
-                                const options = {
+                                const optionsgold = {
                                     url: 'http://192.168.31.210:4000/?date=' + date + '' + month + '' + year+'&mode=gold',
                                     dest: './lottery_' + date + '' + month + '' + year + '_gold.png'
                                 }
     
-                                await download.image(options)
+                                await download.image(optionsgold)
                                     .then(({ filename }) => {
                                         console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
                                     })
