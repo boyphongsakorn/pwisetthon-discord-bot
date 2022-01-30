@@ -320,6 +320,8 @@ client.once('ready', () => {
         client.users.fetch('133439202556641280').then(dm => {
             dm.send('Bot เริ่มต้นการทำงานแล้ว')
         });
+        console.log(client.channels.cache.get('908787448446844928'))
+        console.log(client.channels.cache.get('908787448446844928').guildId)
         console.log('I am ready!');
     });
 });
@@ -676,6 +678,17 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                         console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
                                     })
                                     .catch((err) => console.error(err))
+
+                                const options = {
+                                    url: 'http://192.168.31.210:4000/?date=' + date + '' + month + '' + year+'&mode=gold',
+                                    dest: './lottery_' + date + '' + month + '' + year + '_gold.png'
+                                }
+    
+                                await download.image(options)
+                                    .then(({ filename }) => {
+                                        console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
+                                    })
+                                    .catch((err) => console.error(err))
                             }
 
                             fetch(process.env.URL + "/discordbot/chlist.txt", settings)
@@ -703,9 +716,9 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
                                             .setTimestamp()
                                             .setFooter('ข้อมูลจาก github.com/Quad-B/lottsanook \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
-                                        console.log(imgurl + date + month + year)
+                                        /*console.log(imgurl + date + month + year)
                                         console.log(imgurl + '' + date + '' + month + '' + year)
-                                        console.log('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
+                                        console.log('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)*/
 
                                         /*let wow = client.channels.cache.get(json[i])
                                         if(wow){
@@ -1580,6 +1593,24 @@ client.on('interactionCreate', async interaction => {
     }
 
     if (interaction.customId === 'lottomode') {
+        await interaction.deferReply();
+
+        console.log(interaction.guildId)
+
+        //select lott_guildid from lott_main where lott_guildid = interaction.guildId if not exist insert lott_guildid = interaction.guildId but if exist update lott_guildid = interaction.guildId
+        con.query(`SELECT * FROM lott_main WHERE lott_guildid = '${interaction.guildId}'`, async (err, result) => {
+            if (result.length == 0) {
+                con.query(`INSERT INTO lott_main (lott_guildid, lott_resultmode) VALUES ('${interaction.guildId}', '${interaction.values[0]}')`, async (err, result) => {
+                    console.log(result);
+                    await interaction.editReply('บันทึกการเปลี่ยนโหมดการแสดงสรุปสลากกินแบ่งฯเรียบร้อยแล้ว');
+                });
+            } else {
+                con.query(`UPDATE lott_main SET lott_resultmode = '${interaction.values[0]}' WHERE lott_guildid = '${interaction.guildId}'`, async (err, result) => {
+                    console.log(result);
+                    await interaction.editReply('อัพเดทการเปลี่ยนโหมดการแสดงสรุปสลากกินแบ่งฯเรียบร้อยแล้ว');
+                });
+            }
+        });
     }
 });
 
