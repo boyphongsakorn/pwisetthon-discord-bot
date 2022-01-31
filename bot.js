@@ -947,7 +947,7 @@ client.on('interactionCreate', async interaction => {
 
                 con.query("SELECT * FROM lott_main WHERE lott_guildid = '" + interaction.guildId + "'", async function (err, result, fields) {
                     if (err) throw err;
-                    if (result.length > 0 || result[0].lott_resultmode == 'normal1') {
+                    if (result.length == 0 || result[0].lott_resultmode == 'normal') {
                         const file = new MessageAttachment('./lottery_' + body.info.date + '.png');
 
                         const msg = new MessageEmbed()
