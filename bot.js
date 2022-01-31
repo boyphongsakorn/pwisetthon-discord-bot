@@ -320,8 +320,8 @@ client.once('ready', () => {
         client.users.fetch('133439202556641280').then(dm => {
             dm.send('Bot เริ่มต้นการทำงานแล้ว')
         });
-        console.log(client.channels.cache.get('908787448446844928'))
-        console.log(client.channels.cache.get('908787448446844928').guildId)
+        //console.log(client.channels.cache.get('908787448446844928'))
+        //console.log(client.channels.cache.get('908787448446844928').guildId)
         console.log('I am ready!');
     });
 });
@@ -698,8 +698,8 @@ let scheduledMessage = new cron.CronJob('*/5 * 15-17 * * *', () => {
 
                                         //select lott_resultmode from lott_main where lott_guildid = client.channels.cache.get(json[i]).guildId
                                         con.query("SELECT * FROM lott_main WHERE lott_guildid = '" + client.channels.cache.get(wow[i]).guildId + "'", function (err, result, fields) {
-                                            if (err) throw err;
-                                            if (result.length == 0 || result[0].lott_resultmode == 'normal') {
+                                            //if (err) throw err;
+                                            if (result.length == 0 || result[0].lott_resultmode == 'normal' || err) {
                                                 const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '.png');
 
                                                 const msg = new MessageEmbed()
@@ -945,9 +945,9 @@ client.on('interactionCreate', async interaction => {
                         .catch((err) => console.error(err))
                 }
 
-                con.query("SELECT * FROM lott_main WHERE lott_guildid = '" + interaction.guildId + "'", async function (err, result, fields) {
+                /*con.query("SELECT * FROM lott_main WHERE lott_guildid = '" + interaction.guildId + "'", async function (err, result, fields) {
                     if (err) throw err;
-                    if (result.length == 0 || result[0].lott_resultmode == 'normal') {
+                    if (result.length == 0 || result[0].lott_resultmode == 'normal') {*/
                         const file = new MessageAttachment('./lottery_' + body.info.date + '.png');
 
                         const msg = new MessageEmbed()
@@ -969,7 +969,7 @@ client.on('interactionCreate', async interaction => {
 
                         //replyembedtype(interaction, msg)
                         await interaction.editReply({ embeds: [msg], files: [file] })
-                    }else{
+                    /*}else{
                         const file = new MessageAttachment('./lottery_' + body.info.date + '_gold.png');
 
                         const msg = new MessageEmbed()
@@ -992,7 +992,7 @@ client.on('interactionCreate', async interaction => {
                         //replyembedtype(interaction, msg)
                         await interaction.editReply({ embeds: [msg], files: [file] })
                     }
-                });
+                });*/
             } catch (error) {
                 console.log('error')
                 console.log(error)
@@ -1438,6 +1438,21 @@ client.on('interactionCreate', async interaction => {
         todayformat = yyyy + '-' + mm + '-' + dd;
         let waitwhat;
         let lastlottdate;
+        //node fetch http://192.168.31.210:5000/reto
+        await fetch('http://192.168.31.210:5000/reto')
+            .then(res => res.text())
+            .then(body => {
+                if(body == 'yes'){
+                    //add 1 day to todayformat
+                    dd = parseInt(dd) + 1;
+                    dd = padLeadingZeros(dd, 2);
+                    todayformat = yyyy + '-' + mm + '-' + dd;
+                    console.log(todayformat);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
         //select to sql
         con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", async function (err, result, fields) {
             if (err) {
