@@ -693,7 +693,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
 
                             fetch(process.env.URL + "/discordbot/chlist.txt", settings)
                                 .then(res => res.json())
-                                .then((wow) => {
+                                .then(async (wow) => {
                                     for (i in wow) {
 
                                         let unknows = 0;
@@ -706,6 +706,9 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                         } catch (error) {
                                             unknows = 0;
                                         }
+
+                                        //wait 3 seconds
+                                        await new Promise(resolve => setTimeout(resolve, 3000));
 
                                         if (unknows != 0) {
                                             try {
