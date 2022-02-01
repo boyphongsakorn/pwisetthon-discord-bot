@@ -626,7 +626,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                             });
 
                             //use nodefetch to check url exist
-                            fetch('https://lotimg.pwisetthon.com/fbbg', { method: "Get" })
+                            /*fetch('https://lotimg.pwisetthon.com/fbbg', { method: "Get" })
                                 .then(res => res.json())
                                 .then((json) => {
                                     imgurl = 'https://lotimg.pwisetthon.com/?date=';
