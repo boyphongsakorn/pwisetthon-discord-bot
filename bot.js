@@ -1,6 +1,7 @@
 const { MessageAttachment, MessageEmbed, Client, Intents, MessageActionRow, MessageSelectMenu } = require('discord.js');
 const cron = require("cron");
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const request = require('request');
 const download = require('image-downloader')
 var fs = require('fs');
@@ -337,7 +338,20 @@ client.on("guildCreate", guild => {
     if (guild.systemChannelId != null && guild.systemChannelId != undefined) {
         console.log("System Channel: " + guild.systemChannelId);
 
-        var options = {
+        fetch(process.env.URL + '/discordbot/addchannels.php?chid=' + guild.systemChannelId)
+            .then(res => res.text())
+            .then(body => {
+                console.log(body);
+                if (body == 'debug') {
+                    client.channels.cache.get(guild.systemChannelId).send('ขอบคุณ! ที่เชิญเราเข้าส่วนหนึ่งในดิสของคุณ')
+                        .catch(console.error);
+                } else {
+                    client.channels.cache.get(guild.systemChannelId).send('ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว! \nใช้คำสั่ง /cthlotto เพื่อยกเลิก')
+                        .catch(console.error);
+                }
+            });
+
+        /*var options = {
             'method': 'GET',
             'url': process.env.URL + '/discordbot/addchannels.php?chid=' + guild.systemChannelId,
             'headers': {
@@ -354,7 +368,7 @@ client.on("guildCreate", guild => {
                 client.channels.cache.get(guild.systemChannelId).send('ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว! \nใช้คำสั่ง /cthlotto เพื่อยกเลิก')
                     .catch(console.error);
             }
-        });
+        });*/
     }
 
     //use guildCommandCreate
@@ -691,7 +705,164 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                     .catch((err) => console.error(err))
                             }
 
-                            fetch(process.env.URL + "/discordbot/chlist.txt", settings)
+                            //check number user save
+                            con.query("SELECT * FROM lott_table WHERE status = 'waiting'", function (err, result, fields) {
+                                if (err) throw err;
+                                console.log(result);
+                                //loop result
+                                for (let i = 0; i < result.length; i++) {
+                                    let whatid = result[i].lott_id
+                                    console.log(result[i].lott_id)
+                                    console.log(result[i].numberbuy)
+                                    let optitot = { "method": "GET", "headers": { "x-rapidapi-host": "thai-lottery1.p.rapidapi.com", "x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137" } };
+                                    fetch("https://thai-lottery1.p.rapidapi.com/checklottery?by=" + date + "" + month + "" + year + "&search=" + result[i].numberbuy, optitot)
+                                        .then(res => res.text())
+                                        .then((json) => {
+                                            //if json is null or empty send message to result[i].discord_id
+                                            if (json == '' || json == null) {
+                                                var sql = "UPDATE lott_table SET status = 'ไม่ถูก',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
+                                                con.query(sql, function (err, result) {
+                                                    if (err) throw err;
+                                                    client.users.fetch(result[i].discord_id).then(dm => {
+                                                        dm.send('ขออภัยค่ะ! เลข ' + result[i].numberbuy + ' ยังไม่ถูกรางวัลนี้ค่ะ')
+                                                    })
+                                                });
+                                            } else {
+                                                var sql = "UPDATE lott_table SET status = 'win',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
+                                                con.query(sql, function (err, result) {
+                                                    if (err) throw err;
+                                                    client.users.fetch(result[i].discord_id).then(dm => {
+                                                        dm.send('ยินดีด้วย! เลข ' + result[i].numberbuy + ' ถูกรางวัลนี้ค่ะ')
+                                                    })
+                                                });
+                                            }
+                                        });
+                                }
+                            });
+
+                            const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '.png');
+
+                            const msg = new MessageEmbed()
+                                .setColor('#0099ff')
+                                .setTitle('ผลสลากกินแบ่งรัฐบาล')
+                                .setURL('https://www.glo.or.th/')
+                                .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
+                                .setThumbnail('https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/docs/glologo.png')
+                                .addFields(
+                                    { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
+                                    //{ name: '\u200B', value: '\u200B' },
+                                    { name: 'เลขหน้าสามตัว', value: json[1][1] + ' | ' + json[1][2], inline: true },
+                                    { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
+                                    { name: 'เลขท้ายสองตัว', value: json[3][1] },
+                                )
+                                //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
+                                .setImage('attachment://lottery_' + date + '' + month + '' + year + '.png')
+                                .setTimestamp()
+                                .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+
+                            const filegold = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '_gold.png');
+
+                            const msggold = new MessageEmbed()
+                                .setColor('#0099ff')
+                                .setTitle('ผลสลากกินแบ่งรัฐบาล')
+                                .setURL('https://www.glo.or.th/')
+                                .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
+                                .setThumbnail('https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/docs/glologo.png')
+                                .addFields(
+                                    { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
+                                    //{ name: '\u200B', value: '\u200B' },
+                                    { name: 'เลขหน้าสามตัว', value: json[1][1] + ' | ' + json[1][2], inline: true },
+                                    { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
+                                    { name: 'เลขท้ายสองตัว', value: json[3][1] },
+                                )
+                                //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
+                                .setImage('attachment://lottery_' + date + '' + month + '' + year + '_gold.png')
+                                .setTimestamp()
+                                .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+
+                            const response = await fetch(process.env.URL + '/discordbot/chlist.txt', { method: 'GET' });
+                            const data = await response.json();
+                            //loop [1,2,3] array
+                            for (let i = 0; i < data.length; i++) {
+                                let unknows = 0;
+                                try {
+                                    console.log(client.channels.fetch(wow[i]).then(channel => {
+                                        console.log(channel.guildId)
+                                        unknows = channel.guildId;
+                                    }).catch(console.error));
+                                } catch (error) {
+                                    unknows = 0;
+                                }
+                                //wait 3 sec
+                                await new Promise(r => setTimeout(r, 3000));
+
+                                if (unknows != 0) {
+                                    con.query("SELECT * FROM lott_main WHERE lott_guildid = '" + unknows + "'", function (err, result, fields) {
+                                        //if (err) throw err;
+                                        if (result.length == 0 || result[0].lott_resultmode == 'normal' || err) {
+                                            if (err) {
+                                                console.log(err);
+                                            }
+
+                                            try {
+                                                client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [file] })
+                                                    .then((log) => {
+                                                        console.log(log);
+                                                    })
+                                                    .catch((error) => {
+                                                        //console.log(error);
+                                                        /*client.users.fetch('133439202556641280').then(dm => {
+                                                            dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
+                                                        })*/
+                                                    });
+                                            } catch (error) {
+                                                console.log('ok')
+                                                /*client.users.fetch('133439202556641280').then(dm => {
+                                                    dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                                                })*/
+                                            }
+                                        } else {
+                                            try {
+                                                client.channels.cache.get(wow[i]).send({ embeds: [msggold], files: [filegold] })
+                                                    .then((log) => {
+                                                        console.log(log);
+                                                    })
+                                                    .catch((error) => {
+                                                        //console.log(error);
+                                                        /*client.users.fetch('133439202556641280').then(dm => {
+                                                            dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
+                                                        })*/
+                                                    });
+                                            } catch (error) {
+                                                console.log('ok')
+                                                /*client.users.fetch('133439202556641280').then(dm => {
+                                                    dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                                                })*/
+                                            }
+                                        }
+                                    })
+                                } else {
+                                    try {
+                                        client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [file] })
+                                            .then((log) => {
+                                                console.log(log);
+                                            })
+                                            .catch((error) => {
+                                                //console.log(error);
+                                                /*client.users.fetch('133439202556641280').then(dm => {
+                                                    dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
+                                                })*/
+                                            });
+                                    } catch (error) {
+                                        console.log('ok')
+                                        /*client.users.fetch('133439202556641280').then(dm => {
+                                            dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                                        })*/
+                                    }
+                                }
+                            }
+
+                            /*fetch(process.env.URL + "/discordbot/chlist.txt", settings)
                                 .then(res => res.json())
                                 .then(async (wow) => {
                                     for (i in wow) {
@@ -749,160 +920,125 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                                                     /*client.users.fetch('133439202556641280').then(dm => {
                                                                         dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
                                                                     })*/
-                                                                });
-                                                        } catch (error) {
-                                                            console.log('ok')
-                                                            /*client.users.fetch('133439202556641280').then(dm => {
-                                                                dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
-                                                            })*/
-                                                        }
-                                                    } else {
-                                                        const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '_gold.png');
+                            /*});
+                    } catch (error) {
+                        console.log('ok')
+                        /*client.users.fetch('133439202556641280').then(dm => {
+                            dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                        })*/
+                            /*}
+                        } else {
+                            const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '_gold.png');
 
-                                                        const msg = new MessageEmbed()
-                                                            .setColor('#0099ff')
-                                                            .setTitle('ผลสลากกินแบ่งรัฐบาล')
-                                                            .setURL('https://www.glo.or.th/')
-                                                            .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
-                                                            .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
-                                                            .addFields(
-                                                                { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
-                                                                //{ name: '\u200B', value: '\u200B' },
-                                                                { name: 'เลขหน้าสามตัว', value: json[1][1] + ' | ' + json[1][2], inline: true },
-                                                                { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
-                                                                { name: 'เลขท้ายสองตัว', value: json[3][1] },
-                                                            )
-                                                            //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
-                                                            .setImage('attachment://lottery_' + date + '' + month + '' + year + '_gold.png')
-                                                            .setTimestamp()
-                                                            .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+                            const msg = new MessageEmbed()
+                                .setColor('#0099ff')
+                                .setTitle('ผลสลากกินแบ่งรัฐบาล')
+                                .setURL('https://www.glo.or.th/')
+                                .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
+                                .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
+                                .addFields(
+                                    { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
+                                    //{ name: '\u200B', value: '\u200B' },
+                                    { name: 'เลขหน้าสามตัว', value: json[1][1] + ' | ' + json[1][2], inline: true },
+                                    { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
+                                    { name: 'เลขท้ายสองตัว', value: json[3][1] },
+                                )
+                                //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
+                                .setImage('attachment://lottery_' + date + '' + month + '' + year + '_gold.png')
+                                .setTimestamp()
+                                .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
-                                                        try {
-                                                            client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [file] })
-                                                                .then((log) => {
-                                                                    console.log(log);
-                                                                })
-                                                                .catch((error) => {
-                                                                    //console.log(error);
-                                                                    /*client.users.fetch('133439202556641280').then(dm => {
-                                                                        dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
-                                                                    })*/
-                                                                });
-                                                        } catch (error) {
-                                                            console.log('ok')
-                                                            /*client.users.fetch('133439202556641280').then(dm => {
-                                                                dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
-                                                            })*/
-                                                        }
-                                                    }
-                                                });
+                            try {
+                                client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [file] })
+                                    .then((log) => {
+                                        console.log(log);
+                                    })
+                                    .catch((error) => {
+                                        //console.log(error);
+                                        /*client.users.fetch('133439202556641280').then(dm => {
+                                            dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
+                                        })*/
+                            /*});
+                    } catch (error) {
+                        console.log('ok')
+                        /*client.users.fetch('133439202556641280').then(dm => {
+                            dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                        })*/
+                            /*}
+                        }
+                    });
 
-                                            } catch (error) {
-                                                console.log('next')
-                                                client.users.fetch('133439202556641280').then(dm => {
-                                                    dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
-                                                })
-                                            }
-                                        } else {
-                                            const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '.png');
+                } catch (error) {
+                    console.log('next')
+                    client.users.fetch('133439202556641280').then(dm => {
+                        dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                    })
+                }
+            } else {
+                const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '.png');
 
-                                            const msg = new MessageEmbed()
-                                                .setColor('#0099ff')
-                                                .setTitle('ผลสลากกินแบ่งรัฐบาล')
-                                                .setURL('https://www.glo.or.th/')
-                                                .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
-                                                .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
-                                                .addFields(
-                                                    { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
-                                                    //{ name: '\u200B', value: '\u200B' },
-                                                    { name: 'เลขหน้าสามตัว', value: json[1][1] + ' | ' + json[1][2], inline: true },
-                                                    { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
-                                                    { name: 'เลขท้ายสองตัว', value: json[3][1] },
-                                                )
-                                                //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
-                                                .setImage('attachment://lottery_' + date + '' + month + '' + year + '.png')
-                                                .setTimestamp()
-                                                .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+                const msg = new MessageEmbed()
+                    .setColor('#0099ff')
+                    .setTitle('ผลสลากกินแบ่งรัฐบาล')
+                    .setURL('https://www.glo.or.th/')
+                    .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
+                    .setThumbnail('https://www.glo.or.th/_nuxt/img/img_sbout_lottery_logo.2eff707.png')
+                    .addFields(
+                        { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
+                        //{ name: '\u200B', value: '\u200B' },
+                        { name: 'เลขหน้าสามตัว', value: json[1][1] + ' | ' + json[1][2], inline: true },
+                        { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
+                        { name: 'เลขท้ายสองตัว', value: json[3][1] },
+                    )
+                    //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
+                    .setImage('attachment://lottery_' + date + '' + month + '' + year + '.png')
+                    .setTimestamp()
+                    .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
 
-                                            try {
-                                                client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [file] })
-                                                    .then((log) => {
-                                                        console.log(log);
-                                                    })
-                                                    .catch((error) => {
-                                                        //console.log(error);
-                                                        /*client.users.fetch('133439202556641280').then(dm => {
-                                                            dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
-                                                        })*/
-                                                    });
-                                            } catch (error) {
-                                                console.log('ok')
-                                                /*client.users.fetch('133439202556641280').then(dm => {
-                                                    dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
-                                                })*/
-                                            }
-                                        }
+                try {
+                    client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [file] })
+                        .then((log) => {
+                            console.log(log);
+                        })
+                        .catch((error) => {
+                            //console.log(error);
+                            /*client.users.fetch('133439202556641280').then(dm => {
+                                dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
+                            })*/
+                            /*});
+                    } catch (error) {
+                        console.log('ok')
+                        /*client.users.fetch('133439202556641280').then(dm => {
+                            dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                        })*/
+                            //}
+                            //}
 
-                                        /*console.log(imgurl + date + month + year)
-                                        console.log(imgurl + '' + date + '' + month + '' + year)
-                                        console.log('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)*/
+                            /*console.log(imgurl + date + month + year)
+                            console.log(imgurl + '' + date + '' + month + '' + year)
+                            console.log('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)*/
 
-                                        /*let wow = client.channels.cache.get(json[i])
-                                        if(wow){
-                                            try {
-                                                client.channels.cache.get(json[i]).send(msg)
-                                                .then((log) => {
-                                                    console.log(log);
-                                                })
-                                                .catch((error) => {
-                                                    //console.log(error);
-                                                    client.users.fetch('133439202556641280').then(dm => {
-                                                        dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
-                                                    })
-                                                });
-                                            } catch (error) {
-                                                console.log('ok')
-                                            }
-                                            
-                                        }*/
-                                    }
-
-                                });
-
-                            //check number user save
-                            con.query("SELECT * FROM lott_table WHERE status = 'waiting'", function (err, result, fields) {
-                                if (err) throw err;
-                                console.log(result);
-                                //loop result
-                                for (i in result) {
-                                    let whatid = result[i].lott_id
-                                    console.log(result[i].lott_id)
-                                    console.log(result[i].numberbuy)
-                                    let optitot = { "method": "GET", "headers": { "x-rapidapi-host": "thai-lottery1.p.rapidapi.com", "x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137" } };
-                                    fetch("https://thai-lottery1.p.rapidapi.com/checklottery?by=" + date + "" + month + "" + year + "&search=" + result[i].numberbuy, optitot)
-                                        .then(res => res.text())
-                                        .then((json) => {
-                                            //if json is null or empty send message to result[i].discord_id
-                                            if (json == '' || json == null) {
-                                                var sql = "UPDATE lott_table SET status = 'ไม่ถูก',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
-                                                con.query(sql, function (err, result) {
-                                                    if (err) throw err;
-                                                    client.users.fetch(result[i].discord_id).then(dm => {
-                                                        dm.send('ขออภัยค่ะ! เลข ' + result[i].numberbuy + ' ยังไม่ถูกรางวัลนี้ค่ะ')
-                                                    })
-                                                });
-                                            } else {
-                                                var sql = "UPDATE lott_table SET status = 'win',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
-                                                con.query(sql, function (err, result) {
-                                                    if (err) throw err;
-                                                    client.users.fetch(result[i].discord_id).then(dm => {
-                                                        dm.send('ยินดีด้วย! เลข ' + result[i].numberbuy + ' ถูกรางวัลนี้ค่ะ')
-                                                    })
-                                                });
-                                            }
-                                        });
+                            /*let wow = client.channels.cache.get(json[i])
+                            if(wow){
+                                try {
+                                    client.channels.cache.get(json[i]).send(msg)
+                                    .then((log) => {
+                                        console.log(log);
+                                    })
+                                    .catch((error) => {
+                                        //console.log(error);
+                                        client.users.fetch('133439202556641280').then(dm => {
+                                            dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
+                                        })
+                                    });
+                                } catch (error) {
+                                    console.log('ok')
                                 }
-                            });
+                                
+                            }*/
+                            //}
+
+                            //});
                         }
                     }
 
@@ -925,7 +1061,22 @@ client.on('interactionCreate', async interaction => {
 
     if (interaction.commandName === 'fthlotto') {
         await interaction.deferReply();
-        var options = {
+
+        fetch(process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channelId)
+            .then(res => res.text())
+            .then(async (res) => {
+                if (res === 'debug') {
+                    await interaction.editReply('ห้องนี้ติดตามสลากฯอยู่แล้ว')
+                } else if (res === 'error') {
+                    await interaction.editReply('ไม่สามารถติดตามสลากฯได้')
+                } else {
+                    await interaction.editReply('ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+                }
+            }).catch(async (err) => {
+                await interaction.editReply('ไม่สามารถติดตามสลากฯได้')
+            });
+
+        /*var options = {
             'method': 'GET',
             'url': process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channelId,
             'headers': {
@@ -946,12 +1097,25 @@ client.on('interactionCreate', async interaction => {
                 //reply(interaction, 'ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
                 await interaction.editReply('ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
             }
-        });
+        });*/
     }
 
     if (interaction.commandName === 'cthlotto') {
         await interaction.deferReply();
-        var options = {
+
+        fetch(process.env.URL + '/discordbot/delchannels.php?chid=' + interaction.channelId)
+            .then(res => res.text())
+            .then(async (res) => {
+                if (res === 'debug') {
+                    await interaction.editReply('เอ้! ห้องนี้ไม่ได้ติดตามสลากฯ')
+                } else {
+                    await interaction.editReply('ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+                }
+            }).catch(async (err) => {
+                await interaction.editReply('ไม่สามารถยกเลิกการติดตามสลากฯได้')
+            });
+
+        /*var options = {
             'method': 'GET',
             'url': process.env.URL + '/discordbot/delchannels.php?chid=' + interaction.channelId,
             'headers': {
@@ -968,14 +1132,63 @@ client.on('interactionCreate', async interaction => {
                 //reply(interaction, 'ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
                 await interaction.editReply('ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
             }
-        });
+        });*/
     }
 
     if (interaction.commandName === 'lastlotto') {
         //await interaction.reply('Loading!');
         await interaction.deferReply();
 
-        var options = {
+        const response = await fetch('http://192.168.31.210:5000/lastlot?info=true');
+        const data = await response.json();
+
+        if (fs.existsSync('./lottery_' + data.info.date + '.png') == false) {
+            const options = {
+                url: 'http://192.168.31.210:4000/?date=' + data.info.date,
+                dest: './lottery_' + data.info.date + '.png'
+            }
+
+            await download.image(options)
+                .then(({ filename }) => {
+                    console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
+                })
+                .catch((err) => console.error(err))
+
+            /*const optionsgold = {
+                url: 'http://192.168.31.210:4000/?date=' + body.info.date + '&mode=gold',
+                dest: './lottery_' + body.info.date + '_gold.png'
+            }
+
+            await download.image(optionsgold)
+                .then(({ filename }) => {
+                    console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
+                })
+                .catch((err) => console.error(err))*/
+        }
+
+        const file = new MessageAttachment('./lottery_' + data.info.date + '.png');
+
+        const msg = new MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('ผลสลากกินแบ่งรัฐบาล')
+            .setURL('https://www.glo.or.th/')
+            .setDescription('งวดวันที่ ' + parseInt(data.info.date.substring(0, 2)) + ' ' + convertmonthtotext(data.info.date.substring(2, 4)) + ' ' + data.info.date.substring(4, 8))
+            .setThumbnail('https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/docs/glologo.png')
+            .addFields(
+                { name: 'รางวัลที่หนึ่ง', value: data.win },
+                { name: 'เลขหน้าสามตัว', value: data.threefirst.replace(",", " | "), inline: true },
+                { name: 'เลขท้ายสามตัว', value: data.threeend.replace(",", " | "), inline: true },
+                { name: 'เลขท้ายสองตัว', value: data.twoend },
+            )
+            //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+            .setImage('attachment://lottery_' + data.info.date + '.png')
+            .setTimestamp()
+            .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+
+        //replyembedtype(interaction, msg)
+        await interaction.editReply({ embeds: [msg], files: [file] })
+
+        /*var options = {
             'method': 'GET',
             'url': 'http://192.168.31.210:5000/lastlot?info=true',
             'json': true,
@@ -1015,7 +1228,7 @@ client.on('interactionCreate', async interaction => {
                 /*con.query("SELECT * FROM lott_main WHERE lott_guildid = '" + interaction.guildId + "'", async function (err, result, fields) {
                     if (err) throw err;
                     if (result.length == 0 || result[0].lott_resultmode == 'normal') {*/
-                const file = new MessageAttachment('./lottery_' + body.info.date + '.png');
+                /*const file = new MessageAttachment('./lottery_' + body.info.date + '.png');
 
                 const msg = new MessageEmbed()
                     .setColor('#0099ff')
@@ -1060,12 +1273,12 @@ client.on('interactionCreate', async interaction => {
                     await interaction.editReply({ embeds: [msg], files: [file] })
                 }
             });*/
-            } catch (error) {
+            /*} catch (error) {
                 console.log('error')
                 console.log(error)
             }
 
-        });
+        });*/
     }
 
     if (interaction.commandName === 'srchlot' || interaction.commandName === 'ตรวจสลากฯ') {
@@ -1082,7 +1295,95 @@ client.on('interactionCreate', async interaction => {
         //get this year in buddhist year
         const year = new Date().getFullYear() + 543;
 
-        var options = {
+        const response = await fetch('http://192.168.31.210:5000/lastlot?info=true');
+        const data = await response.json();
+
+        const responses = await fetch('http://192.168.31.210:5000/checklottery?by=' + data.info.date + '&search=' + numbertofind);
+        const datas = await response.text();
+
+        if (datas.search("111111") != -1) {
+            //reply(interaction, 'คุณถูกรางวัลที่หนึ่ง')
+            //await interaction.editReply('คุณถูกรางวัลที่หนึ่ง')
+            const msg = new MessageEmbed()
+                .setColor('#FFD700')
+                .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' ถูกรางวัลที่หนึ่ง')
+
+            await interaction.editReply({ embeds: [msg] })
+        } else if (datas.search("222222") != -1) {
+            //reply(interaction, 'คุณถูกรางวัลที่สอง')
+            //await interaction.editReply('คุณถูกรางวัลที่สอง')
+            const msg = new MessageEmbed()
+                .setColor('#DAA520')
+                .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลที่สอง')
+
+            await interaction.editReply({ embeds: [msg] })
+        } else if (datas.search("333333") != -1) {
+            //reply(interaction, 'คุณถูกรางวัลที่สาม')
+            //await interaction.editReply('คุณถูกรางวัลที่สาม')
+            const msg = new MessageEmbed()
+                .setColor('#F0E68C')
+                .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลที่สาม')
+
+            await interaction.editReply({ embeds: [msg] })
+        } else if (datas.search("444444") != -1) {
+            //reply(interaction, 'คุณถูกรางวัลที่สี่')
+            //await interaction.editReply('คุณถูกรางวัลที่สี่')
+            const msg = new MessageEmbed()
+                .setColor('#EEE8AA')
+                .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลที่สี่')
+
+            await interaction.editReply({ embeds: [msg] })
+        } else if (datas.search("555555") != -1) {
+            //reply(interaction, 'คุณถูกรางวัลที่ห้า')
+            //await interaction.editReply('คุณถูกรางวัลที่ห้า')
+            const msg = new MessageEmbed()
+                .setColor('#FAFAD2')
+                .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลที่ห้า')
+
+            await interaction.editReply({ embeds: [msg] })
+        } else if (datas.search("333000") != -1) {
+            //reply(interaction, 'คุณถูกรางวัลเลขหน้าสามตัว')
+            //await interaction.editReply('คุณถูกรางวัลเลขหน้าสามตัว')
+            const msg = new MessageEmbed()
+                .setColor('#D4AF37')
+                .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลเลขหน้าสามตัว')
+
+            await interaction.editReply({ embeds: [msg] })
+        } else if (datas.search("000333") != -1) {
+            //reply(interaction, 'คุณถูกรางวัลเลขท้ายสามตัว')
+            //await interaction.editReply('คุณถูกรางวัลเลขท้ายสามตัว')
+            const msg = new MessageEmbed()
+                .setColor('#CFB53B')
+                .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลเลขท้ายสามตัว')
+
+            await interaction.editReply({ embeds: [msg] })
+        } else if (datas.search("000022") != -1) {
+            //reply(interaction, 'คุณถูกรางวัลเลขท้ายสองตัว')
+            //await interaction.editReply('คุณถูกรางวัลเลขท้ายสองตัว')
+            const msg = new MessageEmbed()
+                .setColor('#C5B358')
+                .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลเลขท้ายสองตัว')
+
+            await interaction.editReply({ embeds: [msg] })
+        } else if (datas.search("111112") != -1) {
+            //reply(interaction, 'คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
+            //await interaction.editReply('คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
+            const msg = new MessageEmbed()
+                .setColor('#FFDF00')
+                .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
+
+            await interaction.editReply({ embeds: [msg] })
+        } else {
+            //reply(interaction, 'คุณไม่ถูกรางวัล')
+            //await interaction.editReply('คุณไม่ถูกรางวัล')
+            const msg = new MessageEmbed()
+                .setColor('#ff0000')
+                .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณไม่ถูกรางวัล')
+
+            await interaction.editReply({ embeds: [msg] })
+        }
+
+        /*var options = {
             'method': 'GET',
             'url': 'http://192.168.31.210:5000/lastlot?info=true',
             'json': true,
@@ -1187,7 +1488,7 @@ client.on('interactionCreate', async interaction => {
                 }
             });
 
-        });
+        });*/
     }
 
     if (interaction.commandName === 'aithing') {
