@@ -669,7 +669,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
 
                             if (fs.existsSync('./lottery_' + date + '' + month + '' + year + '.png') == false) {
                                 const options = {
-                                    url: 'http://192.168.31.210:4000/?date=' + date + '' + month + '' + year,
+                                    url: 'http://boy-discord-bot.herokuapp.com/?date=' + date + '' + month + '' + year,
                                     dest: './lottery_' + date + '' + month + '' + year + '.png'
                                 }
 
@@ -680,7 +680,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                     .catch((err) => console.error(err))
 
                                 const optionsgold = {
-                                    url: 'http://192.168.31.210:4000/?date=' + date + '' + month + '' + year + '&mode=gold',
+                                    url: 'http://boy-discord-bot.herokuapp.com/?date=' + date + '' + month + '' + year + '&mode=gold',
                                     dest: './lottery_' + date + '' + month + '' + year + '_gold.png'
                                 }
 
@@ -810,11 +810,12 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                 });
 
                             //check number user save
-                            con.query("SELECT * FROM lott_table", function (err, result, fields) {
+                            con.query("SELECT * FROM lott_table WHERE status = 'waiting'", function (err, result, fields) {
                                 if (err) throw err;
                                 console.log(result);
                                 //loop result
                                 for (i in result) {
+                                    console.log(result[i].lott_id)
                                     console.log(result[i].numberbuy)
                                     let optitot = { "method": "GET", "headers": { "x-rapidapi-host": "thai-lottery1.p.rapidapi.com", "x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137" } };
                                     fetch("https://thai-lottery1.p.rapidapi.com/checklottery?by=" + date + "" + month + "" + year + "&search=" + result[i].numberbuy, optitot)
