@@ -1299,7 +1299,7 @@ client.on('interactionCreate', async interaction => {
         const data = await response.json();
 
         const responses = await fetch('http://192.168.31.210:5000/checklottery?by=' + data.info.date + '&search=' + numbertofind);
-        const datas = await response.text();
+        const datas = await responses.text();
 
         if (datas.search("111111") != -1) {
             //reply(interaction, 'คุณถูกรางวัลที่หนึ่ง')
