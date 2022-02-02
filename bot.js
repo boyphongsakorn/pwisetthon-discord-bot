@@ -2,7 +2,7 @@ const { MessageAttachment, MessageEmbed, Client, Intents, MessageActionRow, Mess
 const cron = require("cron");
 //const fetch = require('node-fetch');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const request = require('request');
+//const request = require('request');
 const download = require('image-downloader')
 var fs = require('fs');
 var http = require('http');
@@ -1228,57 +1228,57 @@ client.on('interactionCreate', async interaction => {
                 /*con.query("SELECT * FROM lott_main WHERE lott_guildid = '" + interaction.guildId + "'", async function (err, result, fields) {
                     if (err) throw err;
                     if (result.length == 0 || result[0].lott_resultmode == 'normal') {*/
-                /*const file = new MessageAttachment('./lottery_' + body.info.date + '.png');
+        /*const file = new MessageAttachment('./lottery_' + body.info.date + '.png');
 
-                const msg = new MessageEmbed()
-                    .setColor('#0099ff')
-                    .setTitle('ผลสลากกินแบ่งรัฐบาล')
-                    .setURL('https://www.glo.or.th/')
-                    .setDescription('งวดวันที่ ' + parseInt(body.info.date.substring(0, 2)) + ' ' + convertmonthtotext(body.info.date.substring(2, 4)) + ' ' + body.info.date.substring(4, 8))
-                    .setThumbnail('https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/docs/glologo.png')
-                    .addFields(
-                        { name: 'รางวัลที่หนึ่ง', value: body.win },
-                        { name: 'เลขหน้าสามตัว', value: body.threefirst.replace(",", " | "), inline: true },
-                        { name: 'เลขท้ายสามตัว', value: body.threeend.replace(",", " | "), inline: true },
-                        { name: 'เลขท้ายสองตัว', value: body.twoend },
-                    )
-                    //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
-                    .setImage('attachment://lottery_' + body.info.date + '.png')
-                    .setTimestamp()
-                    .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+        const msg = new MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('ผลสลากกินแบ่งรัฐบาล')
+            .setURL('https://www.glo.or.th/')
+            .setDescription('งวดวันที่ ' + parseInt(body.info.date.substring(0, 2)) + ' ' + convertmonthtotext(body.info.date.substring(2, 4)) + ' ' + body.info.date.substring(4, 8))
+            .setThumbnail('https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/docs/glologo.png')
+            .addFields(
+                { name: 'รางวัลที่หนึ่ง', value: body.win },
+                { name: 'เลขหน้าสามตัว', value: body.threefirst.replace(",", " | "), inline: true },
+                { name: 'เลขท้ายสามตัว', value: body.threeend.replace(",", " | "), inline: true },
+                { name: 'เลขท้ายสองตัว', value: body.twoend },
+            )
+            //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+            .setImage('attachment://lottery_' + body.info.date + '.png')
+            .setTimestamp()
+            .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
-                //replyembedtype(interaction, msg)
-                await interaction.editReply({ embeds: [msg], files: [file] })
-                /*}else{
-                    const file = new MessageAttachment('./lottery_' + body.info.date + '_gold.png');
+        //replyembedtype(interaction, msg)
+        await interaction.editReply({ embeds: [msg], files: [file] })
+        /*}else{
+            const file = new MessageAttachment('./lottery_' + body.info.date + '_gold.png');
 
-                    const msg = new MessageEmbed()
-                        .setColor('#0099ff')
-                        .setTitle('ผลสลากกินแบ่งรัฐบาล')
-                        .setURL('https://www.glo.or.th/')
-                        .setDescription('งวดวันที่ ' + parseInt(body.info.date.substring(0, 2)) + ' ' + convertmonthtotext(body.info.date.substring(2, 4)) + ' ' + body.info.date.substring(4, 8))
-                        .setThumbnail('https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/docs/glologo.png')
-                        .addFields(
-                            { name: 'รางวัลที่หนึ่ง', value: body.win },
-                            { name: 'เลขหน้าสามตัว', value: body.threefirst.replace(",", " | "), inline: true },
-                            { name: 'เลขท้ายสามตัว', value: body.threeend.replace(",", " | "), inline: true },
-                            { name: 'เลขท้ายสองตัว', value: body.twoend },
-                        )
-                        //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
-                        .setImage('attachment://lottery_' + body.info.date + '_gold.png')
-                        .setTimestamp()
-                        .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+            const msg = new MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle('ผลสลากกินแบ่งรัฐบาล')
+                .setURL('https://www.glo.or.th/')
+                .setDescription('งวดวันที่ ' + parseInt(body.info.date.substring(0, 2)) + ' ' + convertmonthtotext(body.info.date.substring(2, 4)) + ' ' + body.info.date.substring(4, 8))
+                .setThumbnail('https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/docs/glologo.png')
+                .addFields(
+                    { name: 'รางวัลที่หนึ่ง', value: body.win },
+                    { name: 'เลขหน้าสามตัว', value: body.threefirst.replace(",", " | "), inline: true },
+                    { name: 'เลขท้ายสามตัว', value: body.threeend.replace(",", " | "), inline: true },
+                    { name: 'เลขท้ายสองตัว', value: body.twoend },
+                )
+                //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
+                .setImage('attachment://lottery_' + body.info.date + '_gold.png')
+                .setTimestamp()
+                .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
-                    //replyembedtype(interaction, msg)
-                    await interaction.editReply({ embeds: [msg], files: [file] })
-                }
-            });*/
-            /*} catch (error) {
-                console.log('error')
-                console.log(error)
-            }
+            //replyembedtype(interaction, msg)
+            await interaction.editReply({ embeds: [msg], files: [file] })
+        }
+    });*/
+        /*} catch (error) {
+            console.log('error')
+            console.log(error)
+        }
 
-        });*/
+    });*/
     }
 
     if (interaction.commandName === 'srchlot' || interaction.commandName === 'ตรวจสลากฯ') {
@@ -1563,12 +1563,12 @@ client.on('interactionCreate', async interaction => {
 
         //request from https://raw.githubusercontent.com/boyphongsakorn/testrepo/main/godcombothtext to json
         let datearray = []
-        await request('https://raw.githubusercontent.com/boyphongsakorn/testrepo/main/godcombothtext', async function (error, response, body) {
+        /*await request('https://raw.githubusercontent.com/boyphongsakorn/testrepo/main/godcombothtext', async function (error, response, body) {
             if (error) throw new Error(error);
-            //console.log(body);
-            //loop body for push to array
-            //start body array from index 528
-            /*for (let i = 528; i < body.length; i++) {
+            console.log(body);
+            loop body for push to array
+            start body array from index 528
+            for (let i = 528; i < body.length; i++) {
                 let datetofulldate = ""
                 //thai month array
                 //let thaimonth = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"]
@@ -1579,11 +1579,11 @@ client.on('interactionCreate', async interaction => {
                     description: body[i][0],
                     value: body[i][0]
                 })
-            }*/
+            }
             //use for .. of
             //start body array from index 528
             //convert from text json to json
-            let json = JSON.parse(body)
+            /*let json = JSON.parse(body)
             //slice array only last 25 array
             json = json.slice(json.length - 25, json.length)
             for (let i of json) {
@@ -1605,7 +1605,33 @@ client.on('interactionCreate', async interaction => {
                 )
 
             await interaction.editReply({ content: 'ใบตรวจสลาก!', components: [row] })
-        });
+        });*/
+
+        fetch('https://raw.githubusercontent.com/boyphongsakorn/testrepo/main/godcombothtext')
+            .then(res => res.json())
+            .then(async (json) => {
+                console.log(json)
+                let jsons = json.slice(json.length - 25, json.length)
+                for (let i of jsons) {
+                    datearray.push({
+                        label: String(i[1]),
+                        description: String(i[0]),
+                        value: String(i[0])
+                    })
+                }
+
+                console.log(datearray)
+
+                const row = new MessageActionRow()
+                    .addComponents(
+                        new MessageSelectMenu()
+                            .setCustomId('lottsheet')
+                            .setPlaceholder('เลือกวันที่ต้องการ (25 งวดล่าสุด)')
+                            .addOptions(datearray)
+                    )
+
+                await interaction.editReply({ content: 'ใบตรวจสลาก!', components: [row] })
+            })
 
         //console.log(datearray)
 
@@ -1649,7 +1675,54 @@ client.on('interactionCreate', async interaction => {
 
             let pdfurl
 
-            var options = {
+            const response = await fetch('https://www.glo.or.th/api/checking/getLotteryResult', {
+                method: 'POST',
+                body: {
+                    'date': interaction.values[0].substring(0, 2),
+                    'month': interaction.values[0].substring(2, 4),
+                    'year': parseInt(interaction.values[0].substring(4, 8)) - 543
+                },
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+            const data = await response.json();
+
+            pdfurl = data.response.result.pdf_url
+            console.log(pdfurl)
+
+            await testdownload(pdfurl, './lotsheet_' + interaction.values[0] + '.pdf', async function () {
+                console.log('done');
+
+                const { ImageMagick } = require('pdf-images');
+                const result = ImageMagick.convert('./lotsheet_' + interaction.values[0] + '.pdf', '/app/docs', './lotsheet_' + interaction.values[0]);
+                console.log(result)
+
+                let buffer = fs.readFileSync("./docs/lotsheet_" + interaction.values[0] + "/lotsheet_" + interaction.values[0] + ".png");
+                pngToJpeg({ quality: 90 })(buffer)
+                    .then(output => fs.writeFileSync("./lotsheet_" + interaction.values[0] + "_edit.jpeg", output));
+
+                //wait 10 seconds
+                await new Promise(resolve => setTimeout(resolve, 10000));
+
+                const file = new MessageAttachment('./lotsheet_' + interaction.values[0] + '_edit.jpeg');
+
+                //create MessageEmbed
+                const msg = new MessageEmbed()
+                    .setColor('#5454c5')
+                    .setTitle('ใบตรวจสลาก')
+                    .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
+                    //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
+                    .setImage('attachment://lotsheet_' + interaction.values[0] + '_edit.jpeg')
+                    .setTimestamp()
+                    .setFooter({ text: 'ข้อมูลจาก glo.or.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+
+                //edit message
+                await interaction.editReply({ embeds: [msg], files: [file] })
+                console.log('ok')
+            });
+
+            /*var options = {
                 'method': 'POST',
                 'url': 'https://www.glo.or.th/api/checking/getLotteryResult',
                 'headers': {
@@ -1698,7 +1771,7 @@ client.on('interactionCreate', async interaction => {
                             if (!err) console.log('done');
                         });*/
 
-                    let buffer = fs.readFileSync("./docs/lotsheet_" + interaction.values[0] + "/lotsheet_" + interaction.values[0] + ".png");
+                    /*let buffer = fs.readFileSync("./docs/lotsheet_" + interaction.values[0] + "/lotsheet_" + interaction.values[0] + ".png");
                     pngToJpeg({ quality: 90 })(buffer)
                         .then(output => fs.writeFileSync("./lotsheet_" + interaction.values[0] + "_edit.jpeg", output));
 
@@ -1721,7 +1794,7 @@ client.on('interactionCreate', async interaction => {
                     await interaction.editReply({ embeds: [msg], files: [file] })
                     console.log('ok')
                 });
-            });
+            });*/
             /*const file = fs.createWriteStream("lotsheet_" + interaction.values[0] + ".pdf");
             const testwow = await http.get("https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c", function(response) {
                 response.pipe(file);
