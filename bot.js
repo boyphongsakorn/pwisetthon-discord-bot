@@ -1675,13 +1675,19 @@ client.on('interactionCreate', async interaction => {
 
             let pdfurl
 
+            var urlencoded = new URLSearchParams();
+            urlencoded.append("date", interaction.values[0].substring(0, 2));
+            urlencoded.append("month", interaction.values[0].substring(2, 4));
+            urlencoded.append("year", parseInt(interaction.values[0].substring(4, 8)) - 543);
+
             const response = await fetch('https://www.glo.or.th/api/checking/getLotteryResult', {
                 method: 'POST',
-                body: {
+                /*body: {
                     'date': interaction.values[0].substring(0, 2),
                     'month': interaction.values[0].substring(2, 4),
                     'year': parseInt(interaction.values[0].substring(4, 8)) - 543
-                },
+                },*/
+                body: urlencoded,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
@@ -1764,37 +1770,37 @@ client.on('interactionCreate', async interaction => {
                         console.error(err);
                     });*/
 
-                    //add white background to image
-                    /*gm('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
-                        .background("#FFFFFF")
-                        .write('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'_edit.png', function (err) {
-                            if (!err) console.log('done');
-                        });*/
+            //add white background to image
+            /*gm('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'.png')
+                .background("#FFFFFF")
+                .write('./docs/lotsheet_' + interaction.values[0]+'/lotsheet_'+interaction.values[0]+'_edit.png', function (err) {
+                    if (!err) console.log('done');
+                });*/
 
-                    /*let buffer = fs.readFileSync("./docs/lotsheet_" + interaction.values[0] + "/lotsheet_" + interaction.values[0] + ".png");
-                    pngToJpeg({ quality: 90 })(buffer)
-                        .then(output => fs.writeFileSync("./lotsheet_" + interaction.values[0] + "_edit.jpeg", output));
+            /*let buffer = fs.readFileSync("./docs/lotsheet_" + interaction.values[0] + "/lotsheet_" + interaction.values[0] + ".png");
+            pngToJpeg({ quality: 90 })(buffer)
+                .then(output => fs.writeFileSync("./lotsheet_" + interaction.values[0] + "_edit.jpeg", output));
 
-                    //wait 10 seconds
-                    await new Promise(resolve => setTimeout(resolve, 10000));
+            //wait 10 seconds
+            await new Promise(resolve => setTimeout(resolve, 10000));
 
-                    const file = new MessageAttachment('./lotsheet_' + interaction.values[0] + '_edit.jpeg');
+            const file = new MessageAttachment('./lotsheet_' + interaction.values[0] + '_edit.jpeg');
 
-                    //create MessageEmbed
-                    const msg = new MessageEmbed()
-                        .setColor('#5454c5')
-                        .setTitle('ใบตรวจสลาก')
-                        .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
-                        //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
-                        .setImage('attachment://lotsheet_' + interaction.values[0] + '_edit.jpeg')
-                        .setTimestamp()
-                        .setFooter({ text: 'ข้อมูลจาก glo.or.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+            //create MessageEmbed
+            const msg = new MessageEmbed()
+                .setColor('#5454c5')
+                .setTitle('ใบตรวจสลาก')
+                .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
+                //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
+                .setImage('attachment://lotsheet_' + interaction.values[0] + '_edit.jpeg')
+                .setTimestamp()
+                .setFooter({ text: 'ข้อมูลจาก glo.or.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
 
-                    //edit message
-                    await interaction.editReply({ embeds: [msg], files: [file] })
-                    console.log('ok')
-                });
-            });*/
+            //edit message
+            await interaction.editReply({ embeds: [msg], files: [file] })
+            console.log('ok')
+        });
+    });*/
             /*const file = fs.createWriteStream("lotsheet_" + interaction.values[0] + ".pdf");
             const testwow = await http.get("https://api.glo.or.th/utility/file/download/d416c36a-dffe-4b06-96ba-6fc970f3269c", function(response) {
                 response.pipe(file);
