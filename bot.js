@@ -741,6 +741,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                             });
 
                             const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '.png');
+                            const filegold = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '_gold.png');
 
                             const msg = new MessageEmbed()
                                 .setColor('#0099ff')
@@ -758,9 +759,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                 //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
                                 .setImage('attachment://lottery_' + date + '' + month + '' + year + '.png')
                                 .setTimestamp()
-                                .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
-
-                            const filegold = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '_gold.png');
+                                .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม boyphongsakorn.github.io/donate.html');
 
                             const msggold = new MessageEmbed()
                                 .setColor('#0099ff')
@@ -778,7 +777,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                 //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
                                 .setImage('attachment://lottery_' + date + '' + month + '' + year + '_gold.png')
                                 .setTimestamp()
-                                .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+                                .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม boyphongsakorn.github.io/donate.html');
 
                             const response = await fetch(process.env.URL + '/discordbot/chlist.txt', { method: 'GET' });
                             const data = await response.json();
@@ -908,7 +907,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                                             //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
                                                             .setImage('attachment://lottery_' + date + '' + month + '' + year + '.png')
                                                             .setTimestamp()
-                                                            .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+                                                            .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม boyphongsakorn.github.io/donate.html');
 
                                                         try {
                                                             client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [file] })
@@ -946,7 +945,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                 //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
                                 .setImage('attachment://lottery_' + date + '' + month + '' + year + '_gold.png')
                                 .setTimestamp()
-                                .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+                                .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม boyphongsakorn.github.io/donate.html');
 
                             try {
                                 client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [file] })
@@ -993,7 +992,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                     //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
                     .setImage('attachment://lottery_' + date + '' + month + '' + year + '.png')
                     .setTimestamp()
-                    .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn');
+                    .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม boyphongsakorn.github.io/donate.html');
 
                 try {
                     client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [file] })
@@ -1183,7 +1182,7 @@ client.on('interactionCreate', async interaction => {
             //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
             .setImage('attachment://lottery_' + data.info.date + '.png')
             .setTimestamp()
-            .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+            .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nบริจาคค่ากาแฟ boyphongsakorn.github.io/donate.html' });
 
         //replyembedtype(interaction, msg)
         await interaction.editReply({ embeds: [msg], files: [file] })
@@ -1245,7 +1244,7 @@ client.on('interactionCreate', async interaction => {
             //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
             .setImage('attachment://lottery_' + body.info.date + '.png')
             .setTimestamp()
-            .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+            .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม boyphongsakorn.github.io/donate.html' });
 
         //replyembedtype(interaction, msg)
         await interaction.editReply({ embeds: [msg], files: [file] })
@@ -1267,7 +1266,7 @@ client.on('interactionCreate', async interaction => {
                 //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                 .setImage('attachment://lottery_' + body.info.date + '_gold.png')
                 .setTimestamp()
-                .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+                .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม boyphongsakorn.github.io/donate.html' });
 
             //replyembedtype(interaction, msg)
             await interaction.editReply({ embeds: [msg], files: [file] })
@@ -1517,7 +1516,7 @@ client.on('interactionCreate', async interaction => {
             //.setImage('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280')
             .setImage('attachment://aithing.png')
             .setTimestamp()
-            .setFooter({ text: 'ข้อมูลจาก https://lottsanook-chitai-production.up.railway.app/ai \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+            .setFooter({ text: 'ข้อมูลจาก https://lottsanook-chitai-production.up.railway.app/ai \nบอทจัดทำโดย Phongsakorn Wisetthon \nบริจาคค่ากาแฟ boyphongsakorn.github.io/donate.html' });
 
         //edit message
         //await interaction.editReply({ embeds: [msg] })
@@ -1721,7 +1720,7 @@ client.on('interactionCreate', async interaction => {
                     //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
                     .setImage('attachment://lotsheet_' + interaction.values[0] + '_edit.jpeg')
                     .setTimestamp()
-                    .setFooter({ text: 'ข้อมูลจาก glo.or.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+                    .setFooter({ text: 'ข้อมูลจาก glo.or.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nบริจาคค่ากาแฟ boyphongsakorn.github.io/donate.html' });
 
                 //edit message
                 await interaction.editReply({ embeds: [msg], files: [file] })
@@ -1794,7 +1793,7 @@ client.on('interactionCreate', async interaction => {
                 //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
                 .setImage('attachment://lotsheet_' + interaction.values[0] + '_edit.jpeg')
                 .setTimestamp()
-                .setFooter({ text: 'ข้อมูลจาก glo.or.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+                .setFooter({ text: 'ข้อมูลจาก glo.or.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม boyphongsakorn.github.io/donate.html' });
 
             //edit message
             await interaction.editReply({ embeds: [msg], files: [file] })
@@ -1827,7 +1826,7 @@ client.on('interactionCreate', async interaction => {
                 //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
                 .setImage('attachment://lotsheet_' + interaction.values[0] + '.png')
                 .setTimestamp()
-                .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+                .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nบริจาคค่ากาแฟ boyphongsakorn.github.io/donate.html' });
 
             //edit message
             await interaction.editReply({ embeds: [msg], files: [file] })
@@ -2052,7 +2051,7 @@ client.on('interactionCreate', async interaction => {
             //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
             //.setImage('attachment://lottery_' + body.info.date + '.png')
             .setTimestamp()
-            .setFooter({ text: 'ข้อมูลจาก status.teamquadb.in.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+            .setFooter({ text: 'ข้อมูลจาก status.teamquadb.in.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nบริจาคค่ากาแฟ boyphongsakorn.github.io/donate.html' });
 
         await interaction.editReply({ embeds: [msg] });
         //after 30s delete message
@@ -2091,7 +2090,7 @@ client.on('interactionCreate', async interaction => {
                 //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                 //.setImage('attachment://lottery_' + body.info.date + '.png')
                 .setTimestamp()
-                .setFooter({ text: 'ข้อมูลจาก Database \nบอทจัดทำโดย Phongsakorn Wisetthon \nซื้อกาแฟให้ผม ko-fi.com/boyphongsakorn' });
+                .setFooter({ text: 'ข้อมูลจาก Database \nบอทจัดทำโดย Phongsakorn Wisetthon \nบริจาคค่ากาแฟ boyphongsakorn.github.io/donate.html' });
 
             console.log(result);
 
