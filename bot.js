@@ -315,7 +315,7 @@ client.once('ready', () => {
             /*await guildCommandDelete(guild);
             await guildCommandCreate(guild.id);*/
             //}
-            await guildCommandDeleteandCreate(guild);
+            //await guildCommandDeleteandCreate(guild);
         });
         client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
         client.users.fetch('133439202556641280').then(dm => {
