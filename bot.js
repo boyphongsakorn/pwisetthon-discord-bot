@@ -212,7 +212,10 @@ async function guildCommandDeleteandCreate(guild) {
     await new Promise(resolve => setTimeout(resolve, 3000));
 
     let guildid = guild.id;
-    const thatguild = client.guilds.cache.get(guildid);
+
+    await guildCommandCreate(guildid);
+
+    /*const thatguild = client.guilds.cache.get(guildid);
     let commands
 
     if (thatguild) {
@@ -287,7 +290,7 @@ async function guildCommandDeleteandCreate(guild) {
     commands?.create({
         name: 'syhistory',
         description: 'ประวัติการบันทึกสลากฯ'
-    }, guildid)
+    }, guildid)*/
 
     //return good
     return true;
