@@ -320,16 +320,20 @@ client.once('ready', () => {
             //}
             //await guildCommandDeleteandCreate(guild);
             //get commands by guild id
-            guild.commands.fetch().then(async function (commands) {
-                //if guild has no commands
-                if (commands.size != 11) {
-                    //create commands
-                    await guildCommandCreate(guild.id);
-                } else {
-                    //check commands
-                    //await guildCommandCheck(guild);
-                }
-            });
+            try {
+                guild.commands.fetch().then(async function (commands) {
+                    //if guild has no commands
+                    if (commands.size != 11) {
+                        //create commands
+                        await guildCommandCreate(guild.id);
+                    } else {
+                        //check commands
+                        //await guildCommandCheck(guild);
+                    }
+                });
+            } catch (error) {
+                console.log('error: ' + error);
+            }
         });
         client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
         client.users.fetch('133439202556641280').then(dm => {
