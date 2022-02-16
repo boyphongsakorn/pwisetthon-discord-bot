@@ -316,6 +316,17 @@ client.once('ready', () => {
             await guildCommandCreate(guild.id);*/
             //}
             //await guildCommandDeleteandCreate(guild);
+            //get commands by guild id
+            guild.commands.fetch().then(async function (commands) {
+                //if guild has no commands
+                if (commands.size != 11) {
+                    //create commands
+                    await guildCommandCreate(guild.id);
+                } else {
+                    //check commands
+                    //await guildCommandCheck(guild);
+                }
+            });
         });
         client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
         client.users.fetch('133439202556641280').then(dm => {
