@@ -1681,14 +1681,14 @@ client.on('interactionCreate', async interaction => {
             console.log('downloading')*/
             //const testwow = await fetch(url);
             //const testdata = await testwow.body.pipe(fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf'));
-            var testdownload = async function (uri, filename, callback) {
+            /*var testdownload = async function (uri, filename, callback) {
                 testrequest.head(uri, function (err, res, body) {
                     console.log('content-type:', res.headers['content-type']);
                     console.log('content-length:', res.headers['content-length']);
 
                     testrequest(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
                 });
-            };
+            };*/
 
             let pdfurl
 
@@ -1714,7 +1714,12 @@ client.on('interactionCreate', async interaction => {
             pdfurl = data.response.result.pdf_url
             console.log(pdfurl)
 
-            await testdownload(pdfurl, './lotsheet_' + interaction.values[0] + '.pdf', async function () {
+            await fetch(pdfurl)
+	        .then(res =>
+		        res.body.pipe(fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf'))
+	        )
+
+            //await testdownload(pdfurl, './lotsheet_' + interaction.values[0] + '.pdf', async function () {
                 console.log('done');
 
                 const { ImageMagick } = require('pdf-images');
@@ -1743,7 +1748,7 @@ client.on('interactionCreate', async interaction => {
                 //edit message
                 await interaction.editReply({ embeds: [msg], files: [file] })
                 console.log('ok')
-            });
+            //});
 
             /*var options = {
                 'method': 'POST',
