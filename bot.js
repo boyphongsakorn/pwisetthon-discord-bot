@@ -149,7 +149,7 @@ async function guildCommandCreate(guildid) {
             options: [{
                 type: 3,
                 name: 'number',
-                description: 'ตัวเลขที่คุณซื้อหรือเลขที่คุณต้องการแจ้งเตือน',
+                description: 'ตัวเลขที่คุณซื้อหรือเลขที่คุณต้องการแจ้งเตือน (1 เลขต่อครั้ง)',
                 required: true
             }]
         }, guildid)
@@ -731,6 +731,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                 for (let i = 0; i < result.length; i++) {
                                     let whatid = result[i].lott_id
                                     let discordid = result[i].discord_id
+                                    let numberhebuy = result[i].numberbuy
                                     console.log(result[i].lott_id)
                                     console.log(result[i].numberbuy)
                                     let optitot = { "method": "GET", "headers": { "x-rapidapi-host": "thai-lottery1.p.rapidapi.com", "x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137" } };
@@ -743,7 +744,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                                 con.query(sql, function (err, result) {
                                                     if (err) throw err;
                                                     client.users.fetch(discordid).then(dm => {
-                                                        dm.send('ขออภัยค่ะ! เลข ' + result[i].numberbuy + ' ยังไม่ถูกรางวัลนี้ค่ะ')
+                                                        dm.send('ขออภัยค่ะ! เลข ' + numberhebuy + ' ยังไม่ถูกรางวัลนี้ค่ะ')
                                                     })
                                                 });
                                             } else {
@@ -751,7 +752,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                                 con.query(sql, function (err, result) {
                                                     if (err) throw err;
                                                     client.users.fetch(discordid).then(dm => {
-                                                        dm.send('ยินดีด้วย! เลข ' + result[i].numberbuy + ' ถูกรางวัลนี้ค่ะ')
+                                                        dm.send('ยินดีด้วย! เลข ' + numberhebuy + ' ถูกรางวัลนี้ค่ะ')
                                                     })
                                                 });
                                             }
