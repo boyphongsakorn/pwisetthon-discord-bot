@@ -2,7 +2,7 @@ const { MessageAttachment, MessageEmbed, Client, Intents, MessageActionRow, Mess
 const cron = require("cron");
 //const fetch = require('node-fetch');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const testrequest = require('request');
+//const testrequest = require('request');
 const download = require('image-downloader')
 var fs = require('fs');
 var http = require('http');
