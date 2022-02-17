@@ -835,7 +835,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                                         })*/
                                                     });
                                             } catch (error) {
-                                                console.log('ok')
+                                                console.log('don\'t send')
                                                 /*client.users.fetch('133439202556641280').then(dm => {
                                                     dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
                                                 })*/
@@ -853,7 +853,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                                         })*/
                                                     });
                                             } catch (error) {
-                                                console.log('ok')
+                                                console.log('don\'t send')
                                                 /*client.users.fetch('133439202556641280').then(dm => {
                                                     dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
                                                 })*/
@@ -867,13 +867,13 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                                 console.log(log);
                                             })
                                             .catch((error) => {
-                                                //console.log(error);
+                                                console.log(error);
                                                 /*client.users.fetch('133439202556641280').then(dm => {
                                                     dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + json[i] + ' ได้เนี่องจาก ' + error)
                                                 })*/
                                             });
                                     } catch (error) {
-                                        console.log('ok')
+                                        console.log('don\'t send')
                                         /*client.users.fetch('133439202556641280').then(dm => {
                                             dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
                                         })*/
