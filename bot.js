@@ -701,7 +701,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
 
                             if (fs.existsSync('./lottery_' + date + '' + month + '' + year + '.png') == false) {
                                 const options = {
-                                    url: 'http://boy-discord-bot.herokuapp.com/?date=' + date + '' + month + '' + year,
+                                    url: 'https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year,
                                     dest: './lottery_' + date + '' + month + '' + year + '.png'
                                 }
 
@@ -712,7 +712,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                     .catch((err) => console.error(err))
 
                                 const optionsgold = {
-                                    url: 'http://boy-discord-bot.herokuapp.com/?date=' + date + '' + month + '' + year + '&mode=gold',
+                                    url: 'https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year + '&mode=gold',
                                     dest: './lottery_' + date + '' + month + '' + year + '_gold.png'
                                 }
 
