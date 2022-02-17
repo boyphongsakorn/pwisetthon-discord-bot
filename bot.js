@@ -801,6 +801,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
 
                             const response = await fetch(process.env.URL + '/discordbot/chlist.txt', { method: 'GET' });
                             const data = await response.json();
+                            const wow = data;
                             //loop [1,2,3] array
                             for (let i = 0; i < data.length; i++) {
                                 let unknows = 0;
