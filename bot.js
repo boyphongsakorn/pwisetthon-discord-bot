@@ -730,6 +730,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                 //loop result
                                 for (let i = 0; i < result.length; i++) {
                                     let whatid = result[i].lott_id
+                                    let discordid = result[i].discord_id
                                     console.log(result[i].lott_id)
                                     console.log(result[i].numberbuy)
                                     let optitot = { "method": "GET", "headers": { "x-rapidapi-host": "thai-lottery1.p.rapidapi.com", "x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137" } };
@@ -741,7 +742,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                                 var sql = "UPDATE lott_table SET status = 'ไม่ถูก',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
                                                 con.query(sql, function (err, result) {
                                                     if (err) throw err;
-                                                    client.users.fetch(result[i].discord_id).then(dm => {
+                                                    client.users.fetch(discordid).then(dm => {
                                                         dm.send('ขออภัยค่ะ! เลข ' + result[i].numberbuy + ' ยังไม่ถูกรางวัลนี้ค่ะ')
                                                     })
                                                 });
@@ -749,7 +750,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                                 var sql = "UPDATE lott_table SET status = 'win',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
                                                 con.query(sql, function (err, result) {
                                                     if (err) throw err;
-                                                    client.users.fetch(result[i].discord_id).then(dm => {
+                                                    client.users.fetch(discordid).then(dm => {
                                                         dm.send('ยินดีด้วย! เลข ' + result[i].numberbuy + ' ถูกรางวัลนี้ค่ะ')
                                                     })
                                                 });
