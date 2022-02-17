@@ -2,7 +2,7 @@ const { MessageAttachment, MessageEmbed, Client, Intents, MessageActionRow, Mess
 const cron = require("cron");
 //const fetch = require('node-fetch');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-//const testrequest = require('request');
+const request = require('request');
 const download = require('image-downloader')
 var fs = require('fs');
 var http = require('http');
@@ -1683,14 +1683,14 @@ client.on('interactionCreate', async interaction => {
             console.log('downloading')*/
             //const testwow = await fetch(url);
             //const testdata = await testwow.body.pipe(fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf'));
-            /*var testdownload = async function (uri, filename, callback) {
-                testrequest.head(uri, function (err, res, body) {
+            var testdownload = async function (uri, filename, callback) {
+                request.head(uri, function (err, res, body) {
                     console.log('content-type:', res.headers['content-type']);
                     console.log('content-length:', res.headers['content-length']);
 
-                    testrequest(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+                    request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
                 });
-            };*/
+            };
 
             let pdfurl
 
@@ -1716,20 +1716,21 @@ client.on('interactionCreate', async interaction => {
             pdfurl = data.response.result.pdf_url
             console.log(pdfurl)
 
-            await fetch(pdfurl)
+            if (!fs.existsSync('./docs')) {
+                fs.mkdirSync('./docs');
+            }
+
+            /*await fetch(pdfurl)
 	        .then(res =>
 		        res.body.pipe(fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf'))
-	        )
+	        )*/
 
-            //await testdownload(pdfurl, './lotsheet_' + interaction.values[0] + '.pdf', async function () {
+            await testdownload(pdfurl, './lotsheet_' + interaction.values[0] + '.pdf', async function () {
                 console.log('done');
 
                 const { ImageMagick } = require('pdf-images');
 
                 //create docs folder if not exist
-                if (!fs.existsSync('./docs')) {
-                    fs.mkdirSync('./docs');
-                }
 
                 const result = ImageMagick.convert('./lotsheet_' + interaction.values[0] + '.pdf', '/app/docs', './lotsheet_' + interaction.values[0]);
                 console.log(result)
@@ -1756,7 +1757,7 @@ client.on('interactionCreate', async interaction => {
                 //edit message
                 await interaction.editReply({ embeds: [msg], files: [file] })
                 console.log('ok')
-            //});
+            });
 
             /*var options = {
                 'method': 'POST',
