@@ -1723,6 +1723,12 @@ client.on('interactionCreate', async interaction => {
                 console.log('done');
 
                 const { ImageMagick } = require('pdf-images');
+
+                //create docs folder if not exist
+                if (!fs.existsSync('./docs')) {
+                    fs.mkdirSync('./docs');
+                }
+
                 const result = ImageMagick.convert('./lotsheet_' + interaction.values[0] + '.pdf', '/app/docs', './lotsheet_' + interaction.values[0]);
                 console.log(result)
 
