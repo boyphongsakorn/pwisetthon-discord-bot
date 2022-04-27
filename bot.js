@@ -2,7 +2,6 @@ const { MessageAttachment, MessageEmbed, Client, Intents, MessageActionRow, Mess
 const cron = require("cron");
 //const fetch = require('node-fetch');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const request = require('request');
 const download = require('image-downloader')
 var fs = require('fs');
 var http = require('http');
@@ -1685,6 +1684,7 @@ client.on('interactionCreate', async interaction => {
             //const testwow = await fetch(url);
             //const testdata = await testwow.body.pipe(fs.createWriteStream('./lotsheet_' + interaction.values[0] + '.pdf'));
             var testdownload = async function (uri, filename, callback) {
+                const request = require('request');
                 request.head(uri, function (err, res, body) {
                     console.log('content-type:', res.headers['content-type']);
                     console.log('content-length:', res.headers['content-length']);
