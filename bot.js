@@ -1072,6 +1072,30 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
 scheduledMessage.start()
 // You could also make a command to pause and resume the job
 
+//thaioilprice cron
+
+let scheduledthaioil = new cron.CronJob('* * * * *', () => {
+    //fetch http://192.168.31.210:1000
+    fetch('http://192.168.31.210:1000')
+        .then(res => res.json())
+        .then(json => {
+            //check json[0][0] in mysql oilprice table
+            //if not found, insert json[0][0]
+            var sql = 'SELECT * FROM oilprice WHERE date = ' + json[0][0];
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                if (result.length == 0) {
+                    var sql = 'INSERT INTO oilprice (date,diesel_pre,diesel_b7,diesel,diesel_b20,gasohol_e85,gasohol_e20,gasohol_91,gasohol_95,ngv) VALUES (' + json[0][0] + ', ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + json[0][9] + ')';
+                    con.query(sql, function (err, result) {
+                        if (err) throw err;
+                    });
+                }
+            });
+        })
+});
+
+scheduledthaioil.start();
+
 client.on('messageCreate', message => {
 });
 
