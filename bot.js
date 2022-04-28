@@ -39,7 +39,7 @@ http.createServer(async function (req, res) {
         //if botimage.jpg is exist don't download
         if (!fs.existsSync('./botimage.jpg')) {
             //download image from url and response to client
-            download.image({
+            /*download.image({
                 url: client.user.avatarURL({ format: 'jpg', dynamic: true, size: 512 }),
                 dest: '.../.../botimage.jpg'
             }).then(({ filename, image }) => {
@@ -52,7 +52,15 @@ http.createServer(async function (req, res) {
                     res.write(data);
                     res.end();
                 });
-            })
+            })*/
+            await fetch(client.user.avatarURL({ format: 'jpg', dynamic: true, size: 512 }))
+                .then(res => res.arrayBuffer())
+                .then(buffer => {
+                    const base64 = Buffer.from(buffer);
+                    res.writeHead(200, { 'Content-Type': 'image/jpg' });
+                    res.write(base64);
+                    res.end();
+                });
         } else {
             fs.readFile('./botimage.jpg', function (err, data) {
                 if (err) {
