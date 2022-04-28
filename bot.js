@@ -37,7 +37,7 @@ http.createServer(async function (req, res) {
     } else if (req.url === '/botimage') {
         console.log(client.user.avatarURL({ format: 'jpg', dynamic: true, size: 512 }));
         //if botimage.jpg is exist don't download
-        if (!fs.existsSync('./botimage.jpg')) {
+        //if (!fs.existsSync('./botimage.jpg')) {
             //download image from url and response to client
             /*download.image({
                 url: client.user.avatarURL({ format: 'jpg', dynamic: true, size: 512 }),
@@ -61,7 +61,7 @@ http.createServer(async function (req, res) {
                     res.write(base64);
                     res.end();
                 });
-        } else {
+        /*} else {
             fs.readFile('./botimage.jpg', function (err, data) {
                 if (err) {
                     throw err;
@@ -70,7 +70,7 @@ http.createServer(async function (req, res) {
                 res.write(data);
                 res.end();
             });
-        }
+        }*/
     } else {
         res.writeHead(200, headers);
         res.write('ok'); //write a response to the client
@@ -1204,7 +1204,7 @@ client.on('interactionCreate', async interaction => {
         const data = await response.json();
 
         if (fs.existsSync('./lottery_' + data.info.date + '.png') == false) {
-            const options = {
+            /*const options = {
                 url: 'http://192.168.31.210:4000/?date=' + data.info.date,
                 dest: './lottery_' + data.info.date + '.png'
             }
@@ -1213,7 +1213,16 @@ client.on('interactionCreate', async interaction => {
                 .then(({ filename }) => {
                     console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
                 })
-                .catch((err) => console.error(err))
+                .catch((err) => console.error(err))*/
+
+            await fetch('http://192.168.31.210:4000/?date=' + data.info.date)
+                .then(res => res.buffer())
+                .then(async (res) => {
+                    await fs.writeFileSync('./lottery_' + data.info.date + '.png', res)
+                })
+                .catch(async (err) => {
+                    await interaction.editReply('ไม่สามารถดึงข้อมูลล่าสุดสลากฯได้')
+                });
 
             /*const optionsgold = {
                 url: 'http://192.168.31.210:4000/?date=' + body.info.date + '&mode=gold',
