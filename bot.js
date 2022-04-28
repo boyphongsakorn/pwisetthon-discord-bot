@@ -1080,9 +1080,9 @@ let scheduledthaioil = new cron.CronJob('* * * * *', () => {
         .then(res => res.json())
         .then(json => {
             let ngv = json[0][9]
-            let date = json[0][0]
+            //let date = json[0][0]
             //change / in -
-            let date2 = date.replace(/\//g, '-')
+            //let date2 = date.replace(/\//g, '-')
             //check json[0][0] in mysql oilprice table
             //if not found, insert json[0][0]
             var sql = 'SELECT * FROM oilprice WHERE date = "' + json[0][0]+'"';
@@ -1099,6 +1099,9 @@ let scheduledthaioil = new cron.CronJob('* * * * *', () => {
                 }
             });
         })
+        .catch(err => {
+            console.log(err)
+        });
 });
 
 scheduledthaioil.start();
