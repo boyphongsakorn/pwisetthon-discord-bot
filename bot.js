@@ -1085,14 +1085,14 @@ let scheduledthaioil = new cron.CronJob('* * * * *', () => {
             let date2 = date.replace(/\//g, '-')
             //check json[0][0] in mysql oilprice table
             //if not found, insert json[0][0]
-            var sql = 'SELECT * FROM oilprice WHERE date = ' + date2;
+            var sql = 'SELECT * FROM oilprice WHERE date = "' + json[0][0]+'"';
             con.query(sql, function (err, result) {
                 if (err) throw err;
                 if (result.length == 0) {
                     if(json[0][9] == '-'){
                         ngv = 0
                     }
-                    var sql = 'INSERT INTO oilprice VALUES (' + date2 + ', ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
+                    var sql = 'INSERT INTO oilprice VALUES ("' + json[0][0] + '", ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
                     con.query(sql, function (err, result) {
                         if (err) throw err;
                     });
