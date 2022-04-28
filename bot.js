@@ -41,7 +41,7 @@ http.createServer(async function (req, res) {
             //download image from url and response to client
             download.image({
                 url: client.user.avatarURL({ format: 'jpg', dynamic: true, size: 512 }),
-                dest: './botimage.jpg'
+                dest: '.../.../botimage.jpg'
             }).then(({ filename, image }) => {
                 console.log('File saved to', filename)
                 fs.readFile('./botimage.jpg', function (err, data) {
