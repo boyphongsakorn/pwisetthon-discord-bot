@@ -2135,13 +2135,11 @@ client.on('interactionCreate', async interaction => {
         let sqldeletetesttext = sqldeletetest ? '✅ ลบข้อมูลสำเร็จ' : '❌ ลบข้อมูลไม่สำเร็จ';
         //if sqlselecttest true then create text of status = '✅ ดึงข้อมูลสำเร็จ' else create text of status = '❌ ดึงข้อมูลไม่สำเร็จ'
         let sqlselecttesttext = sqlselecttest ? '✅ ดึงข้อมูลสำเร็จ' : '❌ ดึงข้อมูลไม่สำเร็จ';
-        //plus 543 year to lastlottdate
-        //let lastlottdateplus543 = moment(lastlottdate).add(543, 'years').format('YYYY-MM-DD');
+        //get YYYY-MM-DD
         let lastlottdateplus543 = lastlottdate.toLocaleString("en-CA", { timeZone: "Asia/Bangkok" });
         console.log(lastlottdateplus543);
         //convert lastlottdateplus543 to dd/mm/yyyy
-        //let lastlottdateplus543toformat = moment(lastlottdateplus543).format('DD/MM/YYYY');
-        let lastlottdateplus543toformat = lastlottdateplus543.substring(8,10) + '/' + lastlottdateplus543.substring(5,7) + '/' + lastlottdateplus543.substring(0,4);
+        let lastlottdateplus543toformat = lastlottdateplus543.substring(8,10) + '/' + lastlottdateplus543.substring(5,7) + '/' + (lastlottdateplus543.substring(0,4)+543);
         let sqlselecttesttextplus543
         if (sqlselecttest != 0) {
             //add lastlottdateplus543toformat after text of sqlselecttesttext
