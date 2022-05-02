@@ -15,7 +15,6 @@
     "cron": "^1.8.2",
     "discord.js": "^13.5.0",
     "dotenv": "^9.0.2",
-    "image-downloader": "^4.0.3",
     "moment": "^2.29.1",
     "mysql": "^2.18.1",
     "node-fetch": "^3.2.0",

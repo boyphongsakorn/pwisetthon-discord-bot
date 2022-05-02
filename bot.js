@@ -2,7 +2,7 @@ const { MessageAttachment, MessageEmbed, Client, Intents, MessageActionRow, Mess
 const cron = require("cron");
 //const fetch = require('node-fetch');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const download = require('image-downloader')
+//const download = require('image-downloader')
 var fs = require('fs');
 var http = require('http');
 const pngToJpeg = require('png-to-jpeg');
@@ -1586,7 +1586,7 @@ client.on('interactionCreate', async interaction => {
         await interaction.deferReply();
 
         // download image from url
-        const options = {
+        /*const options = {
             url: 'https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280',
             dest: './aithing.png'
         }
@@ -1595,7 +1595,16 @@ client.on('interactionCreate', async interaction => {
             .then(({ filename }) => {
                 console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
             })
-            .catch((err) => console.error(err))
+            .catch((err) => console.error(err))*/
+
+        await fetch('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280')
+            .then(res => res.buffer())
+            .then(buffer => {
+                fs.writeFileSync('./aithing.png', buffer);
+            })
+            .catch(err => {
+                console.log(err)
+            });
 
         const file = new MessageAttachment('./aithing.png');
 
@@ -2127,9 +2136,11 @@ client.on('interactionCreate', async interaction => {
         //if sqlselecttest true then create text of status = '✅ ดึงข้อมูลสำเร็จ' else create text of status = '❌ ดึงข้อมูลไม่สำเร็จ'
         let sqlselecttesttext = sqlselecttest ? '✅ ดึงข้อมูลสำเร็จ' : '❌ ดึงข้อมูลไม่สำเร็จ';
         //plus 543 year to lastlottdate
-        let lastlottdateplus543 = moment(lastlottdate).add(543, 'years').format('YYYY-MM-DD');
+        //let lastlottdateplus543 = moment(lastlottdate).add(543, 'years').format('YYYY-MM-DD');
+        let lastlottdateplus543 = (substring(lastlottdate, 0, 4)+543) + '-' + substring(lastlottdate, 5, 7) + '-' + substring(lastlottdate, 8, 10);
         //convert lastlottdateplus543 to dd/mm/yyyy
-        let lastlottdateplus543toformat = moment(lastlottdateplus543).format('DD/MM/YYYY');
+        //let lastlottdateplus543toformat = moment(lastlottdateplus543).format('DD/MM/YYYY');
+        let lastlottdateplus543toformat = substring(lastlottdateplus543, 8, 10) + '/' + substring(lastlottdateplus543, 5, 7) + '/' + substring(lastlottdateplus543, 0, 4);
         let sqlselecttesttextplus543
         if (sqlselecttest != 0) {
             //add lastlottdateplus543toformat after text of sqlselecttesttext
