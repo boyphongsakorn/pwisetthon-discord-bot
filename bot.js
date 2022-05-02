@@ -7,7 +7,7 @@ var fs = require('fs');
 var http = require('http');
 const pngToJpeg = require('png-to-jpeg');
 var mysql = require('mysql');
-var moment = require('moment');
+//var moment = require('moment');
 
 require('dotenv').config();
 
