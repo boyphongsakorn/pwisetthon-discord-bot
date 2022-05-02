@@ -2137,10 +2137,10 @@ client.on('interactionCreate', async interaction => {
         let sqlselecttesttext = sqlselecttest ? '✅ ดึงข้อมูลสำเร็จ' : '❌ ดึงข้อมูลไม่สำเร็จ';
         //plus 543 year to lastlottdate
         //let lastlottdateplus543 = moment(lastlottdate).add(543, 'years').format('YYYY-MM-DD');
-        let lastlottdateplus543 = (substring(lastlottdate, 0, 4)+543) + '-' + substring(lastlottdate, 5, 7) + '-' + substring(lastlottdate, 8, 10);
+        let lastlottdateplus543 = (lastlottdate.substr(0,4)+543) + '-' + lastlottdate.substr(5,2) + '-' + lastlottdate.substr(8,2);
         //convert lastlottdateplus543 to dd/mm/yyyy
         //let lastlottdateplus543toformat = moment(lastlottdateplus543).format('DD/MM/YYYY');
-        let lastlottdateplus543toformat = substring(lastlottdateplus543, 8, 10) + '/' + substring(lastlottdateplus543, 5, 7) + '/' + substring(lastlottdateplus543, 0, 4);
+        let lastlottdateplus543toformat = lastlottdateplus543.substr(8,2) + '/' + lastlottdateplus543.substr(5,2) + '/' + (lastlottdateplus543.substr(0,4)+543);
         let sqlselecttesttextplus543
         if (sqlselecttest != 0) {
             //add lastlottdateplus543toformat after text of sqlselecttesttext
