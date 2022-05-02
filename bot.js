@@ -2138,6 +2138,7 @@ client.on('interactionCreate', async interaction => {
         //plus 543 year to lastlottdate
         //let lastlottdateplus543 = moment(lastlottdate).add(543, 'years').format('YYYY-MM-DD');
         let lastlottdateplus543 = lastlottdate.toLocaleString();
+        console.log(lastlottdateplus543);
         //convert lastlottdateplus543 to dd/mm/yyyy
         //let lastlottdateplus543toformat = moment(lastlottdateplus543).format('DD/MM/YYYY');
         let lastlottdateplus543toformat = lastlottdateplus543.substring(8,10) + '/' + lastlottdateplus543.substring(5,7) + '/' + lastlottdateplus543.substring(0,4);
@@ -2153,7 +2154,7 @@ client.on('interactionCreate', async interaction => {
             .setTitle('สถานะการเชื่อมต่อ')
             .setURL('https://status.teamquadb.in.th')
             .setDescription('เช็คสถานะการเชื่อมต่อของบอท ระหว่าง ลอตเตอรรี่ API,รูปภาพลอตเตอรรี่ API, ฐานข้อมูล และ เว็บไซต์ glo.or.th')
-            .setThumbnail('https://dbstatus.pwisetthon.com/botimage')
+            .setThumbnail('https://anywhere.pwisetthon.com/https://dbstatus.pwisetthon.com/botimage')
             .addFields(
                 { name: 'ฐานข้อมูล', value: sqlstatustext },
                 { name: 'ทดสอบเพิ่มข้อมูล', value: sqlinserttesttext, inline: true },
