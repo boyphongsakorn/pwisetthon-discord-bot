@@ -707,7 +707,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                             })*/
 
                             if (fs.existsSync('./lottery_' + date + '' + month + '' + year + '.png') == false) {
-                                const options = {
+                                /*const options = {
                                     url: 'https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year,
                                     dest: './lottery_' + date + '' + month + '' + year + '.png'
                                 }
@@ -727,7 +727,25 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                     .then(({ filename }) => {
                                         console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
                                     })
-                                    .catch((err) => console.error(err))
+                                    .catch((err) => console.error(err))*/
+
+                                await fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)
+                                    .then(res => res.buffer())
+                                    .then(async (res) => {
+                                        await fs.writeFileSync('./lottery_' + date + '' + month + '' + year + '.png', res)
+                                    })
+                                    .catch(async (err) => {
+                                        console.log('Error:', err.message)
+                                    });
+
+                                await fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year + '&mode=gold')
+                                    .then(res => res.buffer())
+                                    .then(async (res) => {
+                                        await fs.writeFileSync('./lottery_' + date + '' + month + '' + year + '_gold.png', res)
+                                    })
+                                    .catch(async (err) => {
+                                        console.log('Error:', err.message)
+                                    });
                             }
 
                             //check number user save
@@ -1103,6 +1121,8 @@ let scheduledthaioil = new cron.CronJob('* * * * *', () => {
                     var sql = 'INSERT INTO oilprice VALUES ("' + json[0][0] + '", ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
                     con.query(sql, function (err, result) {
                         if (err) throw err;
+                        //capture website https://boyphongsakorn.github.io/thaioilpriceapi/ and sent to channel 704240947948683355
+                        
                     });
                 }
             });
