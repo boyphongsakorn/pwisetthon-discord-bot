@@ -2281,8 +2281,19 @@ client.on('interactionCreate', async interaction => {
     if (interaction.commandName == 'lastthaioilprice') {
         await interaction.deferReply();
 
-        //editReply image from https://topapi.pwisetthon.com/image
-        await interaction.editReply({ content: 'ราคาน้ำมันล่าสุด https://www.bangchak.co.th/th/oilprice/historical', image: 'https://topapi.pwisetthon.com/image' });
+        let msg = new MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle('ราคาน้ำมันล่าสุด')
+                .setURL('https://www.bangchak.co.th/th/oilprice/historical')
+                .setDescription('ราคาน้ำมันล่าสุด จาก บางจาก')
+                .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
+                //.addFields(history)
+                .setImage('https://topapi.pwisetthon.com/image')
+                //.setImage('attachment://lottery_' + body.info.date + '.png')
+                .setTimestamp()
+                .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nบริจาคค่ากาแฟ boyphongsakorn.github.io/donate.html' });
+
+        await interaction.editReply({ embeds: [msg] });
     }
 });
 
