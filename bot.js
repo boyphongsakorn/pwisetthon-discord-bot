@@ -330,7 +330,7 @@ client.once('ready', () => {
             try {
                 guild.commands.fetch().then(async function (commands) {
                     //if guild has no commands
-                    if (commands.size != 11) {
+                    if (commands.size != 12) {
                         //create commands
                         await guildCommandCreate(guild.id);
                     } else {
@@ -1121,8 +1121,8 @@ let scheduledthaioil = new cron.CronJob('* * * * *', () => {
                     var sql = 'INSERT INTO oilprice VALUES ("' + json[0][0] + '", ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
                     con.query(sql, function (err, result) {
                         if (err) throw err;
-                        //capture website https://boyphongsakorn.github.io/thaioilpriceapi/ and sent to channel 704240947948683355
-                        
+                        //send image from https://topapi.pwisetthon.com/image to channel 704240947948683355
+                        client.channels.cache.get('704240947948683355').send('https://topapi.pwisetthon.com/image/' + json[0][0] + '.png')
                     });
                 }
             });
@@ -2271,6 +2271,13 @@ client.on('interactionCreate', async interaction => {
                 });
             }
         });
+    }
+
+    if (interaction.commandName == 'lastthaioilprice') {
+        await interaction.deferReply();
+
+        //editReply image from https://topapi.pwisetthon.com/image
+        await interaction.editReply({ content: 'ราคาน้ำมันล่าสุด https://www.bangchak.co.th/th/oilprice/historical', image: 'https://topapi.pwisetthon.com/image' });
     }
 });
 
