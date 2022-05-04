@@ -187,6 +187,11 @@ async function guildCommandCreate(guildid) {
             description: 'ประวัติการบันทึกสลากฯ'
         }, guildid)
 
+        commands?.create({
+            name: 'lastthaioilprice',
+            description: 'ดูราคาน้ำมันล่าสุด'
+        }, guildid)
+
         //return good
         return true;
     }
