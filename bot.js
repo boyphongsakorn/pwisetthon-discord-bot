@@ -2282,16 +2282,14 @@ client.on('interactionCreate', async interaction => {
         await interaction.deferReply();
 
         let msg = new MessageEmbed()
-                .setColor('#0099ff')
-                .setTitle('ราคาน้ำมันล่าสุด')
-                .setURL('https://www.bangchak.co.th/th/oilprice/historical')
-                .setDescription('ราคาน้ำมันล่าสุด จาก บางจาก')
-                .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
-                //.addFields(history)
-                .setImage('https://topapi.pwisetthon.com/image')
-                //.setImage('attachment://lottery_' + body.info.date + '.png')
-                .setTimestamp()
-                .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nบริจาคค่ากาแฟ boyphongsakorn.github.io/donate.html' });
+            .setColor('#0099ff')
+            .setTitle('ราคาน้ำมันล่าสุด')
+            .setURL('https://www.bangchak.co.th/th/oilprice/historical')
+            .setDescription('ราคาน้ำมันล่าสุด จาก บางจาก')
+            .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
+            .setImage('https://topapi.pwisetthon.com/image')
+            .setTimestamp()
+            .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nบริจาคค่ากาแฟ boyphongsakorn.github.io/donate.html' });
 
         await interaction.editReply({ embeds: [msg] });
     }
