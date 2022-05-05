@@ -1127,7 +1127,7 @@ let scheduledthaioil = new cron.CronJob('* * * * *', () => {
                     con.query(sql, function (err, result) {
                         if (err) throw err;
                         //send image from https://topapi.pwisetthon.com/image to channel 704240947948683355
-                        client.channels.cache.get('704240947948683355').send('https://topapi.pwisetthon.com/image/' + json[0][0] + '.png')
+                        client.channels.cache.get('704240947948683355').send('https://topapi.pwisetthon.com/image')
                     });
                 }
             });
@@ -2281,17 +2281,30 @@ client.on('interactionCreate', async interaction => {
     if (interaction.commandName == 'lastthaioilprice') {
         await interaction.deferReply();
 
+        //download image from https://topapi.pwisetthon.com/image
+        await fetch('https://topapi.pwisetthon.com/image')
+            .then(res => res.buffer())
+            .then(async (res) => {
+                await fs.writeFileSync('./lastoilprice.png', res)
+            })
+            .catch(async (err) => {
+                console.log(err);
+            });
+
+        const files = new MessageAttachment('./lastoilprice.png');
+
         let msg = new MessageEmbed()
             .setColor('#0099ff')
             .setTitle('ราคาน้ำมันล่าสุด')
             .setURL('https://www.bangchak.co.th/th/oilprice/historical')
             .setDescription('ราคาน้ำมันล่าสุด จาก บางจาก')
             .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
-            .setImage('https://topapi.pwisetthon.com/image')
+            //.setImage('https://topapi.pwisetthon.com/image')
+            .setImage('attachment://lastoilprice.png')
             .setTimestamp()
             .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nบริจาคค่ากาแฟ boyphongsakorn.github.io/donate.html' });
 
-        await interaction.editReply({ embeds: [msg] });
+        await interaction.editReply({ embeds: [msg], files: [files] });
     }
 });
 
