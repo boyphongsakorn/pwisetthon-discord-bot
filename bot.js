@@ -1162,7 +1162,7 @@ let scheduledthaioil = new cron.CronJob('* * * * *', () => {
                             .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nบริจาคค่ากาแฟ boyphongsakorn.github.io/donate.html' });
 
                         for (let i = 0; i < wow.length; i++) {
-                            //if (wow[i] != '704240947948683355') {
+                            try {
                                 client.channels.cache.get(wow[i]).send(msg, files)
                                 .then((log) => {
                                     console.log(log);
@@ -1173,7 +1173,9 @@ let scheduledthaioil = new cron.CronJob('* * * * *', () => {
                                         dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
                                     })
                                 });
-                            //}
+                            } catch (error) {
+                                console.log('he not send')
+                            }
                         }
                     });
                 }
