@@ -192,6 +192,16 @@ async function guildCommandCreate(guildid) {
             description: 'ดูราคาน้ำมันล่าสุด'
         }, guildid)
 
+        commands?.create({
+            name: 'fthaioilprice',
+            description: 'ติดตาม/แจ้งเตือนราคาน้ำมัน'
+        }, guildid)
+
+        commands?.create({
+            name: 'cthaioilprice',
+            description: 'ยกเลิกการแจ้งเตือนราคาน้ำมัน'
+        }, guildid)
+
         //return good
         return true;
     }
@@ -335,7 +345,7 @@ client.once('ready', () => {
             try {
                 guild.commands.fetch().then(async function (commands) {
                     //if guild has no commands
-                    if (commands.size != 12) {
+                    if (commands.size != 14) {
                         //create commands
                         await guildCommandCreate(guild.id);
                     } else {
@@ -1124,10 +1134,47 @@ let scheduledthaioil = new cron.CronJob('* * * * *', () => {
                         ngv = 0
                     }
                     var sql = 'INSERT INTO oilprice VALUES ("' + json[0][0] + '", ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
-                    con.query(sql, function (err, result) {
+                    con.query(sql, async function (err, result) {
                         if (err) throw err;
-                        //send image from https://topapi.pwisetthon.com/image to channel 704240947948683355
-                        client.channels.cache.get('704240947948683355').send('https://topapi.pwisetthon.com/image')
+                        const response = await fetch(process.env.URL + '/discordbot/oilchlist.txt', { method: 'GET' });
+                        const data = await response.json();
+                        const wow = data;
+
+                        await fetch('https://topapi.pwisetthon.com/image')
+                            .then(res => res.buffer())
+                            .then(async (res) => {
+                                await fs.writeFileSync('./lastoilprice.png', res)
+                            })
+                            .catch(async (err) => {
+                                console.log(err);
+                            });
+
+                        const files = new MessageAttachment('./lastoilprice.png');
+
+                        let msg = new MessageEmbed()
+                            .setColor('#0099ff')
+                            .setTitle('ราคาน้ำมันล่าสุด')
+                            .setURL('https://www.bangchak.co.th/th/oilprice/historical')
+                            .setDescription('ราคาน้ำมันล่าสุด จาก บางจาก')
+                            .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
+                            .setImage('attachment://lastoilprice.png')
+                            .setTimestamp()
+                            .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nบริจาคค่ากาแฟ boyphongsakorn.github.io/donate.html' });
+
+                        for (let i = 0; i < wow.length; i++) {
+                            //if (wow[i] != '704240947948683355') {
+                                client.channels.cache.get(wow[i]).send(msg, files)
+                                .then((log) => {
+                                    console.log(log);
+                                })
+                                .catch((error) => {
+                                    //console.log(error);
+                                    client.users.fetch('133439202556641280').then(dm => {
+                                        dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                                    })
+                                });
+                            //}
+                        }
                     });
                 }
             });
@@ -2144,7 +2191,7 @@ client.on('interactionCreate', async interaction => {
         let lastlottdateplus543 = lastlottdate.toLocaleString("en-CA", { timeZone: "Asia/Bangkok" });
         console.log(lastlottdateplus543);
         //convert lastlottdateplus543 to dd/mm/yyyy
-        let lastlottdateplus543toformat = lastlottdateplus543.substring(8,10) + '/' + lastlottdateplus543.substring(5,7) + '/' + (lastlottdateplus543.substring(0,4)+543);
+        let lastlottdateplus543toformat = lastlottdateplus543.substring(8,10) + '/' + lastlottdateplus543.substring(5,7) + '/' + (parseInt(lastlottdateplus543.substring(0,4))+543);
         let sqlselecttesttextplus543
         if (sqlselecttest != 0) {
             //add lastlottdateplus543toformat after text of sqlselecttesttext
@@ -2305,6 +2352,40 @@ client.on('interactionCreate', async interaction => {
             .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nบริจาคค่ากาแฟ boyphongsakorn.github.io/donate.html' });
 
         await interaction.editReply({ embeds: [msg], files: [files] });
+    }
+
+    if (interaction.commandName === 'fthaioilprice') {
+        await interaction.deferReply();
+
+        fetch(process.env.URL + '/discordbot/addchanneloil.php?chid=' + interaction.channelId)
+            .then(res => res.text())
+            .then(async (res) => {
+                if (res === 'debug') {
+                    await interaction.editReply('ห้องนี้รับแจ้งเตือนราคาน้ำมันอยู่แล้ว')
+                } else if (res === 'error') {
+                    await interaction.editReply('ไม่สามารถรับแจ้งเตือนราคาน้ำมันได้')
+                } else {
+                    await interaction.editReply('รับแจ้งเตือนราคาน้ำมันในห้องนี้เสร็จเรียบร้อย')
+                }
+            }).catch(async (err) => {
+                await interaction.editReply('ไม่สามารถรับแจ้งเตือนราคาน้ำมันได้')
+            });
+    }
+
+    if (interaction.commandName === 'cthaioilprice') {
+        await interaction.deferReply();
+
+        fetch(process.env.URL + '/discordbot/delchanneloil.php?chid=' + interaction.channelId)
+            .then(res => res.text())
+            .then(async (res) => {
+                if (res === 'debug') {
+                    await interaction.editReply('เอ้! ห้องนี้ไม่ได้รับแจ้งเตือนราคาน้ำมัน')
+                } else {
+                    await interaction.editReply('ยกเลิกรับแจ้งเตือนราคาน้ำมันในห้องนี้เสร็จเรียบร้อย')
+                }
+            }).catch(async (err) => {
+                await interaction.editReply('ไม่สามารถยกเลิกรับแจ้งเตือนราคาน้ำมันได้')
+            });
     }
 });
 
