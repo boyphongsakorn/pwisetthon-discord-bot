@@ -1117,7 +1117,7 @@ scheduledMessage.start()
 
 let scheduledthaioil = new cron.CronJob('* * * * *', () => {
     //fetch http://192.168.31.210:1000
-    fetch('http://192.168.31.210:1000')
+    fetch('https://topapi.pwisetthon.com')
         .then(res => res.json())
         .then(json => {
             let ngv = json[0][9]
