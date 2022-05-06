@@ -1115,7 +1115,7 @@ scheduledMessage.start()
 
 //thaioilprice cron
 
-let scheduledthaioil = new cron.CronJob('* * * * *', () => {
+let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
     //fetch http://192.168.31.210:1000
     fetch('https://topapi.pwisetthon.com')
         .then(res => res.json())
