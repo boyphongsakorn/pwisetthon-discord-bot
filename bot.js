@@ -1163,7 +1163,7 @@ let scheduledthaioil = new cron.CronJob('* * * * *', () => {
 
                         for (let i = 0; i < wow.length; i++) {
                             try {
-                                client.channels.cache.get(wow[i]).send(msg, files)
+                                client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
                                 .then((log) => {
                                     console.log(log);
                                 })
