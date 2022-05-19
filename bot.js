@@ -613,8 +613,8 @@ scheduledMessage.start()
 //thaioilprice cron
 
 let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
-    //fetch http://192.168.31.210:1000
-    fetch('https://topapi.pwisetthon.com')
+    //fetch http://192.168.31.210:1000 || https://topapi.pwisetthon.com
+    fetch('https://thaioilpriceapi-vercel.vercel.app')
         .then(res => res.json())
         .then(json => {
             let ngv = json[0][9]
