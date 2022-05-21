@@ -633,7 +633,7 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                         const data = await response.json();
                         const wow = data;
 
-                        await fetch('https://topapi.pwisetthon.com/image')
+                        await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
                             .then(res => res.buffer())
                             .then(async (res) => {
                                 await fs.writeFileSync('./lastoilprice.png', res)
@@ -1335,7 +1335,7 @@ client.on('interactionCreate', async interaction => {
         await interaction.deferReply();
 
         //download image from https://topapi.pwisetthon.com/image
-        await fetch('https://topapi.pwisetthon.com/image')
+        await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
             .then(res => res.buffer())
             .then(async (res) => {
                 await fs.writeFileSync('./lastoilprice.png', res)
