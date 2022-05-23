@@ -229,7 +229,7 @@ client.once('ready', () => {
                         //create commands
                         await guildCommandCreate(guild.id);
                     } else {
-                        
+
                     }
                 });
             } catch (error) {
@@ -575,7 +575,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                                     });
                                             } catch (error) {
                                                 console.log('don\'t send')
-                                                
+
                                             }
                                         }
                                     })
@@ -587,11 +587,11 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                             })
                                             .catch((error) => {
                                                 console.log(error);
-                                                
+
                                             });
                                     } catch (error) {
                                         console.log('don\'t send')
-                                        
+
                                     }
                                 }
                             }
@@ -619,11 +619,11 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
         .then(json => {
             let ngv = json[0][9]
 
-            var sql = 'SELECT * FROM oilprice WHERE date = "' + json[0][0]+'"';
+            var sql = 'SELECT * FROM oilprice WHERE date = "' + json[0][0] + '"';
             con.query(sql, function (err, result) {
                 if (err) throw err;
                 if (result.length == 0) {
-                    if(json[0][9] == '-'){
+                    if (json[0][9] == '-') {
                         ngv = 0
                     }
                     var sql = 'INSERT INTO oilprice VALUES ("' + json[0][0] + '", ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
@@ -642,7 +642,14 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                                 console.log(err);
                             });
 
-                        const files = new MessageAttachment('./lastoilprice.png');
+                        let files
+                        let imageisgood = false
+
+                        //check if file exist and size is not 0
+                        if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
+                            files = new MessageAttachment('./lastoilprice.png');
+                            imageisgood = true
+                        }
 
                         let msg = new MessageEmbed()
                             .setColor('#0099ff')
@@ -654,18 +661,22 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                             .setTimestamp()
                             .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
+                        if (imageisgood == false) {
+                            msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+                        }
+
                         for (let i = 0; i < wow.length; i++) {
                             try {
                                 client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
-                                .then((log) => {
-                                    console.log(log);
-                                })
-                                .catch((error) => {
-                                    //console.log(error);
-                                    client.users.fetch('133439202556641280').then(dm => {
-                                        dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                                    .then((log) => {
+                                        console.log(log);
                                     })
-                                });
+                                    .catch((error) => {
+                                        //console.log(error);
+                                        client.users.fetch('133439202556641280').then(dm => {
+                                            dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                                        })
+                                    });
                             } catch (error) {
                                 console.log('he not send')
                             }
@@ -1197,7 +1208,7 @@ client.on('interactionCreate', async interaction => {
         let lastlottdateplus543 = lastlottdate.toLocaleString("en-CA", { timeZone: "Asia/Bangkok" });
         console.log(lastlottdateplus543);
         //convert lastlottdateplus543 to dd/mm/yyyy
-        let lastlottdateplus543toformat = lastlottdateplus543.substring(8,10) + '/' + lastlottdateplus543.substring(5,7) + '/' + (parseInt(lastlottdateplus543.substring(0,4))+543);
+        let lastlottdateplus543toformat = lastlottdateplus543.substring(8, 10) + '/' + lastlottdateplus543.substring(5, 7) + '/' + (parseInt(lastlottdateplus543.substring(0, 4)) + 543);
         let sqlselecttesttextplus543
         if (sqlselecttest != 0) {
             //add lastlottdateplus543toformat after text of sqlselecttesttext
@@ -1344,7 +1355,14 @@ client.on('interactionCreate', async interaction => {
                 console.log(err);
             });
 
-        const files = new MessageAttachment('./lastoilprice.png');
+        let files
+        let imageisgood = false
+
+        //check if file exist and size is not 0
+        if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
+            files = new MessageAttachment('./lastoilprice.png');
+            imageisgood = true
+        }
 
         let msg = new MessageEmbed()
             .setColor('#0099ff')
@@ -1356,6 +1374,10 @@ client.on('interactionCreate', async interaction => {
             .setImage('attachment://lastoilprice.png')
             .setTimestamp()
             .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+
+        if (!imageisgood) {
+            msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+        }
 
         await interaction.editReply({ embeds: [msg], files: [files] });
     }
