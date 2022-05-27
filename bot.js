@@ -675,9 +675,9 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                             .setTimestamp()
                             .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
-                        /*if (imageisgood == false) {
+                        if (imagegood == false) {
                             msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
-                        }*/
+                        }
 
                         for (let i = 0; i < wow.length; i++) {
                             try {
@@ -1404,7 +1404,7 @@ client.on('interactionCreate', async interaction => {
             .setTimestamp()
             .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
-        if (!imageisgood) {
+        if (!imagegood) {
             msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
         }
 
