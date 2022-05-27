@@ -632,23 +632,37 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                         const response = await fetch(process.env.URL + '/discordbot/oilchlist.txt', { method: 'GET' });
                         const data = await response.json();
                         const wow = data;
+                        let imagegood = false;
 
-                        await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
-                            .then(res => res.buffer())
-                            .then(async (res) => {
-                                await fs.writeFileSync('./lastoilprice.png', res)
-                            })
-                            .catch(async (err) => {
-                                console.log(err);
-                            });
+                        while (imagegood == false) {
+                            await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+                                .then(res => res.buffer())
+                                .then(async (res) => {
+                                    await fs.writeFileSync('./lastoilprice.png', res)
+                                    imagegood = true;
+                                })
+                                .catch(async (err) => {
+                                    console.log(err);
+                                    imagegood = false;
+                                });
 
-                        let files
-                        let imageisgood = false
+                            let files
+                            //let imageisgood = false
 
-                        //check if file exist and size is not 0
-                        if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
-                            files = new MessageAttachment('./lastoilprice.png');
-                            imageisgood = true
+                            //check if file exist and size is not 0
+                            if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
+                                files = new MessageAttachment('./lastoilprice.png');
+                                //imageisgood = true
+                            } else {
+                                imagegood = false;
+                                await fetch('https://topapi.pwisetthon.com/image')
+                                    .then(res => res.buffer())
+                                    .then(async (res) => {
+                                        await fs.writeFileSync('./lastoilprice.png', res)
+                                        files = new MessageAttachment('./lastoilprice.png');
+                                        imagegood = true;
+                                    })
+                            }
                         }
 
                         let msg = new MessageEmbed()
@@ -661,9 +675,9 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                             .setTimestamp()
                             .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
-                        if (imageisgood == false) {
+                        /*if (imageisgood == false) {
                             msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
-                        }
+                        }*/
 
                         for (let i = 0; i < wow.length; i++) {
                             try {
@@ -1345,23 +1359,38 @@ client.on('interactionCreate', async interaction => {
     if (interaction.commandName == 'lastthaioilprice') {
         await interaction.deferReply();
 
-        //download image from https://topapi.pwisetthon.com/image
-        await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
-            .then(res => res.buffer())
-            .then(async (res) => {
-                await fs.writeFileSync('./lastoilprice.png', res)
-            })
-            .catch(async (err) => {
-                console.log(err);
-            });
-
         let files
-        let imageisgood = false
+        let imagegood = false;
 
-        //check if file exist and size is not 0
-        if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
-            files = new MessageAttachment('./lastoilprice.png');
-            imageisgood = true
+        while (imagegood == false) {
+            await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+                .then(res => res.buffer())
+                .then(async (res) => {
+                    await fs.writeFileSync('./lastoilprice.png', res)
+                    imagegood = true;
+                })
+                .catch(async (err) => {
+                    console.log(err);
+                    imagegood = false;
+                });
+
+            let files
+            //let imageisgood = false
+
+            //check if file exist and size is not 0
+            if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
+                files = new MessageAttachment('./lastoilprice.png');
+                //imageisgood = true
+            } else {
+                imagegood = false;
+                await fetch('https://topapi.pwisetthon.com/image')
+                    .then(res => res.buffer())
+                    .then(async (res) => {
+                        await fs.writeFileSync('./lastoilprice.png', res)
+                        files = new MessageAttachment('./lastoilprice.png');
+                        imagegood = true;
+                    })
+            }
         }
 
         let msg = new MessageEmbed()
