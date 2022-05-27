@@ -1362,32 +1362,30 @@ client.on('interactionCreate', async interaction => {
         let files
         let imagegood = false;
 
-        while (imagegood == false) {
-            await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+        await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+            .then(res => res.buffer())
+            .then(async (res) => {
+                await fs.writeFileSync('./lastoilprice.png', res)
+                imagegood = true;
+            })
+            .catch(async (err) => {
+                console.log(err);
+                imagegood = false;
+            });
+
+        //check if file exist and size is not 0
+        if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
+            files = new MessageAttachment('./lastoilprice.png');
+            //imageisgood = true
+        } else {
+            imagegood = false;
+            await fetch('https://topapi.pwisetthon.com/image')
                 .then(res => res.buffer())
                 .then(async (res) => {
                     await fs.writeFileSync('./lastoilprice.png', res)
+                    files = new MessageAttachment('./lastoilprice.png');
                     imagegood = true;
                 })
-                .catch(async (err) => {
-                    console.log(err);
-                    imagegood = false;
-                });
-
-            //check if file exist and size is not 0
-            if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
-                files = new MessageAttachment('./lastoilprice.png');
-                //imageisgood = true
-            } else {
-                imagegood = false;
-                await fetch('https://topapi.pwisetthon.com/image')
-                    .then(res => res.buffer())
-                    .then(async (res) => {
-                        await fs.writeFileSync('./lastoilprice.png', res)
-                        files = new MessageAttachment('./lastoilprice.png');
-                        imagegood = true;
-                    })
-            }
         }
 
         let msg = new MessageEmbed()
