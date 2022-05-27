@@ -1374,9 +1374,6 @@ client.on('interactionCreate', async interaction => {
                     imagegood = false;
                 });
 
-            let files
-            //let imageisgood = false
-
             //check if file exist and size is not 0
             if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
                 files = new MessageAttachment('./lastoilprice.png');
@@ -1404,7 +1401,7 @@ client.on('interactionCreate', async interaction => {
             .setTimestamp()
             .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
-        if (!imagegood) {
+        if (imagegood == false) {
             msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
         }
 
