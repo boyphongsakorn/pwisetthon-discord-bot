@@ -1026,12 +1026,17 @@ client.on('interactionCreate', async interaction => {
         if (fs.existsSync('./lotsheet_' + interaction.values[0] + '.pdf') == false && fs.existsSync('./lotsheet_' + interaction.values[0] + '.png') == false) {
 
             var testdownload = async function (uri, filename, callback) {
-                const request = require('request');
+                /*const request = require('request');
                 request.head(uri, function (err, res, body) {
                     console.log('content-type:', res.headers['content-type']);
                     console.log('content-length:', res.headers['content-length']);
 
                     request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+                });*/
+                fetch(uri).then(res => res.buffer()).then(buffer => {
+                    fs.writeFileSync(filename, buffer);
+                }).catch(err => {
+                    console.log(err)
                 });
             };
 
