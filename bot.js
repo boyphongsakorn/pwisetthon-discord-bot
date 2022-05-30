@@ -638,7 +638,7 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                             .then(res => res.buffer())
                             .then(async (res) => {
                                 await fs.writeFileSync('./lastoilprice.png', res)
-                                imagegood = true;
+                                //imagegood = true;
                             })
                             .catch(async (err) => {
                                 console.log(err);
@@ -650,8 +650,8 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
 
                         //check if file exist and size is not 0
                         if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
-                            files = new MessageAttachment('./lastoilprice.png');
-                            //imageisgood = true
+                            //files = new MessageAttachment('./lastoilprice.png');
+                            imagegood = true
                         } else {
                             imagegood = false;
                             await fetch('https://topapi.pwisetthon.com/image')
@@ -681,16 +681,29 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
 
                         for (let i = 0; i < wow.length; i++) {
                             try {
-                                client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
-                                    .then((log) => {
-                                        console.log(log);
-                                    })
-                                    .catch((error) => {
-                                        //console.log(error);
-                                        client.users.fetch('133439202556641280').then(dm => {
-                                            dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                                if (imagegood == true) {
+                                    client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
+                                        .then((log) => {
+                                            console.log(log);
                                         })
-                                    });
+                                        .catch((error) => {
+                                            //console.log(error);
+                                            client.users.fetch('133439202556641280').then(dm => {
+                                                dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                                            })
+                                        });
+                                } else {
+                                    client.channels.cache.get(wow[i]).send({ embeds: [msg] })
+                                        .then((log) => {
+                                            console.log(log);
+                                        })
+                                        .catch((error) => {
+                                            //console.log(error);
+                                            client.users.fetch('133439202556641280').then(dm => {
+                                                dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                                            })
+                                        });
+                                }
                             } catch (error) {
                                 console.log('he not send')
                             }
@@ -1366,7 +1379,7 @@ client.on('interactionCreate', async interaction => {
             .then(res => res.buffer())
             .then(async (res) => {
                 await fs.writeFileSync('./lastoilprice.png', res)
-                imagegood = true;
+                //imagegood = true;
             })
             .catch(async (err) => {
                 console.log(err);
@@ -1375,8 +1388,8 @@ client.on('interactionCreate', async interaction => {
 
         //check if file exist and size is not 0
         if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
-            files = new MessageAttachment('./lastoilprice.png');
-            //imageisgood = true
+            //files = new MessageAttachment('./lastoilprice.png');
+            imagegood = true
         } else {
             imagegood = false;
             await fetch('https://topapi.pwisetthon.com/image')
@@ -1386,6 +1399,10 @@ client.on('interactionCreate', async interaction => {
                     //files = new MessageAttachment('./lastoilprice.png');
                     imagegood = true;
                 })
+                .catch(async (err) => {
+                    console.log(err);
+                    imagegood = false;
+                });
         }
 
         const files = new MessageAttachment('./lastoilprice.png');
@@ -1403,9 +1420,10 @@ client.on('interactionCreate', async interaction => {
 
         if (imagegood == false) {
             msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+            await interaction.editReply({embeds: [msg]})
+        }else{
+            await interaction.editReply({ embeds: [msg], files: [files] });
         }
-
-        await interaction.editReply({ embeds: [msg], files: [files] });
     }
 
     if (interaction.commandName === 'fthaioilprice') {
