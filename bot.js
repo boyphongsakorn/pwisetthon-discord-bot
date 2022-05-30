@@ -91,20 +91,24 @@ async function guildCommandCreate(guildid) {
             commands = client.applications?.commands
         }
 
-        commands?.create({
+        /*commands?.create({
             name: 'fthlotto',
             description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก"
-        }, guildid)
-
+        }, guildid)*/
 
         commands?.create({
             name: 'flottomode',
             description: "ปรับโหมดการแจ้งเตือนสลากกินแบ่งฯ"
         }, guildid)
 
-        commands?.create({
+        /*commands?.create({
             name: 'cthlotto',
             description: "ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้"
+        }, guildid)*/
+
+        commands?.create({
+            name: 'subthlotto',
+            description: "ติดตาม/ยกเลิกการแจ้งเตือนสลากกินแบ่งฯ"
         }, guildid)
 
         commands?.create({
@@ -164,7 +168,7 @@ async function guildCommandCreate(guildid) {
             description: 'ดูราคาน้ำมันล่าสุด'
         }, guildid)
 
-        commands?.create({
+        /*commands?.create({
             name: 'fthaioilprice',
             description: 'ติดตาม/แจ้งเตือนราคาน้ำมัน'
         }, guildid)
@@ -172,6 +176,16 @@ async function guildCommandCreate(guildid) {
         commands?.create({
             name: 'cthaioilprice',
             description: 'ยกเลิกการแจ้งเตือนราคาน้ำมัน'
+        }, guildid)*/
+
+        commands?.create({
+            name: 'subthaioilprice',
+            description: 'ติดตาม/ยกเลิกการแจ้งเตือนราคาน้ำมัน'
+        }, guildid)
+
+        commands?.create({
+            name: 'checkbacklist',
+            description: 'ตรวจสอบรายชื่อคนโกง (เร็วๆนี้)'
         }, guildid)
 
         //return good
@@ -225,7 +239,7 @@ client.once('ready', () => {
             try {
                 guild.commands.fetch().then(async function (commands) {
                     //if guild has no commands
-                    if (commands.size != 14) {
+                    if (commands.size != 13) {
                         //create commands
                         await guildCommandCreate(guild.id);
                     } else {
@@ -725,7 +739,7 @@ client.on('messageCreate', message => {
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand() && !interaction.isContextMenu() && !interaction.isSelectMenu()) return;
 
-    if (interaction.commandName === 'fthlotto') {
+    /*if (interaction.commandName === 'fthlotto') {
         await interaction.deferReply();
 
         fetch(process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channelId)
@@ -759,6 +773,47 @@ client.on('interactionCreate', async interaction => {
                 await interaction.editReply('ไม่สามารถยกเลิกการติดตามสลากฯได้')
             });
 
+    }*/
+
+    if (interaction.commandName === 'subthlotto') {
+        await interaction.deferReply();
+        let havesub = false;
+
+        await fetch(process.env.URL + '/discordbot/chlist.txt')
+            .then(res => res.json())
+            .then(async (res) => {
+                if (res.includes(interaction.channelId)) {
+                    havesub = true;
+                }
+            })
+
+        if (havesub == true) {
+            fetch(process.env.URL + '/discordbot/delchannels.php?chid=' + interaction.channelId)
+                .then(res => res.text())
+                .then(async (res) => {
+                    if (res === 'debug') {
+                        await interaction.editReply('เอ้! ไม่สามารถยกเลิกการติดตามสลากฯได้')
+                    } else {
+                        await interaction.editReply('ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+                    }
+                }).catch(async (err) => {
+                    await interaction.editReply('ไม่สามารถยกเลิกการติดตามสลากฯได้')
+                });
+        } else {
+            fetch(process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channelId)
+                .then(res => res.text())
+                .then(async (res) => {
+                    if (res === 'debug') {
+                        await interaction.editReply('เอ้! ไม่สามารถติดตามสลากฯได้')
+                    } else if (res === 'error') {
+                        await interaction.editReply('เอ้! ไม่สามารถติดตามสลากฯได้')
+                    } else {
+                        await interaction.editReply('ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+                    }
+                }).catch(async (err) => {
+                    await interaction.editReply('ไม่สามารถติดตามสลากฯได้')
+                });
+        }
     }
 
     if (interaction.commandName === 'lastlotto') {
@@ -1420,13 +1475,13 @@ client.on('interactionCreate', async interaction => {
 
         if (imagegood == false) {
             msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
-            await interaction.editReply({embeds: [msg]})
-        }else{
+            await interaction.editReply({ embeds: [msg] })
+        } else {
             await interaction.editReply({ embeds: [msg], files: [files] });
         }
     }
 
-    if (interaction.commandName === 'fthaioilprice') {
+    /*if (interaction.commandName === 'fthaioilprice') {
         await interaction.deferReply();
 
         fetch(process.env.URL + '/discordbot/addchanneloil.php?chid=' + interaction.channelId)
@@ -1458,6 +1513,53 @@ client.on('interactionCreate', async interaction => {
             }).catch(async (err) => {
                 await interaction.editReply('ไม่สามารถยกเลิกรับแจ้งเตือนราคาน้ำมันได้')
             });
+    }*/
+
+    if (interaction.commandName === 'subthaioilprice') {
+        await interaction.deferReply();
+        let havesub = false;
+
+        await fetch(process.env.URL + '/discordbot/oilchlist.txt')
+            .then(res => res.json())
+            .then(async (res) => {
+                if (res.includes(interaction.channelId)) {
+                    havesub = true;
+                }
+            })
+
+        if (havesub == true) {
+            fetch(process.env.URL + '/discordbot/addchanneloil.php?chid=' + interaction.channelId)
+                .then(res => res.text())
+                .then(async (res) => {
+                    if (res === 'debug') {
+                        await interaction.editReply('ไม่สามารถรับแจ้งเตือนราคาน้ำมันได้')
+                    } else if (res === 'error') {
+                        await interaction.editReply('ไม่สามารถรับแจ้งเตือนราคาน้ำมันได้')
+                    } else {
+                        await interaction.editReply('รับแจ้งเตือนราคาน้ำมันในห้องนี้เสร็จเรียบร้อย')
+                    }
+                }).catch(async (err) => {
+                    await interaction.editReply('ไม่สามารถรับแจ้งเตือนราคาน้ำมันได้')
+                });
+        } else {
+            fetch(process.env.URL + '/discordbot/delchanneloil.php?chid=' + interaction.channelId)
+                .then(res => res.text())
+                .then(async (res) => {
+                    if (res === 'debug') {
+                        await interaction.editReply('ไม่สามารถยกเลิกรับแจ้งเตือนราคาน้ำมันได้')
+                    } else {
+                        await interaction.editReply('ยกเลิกรับแจ้งเตือนราคาน้ำมันในห้องนี้เสร็จเรียบร้อย')
+                    }
+                }).catch(async (err) => {
+                    await interaction.editReply('ไม่สามารถยกเลิกรับแจ้งเตือนราคาน้ำมันได้')
+                });
+        }
+    }
+
+    if (interaction.commandName === 'checkbacklist') {
+        await interaction.deferReply();
+
+        await interaction.editReply('เปิดใช้งาน เร็วๆนี้...')
     }
 });
 
