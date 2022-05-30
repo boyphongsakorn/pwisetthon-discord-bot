@@ -184,7 +184,7 @@ async function guildCommandCreate(guildid) {
         }, guildid)
 
         commands?.create({
-            name: 'checkbacklist',
+            name: 'checkblacklist',
             description: 'ตรวจสอบรายชื่อคนโกง (เร็วๆนี้)'
         }, guildid)
 
@@ -1556,10 +1556,10 @@ client.on('interactionCreate', async interaction => {
         }
     }
 
-    if (interaction.commandName === 'checkbacklist') {
+    if (interaction.commandName === 'checkblacklist') {
         await interaction.deferReply();
 
-        await interaction.editReply('เปิดใช้งาน เร็วๆนี้...')
+        await interaction.editReply('เปิดใช้งาน เร็วๆนี้...');
     }
 });
 
