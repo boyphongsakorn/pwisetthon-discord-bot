@@ -645,7 +645,7 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                                 imagegood = false;
                             });
 
-                        let files
+                        //let files
                         //let imageisgood = false
 
                         //check if file exist and size is not 0
@@ -658,11 +658,12 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                                 .then(res => res.buffer())
                                 .then(async (res) => {
                                     await fs.writeFileSync('./lastoilprice.png', res)
-                                    files = new MessageAttachment('./lastoilprice.png');
+                                    //files = new MessageAttachment('./lastoilprice.png');
                                     imagegood = true;
                                 })
                         }
 
+                        const files = new MessageAttachment('./lastoilprice.png');
 
                         let msg = new MessageEmbed()
                             .setColor('#0099ff')
@@ -1358,7 +1359,7 @@ client.on('interactionCreate', async interaction => {
     if (interaction.commandName == 'lastthaioilprice') {
         await interaction.deferReply();
 
-        let files
+        //let files
         let imagegood = false;
 
         await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
@@ -1382,10 +1383,12 @@ client.on('interactionCreate', async interaction => {
                 .then(res => res.buffer())
                 .then(async (res) => {
                     await fs.writeFileSync('./lastoilprice.png', res)
-                    files = new MessageAttachment('./lastoilprice.png');
+                    //files = new MessageAttachment('./lastoilprice.png');
                     imagegood = true;
                 })
         }
+
+        const files = new MessageAttachment('./lastoilprice.png');
 
         let msg = new MessageEmbed()
             .setColor('#0099ff')
