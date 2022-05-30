@@ -1527,7 +1527,7 @@ client.on('interactionCreate', async interaction => {
                 }
             })
 
-        if (havesub == true) {
+        if (havesub == false) {
             fetch(process.env.URL + '/discordbot/addchanneloil.php?chid=' + interaction.channelId)
                 .then(res => res.text())
                 .then(async (res) => {
