@@ -185,7 +185,13 @@ async function guildCommandCreate(guildid) {
 
         commands?.create({
             name: 'checkblacklist',
-            description: 'ตรวจสอบรายชื่อคนโกง (เร็วๆนี้)'
+            description: 'ตรวจสอบรายชื่อคนโกง (เร็วๆนี้)',
+            options: [{
+                type: 3,
+                name: 'search',
+                description: 'เลขประจำตัว/บัญชี/เบอร์/ชื่อคนโกง',
+                required: true
+            }]
         }, guildid)
 
         //return good
@@ -1563,6 +1569,63 @@ client.on('interactionCreate', async interaction => {
 
     if (interaction.commandName === 'checkblacklist') {
         await interaction.deferReply();
+
+        let searchdata = interaction.options.getString('search');
+        let arrayreport = [];
+
+        //if searchdata is number and length is 10 to 13, then it is phone number,bank account,id card number,etc.
+        if (searchdata.length >= 10 && searchdata.length <= 13 && !isNaN(searchdata)) {
+
+            if(searchdata.length == 10){
+                await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=phone')
+                .then(res => res.json())
+                .then(async (res) => {
+                    if(res.pageProps.searchResult != ""){
+                        arrayreport[0] = res.pageProps.searchResult.totalReport;
+                        //console.log(arrayreport[0]);
+                    }else{
+                        arrayreport[0] = 0;
+                    }
+                }).catch(async (err) => {
+                    //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                });
+            }else{
+                arrayreport[0] = 0;
+            }
+            
+            if(searchdata.length == 13){
+                await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=id-number')
+                .then(res => res.json())
+                .then(async (res) => {
+                    if(res.pageProps.searchResult != ""){
+                        arrayreport[1] = res.pageProps.searchResult.totalReport;
+                        //console.log(arrayreport[0]);
+                    }else{
+                        arrayreport[1] = 0;
+                    }
+                }).catch(async (err) => {
+                    //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                });
+            }else{
+                arrayreport[1] = 0;
+            }
+
+            await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=bank-account')
+                .then(res => res.json())
+                .then(async (res) => {
+                    if(res.pageProps.searchResult != ""){
+                        arrayreport[2] = res.pageProps.searchResult.totalReport;
+                        //console.log(arrayreport[0]);
+                    }else{
+                        arrayreport[2] = 0;
+                    }
+                }).catch(async (err) => {
+                    //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                });
+
+            console.log(arrayreport);
+
+        }
 
         await interaction.editReply('เปิดใช้งาน เร็วๆนี้...');
     }
