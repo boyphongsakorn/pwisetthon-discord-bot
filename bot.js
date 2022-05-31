@@ -1598,7 +1598,7 @@ client.on('interactionCreate', async interaction => {
                         //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
                     });
             } else {
-                arrayreport[0] = 0;
+                arrayreport[0][0] = 0;
             }
 
             if (searchdata.length == 13) {
@@ -1621,7 +1621,7 @@ client.on('interactionCreate', async interaction => {
                         //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
                     });
             } else {
-                arrayreport[1] = 0;
+                arrayreport[1][0] = 0;
             }
 
             await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=bank-account')
