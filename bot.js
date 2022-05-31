@@ -1586,6 +1586,8 @@ client.on('interactionCreate', async interaction => {
                             arrayreport[0][2] = res.pageProps.searchResult.lastedReport.amount;
                             arrayreport[0][3] = res.pageProps.searchResult.lastedReport.eventDate;
                             arrayreport[0][4] = res.pageProps.searchResult.lastedReport.eventDetail;
+                            arrayreport[0][5] = res.pageProps.searchResult.lastedReport.bankAccountNo;
+                            arrayreport[0][6] = res.pageProps.searchResult.lastedReport.phoneNumber;
                             //console.log(arrayreport[0]);
                         } else {
                             arrayreport[0][0] = 0;
@@ -1607,6 +1609,8 @@ client.on('interactionCreate', async interaction => {
                             arrayreport[1][2] = res.pageProps.searchResult.lastedReport.amount;
                             arrayreport[1][3] = res.pageProps.searchResult.lastedReport.eventDate;
                             arrayreport[1][4] = res.pageProps.searchResult.lastedReport.eventDetail;
+                            arrayreport[1][5] = res.pageProps.searchResult.lastedReport.bankAccountNo;
+                            arrayreport[1][6] = res.pageProps.searchResult.lastedReport.phoneNumber;
                             //console.log(arrayreport[0]);
                         } else {
                             arrayreport[1][0] = 0;
@@ -1627,6 +1631,8 @@ client.on('interactionCreate', async interaction => {
                         arrayreport[2][2] = res.pageProps.searchResult.lastedReport.amount;
                         arrayreport[2][3] = res.pageProps.searchResult.lastedReport.eventDate;
                         arrayreport[2][4] = res.pageProps.searchResult.lastedReport.eventDetail;
+                        arrayreport[2][5] = res.pageProps.searchResult.lastedReport.bankAccountNo;
+                        arrayreport[2][6] = res.pageProps.searchResult.lastedReport.phoneNumber;
                         //console.log(arrayreport[0]);
                     } else {
                         arrayreport[2][0] = 0;
@@ -1636,6 +1642,15 @@ client.on('interactionCreate', async interaction => {
                 });
 
             console.log(arrayreport);
+            //check if arrayreport[x][0] most number of report use x as index
+            let max = 0;
+            let index = 0;
+            for (let i = 0; i < arrayreport.length; i++) {
+                if (arrayreport[i][0] > max) {
+                    max = arrayreport[i][0];
+                    index = i;
+                }
+            }
 
         } else {
             //change space in searchdata to +
@@ -1672,7 +1687,7 @@ client.on('interactionCreate', async interaction => {
                         await interaction.editReply('ไม่เคยมีประวัติการโกง')
                     }
                 }).catch(async (err) => {
-                    //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                    await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
                 });
         }
 
