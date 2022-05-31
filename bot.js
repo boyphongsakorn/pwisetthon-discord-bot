@@ -662,14 +662,14 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                             })
                             .catch(async (err) => {
                                 console.log(err);
-                                imagegood = false;
+                                //imagegood = false;
                             });
 
                         //let files
                         //let imageisgood = false
 
-                        //check if file exist and size is not 0
-                        if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
+                        //check if file exist and size > 400kb and size < 500kb
+                        if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 400000 && fs.statSync('./lastoilprice.png').size < 500000) {
                             //files = new MessageAttachment('./lastoilprice.png');
                             imagegood = true
                         } else {
