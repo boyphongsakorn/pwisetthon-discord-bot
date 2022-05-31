@@ -1040,7 +1040,9 @@ client.on('interactionCreate', async interaction => {
                     request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
                 });*/
                 fetch(uri).then(res => res.buffer()).then(buffer => {
-                    fs.writeFileSync(filename, buffer).on('close', callback);
+                    fs.writeFileSync(filename, buffer).then(() => {
+                        callback()
+                    })
                 }).catch(err => {
                     console.log(err)
                 });
@@ -1656,6 +1658,10 @@ client.on('interactionCreate', async interaction => {
             console.log(searchdata);
             //change space in searchdata to +
             searchdata = searchdata.replace(/\s/g, '+');
+            console.log(searchdata);
+            //change searchdata to url encode
+            searchdata = encodeURI(searchdata);
+            console.log(searchdata);
             await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=name')
                 .then(res => res.json())
                 .then(async (res) => {
