@@ -1576,48 +1576,60 @@ client.on('interactionCreate', async interaction => {
         //if searchdata is number and length is 10 to 13, then it is phone number,bank account,id card number,etc.
         if (searchdata.length >= 10 && searchdata.length <= 13 && !isNaN(searchdata)) {
 
-            if(searchdata.length == 10){
+            if (searchdata.length == 10) {
                 await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=phone')
-                .then(res => res.json())
-                .then(async (res) => {
-                    if(res.pageProps.searchResult != ""){
-                        arrayreport[0] = res.pageProps.searchResult.totalReport;
-                        //console.log(arrayreport[0]);
-                    }else{
-                        arrayreport[0] = 0;
-                    }
-                }).catch(async (err) => {
-                    //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
-                });
-            }else{
+                    .then(res => res.json())
+                    .then(async (res) => {
+                        if (res.pageProps.searchResult != "") {
+                            arrayreport[0][0] = res.pageProps.searchResult.totalReport;
+                            arrayreport[0][1] = res.pageProps.searchResult.totalDamagedPrice;
+                            arrayreport[0][2] = res.pageProps.searchResult.lastedReport.amount;
+                            arrayreport[0][3] = res.pageProps.searchResult.lastedReport.eventDate;
+                            arrayreport[0][4] = res.pageProps.searchResult.lastedReport.eventDetail;
+                            //console.log(arrayreport[0]);
+                        } else {
+                            arrayreport[0][0] = 0;
+                        }
+                    }).catch(async (err) => {
+                        //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                    });
+            } else {
                 arrayreport[0] = 0;
             }
-            
-            if(searchdata.length == 13){
+
+            if (searchdata.length == 13) {
                 await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=id-number')
-                .then(res => res.json())
-                .then(async (res) => {
-                    if(res.pageProps.searchResult != ""){
-                        arrayreport[1] = res.pageProps.searchResult.totalReport;
-                        //console.log(arrayreport[0]);
-                    }else{
-                        arrayreport[1] = 0;
-                    }
-                }).catch(async (err) => {
-                    //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
-                });
-            }else{
+                    .then(res => res.json())
+                    .then(async (res) => {
+                        if (res.pageProps.searchResult != "") {
+                            arrayreport[1][0] = res.pageProps.searchResult.totalReport;
+                            arrayreport[1][1] = res.pageProps.searchResult.totalDamagedPrice;
+                            arrayreport[1][2] = res.pageProps.searchResult.lastedReport.amount;
+                            arrayreport[1][3] = res.pageProps.searchResult.lastedReport.eventDate;
+                            arrayreport[1][4] = res.pageProps.searchResult.lastedReport.eventDetail;
+                            //console.log(arrayreport[0]);
+                        } else {
+                            arrayreport[1][0] = 0;
+                        }
+                    }).catch(async (err) => {
+                        //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                    });
+            } else {
                 arrayreport[1] = 0;
             }
 
             await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=bank-account')
                 .then(res => res.json())
                 .then(async (res) => {
-                    if(res.pageProps.searchResult != ""){
-                        arrayreport[2] = res.pageProps.searchResult.totalReport;
+                    if (res.pageProps.searchResult != "") {
+                        arrayreport[2][0] = res.pageProps.searchResult.totalReport;
+                        arrayreport[2][1] = res.pageProps.searchResult.totalDamagedPrice;
+                        arrayreport[2][2] = res.pageProps.searchResult.lastedReport.amount;
+                        arrayreport[2][3] = res.pageProps.searchResult.lastedReport.eventDate;
+                        arrayreport[2][4] = res.pageProps.searchResult.lastedReport.eventDetail;
                         //console.log(arrayreport[0]);
-                    }else{
-                        arrayreport[2] = 0;
+                    } else {
+                        arrayreport[2][0] = 0;
                     }
                 }).catch(async (err) => {
                     //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
@@ -1625,9 +1637,46 @@ client.on('interactionCreate', async interaction => {
 
             console.log(arrayreport);
 
+        } else {
+            //change space in searchdata to +
+            searchdata = searchdata.replace(/\s/g, '+');
+            await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=name')
+                .then(res => res.json())
+                .then(async (res) => {
+                    if (res.pageProps.searchResult != "") {
+                        let waytocheat
+                        if (res.pageProps.searchResult.lastedReport.bankAccountNo != null) {
+                            waytocheat = 'โอนเงินผ่านบัญชีธนาคาร'
+                        } else if (res.pageProps.searchResult.lastedReport.phoneNumber != null) {
+                            waytocheat = 'โอนเงินผ่านบัญชีพร้อมเพย์'
+                        }
+
+                        const msg = new MessageEmbed()
+                            .setColor('#EE4B2B')
+                            .setTitle('ข้อมูลการรายงานของ ' + res.pageProps.searchResult.name)
+                            .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + res.pageProps.searchResult.name)
+                            .setURL('https://www.whoscheat.com/results?q=' + res.pageProps.searchResult.name + '&by=name')
+                            .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
+                            .addField('พบรายงานการโกง', 'จำนวน ' + res.pageProps.searchResult.totalReport + ' ครั้ง', true)
+                            .addFields(
+                                { name: 'ครั้งล่าสุด', value: res.pageProps.searchResult.lastedReport.eventDate, inline: true },
+                                { name: 'ช่องทาง', value: waytocheat, inline: true },
+                                { name: 'สาเหตุ', value: res.pageProps.searchResult.lastedReport.eventDetail, inline: true },
+                                { name: 'ยอดความเสียหาย', value: res.pageProps.searchResult.lastedReport.amount, inline: true }
+                            )
+                            .setTimestamp()
+                            .setFooter({ text: 'ขอบคุณข้อมูลจาก whoscheat.com', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1' });
+
+                        await interaction.editReply({embeds: [msg]});
+                    } else {
+                        await interaction.editReply('ไม่เคยมีประวัติการโกง')
+                    }
+                }).catch(async (err) => {
+                    //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                });
         }
 
-        await interaction.editReply('เปิดใช้งาน เร็วๆนี้...');
+        //await interaction.editReply('เปิดใช้งาน เร็วๆนี้...');
     }
 });
 
