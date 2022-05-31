@@ -1653,6 +1653,7 @@ client.on('interactionCreate', async interaction => {
             }
 
         } else {
+            console.log(searchdata);
             //change space in searchdata to +
             searchdata = searchdata.replace(/\s/g, '+');
             await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=name')
