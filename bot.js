@@ -1573,7 +1573,7 @@ client.on('interactionCreate', async interaction => {
         await interaction.deferReply();
 
         let searchdata = interaction.options.getString('search');
-        let arrayreport = [];
+        let arrayreport = [[], [], []];
 
         //if searchdata is number and length is 10 to 13, then it is phone number,bank account,id card number,etc.
         if (searchdata.length >= 10 && searchdata.length <= 13 && !isNaN(searchdata)) {
@@ -1689,7 +1689,7 @@ client.on('interactionCreate', async interaction => {
                             .setTimestamp()
                             .setFooter({ text: 'ขอบคุณข้อมูลจาก whoscheat.com', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1' });
 
-                        await interaction.editReply({embeds: [msg]});
+                        await interaction.editReply({ embeds: [msg] });
                     } else {
                         await interaction.editReply('ไม่เคยมีประวัติการโกง')
                     }
