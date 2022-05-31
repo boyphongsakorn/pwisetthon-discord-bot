@@ -1694,6 +1694,7 @@ client.on('interactionCreate', async interaction => {
                         await interaction.editReply('ไม่เคยมีประวัติการโกง')
                     }
                 }).catch(async (err) => {
+                    console.log(err);
                     await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
                 });
         }
