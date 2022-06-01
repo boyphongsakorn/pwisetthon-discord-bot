@@ -316,7 +316,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
         .then(async (json) => {
             console.log(json.length)
             if (json.length == 7 || json.length == 8 || json.length == 9) {
-                if (json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX") {
+                if (json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX" || isNaN(json[0][1])) {
 
                     /*client.users.fetch('133439202556641280').then(dm => {
                         dm.send('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออกหรือหวยยังออกไม่หมด')
@@ -376,6 +376,16 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                     }
 
                 } else {
+
+                    //check every index of json has not "xxxxxx" or "XXXXXX"
+                    for (let i = 0; i < json.length; i++) {
+                        for(let j = 1; j < json[i].length; j++) {
+                            if (json[i][j] == "xxxxxx" || json[i][j] == "XXXXXX") {
+                                console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยยังออกไม่หมด');
+                                return;
+                            }
+                        }
+                    }
 
                     let imgurl = 'https://boy-discord-bot.herokuapp.com/?date=';
 
