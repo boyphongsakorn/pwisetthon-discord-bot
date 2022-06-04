@@ -1681,6 +1681,8 @@ client.on('interactionCreate', async interaction => {
                             waytocheat = 'โอนเงินผ่านบัญชีธนาคาร'
                         } else if (res.pageProps.searchResult.lastedReport.phoneNumber != null) {
                             waytocheat = 'โอนเงินผ่านบัญชีพร้อมเพย์'
+                        }else{
+                            waytocheat = 'โอนเงินผ่านบัญชีธนาคาร'
                         }
 
                         const msg = new MessageEmbed()
