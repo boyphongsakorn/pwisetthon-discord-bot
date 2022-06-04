@@ -1685,11 +1685,14 @@ client.on('interactionCreate', async interaction => {
                             waytocheat = 'โอนเงินผ่านบัญชีธนาคาร'
                         }
 
+                        //let res.pageProps.searchResult.name to URI encode
+                        let name = encodeURI(res.pageProps.searchResult.name);
+
                         const msg = new MessageEmbed()
                             .setColor('#EE4B2B')
                             .setTitle('ข้อมูลการรายงานของ ' + res.pageProps.searchResult.name)
                             .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + res.pageProps.searchResult.name)
-                            .setURL('https://www.whoscheat.com/results?q=' + res.pageProps.searchResult.name + '&by=name')
+                            .setURL('https://www.whoscheat.com/results?q=' + name + '&by=name')
                             .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
                             .addField('พบรายงานการโกง', 'จำนวน ' + res.pageProps.searchResult.totalReport + ' ครั้ง', true)
                             .addFields(
