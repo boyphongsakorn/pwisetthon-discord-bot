@@ -1600,7 +1600,7 @@ client.on('interactionCreate', async interaction => {
                             arrayreport[0][4] = res.pageProps.searchResult.lastedReport.eventDetail;
                             arrayreport[0][5] = res.pageProps.searchResult.lastedReport.bankAccountNo;
                             arrayreport[0][6] = res.pageProps.searchResult.lastedReport.phoneNumber;
-                            arrayreport[0][7] = res.pageProps.searchResult.name;
+                            arrayreport[0][7] = res.pageProps.searchResult.lastedReport.name;
                             //console.log(arrayreport[0]);
                         } else {
                             arrayreport[0][0] = 0;
@@ -1624,7 +1624,7 @@ client.on('interactionCreate', async interaction => {
                             arrayreport[1][4] = res.pageProps.searchResult.lastedReport.eventDetail;
                             arrayreport[1][5] = res.pageProps.searchResult.lastedReport.bankAccountNo;
                             arrayreport[1][6] = res.pageProps.searchResult.lastedReport.phoneNumber;
-                            arrayreport[1][7] = res.pageProps.searchResult.name;
+                            arrayreport[1][7] = res.pageProps.searchResult.lastedReport.name;
                             //console.log(arrayreport[0]);
                         } else {
                             arrayreport[1][0] = 0;
@@ -1647,7 +1647,7 @@ client.on('interactionCreate', async interaction => {
                         arrayreport[2][4] = res.pageProps.searchResult.lastedReport.eventDetail;
                         arrayreport[2][5] = res.pageProps.searchResult.lastedReport.bankAccountNo;
                         arrayreport[2][6] = res.pageProps.searchResult.lastedReport.phoneNumber;
-                        arrayreport[2][7] = res.pageProps.searchResult.name;
+                        arrayreport[2][7] = res.pageProps.searchResult.lastedReport.name;
                         //console.log(arrayreport[0]);
                     } else {
                         arrayreport[2][0] = 0;
@@ -1698,7 +1698,7 @@ client.on('interactionCreate', async interaction => {
                     .addFields(
                         { name: 'ครั้งล่าสุด', value: arrayreport[index][3], inline: true },
                         { name: 'ช่องทาง', value: waytocheat, inline: true },
-                        { name: 'รายละเอียด', value: arrayreport[index][4], inline: true },
+                        { name: 'รายละเอียด', value: arrayreport[index][4], inline: false },
                         { name: 'ยอดความเสียหาย', value: arrayreport[index][2] + ' บาท', inline: true }
                     )
                     .setTimestamp()
@@ -1743,7 +1743,7 @@ client.on('interactionCreate', async interaction => {
                             .addFields(
                                 { name: 'ครั้งล่าสุด', value: res.pageProps.searchResult.lastedReport.eventDate, inline: true },
                                 { name: 'ช่องทาง', value: waytocheat, inline: true },
-                                { name: 'รายละเอียด', value: res.pageProps.searchResult.lastedReport.eventDetail, inline: true },
+                                { name: 'รายละเอียด', value: res.pageProps.searchResult.lastedReport.eventDetail, inline: false },
                                 { name: 'ยอดความเสียหาย', value: res.pageProps.searchResult.lastedReport.amount + ' บาท', inline: true }
                             )
                             .setTimestamp()
