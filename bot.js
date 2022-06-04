@@ -1698,8 +1698,8 @@ client.on('interactionCreate', async interaction => {
                             .addFields(
                                 { name: 'ครั้งล่าสุด', value: res.pageProps.searchResult.lastedReport.eventDate, inline: true },
                                 { name: 'ช่องทาง', value: waytocheat, inline: true },
-                                { name: 'สาเหตุ', value: res.pageProps.searchResult.lastedReport.eventDetail, inline: true },
-                                { name: 'ยอดความเสียหาย', value: 'test', inline: true }
+                                { name: 'รายละเอียด', value: res.pageProps.searchResult.lastedReport.eventDetail, inline: true },
+                                { name: 'ยอดความเสียหาย', value: res.pageProps.searchResult.lastedReport.amount + ' บาท', inline: true }
                             )
                             .setTimestamp()
                             .setFooter({ text: 'ขอบคุณข้อมูลจาก whoscheat.com', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1' });
