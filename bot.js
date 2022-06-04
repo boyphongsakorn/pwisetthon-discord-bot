@@ -1670,9 +1670,9 @@ client.on('interactionCreate', async interaction => {
             //if max != 0, then show report
             if (max != 0) {
                 let waytocheat
-                if (arrayreport[i][5] != null) {
+                if (arrayreport[index][5] != null) {
                     waytocheat = 'โอนเงินผ่านบัญชีธนาคาร'
-                } else if (arrayreport[i][6] != null) {
+                } else if (arrayreport[index][6] != null) {
                     waytocheat = 'โอนเงินผ่านบัญชีพร้อมเพย์'
                 } else {
                     waytocheat = 'โอนเงินผ่านบัญชีธนาคาร'
@@ -1690,16 +1690,16 @@ client.on('interactionCreate', async interaction => {
 
                 const msg = new MessageEmbed()
                     .setColor('#EE4B2B')
-                    .setTitle('ข้อมูลการรายงานของ ' + arrayreport[i][7])
-                    .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + arrayreport[i][7])
+                    .setTitle('ข้อมูลการรายงานของ ' + arrayreport[index][7])
+                    .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + arrayreport[index][7])
                     .setURL(url)
                     .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
-                    .addField('พบรายงานการโกง', 'จำนวน ' + arrayreport[i][0] + ' ครั้ง')
+                    .addField('พบรายงานการโกง', 'จำนวน ' + arrayreport[index][0] + ' ครั้ง')
                     .addFields(
-                        { name: 'ครั้งล่าสุด', value: arrayreport[i][3], inline: true },
+                        { name: 'ครั้งล่าสุด', value: arrayreport[index][3], inline: true },
                         { name: 'ช่องทาง', value: waytocheat, inline: true },
-                        { name: 'รายละเอียด', value: arrayreport[i][4], inline: true },
-                        { name: 'ยอดความเสียหาย', value: arrayreport[i][2] + ' บาท', inline: true }
+                        { name: 'รายละเอียด', value: arrayreport[index][4], inline: true },
+                        { name: 'ยอดความเสียหาย', value: arrayreport[index][2] + ' บาท', inline: true }
                     )
                     .setTimestamp()
                     .setFooter({ text: 'ขอบคุณข้อมูลจาก whoscheat.com', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1' });
