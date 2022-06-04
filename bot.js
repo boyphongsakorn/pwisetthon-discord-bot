@@ -1675,7 +1675,6 @@ client.on('interactionCreate', async interaction => {
             await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=name')
                 .then(res => res.json())
                 .then(async (res) => {
-                    console.log(res)
                     if (res.pageProps.searchResult != "") {
                         let waytocheat
                         if (res.pageProps.searchResult.lastedReport.bankAccountNo != null) {
@@ -1685,11 +1684,6 @@ client.on('interactionCreate', async interaction => {
                         }else{
                             waytocheat = 'โอนเงินผ่านบัญชีธนาคาร'
                         }
-
-                        console.log(res.pageProps.searchResult.lastedReport.eventDate)
-                            console.log(res.pageProps.searchResult.lastedReport.eventDetail)
-                            console.log(res.pageProps.searchResult.lastedReport.amount)
-                            console.log(waytocheat)
 
                         const msg = new MessageEmbed()
                             .setColor('#EE4B2B')
@@ -1702,7 +1696,7 @@ client.on('interactionCreate', async interaction => {
                                 { name: 'ครั้งล่าสุด', value: res.pageProps.searchResult.lastedReport.eventDate, inline: true },
                                 { name: 'ช่องทาง', value: waytocheat, inline: true },
                                 { name: 'สาเหตุ', value: res.pageProps.searchResult.lastedReport.eventDetail, inline: true },
-                                { name: 'ยอดความเสียหาย', value: res.pageProps.searchResult.lastedReport.amount, inline: true }
+                                { name: 'ยอดความเสียหาย', value: 'test', inline: true }
                             )
                             .setTimestamp()
                             .setFooter({ text: 'ขอบคุณข้อมูลจาก whoscheat.com', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1' });
