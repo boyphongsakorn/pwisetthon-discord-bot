@@ -1694,7 +1694,7 @@ client.on('interactionCreate', async interaction => {
                             .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + res.pageProps.searchResult.name)
                             .setURL('https://www.whoscheat.com/results?q=' + name + '&by=name')
                             .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
-                            .addField('พบรายงานการโกง', 'จำนวน ' + res.pageProps.searchResult.totalReport + ' ครั้ง', true)
+                            .addField('พบรายงานการโกง', 'จำนวน ' + res.pageProps.searchResult.totalReport + ' ครั้ง')
                             .addFields(
                                 { name: 'ครั้งล่าสุด', value: res.pageProps.searchResult.lastedReport.eventDate, inline: true },
                                 { name: 'ช่องทาง', value: waytocheat, inline: true },
