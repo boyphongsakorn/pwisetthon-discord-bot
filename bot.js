@@ -1668,10 +1668,10 @@ client.on('interactionCreate', async interaction => {
             console.log(searchdata);
             //change space in searchdata to +
             searchdata = searchdata.replace(/\s/g, '+');
-            console.log(searchdata);
+            //console.log(searchdata);
             //change searchdata to url encode
-            searchdata = encodeURI(searchdata);
-            console.log(searchdata);
+            //searchdata = encodeURI(searchdata);
+            //console.log(searchdata);
             await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=name')
                 .then(res => res.json())
                 .then(async (res) => {
@@ -1698,6 +1698,11 @@ client.on('interactionCreate', async interaction => {
                             )
                             .setTimestamp()
                             .setFooter({ text: 'ขอบคุณข้อมูลจาก whoscheat.com', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1' });
+
+                            console.log(res.pageProps.searchResult.lastedReport.eventDate)
+                            console.log(res.pageProps.searchResult.lastedReport.eventDetail)
+                            console.log(res.pageProps.searchResult.lastedReport.amount)
+                            console.log(waytocheat)
 
                         await interaction.editReply({ embeds: [msg] });
                     } else {
