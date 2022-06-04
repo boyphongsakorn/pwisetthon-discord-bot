@@ -379,7 +379,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
 
                     //check every index of json has not "xxxxxx" or "XXXXXX"
                     for (let i = 0; i < json.length; i++) {
-                        for(let j = 1; j < json[i].length; j++) {
+                        for (let j = 1; j < json[i].length; j++) {
                             if (json[i][j] == "xxxxxx" || json[i][j] == "XXXXXX") {
                                 console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยยังออกไม่หมด');
                                 return;
@@ -1600,6 +1600,7 @@ client.on('interactionCreate', async interaction => {
                             arrayreport[0][4] = res.pageProps.searchResult.lastedReport.eventDetail;
                             arrayreport[0][5] = res.pageProps.searchResult.lastedReport.bankAccountNo;
                             arrayreport[0][6] = res.pageProps.searchResult.lastedReport.phoneNumber;
+                            arrayreport[0][7] = res.pageProps.searchResult.name;
                             //console.log(arrayreport[0]);
                         } else {
                             arrayreport[0][0] = 0;
@@ -1623,6 +1624,7 @@ client.on('interactionCreate', async interaction => {
                             arrayreport[1][4] = res.pageProps.searchResult.lastedReport.eventDetail;
                             arrayreport[1][5] = res.pageProps.searchResult.lastedReport.bankAccountNo;
                             arrayreport[1][6] = res.pageProps.searchResult.lastedReport.phoneNumber;
+                            arrayreport[1][7] = res.pageProps.searchResult.name;
                             //console.log(arrayreport[0]);
                         } else {
                             arrayreport[1][0] = 0;
@@ -1645,6 +1647,7 @@ client.on('interactionCreate', async interaction => {
                         arrayreport[2][4] = res.pageProps.searchResult.lastedReport.eventDetail;
                         arrayreport[2][5] = res.pageProps.searchResult.lastedReport.bankAccountNo;
                         arrayreport[2][6] = res.pageProps.searchResult.lastedReport.phoneNumber;
+                        arrayreport[2][7] = res.pageProps.searchResult.name;
                         //console.log(arrayreport[0]);
                     } else {
                         arrayreport[2][0] = 0;
@@ -1664,6 +1667,48 @@ client.on('interactionCreate', async interaction => {
                 }
             }
 
+            //if max != 0, then show report
+            if (max != 0) {
+                let waytocheat
+                if (arrayreport[i][5] != null) {
+                    waytocheat = 'โอนเงินผ่านบัญชีธนาคาร'
+                } else if (arrayreport[i][6] != null) {
+                    waytocheat = 'โอนเงินผ่านบัญชีพร้อมเพย์'
+                } else {
+                    waytocheat = 'โอนเงินผ่านบัญชีธนาคาร'
+                }
+
+                let url
+
+                if(index == 2){
+                    url = 'https://www.whoscheat.com/results?q=' + searchdata + '&by=bank-account'
+                }else if(index == 1){
+                    url = 'https://www.whoscheat.com/results?q=' + searchdata + '&by=id-number'
+                }else{
+                    url = 'https://www.whoscheat.com/results?q=' + searchdata + '&by=phone'
+                }
+
+                const msg = new MessageEmbed()
+                    .setColor('#EE4B2B')
+                    .setTitle('ข้อมูลการรายงานของ ' + arrayreport[i][7])
+                    .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + arrayreport[i][7])
+                    .setURL(url)
+                    .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
+                    .addField('พบรายงานการโกง', 'จำนวน ' + arrayreport[i][0] + ' ครั้ง')
+                    .addFields(
+                        { name: 'ครั้งล่าสุด', value: arrayreport[i][3], inline: true },
+                        { name: 'ช่องทาง', value: waytocheat, inline: true },
+                        { name: 'รายละเอียด', value: arrayreport[i][4], inline: true },
+                        { name: 'ยอดความเสียหาย', value: arrayreport[i][2] + ' บาท', inline: true }
+                    )
+                    .setTimestamp()
+                    .setFooter({ text: 'ขอบคุณข้อมูลจาก whoscheat.com', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1' });
+
+                await interaction.editReply({ embeds: [msg] });
+            }else{
+                await interaction.editReply('ไม่เคยมีประวัติการโกง')
+            }
+
         } else {
             console.log(searchdata);
             //change space in searchdata to +
@@ -1681,7 +1726,7 @@ client.on('interactionCreate', async interaction => {
                             waytocheat = 'โอนเงินผ่านบัญชีธนาคาร'
                         } else if (res.pageProps.searchResult.lastedReport.phoneNumber != null) {
                             waytocheat = 'โอนเงินผ่านบัญชีพร้อมเพย์'
-                        }else{
+                        } else {
                             waytocheat = 'โอนเงินผ่านบัญชีธนาคาร'
                         }
 
