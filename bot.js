@@ -1680,7 +1680,7 @@ client.on('interactionCreate', async interaction => {
             }
 
             if (arrayreport[1][0] != 0) {
-                if (arrayreport[arrayreport.length][7] != arrayreport[1][7]) {
+                if (arrayreport[arrayreport.length-1][7] != arrayreport[1][7]) {
                     //get arrayreport length
                     let arrayreportlength = arrayreport.length;
                     //change arrayreport[0][7] space to '+'
@@ -1706,7 +1706,7 @@ client.on('interactionCreate', async interaction => {
             }
 
             if (arrayreport[2][0] != 0) {
-                if (arrayreport[arrayreport.length][7] != arrayreport[2][7]) {
+                if (arrayreport[arrayreport.length-1][7] != arrayreport[2][7]) {
                     //get arrayreport length
                     let arrayreportlength = arrayreport.length;
                     //change arrayreport[0][7] space to '+'
