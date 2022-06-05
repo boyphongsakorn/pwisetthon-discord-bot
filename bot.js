@@ -1050,9 +1050,8 @@ client.on('interactionCreate', async interaction => {
                     request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
                 });*/
                 fetch(uri).then(res => res.buffer()).then(buffer => {
-                    fs.writeFileSync(filename, buffer).then(() => {
-                        callback()
-                    })
+                    fs.writeFileSync(filename, buffer)
+                    callback()
                 }).catch(err => {
                     console.log(err)
                 });
