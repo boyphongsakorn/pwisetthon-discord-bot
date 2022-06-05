@@ -1656,6 +1656,78 @@ client.on('interactionCreate', async interaction => {
                     //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
                 });
 
+            if(arrayreport[0][0] != 0){
+                //get arrayreport length
+                let arrayreportlength = arrayreport.length;
+                //change arrayreport[0][7] space to '+'
+                let name = arrayreport[0][7].replace(/\s/g, '+');
+                await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + name + '&by=name')
+                    .then(res => res.json())
+                    .then(async (res) => {
+                        if (res.pageProps.searchResult != "") {
+                            arrayreport[arrayreportlength][0] = res.pageProps.searchResult.totalReport;
+                            arrayreport[arrayreportlength][1] = res.pageProps.searchResult.totalDamagedPrice;
+                            arrayreport[arrayreportlength][2] = res.pageProps.searchResult.lastedReport.amount;
+                            arrayreport[arrayreportlength][3] = res.pageProps.searchResult.lastedReport.eventDate;
+                            arrayreport[arrayreportlength][4] = res.pageProps.searchResult.lastedReport.eventDetail;
+                            arrayreport[arrayreportlength][5] = res.pageProps.searchResult.lastedReport.bankAccountNo;
+                            arrayreport[arrayreportlength][6] = res.pageProps.searchResult.lastedReport.phoneNumber;
+                            arrayreport[arrayreportlength][7] = res.pageProps.searchResult.lastedReport.name;
+                            //console.log(arrayreport[0]);
+                        }
+                    }).catch(async (err) => {
+                        //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                    });
+            }
+
+            if(arrayreport[1][0] != 0 && arrayreport[arrayreport.length][7] != arrayreport[1][7]){
+                //get arrayreport length
+                let arrayreportlength = arrayreport.length;
+                //change arrayreport[0][7] space to '+'
+                let name = arrayreport[1][7].replace(/\s/g, '+');
+                await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + name + '&by=name')
+                    .then(res => res.json())
+                    .then(async (res) => {
+                        if (res.pageProps.searchResult != "") {
+                            arrayreport[arrayreportlength][0] = res.pageProps.searchResult.totalReport;
+                            arrayreport[arrayreportlength][1] = res.pageProps.searchResult.totalDamagedPrice;
+                            arrayreport[arrayreportlength][2] = res.pageProps.searchResult.lastedReport.amount;
+                            arrayreport[arrayreportlength][3] = res.pageProps.searchResult.lastedReport.eventDate;
+                            arrayreport[arrayreportlength][4] = res.pageProps.searchResult.lastedReport.eventDetail;
+                            arrayreport[arrayreportlength][5] = res.pageProps.searchResult.lastedReport.bankAccountNo;
+                            arrayreport[arrayreportlength][6] = res.pageProps.searchResult.lastedReport.phoneNumber;
+                            arrayreport[arrayreportlength][7] = res.pageProps.searchResult.lastedReport.name;
+                            //console.log(arrayreport[0]);
+                        }
+                    }).catch(async (err) => {
+                        //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                    });
+            }
+
+            if(arrayreport[2][0] != 0 && arrayreport[arrayreport.length][7] != arrayreport[2][7]){
+                //get arrayreport length
+                let arrayreportlength = arrayreport.length;
+                //change arrayreport[0][7] space to '+'
+                let name = arrayreport[2][7].replace(/\s/g, '+');
+                await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + name + '&by=name')
+                    .then(res => res.json())
+                    .then(async (res) => {
+                        if (res.pageProps.searchResult != "") {
+                            arrayreport[arrayreportlength][0] = res.pageProps.searchResult.totalReport;
+                            arrayreport[arrayreportlength][1] = res.pageProps.searchResult.totalDamagedPrice;
+                            arrayreport[arrayreportlength][2] = res.pageProps.searchResult.lastedReport.amount;
+                            arrayreport[arrayreportlength][3] = res.pageProps.searchResult.lastedReport.eventDate;
+                            arrayreport[arrayreportlength][4] = res.pageProps.searchResult.lastedReport.eventDetail;
+                            arrayreport[arrayreportlength][5] = res.pageProps.searchResult.lastedReport.bankAccountNo;
+                            arrayreport[arrayreportlength][6] = res.pageProps.searchResult.lastedReport.phoneNumber;
+                            arrayreport[arrayreportlength][7] = res.pageProps.searchResult.lastedReport.name;
+                            //console.log(arrayreport[0]);
+                        }
+                    }).catch(async (err) => {
+                        //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                    });
+            }
+
             console.log(arrayreport);
             //check if arrayreport[x][0] most number of report use x as index
             let max = 0;
@@ -1742,8 +1814,10 @@ client.on('interactionCreate', async interaction => {
                             .addField('พบรายงานการโกง', 'จำนวน ' + res.pageProps.searchResult.totalReport + ' ครั้ง')
                             .addFields(
                                 { name: 'ครั้งล่าสุด', value: res.pageProps.searchResult.lastedReport.eventDate, inline: true },
-                                { name: 'ช่องทาง', value: waytocheat, inline: true },
-                                { name: 'รายละเอียด', value: res.pageProps.searchResult.lastedReport.eventDetail, inline: false },
+                                { name: 'ช่องทาง', value: waytocheat, inline: true }
+                            )
+                            .addFields(
+                                { name: 'รายละเอียด', value: res.pageProps.searchResult.lastedReport.eventDetail, inline: true },
                                 { name: 'ยอดความเสียหาย', value: res.pageProps.searchResult.lastedReport.amount + ' บาท', inline: true }
                             )
                             .setTimestamp()
