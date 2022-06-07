@@ -1,10 +1,11 @@
-const { MessageAttachment, MessageEmbed, Client, Intents, MessageActionRow, MessageSelectMenu } = require('discord.js');
+const { MessageAttachment, MessageEmbed, Client, Intents, MessageActionRow, MessageSelectMenu, MessageButton } = require('discord.js');
 const cron = require("cron");
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 var fs = require('fs');
 var http = require('http');
 const pngToJpeg = require('png-to-jpeg');
 var mysql = require('mysql');
+const { channel } = require('diagnostics_channel');
 
 require('dotenv').config();
 
@@ -709,12 +710,19 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                             msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
                         }
 
+                        let messid = [];
+
                         for (let i = 0; i < wow.length; i++) {
                             try {
                                 if (imagegood == true) {
                                     client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
                                         .then((log) => {
                                             console.log(log);
+                                            //push message id and channel id to messid
+                                            messid.push({
+                                                messid: log.id,
+                                                chanelid: wow[i]
+                                            })
                                         })
                                         .catch((error) => {
                                             //console.log(error);
@@ -726,6 +734,11 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                                     client.channels.cache.get(wow[i]).send({ embeds: [msg] })
                                         .then((log) => {
                                             console.log(log);
+                                            //push message id and channel id to messid
+                                            messid.push({
+                                                messid: log.id,
+                                                chanelid: wow[i]
+                                            })
                                         })
                                         .catch((error) => {
                                             //console.log(error);
@@ -737,6 +750,58 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                             } catch (error) {
                                 console.log('he not send')
                             }
+                        }
+
+                        //convert messid to json
+                        let messidjson = JSON.stringify(messid);
+                        //get today date format day/month/thaiyear
+                        let today = new Date();
+                        let day = today.getDate();
+                        let month = today.getMonth() + 1;
+                        let thaiyear = today.getFullYear() + 543;
+                        let date = day + '/' + month + '/' + thaiyear;
+                        //push messidjson to database
+                        let sql = `INSERT INTO hell VALUES ('${date}', '${messidjson}')`;
+                        con.query(sql, function (err, result) {
+                            if (err) throw err;
+                            console.log('1 record inserted');
+                        });
+
+                        const row = new MessageActionRow()
+                            .addComponents(
+                                new MessageButton()
+                                    .setCustomId('hell')
+                                    .setLabel('ลบ')
+                                    .setStyle('DANGER'),
+                                new MessageButton()
+                                    .setCustomId('hellandreset')
+                                    .setLabel('ลบและรีเซ็ต')
+                                    .setStyle('DANGER'),
+                            );
+
+                        //send msg to user 133439202556641280
+                        if (imagegood == true) {
+                            client.users.fetch('133439202556641280').then(dm => {
+                                dm.send({ embeds: [msg], files: [files], components: [row] })
+                                    .then((log) => {
+                                        console.log(log);
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+
+                                    });
+                            });
+                        } else {
+                            client.users.fetch('133439202556641280').then(dm => {
+                                dm.send({ embeds: [msg], components: [row] })
+                                    .then((log) => {
+                                        console.log(log);
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+
+                                    });
+                            });
                         }
                     });
                 }
@@ -753,7 +818,7 @@ client.on('messageCreate', message => {
 });
 
 client.on('interactionCreate', async interaction => {
-    if (!interaction.isCommand() && !interaction.isContextMenu() && !interaction.isSelectMenu()) return;
+    if (!interaction.isCommand() && !interaction.isContextMenu() && !interaction.isSelectMenu() && !interaction.isButton()) return;
 
     /*if (interaction.commandName === 'fthlotto') {
         await interaction.deferReply();
@@ -1680,7 +1745,7 @@ client.on('interactionCreate', async interaction => {
             }
 
             if (arrayreport[1][0] != 0) {
-                if (arrayreport[arrayreport.length-1][7] != arrayreport[1][7]) {
+                if (arrayreport[arrayreport.length - 1][7] != arrayreport[1][7]) {
                     //get arrayreport length
                     let arrayreportlength = arrayreport.length;
                     //change arrayreport[0][7] space to '+'
@@ -1706,7 +1771,7 @@ client.on('interactionCreate', async interaction => {
             }
 
             if (arrayreport[2][0] != 0) {
-                if (arrayreport[arrayreport.length-1][7] != arrayreport[2][7]) {
+                if (arrayreport[arrayreport.length - 1][7] != arrayreport[2][7]) {
                     //get arrayreport length
                     let arrayreportlength = arrayreport.length;
                     //change arrayreport[0][7] space to '+'
@@ -1837,6 +1902,30 @@ client.on('interactionCreate', async interaction => {
         }
 
         //await interaction.editReply('เปิดใช้งาน เร็วๆนี้...');
+    }
+
+    if(interaction.customId === 'hell' ){
+        //get today format day/month/thaiyear
+        let today = new Date();
+        let day = today.getDate();
+        let month = today.getMonth() + 1;
+        let thaiyear = today.getFullYear() + 543;
+        let todayformat = day + '/' + month + '/' + thaiyear;
+        let hellsql = 'SELECT messid FROM hell LIMIT 1 WHERE date = "' + todayformat + '"';
+        con.query(hellsql, async (err, result) => {
+            if (err) throw err;
+            //convert result[0].messid from json text to json object
+            let messid = JSON.parse(result[0].messid);
+            //loop messid
+            for (let i = 0; i < messid.length; i++) {
+                //delete message by messid and chanelid
+                client.channels.cache.get(messid[i].chanelid).messages.cache.get(messid[i].messid).delete();
+            }
+        })
+    }
+
+    if(interaction.customId === 'hellandreset'){
+
     }
 });
 
