@@ -1927,6 +1927,10 @@ client.on('interactionCreate', async interaction => {
     if(interaction.customId === 'hellandreset'){
 
     }
+
+    if(interaction.customId === 'hellandreset' || interaction.customId === 'hell'){
+        
+    }
 });
 
 client.login(process.env.BOT_TOKEN);
