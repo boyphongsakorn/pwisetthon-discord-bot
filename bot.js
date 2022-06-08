@@ -266,6 +266,10 @@ client.once('ready', () => {
             .then(async function (message) {
                 //log message id
                 console.log(message.id);
+                //wait 5 sec
+                await new Promise(resolve => setTimeout(resolve, 5000));
+                //delete message
+                client.channels.cache.get('908708400379097184').messages.cache.get(message.id).delete();
             });
         console.log('I am ready!');
     });
