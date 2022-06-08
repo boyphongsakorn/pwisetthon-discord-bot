@@ -261,7 +261,12 @@ client.once('ready', () => {
         client.users.fetch('133439202556641280').then(dm => {
             dm.send('Bot เริ่มต้นการทำงานแล้ว')
         });
-
+        //send ok to channel 908708400379097184 and get message id
+        client.channels.cache.get('908708400379097184').send('Bot เริ่มต้นการทำงานแล้ว')
+            .then(async function (message) {
+                //log message id
+                console.log(message.id);
+            });
         console.log('I am ready!');
     });
 });
