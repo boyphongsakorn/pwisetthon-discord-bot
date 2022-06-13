@@ -724,7 +724,7 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                         for (let i = 0; i < wow.length; i++) {
                             try {
                                 if (imagegood == true) {
-                                    client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
+                                    await client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
                                         .then((log) => {
                                             console.log(log);
                                             //push message id and channel id to messid
@@ -740,7 +740,7 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                                             })
                                         });
                                 } else {
-                                    client.channels.cache.get(wow[i]).send({ embeds: [msg] })
+                                    await client.channels.cache.get(wow[i]).send({ embeds: [msg] })
                                         .then((log) => {
                                             console.log(log);
                                             //push message id and channel id to messid
