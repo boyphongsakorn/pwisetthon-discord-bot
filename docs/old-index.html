@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWisetthon.com Discord Bot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="icon" href="https://i.ibb.co/4mvNWrt/favlogo.png" type="image/png">
+</head>
+
+<body style="font-family: 'Mitr', sans-serif;overflow: hidden">
+    <div style="z-index: 1000;width:100%;height:100%;background-color: white;position: absolute;font-size: 100px;text-align: center;background-image: url(https://wpamelia.com/wp-content/uploads/2018/11/ezgif-2-6d0b072c3d3f.gif);background-position: center;background-repeat: no-repeat;" id="loadingdiv"><!--img src="https://upload.wikimedia.org/wikipedia/commons/5/54/Ajux_loader.gif" style="display: block;margin: 0 auto;"--></div>
+    <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
+        <div class="container">
+            <strong>โอ้!</strong> เรามีหน้าเว็บแบบใหม่ด้วยนะ ลองดู<a href="https://discordbot.pwisetthon.com/new-index.html">ที่นี่</a>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://i.ibb.co/4mvNWrt/favlogo.png" alt="" width="30"> PWisetthon.com Discord Bot
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://lotto.teamquadb.in.th/discordbot">เชิญบอท</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://status.teamquadb.in.th/">สถานะบอท</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            เพิ่มเติม
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="https://ko-fi.com/boyphongsakorn">ซื้อ กา-แฟ ให้บอท</a>
+                            </li>
+                            <li><a class="dropdown-item" href="https://www.buymeacoffee.com/boyphongsakorn">ซื้อ กาแฟ
+                                    ให้บอท</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="https://discord.gg/j7xce5hxUf">ดิสซับพอร์ต</a></li>
+                        </ul>
+                    </li>
+                    <!-- <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+              </li> -->
+                </ul>
+                <!--form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form!-->
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid bg-dark bg-gradient">
+        <div class="container p-5 text-center text-white">
+            <div class="row d-none">
+                <div class="col-12 col-lg-6 my-auto">
+                    <h1>PWisetthon.com Discord Bot</h1>
+                    <p>My First Discord Bot For Thai Lottery and more...</p>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <img src="https://i.imgur.com/CZ7rYk6.png" class="w-50"><br>
+                    <p class="px-5 my-1">เป็นบอทแรกของผมที่เริ่มต้นในการทำบอท เริ่มต้นด้วยการเช็คหรือติดตามสลากกินแบ่งฯและอื่นๆในอนาคต</p>
+                    <a type="button" href="https://lotto.teamquadb.in.th/discordbot" class="btn" style="background:linear-gradient(254deg, rgba(255,215,0,1) 0%, rgba(240,230,140,1) 81%, rgba(250,250,210,1) 100%);">เชิญบอทเข้าดิส</a> <a type="button" class="btn bg-danger bg-gradient" href="#troubleshooting">วิธีแก้ไขปัญหาเบื้องต้น</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid bg-primary bg-gradient">
+        <div class="container p-3">
+            <!--div class="row">
+                <div class="col text-center my-auto py-auto">
+                    <img src="https://i.imgur.com/CZ7rYk6.png" class="w-50"><br>
+                    <p class="px-5 my-1">เป็นบอทแรกของผมที่เริ่มต้นในการทำบอท เริ่มต้นด้วยการเช็คหรือติดตามสลากกินแบ่งฯและอื่นๆในอนาคต
+                    </p>
+                    <button type="button" class="btn" style="background:linear-gradient(254deg, rgba(255,215,0,1) 0%, rgba(240,230,140,1) 81%, rgba(250,250,210,1) 100%);">เชิญบอทเข้าดิส</button>
+                </div>
+                <div class="col text-center my-auto py-auto"!-->
+                    <div class="row d-none">
+                        <div class="col-6 col-lg-3 text-center">
+                            <p class="fs-2"><i class="fas fa-user-plus"></i> เชิญไปทั้งหมด</p><br>
+                            <p class="d-inline fs-3" id="serverjoin"><span class="placeholder col-12"></span></p> <p class="fs-3 d-inline">เซิร์ฟเวอร์</p>
+                        </div>
+                        <div class="col-6 col-lg-3 text-center">
+                            <p class="fs-2"><i class="fas fa-signal"></i> ตอนนี้บอททำงาน</p><br>
+                            <p class="fs-3" id="botstatus"><span class="placeholder col-12"></span></p>
+                        </div>
+                        <div class="col-6 col-lg-3 text-center">
+                            <p class="fs-3"><i class="fas fa-spinner"></i> การตอบสนองของบอท</p><br>
+                            <p class="fs-3" id="respo"><span class="placeholder col-12"></span></p>
+                        </div>
+                        <div class="col-6 col-lg-3 text-center">
+                            <p class="fs-2"><i class="fas fa-server"></i> เวอร์ชั่นบอท</p><br>
+                            <p class="fs-3">0.0.5</p>
+                        </div>
+                    </div>
+                <!--/div>
+            </div-->
+        </div>
+    </div>
+
+    <div class="container-fluid py-3 bg-success bg-gradient">
+        <div class="container text-center">
+            <div class="row d-none">
+                <div class="col test-kak">
+                    Thai Lottery API : <p id="tlapistatus" class="d-inline"><i class="fas fa-spinner fa-pulse"></i></p>
+                </div>
+                <div class="col test-kak">
+                    Lottery Result Image API : <p id="tlimageapistatus" class="d-inline"><i class="fas fa-spinner fa-pulse"></i></p>
+                </div>
+                <div class="col test-kak">
+                    Database : <p id="databasestatus" class="d-inline"><i class="fas fa-spinner fa-pulse"></i></p>
+                </div>
+                <div class="col test-kak">
+                    glo.or.th : <p id="glowebsitestatus" class="d-inline"><i class="fas fa-spinner fa-pulse"></i></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-3 bg-dark bg-gradient text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <img data-src="https://i.imgur.com/6xOpGYI.gif" class="w-75 shadow rounded-3 lazy">
+                </div>
+                <div class="col text-center my-auto">
+                    <h2 class="mb-3"><i class="fas fa-search"></i> ดูใบตรวจล็อตเตอร์รี่ 25 งวดล่าสุด <img src="http://xn--72cz8cn7azg.com/wp-content/uploads/2018/05/new_gif.gif" width="45px"></h2>
+                    <figure>
+                        <figcaption class="blockquote-footer">
+                            ใช้คำสั่ง <cite title="Source Title">/lotsheet</cite> ในการดึงใบตรวจล็อตเตอร์รี่ 25 งวดล่าสุด
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-3 bg-light bg-gradient">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center my-auto">
+                    <h2 class="mb-3"><i class="fas fa-search"></i> ตรวจสลากฯล่าสุด ด้วยการคลิกขวา <!-- new gif --> <img src="http://xn--72cz8cn7azg.com/wp-content/uploads/2018/05/new_gif.gif" width="45px"> </h2>
+                    <figure>
+                        <figcaption class="blockquote-footer">
+                            <cite title="Source Title">คลิกขวาที่ข้อความตัวเลข</cite> ในการตรวจสลากฯล่าสุด
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="col text-center">
+                    <img data-src="https://i.imgur.com/jLt82Ij.gif" class="w-75 shadow rounded-3 lazy">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-3 bg-dark bg-gradient text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <img data-src="https://i.imgur.com/B7o0vBc.gif" class="w-75 shadow rounded-3 lazy">
+                </div>
+                <div class="col text-center my-auto">
+                    <h2 class="mb-3"><i class="fas fa-search"></i> ตรวจสลากฯล่าสุด ด้วยตัวเลข</h2>
+                    <figure>
+                        <figcaption class="blockquote-footer">
+                            ใช้คำสั่ง <cite title="Source Title">/srchlot ตัวเลข</cite> ในการตรวจสลากฯล่าสุด
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-3 bg-light bg-gradient">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center my-auto">
+                    <h2 class="mb-3"><i class="fas fa-check"></i> ดูเลขสลากกินแบ่งฯล่าสุด</h2>
+                    <figure>
+                        <figcaption class="blockquote-footer">
+                            ใช้คำสั่ง <cite title="Source Title">/lastlotto</cite> ในการดูเลขสลากกินแบ่งฯล่าสุด
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="col text-center">
+                    <img data-src="https://i.imgur.com/c9LcVmZ.gif" class="w-75 shadow rounded-3 lazy">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-3 bg-dark bg-gradient text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <img data-src="https://i.imgur.com/whSGgX6.gif" class="w-75 shadow rounded-3 lazy">
+                </div>
+                <div class="col text-center my-auto">
+                    <h2 class="mb-3"><i class="fas fa-paper-plane"></i> สมัครติดตามสลากกินแบ่งฯ</h2>
+                    <figure>
+                        <figcaption class="blockquote-footer">
+                            ใช้คำสั่ง <cite title="Source Title">/fthlotto</cite> ในการสมัครติดตามสลากกินแบ่งฯ
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-3 bg-light bg-gradient">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center my-auto">
+                    <h2 class="mb-3"><i class="fas fa-times"></i> ยกเลิกสมัครติดตามสลากกินแบ่งฯ</h2>
+                    <figure>
+                        <figcaption class="blockquote-footer">
+                            ใช้คำสั่ง <cite title="Source Title">/cthlotto</cite> ในการยกเลิกสมัครติดตามสลากกินแบ่งฯ
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="col text-center">
+                    <img data-src="https://i.imgur.com/1f6zGjt.gif" class="w-75 shadow rounded-3 lazy">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--div class="container-fluid py-3 bg-primary bg-gradient" id="troubleshooting">
+        <div class="container lazy" data-lazy-function="foo">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 text-center">
+                    <h2>Thai Lottery API</h2><br>
+                    <h3 id="tlapistatus"><span class="placeholder col-12"></span></h3>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 text-center">
+                    <h2>TL Result Image API</h2><br>
+                    <h3 id="tlimageapistatus"><span class="placeholder col-12"></span></h3>
+                </div>
+                <div class="col-12 col-md-12 col-lg-4 text-center">
+                    <h2>glo.or.th</h2><br>
+                    <h3 id="glowebsitestatus"><span class="placeholder col-12"></span></h3>
+                </div>
+            </div>
+        </div>
+    </div-->
+
+    <!-- container-fluid > container -->
+    <div class="container-fluid py-3 bg-dark bg-gradient text-white" id="troubleshooting">
+        <div class="container px-5">
+            <p class="fs-1 text-center">แก้ไขปัญหาเบื้องต้น</p>
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-sendfail-tab" data-bs-toggle="tab" data-bs-target="#nav-sendfail" type="button" role="tab" aria-controls="nav-sendfail" aria-selected="true">สลากฯออกครบหมดแล้ว แต่ไม่เห็นบอทส่งอะไรมาเลย</button>
+                  <button class="nav-link" id="nav-nocommand-tab" data-bs-toggle="tab" data-bs-target="#nav-nocommand" type="button" role="tab" aria-controls="nav-nocommand" aria-selected="false">ไม่มีคำสั่งในดิสของฉัน</button>
+                  <button class="nav-link" id="nav-response-tab" data-bs-toggle="tab" data-bs-target="#nav-response" type="button" role="tab" aria-controls="nav-response" aria-selected="false">ใช้คำสั่งแล้วขึ้นข้อความสีแดง</button>
+                  <button class="nav-link" id="nav-longimgresponse-tab" data-bs-toggle="tab" data-bs-target="#nav-longimgresponse" type="button" role="tab" aria-controls="nav-longimgresponse" aria-selected="false">ข้อความสรุปผลสลากฯไม่ขึ้นรูปหรือรูปขาว</button>
+                </div>
+            </nav>
+            <div class="tab-content bg-white bg-gradient text-black" id="nav-tabContent">
+                <div class="tab-pane fade p-3 show active" id="nav-sendfail" role="tabpanel" aria-labelledby="nav-sendfail-tab">
+                    ปัญหาเกิดจากบอทอาจจะไม่ทำงานในเวลานั้นเพราะ
+                    <ul class="list-group my-1">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        ไฟฟ้าที่ตั้งเซิฟเวอร์ดับ
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        เน็ตที่ตั้งเซิฟเวอร์ไม่สามารถใช้งานได้เซิฟเวอร์ไม่ทำงาน
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        หรือเป็นที่ API ของ สลากฯ หรือ เป็นที่ตัวบอทโดยไม่มีสาเหตุ
+                      </li>
+                    </ul>
+                    สามารถเช็คสถานะของดิสบอทได้ <a href="https://status.teamquadb.in.th/service/discord-bot">ที่นี้</a> เมื่อบอทกลับมาทำงานในเวลา 15:00 ถึง 18:00 ดิสจะทำการส่งสลากฯให้ทันที<br>
+                    ถ้าหลังจากเวลา 18:00 แล้วไม่มีการส่งเกิดขึ้นก็จะไม่มีการส่งอะไรอีกในวันนั้น
+                </div>
+                <div class="tab-pane fade p-3" id="nav-nocommand" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    ปัญหาเกิดจากบอทอาจจะไม่ทำงานในเวลาที่คุณเชิญบอททำให้ไม่มีการลงทะเบียนคำสั่งลงดิสของคุณหลังจากการเชิญเนื่องจาก
+                    <ul class="list-group my-1">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ไฟฟ้าที่ตั้งเซิฟเวอร์ดับ 
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            เน็ตที่ตั้งเซิฟเวอร์ไม่สามารถใช้งานได้
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            เซิฟเวอร์ที่บอทอยู่ไม่ทำงาน
+                        </li>
+                    </ul>
+                    คุณสามารถเช็คสถานะของดิสบอทได้ที่นี้ <a href="https://status.teamquadb.in.th/service/discord-bot">status.teamquadb.in.th</a> เมื่อบอททำงานแล้วโปรดใช้คำสั่งอีกครั้ง<br>
+                    หรือเกิดจากตัวบอทไม่รับคำสั่ง หรือ เกิดจากตอนเชิญไม่มีการอนุญาต "สร้างคำสั่ง Slash ในเซิร์ฟเวอร์"<br>
+                    <img src="https://boy1556.gitbook.io/~/files/v0/b/gitbook-28427.appspot.com/o/assets%2F-MbgPUgEyuGKJOWOS2ZF%2F-MbgYB0FnlTvnNKj5KhQ%2F-Mbg_jFXA4YT9jLm3EId%2FCapture63.PNG?alt=media&token=1d9933ac-9b78-4cbd-86bc-493102ccb776" class="img-fluid" alt="Responsive image">
+                    <br>ให้ทำการเตะบอทออก แล้วทำการเชิญบอทใหม่โดยให้เช็คว่ามีการอนุญาต "สร้างคำสั่ง Slash ในเซิร์ฟเวอร์" หรือไม่<br>
+                    ถ้าคุณทำทุกอย่างแต่ไม่เห็นคำสั่งโปรดติดต่อที่ดิส <a href="https://discord.gg/j7xce5hxUf">Support</a> ของเรา
+                </div>
+                <div class="tab-pane fade p-3" id="nav-response" role="tabpanel" aria-labelledby="nav-response-tab">
+                    ปัญหาเกิดจากบอทอาจจะไม่ทำงานในเวลานั้นเนื่องจาก
+                    <ul class="list-group my-1">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ไฟฟ้าที่ตั้งเซิฟเวอร์ดับ 
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            เน็ตที่ตั้งเซิฟเวอร์ไม่สามารถใช้งานได้
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            เซิฟเวอร์ทำงานช้าหรือดึงข้อมูลช้าเซิฟเวอร์
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            เซิฟเวอร์ไม่ทำงาน
+                        </li>
+                    </ul>
+                    สามารถเช็คสถานะของดิสบอทได้ที่นี้ <a href="https://status.teamquadb.in.th/service/discord-bot">status.teamquadb.in.th</a> เมื่อดิสทำงานแล้วโปรดใช้คำสั่งอีกครั้ง<br>
+                    ถ้าคุณลองหลายครั้งแล้วแต่ยังเป็นเหมือนเดิมโปรดติดต่อที่ดิส <a href="https://discord.gg/j7xce5hxUf">Support</a> ของเรา
+                </div>
+                <div class="tab-pane fade p-3" id="nav-longimgresponse" role="tabpanel" aria-labelledby="nav-longimgresponse-tab">
+                    เกิดจากเซิฟเวอร์ในการสร้างรูปช้าในบ้างเวลา หรือ เน็ตของคุณช้าเกินไป<br>
+                    ถ้าคุณสังเกตแล้วว่ารูปไม่ขึ้นหลายครั้ง โปรดติดต่อที่ดิส <a href="https://discord.gg/j7xce5hxUf">Support</a> ของเรา
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- container-fluid > container -->
+    <div class="container-fluid py-3 bg-light bg-gradient">
+        <div class="container">
+            <p class="fs-2 text-center">สนันสนุนและช่วยออกค่าเซิฟเวอร์</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">สนันสนุนกาแฟให้ผม</h5>
+                            <p class="card-text">สนันสนุนดิสบอทของเราด้วยการซื้อกาแฟหรือกา-แฟให้เรา</p>
+                            <!-- half col -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="https://ko-fi.com/boyphongsakorn" target="_blank">
+                                        <img src="https://cdn.ko-fi.com/cdn/kofi5.png?v=2" class="img-fluid" alt="Buy Me a Coffee at ko-fi.com" border="0" />
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="https://www.buymeacoffee.com/boyphongsakorn" target="_blank">
+                                        <img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" class="img-fluid" alt="Buy Me a Coffee at Buy Me a Coffee" border="0" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">ดิสคอร์ดซับพอร์ต</h5>
+                            <p class="card-text">ติดต่อ,สอบถาม,แจ้งปัญหาหรือแจ้งบัคของบอทได้ที่ ดิสคอร์ดซับพอร์ตของเรา</p>
+                            <a href="https://discord.gg/j7xce5hxUf" class="btn btn-primary">สนันสนุนเซิฟเวอร์</a>
+                        </div>
+                    </div>
+                </div>
+                <!--div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">ดิสคอร์ดซับพอร์ต</h5>
+                            <p class="card-text">ติดต่อ,สอบถาม,แจ้งปัญหาหรือแจ้งบัคของบอทได้ที่ ดิสคอร์ดซับพอร์ตของเรา</p>
+                            <!--a href="https://discord.gg/j7xce5hxUf" class="btn btn-primary">ดิสคอร์ดซับพอร์ต</a-->
+                            <!--iframe src="https://discord.com/widget?id=844173039520317470&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                        </div>
+                    </div>
+                </div-->
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark bg-gradient text-white">
+        <div class="container pt-3">
+            <div class="row">
+                <div class="col text-center">
+                    <p class="lead" id="thisyear">
+                        <span id="copyright">&copy; Copyright . <a href="https://pwisetthon.com" class="text-decoration-none text-reset">PWisetthon.com</a> All Rights Reserved.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.5.0/dist/lazyload.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <script>
+    window.onload = (event) => {
+        //alert('test');
+        document.body.style.overflow = 'auto';
+        anime({
+            targets: '#loadingdiv',
+            opacity: 0,
+            duration: 1500,
+            easing: 'linear',
+            direction: 'alternate',
+            loop: false,
+            complete: function(anim) {
+                document.getElementById('loadingdiv').style.display = 'none';
+                fuckingload()
+            }
+        })
+
+        anime({
+            targets: '.col-6',
+            opacity: 0,
+            translateX: -50,
+            duration: 2000,
+            direction: 'reverse',
+            easing: 'spring(1, 80, 10, 0)',
+            begin: function(anim) {
+                document.getElementsByClassName("row")[0].style.setProperty("display", "flex", "important")
+                document.getElementsByClassName("row")[1].style.setProperty("display", "flex", "important")
+            },
+            delay: function(el, i) {
+			  return 600 * i;
+		    },
+        });
+
+        anime({
+            targets: '.col-lg-6',
+            opacity: 0,
+            translateY: [0, 100],
+            duration: 2000,
+            direction: 'reverse',
+            easing: 'easeInOutSine',
+            begin: function(anim) {
+                document.getElementsByClassName("row")[0].style.setProperty("display", "flex", "important")
+                document.getElementsByClassName("row")[1].style.setProperty("display", "flex", "important")
+            },
+            delay: function(el, i) {
+			  return 600 * i;
+		    },
+        });
+
+        anime({
+            targets: '.test-kak',
+            opacity: 0,
+            translateX: 50,
+            duration: 2000,
+            direction: 'reverse',
+            easing: 'spring(1, 80, 10, 0)',
+            begin: function(anim) {
+                document.getElementsByClassName("row")[2].style.setProperty("display", "flex", "important")
+                //document.getElementsByClassName("row")[1].style.setProperty("display", "flex", "important")
+            },
+            delay: function(el, i) {
+			  return 600 * i;
+		    },
+        });
+
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var c = url.searchParams.get("betaindex");
+        if(c==1 || c== '1'){
+            document.getElementsByClassName("navbar")[0].style.setProperty("display", "none", "important")
+            document.getElementsByClassName("alert-warning")[0].style.setProperty("display", "none", "important")
+        }
+
+        //innerText this year to thisyear id
+        var d = new Date();
+        var n = d.getFullYear();
+        document.getElementById("thisyear").innerHTML = "<span id=\"copyright\">&copy; Copyright "+n+". <a href=\"https://pwisetthon.com\" class=\"text-decoration-none text-reset\">PWisetthon.com</a> All Rights Reserved.</span>"
+    };
+
+    function fuckingload() {
+        window.lazyFunctions = {
+            foo: function (element) {
+                //alert('foo');
+                anime({
+                    targets: '.col-lg-4',
+                    opacity: 0,
+                    translateY: [0, 100],
+                    duration: 2000,
+                    direction: 'reverse',
+                    easing: 'easeInOutSine',
+                    begin: function(anim) {
+                        document.getElementsByClassName("row")[0].style.setProperty("display", "flex", "important")
+                        document.getElementsByClassName("row")[1].style.setProperty("display", "flex", "important")
+                    },
+                    delay: function(el, i) {
+                    return 600 * i;
+                    },
+                });
+            }
+        };
+
+        function executeLazyScript(element) {
+          //logElementEvent("🔑 ENTERED", element);
+          var lazyFunctionName = element.getAttribute("data-lazy-function");
+          var lazyFunction = lazyFunctions[lazyFunctionName];
+          if (!lazyFunction) return;
+          lazyFunction(element);
+        }
+
+        var lazyLoadInstance = new LazyLoad({
+            unobserve_entered: true,
+            callback_enter: executeLazyScript
+        });
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        fetch("https://dbstatus.pwisetthon.com/count", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                anime({
+                    targets: document.getElementById("serverjoin"),
+                    innerText: [0, parseInt(result)],
+                    round: 1,
+                    easing: 'easeInOutExpo'
+                });
+            })
+            .catch(error => {
+                document.getElementById("serverjoin").innerText = "N/A"
+            });
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        fetch("https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/11", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result["online"]) {
+                    if(result["online_24_hours"] < 100){
+                        //convert from 2021-11-12T17:36:19.167819114Z to day month year hour minute
+                        var date = new Date(result["last_success"]);
+                        var day = date.getDate();
+                        var month = date.getMonth() + 1;
+                        var year = date.getFullYear();
+                        //var hour = date.getHours();
+                        //var minute = date.getMinutes();
+                        var hour = result["last_success"].match(/\d\d:\d\d/);
+                        anime({
+                            targets: document.getElementById("botstatus"),
+                            //innerHTML: "ปกติ (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"popover\" title=\"ก่อนหน้านี้ไม่สามารถติดต่อได้\" data-bs-content=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+hour+":"+minute+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
+                            innerHTML: "มีปัญหา (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+hour+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
+                            round: 1,
+                            easing: 'easeInOutExpo',
+                            complete: function() {
+                                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                                    return new bootstrap.Tooltip(tooltipTriggerEl)
+                                })
+                            }
+                        });
+                    }else{
+                        anime({
+                            targets: document.getElementById("botstatus"),
+                            innerText: "ปกติ (" + [parseInt(result["online_24_hours"])] + "%)",
+                            round: 1,
+                            easing: 'easeInOutExpo'
+                        });
+                    }
+                    anime({
+                        targets: document.getElementById("respo"),
+                        innerText: [parseInt(result["latency"])] + " μs",
+                        round: 1,
+                        easing: 'easeInOutExpo'
+                    });
+                } else {
+                    document.getElementById("botstatus").innerText = "ไม่สามารถติดต่อได้";
+                    document.getElementById("respo").innerText = "0 μs";
+                }
+            })
+            .catch(error => {
+                document.getElementById("botstatus").innerText = "ไม่สามารถติดต่อได้";
+                document.getElementById("respo").innerText = "0 μs";
+            });
+
+        fetch("https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/9", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result["online"]) {
+                    document.getElementById("tlapistatus").innerText = "ออนไลน์";
+                } else {
+                    document.getElementById("tlapistatus").innerText = "ออฟไลน์";
+                }
+            })
+            .catch(error => document.getElementById("tlapistatus").innerText = "ออฟไลน์");
+
+        fetch("https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/12", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result["online"]) {
+                    document.getElementById("tlimageapistatus").innerText = "ออนไลน์";
+                } else {
+                    document.getElementById("tlimageapistatus").innerText = "ออฟไลน์";
+                }
+            })
+            .catch(error => document.getElementById("tlimageapistatus").innerText = "ออฟไลน์");
+
+        fetch("https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/19", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result["online"]) {
+                    document.getElementById("databasestatus").innerText = "ออนไลน์";
+                } else {
+                    document.getElementById("databasestatus").innerText = "ออฟไลน์";
+                }
+            })
+            .catch(error => document.getElementById("databasestatus").innerText = "ออฟไลน์");
+
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "date": "01",
+            "month": "11",
+            "year": "2021"
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("https://anywhere.pwisetthon.com/https://www.glo.or.th/api/lottery/getLotteryAward", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result["status"]) {
+                    document.getElementById("glowebsitestatus").innerText = "ออนไลน์";
+                } else {
+                    document.getElementById("glowebsitestatus").innerText = "ออฟไลน์";
+                }
+            })
+            .catch(error => {
+                document.getElementById("glowebsitestatus").innerText = "ออฟไลน์";
+            });
+
+        fetch("https://discordapp.com/api/guilds/844173039520317470/widget.json")
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById("usercount").innerText = result["presence_count"]+" คน";
+            })
+            .catch(error => {
+                document.getElementById("usercount").innerText = "N/A";
+            });
+    }
+    </script>
+</body>
+
+</html>
