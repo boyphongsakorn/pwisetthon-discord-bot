@@ -12,13 +12,12 @@
   },
   "homepage": "https://github.com/boyphongsakorn/pwisetthon-discord-bot#readme",
   "dependencies": {
-    "cron": "^1.8.2",
-    "discord.js": "^13.5.0",
-    "dotenv": "^9.0.2",
+    "cron": "^2.0.0",
+    "discord.js": "^13.8.0",
+    "dotenv": "^16.0.1",
     "mysql": "^2.18.1",
-    "node-fetch": "^3.2.0",
-    "pdf-images": "^1.0.2",
-    "png-to-jpeg": "^1.0.1",
-    "request": "^2.88.2"
+    "node-fetch": "^3.2.6",
+    "pdf-images": "^1.1.0",
+    "png-to-jpeg": "^1.0.1"
   }
 }
