@@ -7,8 +7,6 @@ const pngToJpeg = require('png-to-jpeg');
 var mysql = require('mysql');
 const { channel } = require('diagnostics_channel');
 
-require('dotenv').config();
-
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 //create mysql connection
@@ -186,7 +184,7 @@ async function guildCommandCreate(guildid) {
 
         commands?.create({
             name: 'checkblacklist',
-            description: 'ตรวจสอบรายชื่อคนโกง (เร็วๆนี้)',
+            description: 'ตรวจสอบรายชื่อคนโกง',
             options: [{
                 type: 3,
                 name: 'search',
