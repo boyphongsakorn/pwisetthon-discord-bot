@@ -1918,7 +1918,7 @@ client.on('interactionCreate', async interaction => {
         let month = today.getMonth() + 1;
         let thaiyear = today.getFullYear() + 543;
         let todayformat = day + '/' + month + '/' + thaiyear;
-        let hellsql = 'SELECT messid FROM hell WHERE date = \'' + todayformat + '\'';
+        let hellsql = 'SELECT messid FROM hell WHERE date = \'' + todayformat + '\' LIMIT 1';
         con.query(hellsql, async (err, result) => {
             if (err) throw err;
             //convert result[0].messid from json text to json object
