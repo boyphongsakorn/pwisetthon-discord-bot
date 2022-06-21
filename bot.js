@@ -1912,6 +1912,25 @@ client.on('interactionCreate', async interaction => {
     }
 
     if(interaction.customId === 'hell' ){
+        
+    }
+
+    if(interaction.customId === 'hellandreset'){
+        await fetch('https://topapi.pwisetthon.com')
+        .then(res => res.json())
+        .then(async (res) => {
+            let resetsql = 'DELETE FROM oilprice WHERE date = "' + res[0][0] + '"';
+            con.query(resetsql, function (err, result) {
+                if (err) throw err;
+                console.log("Number of records deleted: " + result.affectedRows);
+            });
+        })
+        .catch(async (err) => {
+            console.log(err);
+        })
+    }
+
+    if(interaction.customId === 'hellandreset' || interaction.customId === 'hell'){
         //get today format day/month/thaiyear
         let today = new Date();
         let day = today.getDate();
@@ -1935,14 +1954,6 @@ client.on('interactionCreate', async interaction => {
                 }
             }
         })
-    }
-
-    if(interaction.customId === 'hellandreset'){
-
-    }
-
-    if(interaction.customId === 'hellandreset' || interaction.customId === 'hell'){
-        
     }
 });
 
