@@ -1926,13 +1926,9 @@ client.on('interactionCreate', async interaction => {
             //loop messid
             for (let i = 0; i < messid.length; i++) {
                 //delete message by messid and chanelid
-                console.log(messid[i].chanelid)
-                console.log(messid[i].messid)
-                console.log(isNaN(messid[i].chanelid))
-                console.log(isNaN(messid[i].messid))
                 try {
-                    client.channels.cache.get(messid[i].chanelid).messages.cache.get(messid[i].messid).delete();
-                    //client.channels.cache.get(messid[i].chanelid).message.cache.get(messid[i].messid).delete();
+                    //client.channels.cache.get(messid[i].chanelid).messages.cache.get(messid[i].messid).delete();
+                    client.channels.cache.get(messid[i].chanelid).fetchMessage(messid[i].messid).then(msg => msg.delete());
                 } catch (error) {
                     console.log(error)
                 }
