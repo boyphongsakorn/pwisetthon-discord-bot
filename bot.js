@@ -1926,7 +1926,13 @@ client.on('interactionCreate', async interaction => {
             //loop messid
             for (let i = 0; i < messid.length; i++) {
                 //delete message by messid and chanelid
-                client.channels.cache.get(messid[i].chanelid).messages.cache.get(messid[i].messid).delete();
+                console.log(messid[i].chanelid)
+                console.log(messid[i].messid)
+                try {
+                    client.channels.cache.get(messid[i].chanelid).messages.cache.get(messid[i].messid).delete();
+                } catch (error) {
+                    console.log(error)
+                }
             }
         })
     }
