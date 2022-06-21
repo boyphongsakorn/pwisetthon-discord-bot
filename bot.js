@@ -1932,7 +1932,7 @@ client.on('interactionCreate', async interaction => {
                 console.log(isNaN(messid[i].messid))
                 try {
                     client.channels.cache.get(messid[i].chanelid).messages.cache.get(messid[i].messid).delete();
-                    client.channels.cache.get(messid[i].chanelid).message.cache.get(messid[i].messid).delete();
+                    //client.channels.cache.get(messid[i].chanelid).message.cache.get(messid[i].messid).delete();
                 } catch (error) {
                     console.log(error)
                 }
