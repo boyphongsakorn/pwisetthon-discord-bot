@@ -672,7 +672,7 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                         const wow = data;
                         let imagegood = false;
 
-                        await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+                        await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000',{ timeout: 7500 })
                             .then(res => res.buffer())
                             .then(async (res) => {
                                 await fs.writeFileSync('./lastoilprice.png', res)
