@@ -667,6 +667,16 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                     var sql = 'INSERT INTO oilprice VALUES ("' + json[0][0] + '", ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
                     con.query(sql, async function (err, result) {
                         if (err) throw err;
+
+                        //set Presence
+                        if(parseInt(json[2][8]) > 0){
+                            client.user.setPresence({ activities: [{ name: 'เซ็ง 91 ขึ้นอีกละ | discordbot.pwisetthon.com' }], status: 'online' });
+                            //after 1 hour set back to default
+                            setTimeout(() => {
+                                client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
+                            }, 3600000);
+                        }
+
                         const response = await fetch(process.env.URL + '/discordbot/oilchlist.txt', { method: 'GET' });
                         const data = await response.json();
                         const wow = data;
