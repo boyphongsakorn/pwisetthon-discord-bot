@@ -1921,25 +1921,6 @@ client.on('interactionCreate', async interaction => {
         //await interaction.editReply('เปิดใช้งาน เร็วๆนี้...');
     }
 
-    if(interaction.customId === 'hell' ){
-        
-    }
-
-    if(interaction.customId === 'hellandreset'){
-        await fetch('https://topapi.pwisetthon.com')
-        .then(res => res.json())
-        .then(async (res) => {
-            let resetsql = 'DELETE FROM oilprice WHERE date = "' + res[0][0] + '"';
-            con.query(resetsql, function (err, result) {
-                if (err) throw err;
-                console.log("Number of records deleted: " + result.affectedRows);
-            });
-        })
-        .catch(async (err) => {
-            console.log(err);
-        })
-    }
-
     if(interaction.customId === 'hellandreset' || interaction.customId === 'hell'){
         //get today format day/month/thaiyear
         let today = new Date();
@@ -1959,11 +1940,40 @@ client.on('interactionCreate', async interaction => {
                     //client.channels.cache.get(messid[i].chanelid).messages.cache.get(messid[i].messid).delete();
                     client.channels.cache.get(messid[i].chanelid).messages.fetch(messid[i].messid).then(message => message.delete());
                     //client.channels.cache.get(messid[i].chanelid).fetchMessage(messid[i].messid).then(msg => msg.delete());
+                    console.log('delete message ' + messid[i].messid + ' in ' + messid[i].chanelid + ' success');
                 } catch (error) {
                     console.log(error)
                 }
             }
         })
+
+        if(interaction.customId === 'hellandreset'){
+            await fetch('https://topapi.pwisetthon.com')
+            .then(res => res.json())
+            .then(async (res) => {
+                let resetsql = 'DELETE FROM oilprice WHERE date = "' + res[0][0] + '"';
+                con.query(resetsql, function (err, result) {
+                    if (err) throw err;
+                    console.log("Number of records deleted: " + result.affectedRows);
+                });
+                //spilt res[0][0] to get date by /
+                let date = res[0][0].split('/');
+                let datenumber = parseInt(date[0])-1;
+                let datemonth = parseInt(date[1]);
+                let dateyear = date[2];
+                date = datenumber + '/' + datemonth + '/' + dateyear;
+                resetsql = 'DELETE FROM hell WHERE date = "' + date + '"';
+                con.query(resetsql, function (err, result) {
+                    if (err) throw err;
+                    console.log("Number of records deleted: " + result.affectedRows);
+                })
+            })
+            .catch(async (err) => {
+                console.log(err);
+            })
+        }
+
+        await interaction.editReply('กำลังล้างข้อมูล...');
     }
 });
 
