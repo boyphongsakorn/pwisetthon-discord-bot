@@ -714,7 +714,7 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                         let todays = new Date();
                         let oilday = new Date(json[0][0].substring(6, 10) + '-' + json[0][0].substring(3, 5) + '-' + json[0][0].substring(0, 2));
 
-                        let desctext;
+                        let desctext = 'ราคาน้ำมันมีการเปลี่ยนแปลงสำหรับวันพรุ่งนี้ (วันที่ ' + json[0][0].substring(0, 2) + ' ' + convertmonthtotext(json[0][0].substring(3, 5)) + ' ' + json[0][0].substring(6, 10) + ')';
 
                         //if todays == oilday
                         if (todays.getDate() == oilday.getDate()) {
