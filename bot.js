@@ -719,7 +719,7 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                         //if todays == oilday
                         if (todays.getDate() == oilday.getDate()) {
                             desctext = 'นี้';
-                        }else if (todays.getDate() == oilday.getDate() + 1) {
+                        } else {
                             desctext = 'พรุ่งนี้';
                         }
 
