@@ -714,13 +714,13 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                         let todays = new Date();
                         let oilday = new Date(json[0][0].substring(6, 10) + '-' + json[0][0].substring(3, 5) + '-' + json[0][0].substring(0, 2));
 
-                        let desctext = 'ราคาน้ำมันมีการเปลี่ยนแปลงสำหรับวันพรุ่งนี้ (วันที่ ' + json[0][0].substring(0, 2) + ' ' + convertmonthtotext(json[0][0].substring(3, 5)) + ' ' + json[0][0].substring(6, 10) + ')';
+                        let desctext
 
                         //if todays == oilday
                         if (todays.getDate() == oilday.getDate()) {
-                            desctext = 'ราคาน้ำมันมีการเปลี่ยนแปลงสำหรับวันนี้ (วันที่ ' + json[0][0].substring(0, 2) + ' ' + convertmonthtotext(json[0][0].substring(3, 5)) + ' ' + json[0][0].substring(6, 10) + ')';
+                            desctext = 'นี้';
                         }else if (todays.getDate() == oilday.getDate() + 1) {
-                            desctext = 'ราคาน้ำมันมีการเปลี่ยนแปลงสำหรับวันพรุ่งนี้ (วันที่ ' + json[0][0].substring(0, 2) + ' ' + convertmonthtotext(json[0][0].substring(3, 5)) + ' ' + json[0][0].substring(6, 10) + ')';
+                            desctext = 'พรุ่งนี้';
                         }
 
                         const files = new MessageAttachment('./lastoilprice.png');
@@ -729,7 +729,7 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                             .setColor('#0099ff')
                             .setTitle('ราคาน้ำมันพรุ่งนี้')
                             .setURL('https://www.bangchak.co.th/th/oilprice/historical')
-                            .setDescription(desctext)
+                            .setDescription('ราคาน้ำมันมีการเปลี่ยนแปลงสำหรับวัน'+ desctext +' (วันที่ ' + json[0][0].substring(0, 2) + ' ' + convertmonthtotext(json[0][0].substring(3, 5)) + ' ' + json[0][0].substring(6, 10) + ')')
                             .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
                             .setImage('attachment://lastoilprice.png')
                             .setTimestamp()
