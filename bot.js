@@ -653,7 +653,24 @@ scheduledMessage.start()
 
 let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
     let nows = new Date();
-
+    // if nows = 3 feb client.user.setAvatar
+    if (nows.getDate() == 1 && nows.getMonth() == 0){
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_mrahny.jpg')
+    } else if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hbd.jpg')
+    } else if(nows.getDate() >= 14 && nows.getDate() <= 16 && nows.getMonth() == 1){
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_makha.jpg')
+    } else if(nows.getDate() >= 11 && nows.getDate() <= 15 && nows.getMonth() == 1){
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_songkran.jpg')
+    } else if(nows.getDate() >= 21 && nows.getDate() <= 23 && nows.getMonth() == 8){
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
+    } else if(nows.getDate() >= 8 && nows.getDate() <= 10 && nows.getMonth() == 11){
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_law.jpg')
+    } else if(nows.getDate() >= 23 && nows.getDate() <= 31 && nows.getMonth() == 11){
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_mrahny.jpg')
+    } else {
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.jpg')
+    }
 
     //fetch http://192.168.31.210:1000 || https://topapi.pwisetthon.com
     fetch('https://thaioilpriceapi-vercel.vercel.app')
