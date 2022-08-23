@@ -6,6 +6,7 @@ var http = require('http');
 const pngToJpeg = require('png-to-jpeg');
 var mysql = require('mysql');
 const { channel } = require('diagnostics_channel');
+const { ClientUser } = require('discord.js');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
@@ -651,6 +652,9 @@ scheduledMessage.start()
 //thaioilprice cron
 
 let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
+    let nows = new Date();
+
+
     //fetch http://192.168.31.210:1000 || https://topapi.pwisetthon.com
     fetch('https://thaioilpriceapi-vercel.vercel.app')
         .then(res => res.json())
