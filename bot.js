@@ -767,7 +767,7 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                                 if (imagegood == true) {
                                     await client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
                                         .then((log) => {
-                                            console.log(log);
+                                            //console.log(log);
                                             //push message id and channel id to messid
                                             messid.push({
                                                 messid: log.id,
@@ -783,7 +783,7 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                                 } else {
                                     await client.channels.cache.get(wow[i]).send({ embeds: [msg] })
                                         .then((log) => {
-                                            console.log(log);
+                                            //console.log(log);
                                             //push message id and channel id to messid
                                             messid.push({
                                                 messid: log.id,
@@ -1955,6 +1955,8 @@ client.on('interactionCreate', async interaction => {
     }
 
     if(interaction.customId === 'hellandreset' || interaction.customId === 'hell'){
+        await interaction.deferReply();
+        
         //get today format day/month/thaiyear
         let today = new Date();
         let day = today.getDate();
@@ -1994,8 +1996,8 @@ client.on('interactionCreate', async interaction => {
                 let datenumber = parseInt(date[0])-1;
                 let datemonth = parseInt(date[1]);
                 let dateyear = date[2];
-                date = datenumber + '/' + datemonth + '/' + dateyear;
-                resetsql = 'DELETE FROM hell WHERE date = "' + date + '"';
+                let newdate = datenumber + '/' + datemonth + '/' + dateyear;
+                resetsql = 'DELETE FROM hell WHERE date = "' + newdate + '"';
                 con.query(resetsql, function (err, result) {
                     if (err) throw err;
                     console.log("Number of records deleted: " + result.affectedRows);
