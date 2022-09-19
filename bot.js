@@ -1250,30 +1250,35 @@ client.on('interactionCreate', async interaction => {
     if (interaction.commandName === 'synumber') {
         await interaction.deferReply({ ephemeral: true });
         let numbertosave = interaction.options.getString('number');
-        //discord user id
-        let userid = interaction.user.id;
-        //date now
-        let date = new Date();
-        //convert date to YYYY-MM-DD h:m:s
-        let dateformat = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-        //time now
-        //let time = date.getTime();
-        //convert time to hms
-        let timeformat = padLeadingZeros(date.getHours(), 2) + '' + padLeadingZeros(date.getMinutes(), 2) + '' + padLeadingZeros(date.getSeconds(), 2);
-        //get last 4 userid
-        let last4userid = userid.substring(userid.length - 4);
-        //create lott id = date/time/last4userid
-        let lottid = padLeadingZeros(date.getDate(), 2) + '' + padLeadingZeros(date.getMonth() + 1, 2) + '' + date.getFullYear() + '/' + timeformat + '/' + last4userid;
-        var sql = "INSERT INTO lott_table VALUES ('" + lottid + "', '" + userid + "', 'notyet', '" + numbertosave + "', 'waiting', '" + dateformat + "', '0000-00-00')";
-        con.query(sql, async function (err, result) {
-            if (err) {
-                await interaction.editReply('ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง');
-                console.log(err);
-            } else {
-                console.log("1 record inserted");
-                await interaction.editReply('บันทึกข้อมูลเรียบร้อยแล้ว (เลข ' + numbertosave + ')');
-            }
-        });
+        //check if numbertosave is number
+        if (isNaN(numbertosave)) {
+            await interaction.editReply({ content: 'กรุณาใส่เลขที่ต้องการบันทึกให้ถูกต้อง' });
+        }else{
+            //discord user id
+            let userid = interaction.user.id;
+            //date now
+            let date = new Date();
+            //convert date to YYYY-MM-DD h:m:s
+            let dateformat = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+            //time now
+            //let time = date.getTime();
+            //convert time to hms
+            let timeformat = padLeadingZeros(date.getHours(), 2) + '' + padLeadingZeros(date.getMinutes(), 2) + '' + padLeadingZeros(date.getSeconds(), 2);
+            //get last 4 userid
+            let last4userid = userid.substring(userid.length - 4);
+            //create lott id = date/time/last4userid
+            let lottid = padLeadingZeros(date.getDate(), 2) + '' + padLeadingZeros(date.getMonth() + 1, 2) + '' + date.getFullYear() + '/' + timeformat + '/' + last4userid;
+            var sql = "INSERT INTO lott_table VALUES ('" + lottid + "', '" + userid + "', 'notyet', '" + numbertosave + "', 'waiting', '" + dateformat + "', '0000-00-00')";
+            con.query(sql, async function (err, result) {
+                if (err) {
+                    await interaction.editReply('ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง');
+                    console.log(err);
+                } else {
+                    console.log("1 record inserted");
+                    await interaction.editReply('บันทึกข้อมูลเรียบร้อยแล้ว (เลข ' + numbertosave + ')');
+                }
+            });
+        }
     }
 
     if (interaction.commandName === 'checkconnection') {
@@ -1486,7 +1491,7 @@ client.on('interactionCreate', async interaction => {
                 .setColor('#0099ff')
                 .setTitle('ประวัติการบันทึกเลข')
                 .setURL('https://lotto.teamquadb.in.th')
-                .setDescription('ประวัติการบันทึกเลขของคุณในดิสคอร์ดบอทนี้')
+                .setDescription('ประวัติการบันทึกเลขของคุณ')
                 .setThumbnail('https://dbstatus.pwisetthon.com/botimage')
                 //.addFields(history)
                 //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
