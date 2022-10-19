@@ -1,12 +1,10 @@
-const { MessageAttachment, MessageEmbed, Client, Intents, MessageActionRow, MessageSelectMenu, MessageButton } = require('discord.js');
+const { MessageAttachment, MessageEmbed, Client, Intents, MessageActionRow, MessageSelectMenu, MessageButton, ClientUser } = require('discord.js');
 const cron = require("cron");
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 var fs = require('fs');
 var http = require('http');
 const pngToJpeg = require('png-to-jpeg');
 var mysql = require('mysql');
-const { channel } = require('diagnostics_channel');
-const { ClientUser } = require('discord.js');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
@@ -17,6 +15,9 @@ var con = mysql.createConnection({
     password: "team1556th",
     database: "discordbot"
 });
+
+let lottoapi = "http://192.168.31.210:5000";
+let lotimgapi = "http://192.168.31.220:14000";
 
 //create a server object:
 http.createServer(async function (req, res) {
@@ -317,7 +318,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
     month = padLeadingZeros(month, 2);
     year = padLeadingZeros(year, 4);
 
-    let url = "http://192.168.31.210:5000/?date=" + date + "" + month + "" + year + "&fresh";
+    let url = lottoapi+"/?date=" + date + "" + month + "" + year + "&fresh";
     let settings = { "method": "GET" };
 
     fetch(url, settings)
@@ -951,12 +952,12 @@ client.on('interactionCreate', async interaction => {
         //await interaction.reply('Loading!');
         await interaction.deferReply();
 
-        const response = await fetch('http://192.168.31.210:5000/lastlot?info=true');
+        const response = await fetch(lottoapi+'/lastlot?info=true');
         const data = await response.json();
 
         if (fs.existsSync('./lottery_' + data.info.date + '.png') == false) {
 
-            await fetch('http://192.168.31.220:14000/?date=' + data.info.date)
+            await fetch(lotimgapi+'/?date=' + data.info.date)
                 .then(res => res.buffer())
                 .then(async (res) => {
                     await fs.writeFileSync('./lottery_' + data.info.date + '.png', res)
@@ -1003,10 +1004,10 @@ client.on('interactionCreate', async interaction => {
         //get this year in buddhist year
         const year = new Date().getFullYear() + 543;
 
-        const response = await fetch('http://192.168.31.210:5000/lastlot?info=true');
+        const response = await fetch(lottoapi+'/lastlot?info=true');
         const data = await response.json();
 
-        const responses = await fetch('http://192.168.31.210:5000/checklottery?by=' + data.info.date + '&search=' + numbertofind);
+        const responses = await fetch(lottoapi+'/checklottery?by=' + data.info.date + '&search=' + numbertofind);
         const datas = await responses.text();
 
         if (datas.search("111111") != -1) {
@@ -1304,7 +1305,7 @@ client.on('interactionCreate', async interaction => {
         let waitwhat;
         let lastlottdate;
         //node fetch http://192.168.31.210:5000/reto
-        await fetch('http://192.168.31.210:5000/reto')
+        await fetch(lottoapi+'/reto')
             .then(res => res.text())
             .then(body => {
                 if (body == 'yes') {
