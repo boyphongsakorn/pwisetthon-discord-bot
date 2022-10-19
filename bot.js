@@ -956,7 +956,7 @@ client.on('interactionCreate', async interaction => {
 
         if (fs.existsSync('./lottery_' + data.info.date + '.png') == false) {
 
-            await fetch('http://192.168.31.210:4000/?date=' + data.info.date)
+            await fetch('http://192.168.31.220:14000/?date=' + data.info.date)
                 .then(res => res.buffer())
                 .then(async (res) => {
                     await fs.writeFileSync('./lottery_' + data.info.date + '.png', res)
