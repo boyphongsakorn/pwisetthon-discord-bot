@@ -464,12 +464,6 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                 };
                                 console.log('Saved!');
                             });
-                            //insert to sql
-                            con.query("INSERT INTO lott_round (id, round) VALUES ('" + date + "" + month + "" + year + "', '" + todayformat + "')", function (err, result, fields) {
-                                if (err) throw err;
-                                //console.log(result);
-                                console.log('Insert complete');
-                            });
 
                             if (fs.existsSync('./lottery_' + date + '' + month + '' + year + '.png') == false) {
 
@@ -635,6 +629,13 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                     }
                                 }
                             }
+
+                            //insert to sql
+                            con.query("INSERT INTO lott_round (id, round) VALUES ('" + date + "" + month + "" + year + "', '" + todayformat + "')", function (err, result, fields) {
+                                if (err) throw err;
+                                //console.log(result);
+                                console.log('Insert complete');
+                            });
 
                         }
                     }
