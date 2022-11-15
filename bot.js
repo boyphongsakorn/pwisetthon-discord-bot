@@ -1,4 +1,4 @@
-const { MessageAttachment, MessageEmbed, Client, Intents, MessageActionRow, MessageSelectMenu, MessageButton, ClientUser } = require('discord.js');
+const { MessageAttachment, EmbedBuilder, Client, GatewayIntentBits, ButtonBuilder, SelectMenuBuilder, ActionRowBuilder, ClientUser, AttachmentBuilder } = require('discord.js');
 const cron = require("cron");
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 var fs = require('fs');
@@ -6,7 +6,7 @@ var http = require('http');
 const pngToJpeg = require('png-to-jpeg');
 var mysql = require('mysql');
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
 //create mysql connection
 var con = mysql.createConnection({
@@ -523,10 +523,12 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                 }
                             });
 
-                            const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '.png');
-                            const filegold = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '_gold.png');
+                            //const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '.png');
+                            const file = new AttachmentBuilder('./', { name: 'lottery_' + date + '' + month + '' + year + '.png' });
+                            //const filegold = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '_gold.png');
+                            const filegold = new AttachmentBuilder('./', { name: 'lottery_' + date + '' + month + '' + year + '_gold.png' });
 
-                            const msg = new MessageEmbed()
+                            const msg = new EmbedBuilder()
                                 .setColor('#0099ff')
                                 .setTitle('ผลสลากกินแบ่งรัฐบาล')
                                 .setURL('https://www.glo.or.th/')
@@ -544,7 +546,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                                 .setTimestamp()
                                 .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
 
-                            const msggold = new MessageEmbed()
+                            const msggold = new EmbedBuilder()
                                 .setColor('#0099ff')
                                 .setTitle('ผลสลากกินแบ่งรัฐบาล')
                                 .setURL('https://www.glo.or.th/')
@@ -746,9 +748,10 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                             desctext = 'พรุ่งนี้';
                         }
 
-                        const files = new MessageAttachment('./lastoilprice.png');
+                        //const files = new MessageAttachment('./lastoilprice.png');
+                        const files = new AttachmentBuilder('./', { name: 'lastoilprice.png' });
 
-                        let msg = new MessageEmbed()
+                        let msg = new EmbedBuilder()
                             .setColor('#0099ff')
                             .setTitle('ราคาน้ำมันพรุ่งนี้')
                             .setURL('https://www.bangchak.co.th/th/oilprice/historical')
@@ -819,13 +822,16 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                             console.log('1 record inserted');
                         });
 
-                        const row = new MessageActionRow()
+                        //const row = new MessageActionRow()
+                        const row = new ActionRowBuilder()
                             .addComponents(
-                                new MessageButton()
+                                //new MessageButton()
+                                new ButtonBuilder()
                                     .setCustomId('hell')
                                     .setLabel('ลบ')
                                     .setStyle('DANGER'),
-                                new MessageButton()
+                                //new MessageButton()
+                                new ButtonBuilder()
                                     .setCustomId('hellandreset')
                                     .setLabel('ลบและรีเซ็ต')
                                     .setStyle('DANGER'),
@@ -970,9 +976,10 @@ client.on('interactionCreate', async interaction => {
 
         }
 
-        const file = new MessageAttachment('./lottery_' + data.info.date + '.png');
+        //const file = new MessageAttachment('./lottery_' + data.info.date + '.png');
+        const file = new AttachmentBuilder('./', { name: 'lottery_' + data.info.date + '.png' });
 
-        const msg = new MessageEmbed()
+        const msg = new EmbedBuilder()
             .setColor('#0099ff')
             .setTitle('ผลสลากกินแบ่งรัฐบาล')
             .setURL('https://www.glo.or.th/')
@@ -1014,70 +1021,70 @@ client.on('interactionCreate', async interaction => {
 
         if (datas.search("111111") != -1) {
 
-            const msg = new MessageEmbed()
+            const msg = new EmbedBuilder()
                 .setColor('#FFD700')
                 .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' ถูกรางวัลที่หนึ่ง')
 
             await interaction.editReply({ embeds: [msg] })
         } else if (datas.search("222222") != -1) {
 
-            const msg = new MessageEmbed()
+            const msg = new EmbedBuilder()
                 .setColor('#DAA520')
                 .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลที่สอง')
 
             await interaction.editReply({ embeds: [msg] })
         } else if (datas.search("333333") != -1) {
 
-            const msg = new MessageEmbed()
+            const msg = new EmbedBuilder()
                 .setColor('#F0E68C')
                 .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลที่สาม')
 
             await interaction.editReply({ embeds: [msg] })
         } else if (datas.search("444444") != -1) {
 
-            const msg = new MessageEmbed()
+            const msg = new EmbedBuilder()
                 .setColor('#EEE8AA')
                 .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลที่สี่')
 
             await interaction.editReply({ embeds: [msg] })
         } else if (datas.search("555555") != -1) {
 
-            const msg = new MessageEmbed()
+            const msg = new EmbedBuilder()
                 .setColor('#FAFAD2')
                 .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลที่ห้า')
 
             await interaction.editReply({ embeds: [msg] })
         } else if (datas.search("333000") != -1) {
 
-            const msg = new MessageEmbed()
+            const msg = new EmbedBuilder()
                 .setColor('#D4AF37')
                 .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลเลขหน้าสามตัว')
 
             await interaction.editReply({ embeds: [msg] })
         } else if (datas.search("000333") != -1) {
 
-            const msg = new MessageEmbed()
+            const msg = new EmbedBuilder()
                 .setColor('#CFB53B')
                 .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลเลขท้ายสามตัว')
 
             await interaction.editReply({ embeds: [msg] })
         } else if (datas.search("000022") != -1) {
 
-            const msg = new MessageEmbed()
+            const msg = new EmbedBuilder()
                 .setColor('#C5B358')
                 .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลเลขท้ายสองตัว')
 
             await interaction.editReply({ embeds: [msg] })
         } else if (datas.search("111112") != -1) {
 
-            const msg = new MessageEmbed()
+            const msg = new EmbedBuilder()
                 .setColor('#FFDF00')
                 .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณถูกรางวัลใกล้เคียงรางวัลที่หนึ่ง')
 
             await interaction.editReply({ embeds: [msg] })
         } else {
 
-            const msg = new MessageEmbed()
+            const msg = new EmbedBuilder()
                 .setColor('#ff0000')
                 .setTitle('เลขที่คุณตรวจคือ ' + numbertofind + ' คุณไม่ถูกรางวัล')
 
@@ -1099,10 +1106,11 @@ client.on('interactionCreate', async interaction => {
                 console.log(err)
             });
 
-        const file = new MessageAttachment('./aithing.png');
+        //const file = new MessageAttachment('./aithing.png');
+        const file = new AttachmentBuilder('./', { name: 'aithing.png' });
 
-        //create MessageEmbed
-        const msg = new MessageEmbed()
+        //create EmbedBuilder
+        const msg = new EmbedBuilder()
             .setColor('#5454c5')
             .setTitle('เลขเด็ด')
             .setDescription('คำนวณเลขเด็ดจากข่าว โดยใช้ AI')
@@ -1138,9 +1146,11 @@ client.on('interactionCreate', async interaction => {
 
                 console.log(datearray)
 
-                const row = new MessageActionRow()
+                //const row = new MessageActionRow()
+                const row = new ActionRowBuilder()
                     .addComponents(
-                        new MessageSelectMenu()
+                        //new MessageSelectMenu()
+                        new SelectMenuBuilder()
                             .setCustomId('lottsheet')
                             .setPlaceholder('เลือกวันที่ต้องการ (25 งวดล่าสุด)')
                             .addOptions(datearray)
@@ -1215,10 +1225,11 @@ client.on('interactionCreate', async interaction => {
                 //wait 10 seconds
                 await new Promise(resolve => setTimeout(resolve, 10000));
 
-                const file = new MessageAttachment('./lotsheet_' + interaction.values[0] + '_edit.jpeg');
+                //const file = new MessageAttachment('./lotsheet_' + interaction.values[0] + '_edit.jpeg');
+                const file = new AttachmentBuilder('./', { name: 'lotsheet_' + interaction.values[0] + '_edit.jpeg' });
 
-                //create MessageEmbed
-                const msg = new MessageEmbed()
+                //create EmbedBuilder
+                const msg = new EmbedBuilder()
                     .setColor('#5454c5')
                     .setTitle('ใบตรวจสลาก')
                     .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
@@ -1233,10 +1244,11 @@ client.on('interactionCreate', async interaction => {
             });
 
         } else {
-            const file = new MessageAttachment('./docs/lotsheet_' + interaction.values[0] + '.png');
+            //const file = new MessageAttachment('./docs/lotsheet_' + interaction.values[0] + '.png');
+            const file = new AttachmentBuilder('./', { name: 'lotsheet_' + interaction.values[0] + '.png' });
 
-            //create MessageEmbed
-            const msg = new MessageEmbed()
+            //create EmbedBuilder
+            const msg = new EmbedBuilder()
                 .setColor('#5454c5')
                 .setTitle('ใบตรวจสลาก')
                 .setDescription('ของวันที่ ' + parseInt(interaction.values[0].substring(0, 2)) + ' ' + convertmonthtotext(interaction.values[0].substring(2, 4)) + ' ' + parseInt(interaction.values[0].substring(4, 8)))
@@ -1443,7 +1455,7 @@ client.on('interactionCreate', async interaction => {
         }
 
         //create message embed
-        let msg = new MessageEmbed()
+        let msg = new EmbedBuilder()
             .setColor('#0099ff')
             .setTitle('สถานะการเชื่อมต่อ')
             .setURL('https://status.teamquadb.in.th')
@@ -1490,7 +1502,7 @@ client.on('interactionCreate', async interaction => {
             //push history to wowwowwow
             //wowwowwow.push(history);
 
-            let msg = new MessageEmbed()
+            let msg = new EmbedBuilder()
                 .setColor('#0099ff')
                 .setTitle('ประวัติการบันทึกเลข')
                 .setURL('https://lotto.teamquadb.in.th')
@@ -1517,7 +1529,8 @@ client.on('interactionCreate', async interaction => {
                 } else {
                     ssus = result[i].status
                 }
-                msg.addField(result[i].numberbuy + " (" + ssus + ")", datestring, true);
+                //msg.addField(result[i].numberbuy + " (" + ssus + ")", datestring, true);
+                msg.addFields({ name: result[i].numberbuy + " (" + ssus + ")", value: datestring, inline: true });
             }
 
             await interaction.editReply({ embeds: [msg] });
@@ -1537,9 +1550,11 @@ client.on('interactionCreate', async interaction => {
             value: 'gold'
         }]
 
-        const row = new MessageActionRow()
+        //const row = new MessageActionRow()
+        const row = new ActionRowBuilder()
             .addComponents(
-                new MessageSelectMenu()
+                //new MessageSelectMenu()
+                new SelectMenuBuilder()
                     .setCustomId('lottomode')
                     .setPlaceholder('เลือกโหมดการสรุปสลากฯที่ต้องการ')
                     .addOptions(modearray)
@@ -1605,9 +1620,10 @@ client.on('interactionCreate', async interaction => {
                 });
         }
 
-        const files = new MessageAttachment('./lastoilprice.png');
+        //const files = new MessageAttachment('./lastoilprice.png');
+        const files = new AttachmentBuilder('./', { name: 'lastoilprice.png' });
 
-        let msg = new MessageEmbed()
+        let msg = new EmbedBuilder()
             .setColor('#0099ff')
             .setTitle('ราคาน้ำมันล่าสุด')
             .setURL('https://www.bangchak.co.th/th/oilprice/historical')
@@ -1886,13 +1902,16 @@ client.on('interactionCreate', async interaction => {
                     url = 'https://www.whoscheat.com/results?q=' + searchdata + '&by=phone'
                 }
 
-                const msg = new MessageEmbed()
+                const msg = new EmbedBuilder()
                     .setColor('#EE4B2B')
                     .setTitle('ข้อมูลการรายงานของ ' + arrayreport[index][7])
                     .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + arrayreport[index][7])
                     .setURL(url)
                     .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
-                    .addField('พบรายงานการโกง', 'จำนวน ' + arrayreport[index][0] + ' ครั้ง')
+                    //.addField('พบรายงานการโกง', 'จำนวน ' + arrayreport[index][0] + ' ครั้ง')
+                    .addFields(
+                        { name: 'พบรายงานการโกง', value: 'จำนวน ' + arrayreport[index][0] + ' ครั้ง'},
+                    )
                     .addFields(
                         { name: 'ครั้งล่าสุด', value: arrayreport[index][3], inline: true },
                         { name: 'ช่องทาง', value: waytocheat, inline: true },
@@ -1931,7 +1950,7 @@ client.on('interactionCreate', async interaction => {
                         //let res.pageProps.searchResult.name to URI encode
                         let name = encodeURI(res.pageProps.searchResult.name);
 
-                        const msg = new MessageEmbed()
+                        const msg = new EmbedBuilder()
                             .setColor('#EE4B2B')
                             .setTitle('ข้อมูลการรายงานของ ' + res.pageProps.searchResult.name)
                             .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + res.pageProps.searchResult.name)
