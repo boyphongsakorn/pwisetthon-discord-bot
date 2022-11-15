@@ -2117,7 +2117,7 @@ client.on('interactionCreate', async interaction => {
                     .setTitle('ข้อมูลการรายงานของ ' + arrayreport[index][7])
                     .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + arrayreport[index][7])
                     .setURL(url)
-                    .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
+                    .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/Images/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
                     //.addField('พบรายงานการโกง', 'จำนวน ' + arrayreport[index][0] + ' ครั้ง')
                     .addFields(
                         { name: 'พบรายงานการโกง', value: 'จำนวน ' + arrayreport[index][0] + ' ครั้ง'},
@@ -2129,7 +2129,7 @@ client.on('interactionCreate', async interaction => {
                         { name: 'ยอดความเสียหาย', value: arrayreport[index][2] + ' บาท', inline: true }
                     )
                     .setTimestamp()
-                    .setFooter({ text: 'ขอบคุณข้อมูลจาก whoscheat.com', iconURL: 'https://www.whoscheat.com/apple-touch-icon.png?v=1' });
+                    .setFooter({ text: 'ขอบคุณข้อมูลจาก whoscheat.com', iconURL: 'https://www.whoscheat.com/Images/apple-touch-icon.png?v=1' });
 
                 await interaction.editReply({ embeds: [msg] });
             } else {
