@@ -2144,7 +2144,7 @@ client.on('interactionCreate', async interaction => {
             //change searchdata to url encode
             //searchdata = encodeURI(searchdata);
             //console.log(searchdata);
-            await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=name')
+            /*await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=name')
                 .then(res => res.json())
                 .then(async (res) => {
                     if (res.pageProps.searchResult != "") {
@@ -2184,6 +2184,64 @@ client.on('interactionCreate', async interaction => {
                     }
                 }).catch(async (err) => {
                     console.log(err);
+                    await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                });*/
+            await fetch('https://www.whoscheat.com/Home/Results/?s_type=4&s_inp=' + searchdata)
+                .then(res => res.text())
+                .then(async body => {
+                    const $ = cheerio.load(body);
+                    const result = $('h4').toArray().map(p => $(p).text());
+                    //if reusult length is 1, it means no result
+                    if(result.length == 1){
+                        //console.log(result);
+                        await interaction.editReply('ไม่เคยมีประวัติการโกง')
+                    } else {
+                        //console.log(result);
+                        //get text from id s_amount
+                        const amount = $('#s_amount').text();
+                        //remove space new line \n from amount
+                        const amount2 = amount.replace(/(\r|\n|\r)/gm, "");
+                        //remove space from amount2
+                        const amount3 = amount2.replace(/\s/g, "");
+                        const date = $('#s_date').text();
+                        const from = $('#s_paymentmethod').text();
+                        const type = $('#s_producttype').text();
+                        /*arrayreport[arrayreportlength][0] = result[1];
+                        arrayreport[arrayreportlength][1] = result[2].replace(" บาท", "");
+                        arrayreport[arrayreportlength][2] = amount3.replace("บาท", " บาท");
+                        arrayreport[arrayreportlength][3] = date;
+                        arrayreport[arrayreportlength][4] = from + " " + bank; 
+                        arrayreport[arrayreportlength][5] = bank ? bank : "ไม่ระบุ";
+                        arrayreport[arrayreportlength][6] = number ? number : "ไม่ระบุ";
+                        arrayreport[arrayreportlength][7] = name ? name : result[0];
+                        console.log("found");
+                        console.log(arrayreport[0]);*/
+                        let name = encodeURI(searchdata);
+
+                        const msg = new EmbedBuilder()
+                            .setColor('#EE4B2B')
+                            .setTitle('ข้อมูลการรายงานของ ' + searchdata)
+                            .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + searchdata)
+                            .setURL('https://www.whoscheat.com/Home/Results/?s_type=4&s_inp=' + name)
+                            .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/Images/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
+                            //.addField('พบรายงานการโกง', 'จำนวน ' + res.pageProps.searchResult.totalReport + ' ครั้ง')
+                            .addFields(
+                                { name: 'พบรายงานการโกง', value: 'จำนวน ' + result[1] + ' ครั้ง', inline: false },
+                            )
+                            .addFields(
+                                { name: 'ครั้งล่าสุด', value: date, inline: true },
+                                { name: 'ช่องทาง', value: from, inline: true }
+                            )
+                            .addFields(
+                                { name: 'รายละเอียด', value: from + '' + type, inline: true },
+                                { name: 'ยอดความเสียหาย', value: amount3.replace("บาท", " บาท"), inline: true }
+                            )
+                            .setTimestamp()
+                            .setFooter({ text: 'ขอบคุณข้อมูลจาก whoscheat.com', iconURL: 'https://www.whoscheat.com/Images/apple-touch-icon.png?v=1' });
+
+                        await interaction.editReply({ embeds: [msg] });
+                    }
+                }).catch(async (err) => {
                     await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
                 });
         }
