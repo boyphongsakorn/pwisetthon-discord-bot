@@ -467,7 +467,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
 
                             if (fs.existsSync('./lottery_' + date + '' + month + '' + year + '.png') == false) {
 
-                                await fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year)
+                                await fetch('https://screenshot-xi.vercel.app/?date=' + date + '' + month + '' + year)
                                     .then(res => res.buffer())
                                     .then(async (res) => {
                                         await fs.writeFileSync('./lottery_' + date + '' + month + '' + year + '.png', res)
@@ -957,8 +957,9 @@ client.on('interactionCreate', async interaction => {
         const data = await response.json();
 
         if (fs.existsSync('./lottery_' + data.info.date + '.png') == false) {
-
-            await fetch(lotimgapi+'/?date=' + data.info.date)
+            
+            //await fetch(lotimgapi+'/?date=' + data.info.date)
+            await fetch('https://screenshot-xi.vercel.app/?date=' + data.info.date)
                 .then(res => res.buffer())
                 .then(async (res) => {
                     await fs.writeFileSync('./lottery_' + data.info.date + '.png', res)
