@@ -964,8 +964,8 @@ client.on('interactionCreate', async interaction => {
 
         if (fs.existsSync('./lottery_' + data.info.date + '.png') == false) {
             
-            await fetch(lotimgapi+'/?date=' + data.info.date)
-            //await fetch('https://screenshot-xi.vercel.app/?date=' + data.info.date)
+            //await fetch(lotimgapi+'/?date=' + data.info.date)
+            await fetch('https://screenshot-xi.vercel.app/?date=' + data.info.date)
                 .then(res => res.buffer())
                 .then(async (res) => {
                     await fs.writeFileSync('./lottery_' + data.info.date + '.png', res)
