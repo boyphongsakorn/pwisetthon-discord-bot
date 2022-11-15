@@ -5,6 +5,7 @@ var fs = require('fs');
 var http = require('http');
 const pngToJpeg = require('png-to-jpeg');
 var mysql = require('mysql');
+const cheerio = require('cheerio');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
@@ -1727,7 +1728,7 @@ client.on('interactionCreate', async interaction => {
         if (searchdata.length >= 10 && searchdata.length <= 13 && !isNaN(searchdata)) {
 
             if (searchdata.length == 10) {
-                await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=phone')
+                /*await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=phone')
                     .then(res => res.json())
                     .then(async (res) => {
                         if (res.pageProps.searchResult != "") {
@@ -1745,13 +1746,47 @@ client.on('interactionCreate', async interaction => {
                         }
                     }).catch(async (err) => {
                         //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                    });*/
+                await fetch('https://www.whoscheat.com/Home/Results/?s_type=2&s_inp=' + searchdata)
+                    .then(res => res.text())
+                    .then(body => {
+                        const $ = cheerio.load(body);
+                        const result = $('h4').toArray().map(p => $(p).text());
+                        //if reusult length is 1, it means no result
+                        if(result.length == 1){
+                            console.log(result);
+                            arrayreport[0][0] = 0;
+                        } else {
+                            //console.log(result);
+                            //get text from id s_amount
+                            const amount = $('#s_amount').text();
+                            //remove space new line \n from amount
+                            const amount2 = amount.replace(/(\r|\n|\r)/gm, "");
+                            //remove space from amount2
+                            const amount3 = amount2.replace(/\s/g, "");
+                            const date = $('#s_date').text();
+                            const from = $('#s_paymentmethod').text();
+                            const type = $('#s_producttype').text();
+                            arrayreport[0][0] = result[1];
+                            arrayreport[0][1] = result[2].replace(" บาท", "");
+                            arrayreport[0][2] = amount3.replace("บาท", " บาท");
+                            arrayreport[0][3] = date;
+                            arrayreport[0][4] = from + " " + bank; 
+                            arrayreport[0][5] = bank ? bank : "ไม่ระบุ";
+                            arrayreport[0][6] = number ? number : "ไม่ระบุ";
+                            arrayreport[0][7] = name ? name : result[0];
+                            console.log("found");
+                            console.log(arrayreport[0]);
+                        }
+                    }).catch(async (err) => {
+                        //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
                     });
             } else {
                 arrayreport[0][0] = 0;
             }
 
             if (searchdata.length == 13) {
-                await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=id-number')
+                /*await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=id-number')
                     .then(res => res.json())
                     .then(async (res) => {
                         if (res.pageProps.searchResult != "") {
@@ -1769,12 +1804,46 @@ client.on('interactionCreate', async interaction => {
                         }
                     }).catch(async (err) => {
                         //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                    });*/
+                await fetch('https://www.whoscheat.com/Home/Results/?s_type=3&s_inp=' + searchdata)
+                    .then(res => res.text())
+                    .then(body => {
+                        const $ = cheerio.load(body);
+                        const result = $('h4').toArray().map(p => $(p).text());
+                        //if reusult length is 1, it means no result
+                        if(result.length == 1){
+                            console.log(result);
+                            arrayreport[1][0] = 0;
+                        } else {
+                            //console.log(result);
+                            //get text from id s_amount
+                            const amount = $('#s_amount').text();
+                            //remove space new line \n from amount
+                            const amount2 = amount.replace(/(\r|\n|\r)/gm, "");
+                            //remove space from amount2
+                            const amount3 = amount2.replace(/\s/g, "");
+                            const date = $('#s_date').text();
+                            const from = $('#s_paymentmethod').text();
+                            const type = $('#s_producttype').text();
+                            arrayreport[1][0] = result[1];
+                            arrayreport[1][1] = result[2].replace(" บาท", "");
+                            arrayreport[1][2] = amount3.replace("บาท", " บาท");
+                            arrayreport[1][3] = date;
+                            arrayreport[1][4] = from + " " + bank; 
+                            arrayreport[1][5] = bank ? bank : "ไม่ระบุ";
+                            arrayreport[1][6] = number ? number : "ไม่ระบุ";
+                            arrayreport[1][7] = name ? name : result[0];
+                            console.log("found");
+                            console.log(arrayreport[0]);
+                        }
+                    }).catch(async (err) => {
+                        //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
                     });
             } else {
                 arrayreport[1][0] = 0;
             }
 
-            await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=bank-account')
+            /*await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + searchdata + '&by=bank-account')
                 .then(res => res.json())
                 .then(async (res) => {
                     if (res.pageProps.searchResult != "") {
@@ -1792,6 +1861,41 @@ client.on('interactionCreate', async interaction => {
                     }
                 }).catch(async (err) => {
                     //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                });*/
+
+            await fetch('https://www.whoscheat.com/Home/Results/?s_type=1&s_inp=' + searchdata)
+                .then(res => res.text())
+                .then(body => {
+                    const $ = cheerio.load(body);
+                    const result = $('h4').toArray().map(p => $(p).text());
+                    //if reusult length is 1, it means no result
+                    if(result.length == 1){
+                        console.log(result);
+                        arrayreport[2][0] = 0;
+                    } else {
+                        //console.log(result);
+                        //get text from id s_amount
+                        const amount = $('#s_amount').text();
+                        //remove space new line \n from amount
+                        const amount2 = amount.replace(/(\r|\n|\r)/gm, "");
+                        //remove space from amount2
+                        const amount3 = amount2.replace(/\s/g, "");
+                        const date = $('#s_date').text();
+                        const from = $('#s_paymentmethod').text();
+                        const type = $('#s_producttype').text();
+                        arrayreport[2][0] = result[1];
+                        arrayreport[2][1] = result[2].replace(" บาท", "");
+                        arrayreport[2][2] = amount3.replace("บาท", " บาท");
+                        arrayreport[2][3] = date;
+                        arrayreport[2][4] = from + " " + bank; 
+                        arrayreport[2][5] = bank ? bank : "ไม่ระบุ";
+                        arrayreport[2][6] = number ? number : "ไม่ระบุ";
+                        arrayreport[2][7] = name ? name : result[0];
+                        console.log("found");
+                        console.log(arrayreport[0]);
+                    }
+                }).catch(async (err) => {
+                    //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
                 });
 
             if (arrayreport[0][0] != 0) {
@@ -1799,7 +1903,7 @@ client.on('interactionCreate', async interaction => {
                 let arrayreportlength = arrayreport.length;
                 //change arrayreport[0][7] space to '+'
                 let name = arrayreport[0][7].replace(/\s/g, '+');
-                await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + name + '&by=name')
+                /*await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + name + '&by=name')
                     .then(res => res.json())
                     .then(async (res) => {
                         if (res.pageProps.searchResult != "") {
@@ -1815,6 +1919,40 @@ client.on('interactionCreate', async interaction => {
                         }
                     }).catch(async (err) => {
                         //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                    });*/
+                
+                await fetch('https://www.whoscheat.com/Home/Results/?s_type=4&s_inp=' + name)
+                    .then(res => res.text())
+                    .then(body => {
+                        const $ = cheerio.load(body);
+                        const result = $('h4').toArray().map(p => $(p).text());
+                        //if reusult length is 1, it means no result
+                        if(result.length == 1){
+                            console.log(result);
+                        } else {
+                            //console.log(result);
+                            //get text from id s_amount
+                            const amount = $('#s_amount').text();
+                            //remove space new line \n from amount
+                            const amount2 = amount.replace(/(\r|\n|\r)/gm, "");
+                            //remove space from amount2
+                            const amount3 = amount2.replace(/\s/g, "");
+                            const date = $('#s_date').text();
+                            const from = $('#s_paymentmethod').text();
+                            const type = $('#s_producttype').text();
+                            arrayreport[arrayreportlength][0] = result[1];
+                            arrayreport[arrayreportlength][1] = result[2].replace(" บาท", "");
+                            arrayreport[arrayreportlength][2] = amount3.replace("บาท", " บาท");
+                            arrayreport[arrayreportlength][3] = date;
+                            arrayreport[arrayreportlength][4] = from + " " + bank; 
+                            arrayreport[arrayreportlength][5] = bank ? bank : "ไม่ระบุ";
+                            arrayreport[arrayreportlength][6] = number ? number : "ไม่ระบุ";
+                            arrayreport[arrayreportlength][7] = name ? name : result[0];
+                            console.log("found");
+                            console.log(arrayreport[0]);
+                        }
+                    }).catch(async (err) => {
+                        //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
                     });
             }
 
@@ -1824,7 +1962,7 @@ client.on('interactionCreate', async interaction => {
                     let arrayreportlength = arrayreport.length;
                     //change arrayreport[0][7] space to '+'
                     let name = arrayreport[1][7].replace(/\s/g, '+');
-                    await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + name + '&by=name')
+                    /*await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + name + '&by=name')
                         .then(res => res.json())
                         .then(async (res) => {
                             if (res.pageProps.searchResult != "") {
@@ -1840,6 +1978,40 @@ client.on('interactionCreate', async interaction => {
                             }
                         }).catch(async (err) => {
                             //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                        });*/
+                    
+                    await fetch('https://www.whoscheat.com/Home/Results/?s_type=4&s_inp=' + name)
+                        .then(res => res.text())
+                        .then(body => {
+                            const $ = cheerio.load(body);
+                            const result = $('h4').toArray().map(p => $(p).text());
+                            //if reusult length is 1, it means no result
+                            if(result.length == 1){
+                                console.log(result);
+                            } else {
+                                //console.log(result);
+                                //get text from id s_amount
+                                const amount = $('#s_amount').text();
+                                //remove space new line \n from amount
+                                const amount2 = amount.replace(/(\r|\n|\r)/gm, "");
+                                //remove space from amount2
+                                const amount3 = amount2.replace(/\s/g, "");
+                                const date = $('#s_date').text();
+                                const from = $('#s_paymentmethod').text();
+                                const type = $('#s_producttype').text();
+                                arrayreport[arrayreportlength][0] = result[1];
+                                arrayreport[arrayreportlength][1] = result[2].replace(" บาท", "");
+                                arrayreport[arrayreportlength][2] = amount3.replace("บาท", " บาท");
+                                arrayreport[arrayreportlength][3] = date;
+                                arrayreport[arrayreportlength][4] = from + " " + bank; 
+                                arrayreport[arrayreportlength][5] = bank ? bank : "ไม่ระบุ";
+                                arrayreport[arrayreportlength][6] = number ? number : "ไม่ระบุ";
+                                arrayreport[arrayreportlength][7] = name ? name : result[0];
+                                console.log("found");
+                                console.log(arrayreport[0]);
+                            }
+                        }).catch(async (err) => {
+                            //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
                         });
                 }
             }
@@ -1850,7 +2022,7 @@ client.on('interactionCreate', async interaction => {
                     let arrayreportlength = arrayreport.length;
                     //change arrayreport[0][7] space to '+'
                     let name = arrayreport[2][7].replace(/\s/g, '+');
-                    await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + name + '&by=name')
+                    /*await fetch('https://www.whoscheat.com/_next/data/aEa5U9o6ZMklf6_tJvb9m/results.json?q=' + name + '&by=name')
                         .then(res => res.json())
                         .then(async (res) => {
                             if (res.pageProps.searchResult != "") {
@@ -1863,6 +2035,40 @@ client.on('interactionCreate', async interaction => {
                                 arrayreport[arrayreportlength][6] = res.pageProps.searchResult.lastedReport.phoneNumber;
                                 arrayreport[arrayreportlength][7] = res.pageProps.searchResult.lastedReport.name;
                                 //console.log(arrayreport[0]);
+                            }
+                        }).catch(async (err) => {
+                            //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                        });*/
+
+                    await fetch('https://www.whoscheat.com/Home/Results/?s_type=4&s_inp=' + name)
+                        .then(res => res.text())
+                        .then(body => {
+                            const $ = cheerio.load(body);
+                            const result = $('h4').toArray().map(p => $(p).text());
+                            //if reusult length is 1, it means no result
+                            if(result.length == 1){
+                                console.log(result);
+                            } else {
+                                //console.log(result);
+                                //get text from id s_amount
+                                const amount = $('#s_amount').text();
+                                //remove space new line \n from amount
+                                const amount2 = amount.replace(/(\r|\n|\r)/gm, "");
+                                //remove space from amount2
+                                const amount3 = amount2.replace(/\s/g, "");
+                                const date = $('#s_date').text();
+                                const from = $('#s_paymentmethod').text();
+                                const type = $('#s_producttype').text();
+                                arrayreport[arrayreportlength][0] = result[1];
+                                arrayreport[arrayreportlength][1] = result[2].replace(" บาท", "");
+                                arrayreport[arrayreportlength][2] = amount3.replace("บาท", " บาท");
+                                arrayreport[arrayreportlength][3] = date;
+                                arrayreport[arrayreportlength][4] = from + " " + bank; 
+                                arrayreport[arrayreportlength][5] = bank ? bank : "ไม่ระบุ";
+                                arrayreport[arrayreportlength][6] = number ? number : "ไม่ระบุ";
+                                arrayreport[arrayreportlength][7] = name ? name : result[0];
+                                console.log("found");
+                                console.log(arrayreport[0]);
                             }
                         }).catch(async (err) => {
                             //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
@@ -1884,22 +2090,26 @@ client.on('interactionCreate', async interaction => {
             //if max != 0, then show report
             if (max != 0) {
                 let waytocheat
-                if (arrayreport[index][5] != null) {
+                /*if (arrayreport[index][5] != null) {
                     waytocheat = 'โอนเงินผ่านบัญชีธนาคาร'
                 } else if (arrayreport[index][6] != null) {
                     waytocheat = 'โอนเงินผ่านบัญชีพร้อมเพย์'
                 } else {
                     waytocheat = 'โอนเงินผ่านบัญชีธนาคาร'
-                }
+                }*/
+                waytocheat = arrayreport[index][4].split(" ")[0];
 
                 let url
 
                 if (index == 2) {
                     url = 'https://www.whoscheat.com/results?q=' + searchdata + '&by=bank-account'
+                    url = 'https://www.whoscheat.com/Home/Results/?s_type=1&s_inp=' + searchdata
                 } else if (index == 1) {
                     url = 'https://www.whoscheat.com/results?q=' + searchdata + '&by=id-number'
+                    url = 'https://www.whoscheat.com/Home/Results/?s_type=3&s_inp=' + searchdata
                 } else {
                     url = 'https://www.whoscheat.com/results?q=' + searchdata + '&by=phone'
+                    url = 'https://www.whoscheat.com/Home/Results/?s_type=2&s_inp=' + searchdata
                 }
 
                 const msg = new EmbedBuilder()
