@@ -524,9 +524,9 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
                             });
 
                             //const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '.png');
-                            const file = new AttachmentBuilder('./', { name: 'lottery_' + date + '' + month + '' + year + '.png' });
+                            const file = new AttachmentBuilder('./lottery_' + date + '' + month + '' + year + '.png');
                             //const filegold = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '_gold.png');
-                            const filegold = new AttachmentBuilder('./', { name: 'lottery_' + date + '' + month + '' + year + '_gold.png' });
+                            const filegold = new AttachmentBuilder('./lottery_' + date + '' + month + '' + year + '_gold.png');
 
                             const msg = new EmbedBuilder()
                                 .setColor('#0099ff')
@@ -749,7 +749,7 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
                         }
 
                         //const files = new MessageAttachment('./lastoilprice.png');
-                        const files = new AttachmentBuilder('./', { name: 'lastoilprice.png' });
+                        const files = new AttachmentBuilder('./lastoilprice.png');
 
                         let msg = new EmbedBuilder()
                             .setColor('#0099ff')
@@ -977,7 +977,7 @@ client.on('interactionCreate', async interaction => {
         }
 
         //const file = new MessageAttachment('./lottery_' + data.info.date + '.png');
-        const file = new AttachmentBuilder('./', { name: 'lottery_' + data.info.date + '.png' });
+        const file = new AttachmentBuilder('./lottery_' + data.info.date + '.png');
 
         const msg = new EmbedBuilder()
             .setColor('#0099ff')
@@ -1107,7 +1107,7 @@ client.on('interactionCreate', async interaction => {
             });
 
         //const file = new MessageAttachment('./aithing.png');
-        const file = new AttachmentBuilder('./', { name: 'aithing.png' });
+        const file = new AttachmentBuilder('./aithing.png');
 
         //create EmbedBuilder
         const msg = new EmbedBuilder()
@@ -1226,7 +1226,7 @@ client.on('interactionCreate', async interaction => {
                 await new Promise(resolve => setTimeout(resolve, 10000));
 
                 //const file = new MessageAttachment('./lotsheet_' + interaction.values[0] + '_edit.jpeg');
-                const file = new AttachmentBuilder('./', { name: 'lotsheet_' + interaction.values[0] + '_edit.jpeg' });
+                const file = new AttachmentBuilder('./lotsheet_' + interaction.values[0] + '_edit.jpeg');
 
                 //create EmbedBuilder
                 const msg = new EmbedBuilder()
@@ -1245,7 +1245,7 @@ client.on('interactionCreate', async interaction => {
 
         } else {
             //const file = new MessageAttachment('./docs/lotsheet_' + interaction.values[0] + '.png');
-            const file = new AttachmentBuilder('./', { name: 'lotsheet_' + interaction.values[0] + '.png' });
+            const file = new AttachmentBuilder('./docs/lotsheet_' + interaction.values[0] + '.png');
 
             //create EmbedBuilder
             const msg = new EmbedBuilder()
@@ -1621,7 +1621,7 @@ client.on('interactionCreate', async interaction => {
         }
 
         //const files = new MessageAttachment('./lastoilprice.png');
-        const files = new AttachmentBuilder('./', { name: 'lastoilprice.png' });
+        const files = new AttachmentBuilder('./lastoilprice.png');
 
         let msg = new EmbedBuilder()
             .setColor('#0099ff')
