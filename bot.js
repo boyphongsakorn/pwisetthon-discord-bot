@@ -556,7 +556,8 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                         //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
                         .setImage('attachment://lottery_' + date + '' + month + '' + year + '.png')
                         .setTimestamp()
-                        .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
+                        //.setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
+                        .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn'});
 
                     const msggold = new EmbedBuilder()
                         .setColor('#0099ff')
@@ -574,7 +575,8 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                         //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
                         .setImage('attachment://lottery_' + date + '' + month + '' + year + '_gold.png')
                         .setTimestamp()
-                        .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
+                        //.setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
+                        .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn'});
 
                     const response = await fetch(process.env.URL + '/discordbot/chlist.txt', { method: 'GET' });
                     const data = await response.json();
