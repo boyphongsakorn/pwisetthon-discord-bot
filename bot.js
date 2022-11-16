@@ -534,10 +534,10 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
 
                     //const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '.png');
                     //const file = new AttachmentBuilder('./lottery_' + date + '' + month + '' + year + '.png');
-                    const file = new AttachmentBuilder(bufimg, { name: 'lottery_' + date + '' + month + '' + year + '.png' });
+                    const file = new AttachmentBuilder(Buffer.from(bufimg), { name: 'lottery_' + date + '' + month + '' + year + '.png' });
                     //const filegold = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '_gold.png');
                     //const filegold = new AttachmentBuilder('./lottery_' + date + '' + month + '' + year + '_gold.png');
-                    const filegold = new AttachmentBuilder(bufgoldimg, { name: 'lottery_' + date + '' + month + '' + year + '_gold.png' });
+                    const filegold = new AttachmentBuilder(Buffer.from(bufgoldimg), { name: 'lottery_' + date + '' + month + '' + year + '_gold.png' });
 
                     const msg = new EmbedBuilder()
                         .setColor('#0099ff')
@@ -766,7 +766,7 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', async () => {
 
                 //const files = new MessageAttachment('./lastoilprice.png');
                 //const files = new AttachmentBuilder('./lastoilprice.png');
-                const files = new AttachmentBuilder(thaioilimg, { name: 'lastoilprice.png' });
+                const files = new AttachmentBuilder(Buffer.from(thaioilimg), { name: 'lastoilprice.png' });
 
                 let msg = new EmbedBuilder()
                     .setColor('#0099ff')
@@ -1030,7 +1030,7 @@ client.on('interactionCreate', async interaction => {
 
         //const file = new MessageAttachment('./lottery_' + data.info.date + '.png');
         //const file = new AttachmentBuilder('./lottery_' + data.info.date + '.png');
-        const file = new AttachmentBuilder(fetchlotimgres, {name: 'lottery_' + data.info.date + '.png'});
+        const file = new AttachmentBuilder(Buffer.from(fetchlotimgres), {name: 'lottery_' + data.info.date + '.png'});
 
         const msg = new EmbedBuilder()
             .setColor('#0099ff')
