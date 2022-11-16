@@ -295,7 +295,7 @@ client.on("guildCreate", guild => {
                     client.channels.cache.get(guild.systemChannelId).send('ขอบคุณ! ที่เชิญเราเข้าส่วนหนึ่งในดิสของคุณ')
                         .catch(console.error);
                 } else {
-                    client.channels.cache.get(guild.systemChannelId).send('ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว! \nใช้คำสั่ง /cthlotto เพื่อยกเลิก')
+                    client.channels.cache.get(guild.systemChannelId).send('ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว! \nใช้คำสั่ง /subthlotto เพื่อยกเลิก')
                         .catch(console.error);
                 }
             });
@@ -307,7 +307,7 @@ client.on("guildCreate", guild => {
 
 })
 
-let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
+let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
 
     // datedata
 
@@ -319,311 +319,305 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
     month = padLeadingZeros(month, 2);
     year = padLeadingZeros(year, 4);
 
-    let url = lottoapi+"/?date=" + date + "" + month + "" + year + "&fresh";
+    let url = lottoapi + "/?date=" + date + "" + month + "" + year + "&fresh";
     let settings = { "method": "GET" };
 
-    fetch(url, settings)
+    /*fetch(url, settings)
         .then(res => res.json())
-        .then(async (json) => {
-            console.log(json.length)
-            if (json.length == 7 || json.length == 8 || json.length == 9) {
-                if (json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX" || isNaN(json[0][1])) {
+        .then(async (json) => {*/
+    const fetchapi = await fetch(url, settings);
+    const json = await fetchapi.json();
+    console.log(json.length)
+    if (json.length == 7 || json.length == 8 || json.length == 9) {
+        if (json[0][1] == "0" || json[0][1] == 0 || json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX" || isNaN(json[0][1])) {
 
-                    /*client.users.fetch('133439202556641280').then(dm => {
-                        dm.send('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออกหรือหวยยังออกไม่หมด')
-                    })*/
+            /*client.users.fetch('133439202556641280').then(dm => {
+                dm.send('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออกหรือหวยยังออกไม่หมด')
+            })*/
 
-                    if (json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX") {
-                        console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยออกแต่ยังออกไม่หมด');
+            if (json[0][1] == "xxxxxx" || json[0][1] == "XXXXXX") {
+                console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยออกแต่ยังออกไม่หมด');
 
-                        console.log('--------------------------------');
-                    } else {
-                        console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออก');
+                console.log('--------------------------------');
+            } else {
+                console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยไม่ได้ออก');
 
-                        console.log('--------------------------------');
+                console.log('--------------------------------');
 
-                        var lasttime = null
+                var lasttime = null
 
-                        try {
-                            const stats = fs.statSync('lastout.txt');
-                            //const expiry = new Date().getTime()
+                try {
+                    const stats = fs.statSync('lastout.txt');
+                    //const expiry = new Date().getTime()
 
-                            lasttime = stats.mtime
+                    lasttime = stats.mtime
 
-                        } catch (error) {
-                            //console.log(error);
-                            fs.writeFile('lastout.txt', '0', function (err) {
-                                if (err) {
-                                    throw err
-                                };
-                                console.log('Saved!');
-                            });
-                        }
+                } catch (error) {
+                    //console.log(error);
+                    fs.writeFile('lastout.txt', '0', function (err) {
+                        if (err) {
+                            throw err
+                        };
+                        console.log('Saved!');
+                    });
+                }
+            }
+
+            var fileContents = null;
+            try {
+                fileContents = fs.readFileSync('check.txt');
+            } catch (err) {
+
+            }
+
+            if (fileContents) {
+                if (fileContents != '0') {
+                    fs.writeFile('check.txt', '0', function (err) {
+                        if (err) {
+                            throw err
+                        };
+                        console.log('Saved!');
+                    });
+                }
+            } else {
+                fs.writeFile('check.txt', '0', function (err) {
+                    if (err) {
+                        throw err
+                    };
+                    console.log('Saved!');
+                });
+            }
+
+        } else {
+
+            //check every index of json has not "xxxxxx" or "XXXXXX"
+            for (let i = 0; i < json.length; i++) {
+                for (let j = 1; j < json[i].length; j++) {
+                    if (json[i][j] == "xxxxxx" || json[i][j] == "XXXXXX") {
+                        console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยยังออกไม่หมด');
+                        return;
                     }
+                }
+            }
 
-                    var fileContents = null;
-                    try {
-                        fileContents = fs.readFileSync('check.txt');
-                    } catch (err) {
+            let imgurl = 'https://screenshot-xi.vercel.app/api?date=';
 
-                    }
+            console.log("หวยออกครบแล้ว")
 
-                    if (fileContents) {
-                        if (fileContents != '0') {
-                            fs.writeFile('check.txt', '0', function (err) {
-                                if (err) {
-                                    throw err
-                                };
-                                console.log('Saved!');
-                            });
-                        }
-                    } else {
-                        fs.writeFile('check.txt', '0', function (err) {
-                            if (err) {
-                                throw err
-                            };
-                            console.log('Saved!');
-                        });
-                    }
+            var fileContents = null;
+            try {
+                fileContents = fs.readFileSync('check.txt');
+            } catch (err) {
+                fs.writeFileSync('check.txt', '0', function (err) {
+                    if (err) {
+                        throw err
+                    };
+                    console.log('Saved!');
+                });
+            }
 
-                } else {
+            var lasttime = null
 
-                    //check every index of json has not "xxxxxx" or "XXXXXX"
-                    for (let i = 0; i < json.length; i++) {
-                        for (let j = 1; j < json[i].length; j++) {
-                            if (json[i][j] == "xxxxxx" || json[i][j] == "XXXXXX") {
-                                console.log('Bot ทำงานปกติและเช็คได้ว่าวันนี้หวยยังออกไม่หมด');
-                                return;
-                            }
-                        }
-                    }
+            try {
+                const stats = fs.statSync('lastout.txt');
+                //const expiry = new Date().getTime()
 
-                    let imgurl = 'https://boy-discord-bot.herokuapp.com/?date=';
+                lasttime = stats.mtime
 
-                    console.log("หวยออกครบแล้ว")
+            } catch (error) {
+                //console.log(error);
+                fs.writeFileSync('lastout.txt', '0', function (err) {
+                    if (err) {
+                        throw err
+                    };
+                    console.log('Saved!');
+                    var d = new Date();
+                    d.setDate(d.getDate() - 2);
+                    fs.utimesSync(path.join(__dirname, 'lastout.txt'), new Date(), d)
+                    const stats = fs.statSync('lastout.txt');
+                    lasttime = stats.mtime
+                });
+            }
 
-                    var fileContents = null;
-                    try {
-                        fileContents = fs.readFileSync('check.txt');
-                    } catch (err) {
-                        fs.writeFileSync('check.txt', '0', function (err) {
-                            if (err) {
-                                throw err
-                            };
-                            console.log('Saved!');
-                        });
-                    }
+            if (fileContents) {
+                let lastdatefromsql
+                con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", function (err, result, fields) {
+                    if (err) throw err;
+                    //console.log(result);
+                    lastdatefromsql = result[0].round; //YYYY-MM-DD
+                });
+                let today = new Date();
+                // convert today to yyyy-mm-dd
+                let dd = today.getDate();
+                let mm = today.getMonth() + 1; //January is 0!
+                let yyyy = today.getFullYear();
+                dd = padLeadingZeros(dd, 2);
+                mm = padLeadingZeros(mm, 2);
+                todayformat = yyyy + '-' + mm + '-' + dd;
+                if (fileContents != "1" && (lasttime.toDateString() != today.toDateString() || todayformat != lastdatefromsql)) {
+                    fs.writeFile('check.txt', '1', function (err) {
+                        if (err) {
+                            throw err
+                        };
+                        console.log('Saved!');
+                    });
+                    fs.writeFile('lastout.txt', '1', function (err) {
+                        if (err) {
+                            throw err
+                        };
+                        console.log('Saved!');
+                    });
 
-                    var lasttime = null
+                    //if (fs.existsSync('./lottery_' + date + '' + month + '' + year + '.png') == false) {
 
-                    try {
-                        const stats = fs.statSync('lastout.txt');
-                        //const expiry = new Date().getTime()
+                    /*await fetch('https://screenshot-xi.vercel.app/api?date=' + date + '' + month + '' + year)
+                        .then(res => res.buffer())
+                        .then(async (res) => {
+                            await fs.writeFileSync('./lottery_' + date + '' + month + '' + year + '.png', res)
+                        })
+                        .catch(async (err) => {
+                            console.log('Error:', err.message)
+                        });*/
 
-                        lasttime = stats.mtime
+                    const normalimg = await fetch('https://screenshot-xi.vercel.app/api?date=' + date + '' + month + '' + year)
+                    const bufimg = await normalimg.arrayBuffer()
 
-                    } catch (error) {
-                        //console.log(error);
-                        fs.writeFileSync('lastout.txt', '0', function (err) {
-                            if (err) {
-                                throw err
-                            };
-                            console.log('Saved!');
-                            var d = new Date();
-                            d.setDate(d.getDate() - 2);
-                            fs.utimesSync(path.join(__dirname, 'lastout.txt'), new Date(), d)
-                            const stats = fs.statSync('lastout.txt');
-                            lasttime = stats.mtime
-                        });
-                    }
+                    /*await fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year + '&mode=gold')
+                        .then(res => res.buffer())
+                        .then(async (res) => {
+                            await fs.writeFileSync('./lottery_' + date + '' + month + '' + year + '_gold.png', res)
+                        })
+                        .catch(async (err) => {
+                            console.log('Error:', err.message)
+                        });*/
 
-                    if (fileContents) {
-                        let lastdatefromsql
-                        con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", function (err, result, fields) {
-                            if (err) throw err;
-                            //console.log(result);
-                            lastdatefromsql = result[0].round; //YYYY-MM-DD
-                        });
-                        let today = new Date();
-                        // convert today to yyyy-mm-dd
-                        let dd = today.getDate();
-                        let mm = today.getMonth() + 1; //January is 0!
-                        let yyyy = today.getFullYear();
-                        dd = padLeadingZeros(dd, 2);
-                        mm = padLeadingZeros(mm, 2);
-                        todayformat = yyyy + '-' + mm + '-' + dd;
-                        if (fileContents != "1" && (lasttime.toDateString() != today.toDateString() || todayformat != lastdatefromsql)) {
-                            fs.writeFile('check.txt', '1', function (err) {
-                                if (err) {
-                                    throw err
-                                };
-                                console.log('Saved!');
-                            });
-                            fs.writeFile('lastout.txt', '1', function (err) {
-                                if (err) {
-                                    throw err
-                                };
-                                console.log('Saved!');
-                            });
+                    const goldimg = await fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year + '&mode=gold')
+                    const bufgoldimg = await goldimg.arrayBuffer()
+                    //}
 
-                            if (fs.existsSync('./lottery_' + date + '' + month + '' + year + '.png') == false) {
-
-                                await fetch('https://screenshot-xi.vercel.app/?date=' + date + '' + month + '' + year)
-                                    .then(res => res.buffer())
-                                    .then(async (res) => {
-                                        await fs.writeFileSync('./lottery_' + date + '' + month + '' + year + '.png', res)
-                                    })
-                                    .catch(async (err) => {
-                                        console.log('Error:', err.message)
-                                    });
-
-                                await fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year + '&mode=gold')
-                                    .then(res => res.buffer())
-                                    .then(async (res) => {
-                                        await fs.writeFileSync('./lottery_' + date + '' + month + '' + year + '_gold.png', res)
-                                    })
-                                    .catch(async (err) => {
-                                        console.log('Error:', err.message)
-                                    });
-                            }
-
-                            //check number user save
-                            con.query("SELECT * FROM lott_table WHERE status = 'waiting'", function (err, result, fields) {
-                                if (err) throw err;
-                                console.log(result);
-                                //loop result
-                                for (let i = 0; i < result.length; i++) {
-                                    let whatid = result[i].lott_id
-                                    let discordid = result[i].discord_id
-                                    let numberhebuy = result[i].numberbuy
-                                    console.log(result[i].lott_id)
-                                    console.log(result[i].numberbuy)
-                                    let optitot = { "method": "GET", "headers": { "x-rapidapi-host": "thai-lottery1.p.rapidapi.com", "x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137" } };
-                                    fetch("https://thai-lottery1.p.rapidapi.com/checklottery?by=" + date + "" + month + "" + year + "&search=" + result[i].numberbuy, optitot)
-                                        .then(res => res.text())
-                                        .then((json) => {
-                                            //if json is null or empty send message to result[i].discord_id
-                                            if (json == '' || json == null) {
-                                                var sql = "UPDATE lott_table SET status = 'ไม่ถูก',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
-                                                con.query(sql, function (err, result) {
-                                                    if (err) throw err;
-                                                    client.users.fetch(discordid).then(dm => {
-                                                        dm.send('ขออภัยค่ะ! เลข ' + numberhebuy + ' ยังไม่ถูกรางวัลนี้ค่ะ')
-                                                    })
-                                                });
-                                            } else {
-                                                var sql = "UPDATE lott_table SET status = 'win',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
-                                                con.query(sql, function (err, result) {
-                                                    if (err) throw err;
-                                                    client.users.fetch(discordid).then(dm => {
-                                                        dm.send('ยินดีด้วย! เลข ' + numberhebuy + ' ถูกรางวัลนี้ค่ะ')
-                                                    })
-                                                });
-                                            }
+                    //check number user save
+                    con.query("SELECT * FROM lott_table WHERE status = 'waiting'", function (err, result, fields) {
+                        if (err) throw err;
+                        console.log(result);
+                        //loop result
+                        for (let i = 0; i < result.length; i++) {
+                            let whatid = result[i].lott_id
+                            let discordid = result[i].discord_id
+                            let numberhebuy = result[i].numberbuy
+                            console.log(result[i].lott_id)
+                            console.log(result[i].numberbuy)
+                            let optitot = { "method": "GET", "headers": { "x-rapidapi-host": "thai-lottery1.p.rapidapi.com", "x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137" } };
+                            fetch("https://thai-lottery1.p.rapidapi.com/checklottery?by=" + date + "" + month + "" + year + "&search=" + result[i].numberbuy, optitot)
+                                .then(res => res.text())
+                                .then((json) => {
+                                    //if json is null or empty send message to result[i].discord_id
+                                    if (json == '' || json == null) {
+                                        var sql = "UPDATE lott_table SET status = 'ไม่ถูก',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
+                                        con.query(sql, function (err, result) {
+                                            if (err) throw err;
+                                            client.users.fetch(discordid).then(dm => {
+                                                dm.send('ขออภัยค่ะ! เลข ' + numberhebuy + ' ยังไม่ถูกรางวัลในงวดวันนี้ค่ะ')
+                                            })
                                         });
-                                }
-                            });
+                                    } else {
+                                        var sql = "UPDATE lott_table SET status = 'win',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
+                                        con.query(sql, function (err, result) {
+                                            if (err) throw err;
+                                            client.users.fetch(discordid).then(dm => {
+                                                dm.send('ยินดีด้วย! เลข ' + numberhebuy + ' ถูกรางวัลในงวดวันนี้ค่ะ')
+                                            })
+                                        });
+                                    }
+                                });
+                        }
+                    });
 
-                            //const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '.png');
-                            const file = new AttachmentBuilder('./lottery_' + date + '' + month + '' + year + '.png');
-                            //const filegold = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '_gold.png');
-                            const filegold = new AttachmentBuilder('./lottery_' + date + '' + month + '' + year + '_gold.png');
+                    //const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '.png');
+                    //const file = new AttachmentBuilder('./lottery_' + date + '' + month + '' + year + '.png');
+                    const file = new AttachmentBuilder(bufimg, 'lottery_' + date + '' + month + '' + year + '.png');
+                    //const filegold = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '_gold.png');
+                    //const filegold = new AttachmentBuilder('./lottery_' + date + '' + month + '' + year + '_gold.png');
+                    const filegold = new AttachmentBuilder(bufgoldimg, 'lottery_' + date + '' + month + '' + year + '_gold.png');
 
-                            const msg = new EmbedBuilder()
-                                .setColor('#0099ff')
-                                .setTitle('ผลสลากกินแบ่งรัฐบาล')
-                                .setURL('https://www.glo.or.th/')
-                                .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
-                                .setThumbnail('https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/docs/glologo.png')
-                                .addFields(
-                                    { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
-                                    //{ name: '\u200B', value: '\u200B' },
-                                    { name: 'เลขหน้าสามตัว', value: json[1][1] + ' | ' + json[1][2], inline: true },
-                                    { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
-                                    { name: 'เลขท้ายสองตัว', value: json[3][1] },
-                                )
-                                //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
-                                .setImage('attachment://lottery_' + date + '' + month + '' + year + '.png')
-                                .setTimestamp()
-                                .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
+                    const msg = new EmbedBuilder()
+                        .setColor('#0099ff')
+                        .setTitle('ผลสลากกินแบ่งรัฐบาล')
+                        .setURL('https://www.glo.or.th/')
+                        .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
+                        .setThumbnail('https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/docs/glologo.png')
+                        .addFields(
+                            { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
+                            //{ name: '\u200B', value: '\u200B' },
+                            { name: 'เลขหน้าสามตัว', value: json[1][1] + ' | ' + json[1][2], inline: true },
+                            { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
+                            { name: 'เลขท้ายสองตัว', value: json[3][1] },
+                        )
+                        //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
+                        .setImage('attachment://lottery_' + date + '' + month + '' + year + '.png')
+                        .setTimestamp()
+                        .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
 
-                            const msggold = new EmbedBuilder()
-                                .setColor('#0099ff')
-                                .setTitle('ผลสลากกินแบ่งรัฐบาล')
-                                .setURL('https://www.glo.or.th/')
-                                .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
-                                .setThumbnail('https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/docs/glologo.png')
-                                .addFields(
-                                    { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
-                                    //{ name: '\u200B', value: '\u200B' },
-                                    { name: 'เลขหน้าสามตัว', value: json[1][1] + ' | ' + json[1][2], inline: true },
-                                    { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
-                                    { name: 'เลขท้ายสองตัว', value: json[3][1] },
-                                )
-                                //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
-                                .setImage('attachment://lottery_' + date + '' + month + '' + year + '_gold.png')
-                                .setTimestamp()
-                                .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
+                    const msggold = new EmbedBuilder()
+                        .setColor('#0099ff')
+                        .setTitle('ผลสลากกินแบ่งรัฐบาล')
+                        .setURL('https://www.glo.or.th/')
+                        .setDescription('งวดวันที่ ' + new Date().getDate() + ' ' + convertmonthtotext(month) + ' ' + year)
+                        .setThumbnail('https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/docs/glologo.png')
+                        .addFields(
+                            { name: 'รางวัลที่หนึ่ง', value: json[0][1] },
+                            //{ name: '\u200B', value: '\u200B' },
+                            { name: 'เลขหน้าสามตัว', value: json[1][1] + ' | ' + json[1][2], inline: true },
+                            { name: 'เลขท้ายสามตัว', value: json[2][1] + ' | ' + json[2][2], inline: true },
+                            { name: 'เลขท้ายสองตัว', value: json[3][1] },
+                        )
+                        //.setImage('https://img.gs/fhcphvsghs/full,quality=low/' + imgurl + date + month + year)
+                        .setImage('attachment://lottery_' + date + '' + month + '' + year + '_gold.png')
+                        .setTimestamp()
+                        .setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
 
-                            const response = await fetch(process.env.URL + '/discordbot/chlist.txt', { method: 'GET' });
-                            const data = await response.json();
-                            const wow = data;
-                            //loop [1,2,3] array
-                            for (let i = 0; i < data.length; i++) {
-                                let unknows = 0;
-                                try {
-                                    console.log(client.channels.fetch(wow[i]).then(channel => {
-                                        console.log(channel.guildId)
-                                        unknows = channel.guildId;
-                                    }).catch(console.error));
-                                } catch (error) {
-                                    unknows = 0;
-                                }
-                                //wait 3 sec
-                                await new Promise(r => setTimeout(r, 3000));
+                    const response = await fetch(process.env.URL + '/discordbot/chlist.txt', { method: 'GET' });
+                    const data = await response.json();
+                    const wow = data;
+                    //loop [1,2,3] array
+                    for (let i = 0; i < data.length; i++) {
+                        let unknows = 0;
+                        try {
+                            console.log(client.channels.fetch(wow[i]).then(channel => {
+                                console.log(channel.guildId)
+                                unknows = channel.guildId;
+                            }).catch(console.error));
+                        } catch (error) {
+                            unknows = 0;
+                        }
+                        //wait 3 sec
+                        await new Promise(r => setTimeout(r, 3000));
 
-                                if (unknows != 0) {
-                                    con.query("SELECT * FROM lott_main WHERE lott_guildid = '" + unknows + "'", function (err, result, fields) {
-                                        //if (err) throw err;
-                                        if (result.length == 0 || result[0].lott_resultmode == 'normal' || err) {
-                                            if (err) {
-                                                console.log(err);
-                                            }
+                        if (unknows != 0) {
+                            con.query("SELECT * FROM lott_main WHERE lott_guildid = '" + unknows + "'", function (err, result, fields) {
+                                //if (err) throw err;
+                                if (result.length == 0 || result[0].lott_resultmode == 'normal' || err) {
+                                    if (err) {
+                                        console.log(err);
+                                    }
 
-                                            try {
-                                                client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [file] })
-                                                    .then((log) => {
-                                                        console.log(log);
-                                                    })
-                                                    .catch((error) => {
-
-                                                    });
-                                            } catch (error) {
-                                                console.log('don\'t send')
-                                            }
-                                        } else {
-                                            try {
-                                                client.channels.cache.get(wow[i]).send({ embeds: [msggold], files: [filegold] })
-                                                    .then((log) => {
-                                                        console.log(log);
-                                                    })
-                                                    .catch((error) => {
-
-                                                    });
-                                            } catch (error) {
-                                                console.log('don\'t send')
-
-                                            }
-                                        }
-                                    })
-                                } else {
                                     try {
                                         client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [file] })
                                             .then((log) => {
                                                 console.log(log);
                                             })
                                             .catch((error) => {
-                                                console.log(error);
+
+                                            });
+                                    } catch (error) {
+                                        console.log('don\'t send')
+                                    }
+                                } else {
+                                    try {
+                                        client.channels.cache.get(wow[i]).send({ embeds: [msggold], files: [filegold] })
+                                            .then((log) => {
+                                                console.log(log);
+                                            })
+                                            .catch((error) => {
 
                                             });
                                     } catch (error) {
@@ -631,22 +625,38 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', () => {
 
                                     }
                                 }
+                            })
+                        } else {
+                            try {
+                                client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [file] })
+                                    .then((log) => {
+                                        console.log(log);
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+
+                                    });
+                            } catch (error) {
+                                console.log('don\'t send')
+
                             }
-
-                            //insert to sql
-                            con.query("INSERT INTO lott_round (id, round) VALUES ('" + date + "" + month + "" + year + "', '" + todayformat + "')", function (err, result, fields) {
-                                if (err) throw err;
-                                //console.log(result);
-                                console.log('Insert complete');
-                            });
-
                         }
                     }
+
+                    //insert to sql
+                    con.query("INSERT INTO lott_round (id, round) VALUES ('" + date + "" + month + "" + year + "', '" + todayformat + "')", function (err, result, fields) {
+                        if (err) throw err;
+                        //console.log(result);
+                        console.log('Insert complete');
+                    });
 
                 }
             }
 
-        });
+        }
+    }
+
+    //});
 
 });
 
@@ -656,219 +666,225 @@ scheduledMessage.start()
 
 //thaioilprice cron
 
-let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', () => {
+let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', async () => {
     let nows = new Date();
     // if nows = 3 feb client.user.setAvatar
     if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hbd.jpg')
-    } else if(nows.getDate() >= 14 && nows.getDate() <= 16 && nows.getMonth() == 1){
+    } else if (nows.getDate() >= 14 && nows.getDate() <= 16 && nows.getMonth() == 1) {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_makha.jpg')
-    } else if(nows.getDate() >= 11 && nows.getDate() <= 15 && nows.getMonth() == 3){
+    } else if (nows.getDate() >= 11 && nows.getDate() <= 15 && nows.getMonth() == 3) {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_songkran.jpg')
-    } else if(nows.getDate() >= 21 && nows.getDate() <= 23 && nows.getMonth() == 9){
+    } else if (nows.getDate() >= 21 && nows.getDate() <= 23 && nows.getMonth() == 9) {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
-    } else if((nows.getDate() >= 30 && nows.getDate() <= 31 && nows.getMonth() == 9) || (nows.getDate() == 1 && nows.getMonth() == 10)){
+    } else if ((nows.getDate() >= 30 && nows.getDate() <= 31 && nows.getMonth() == 9) || (nows.getDate() == 1 && nows.getMonth() == 10)) {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hh.jpg')
-    } else if(nows.getDate() >= 8 && nows.getDate() <= 10 && nows.getMonth() == 11){
+    } else if (nows.getDate() >= 8 && nows.getDate() <= 10 && nows.getMonth() == 11) {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_law.jpg')
-    } else if((nows.getDate() >= 23 && nows.getDate() <= 31 && nows.getMonth() == 11) || (nows.getDate() == 1 && nows.getMonth() == 0)){
+    } else if ((nows.getDate() >= 23 && nows.getDate() <= 31 && nows.getMonth() == 11) || (nows.getDate() == 1 && nows.getMonth() == 0)) {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_mrahny.jpg')
     } else {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.jpg')
     }
 
     //fetch http://192.168.31.210:1000 || https://topapi.pwisetthon.com
-    fetch('https://thaioilpriceapi-vercel.vercel.app')
+    /*fetch('https://thaioilpriceapi-vercel.vercel.app')
         .then(res => res.json())
-        .then(json => {
-            let ngv = json[0][9]
+        .then(json => {*/
+    const fetchapi = await fetch('https://thaioilpriceapi-vercel.vercel.app');
+    const json = await fetchapi.json();
+    let ngv = json[0][9]
 
-            var sql = 'SELECT * FROM oilprice WHERE date = "' + json[0][0] + '"';
-            con.query(sql, function (err, result) {
+    var sql = 'SELECT * FROM oilprice WHERE date = "' + json[0][0] + '"';
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+        if (result.length == 0) {
+            if (json[0][9] == '-') {
+                ngv = 0
+            }
+            var sql = 'INSERT INTO oilprice VALUES ("' + json[0][0] + '", ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
+            con.query(sql, async function (err, result) {
                 if (err) throw err;
-                if (result.length == 0) {
-                    if (json[0][9] == '-') {
-                        ngv = 0
-                    }
-                    var sql = 'INSERT INTO oilprice VALUES ("' + json[0][0] + '", ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
-                    con.query(sql, async function (err, result) {
-                        if (err) throw err;
 
-                        //set Presence
-                        if(parseInt(json[2][8]) > 0){
-                            client.user.setPresence({ activities: [{ name: 'เซ็ง 91 ขึ้นอีกละ | discordbot.pwisetthon.com' }], status: 'online' });
-                            //after 1 hour set back to default
-                            setTimeout(() => {
-                                client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
-                            }, 3600000);
-                        }
-
-                        const response = await fetch(process.env.URL + '/discordbot/oilchlist.txt', { method: 'GET' });
-                        const data = await response.json();
-                        const wow = data;
-                        let imagegood = false;
-
-                        await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000',{ timeout: 7500 })
-                            .then(res => res.buffer())
-                            .then(async (res) => {
-                                await fs.writeFileSync('./lastoilprice.png', res)
-                                //imagegood = true;
-                            })
-                            .catch(async (err) => {
-                                console.log(err);
-                                //imagegood = false;
-                            });
-
-                        //let files
-                        //let imageisgood = false
-
-                        //check if file exist and size > 400kb and size < 500kb
-                        if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 400000 && fs.statSync('./lastoilprice.png').size < 500000) {
-                            //files = new MessageAttachment('./lastoilprice.png');
-                            imagegood = true
-                        } else {
-                            imagegood = false;
-                            await fetch('https://topapi.pwisetthon.com/image')
-                                .then(res => res.buffer())
-                                .then(async (res) => {
-                                    await fs.writeFileSync('./lastoilprice.png', res)
-                                    //files = new MessageAttachment('./lastoilprice.png');
-                                    imagegood = true;
-                                })
-                        }
-
-                        let todays = new Date();
-                        let oilday = new Date(json[0][0].substring(6, 10) + '-' + json[0][0].substring(3, 5) + '-' + json[0][0].substring(0, 2));
-
-                        let desctext
-
-                        //if todays == oilday
-                        if (todays.getDate() == oilday.getDate()) {
-                            desctext = 'นี้';
-                        } else {
-                            desctext = 'พรุ่งนี้';
-                        }
-
-                        //const files = new MessageAttachment('./lastoilprice.png');
-                        const files = new AttachmentBuilder('./lastoilprice.png');
-
-                        let msg = new EmbedBuilder()
-                            .setColor('#0099ff')
-                            .setTitle('ราคาน้ำมันพรุ่งนี้')
-                            .setURL('https://www.bangchak.co.th/th/oilprice/historical')
-                            .setDescription('ราคาน้ำมันมีการเปลี่ยนแปลงสำหรับวัน'+ desctext +' (วันที่ ' + json[0][0].substring(0, 2) + ' ' + convertmonthtotext(json[0][0].substring(3, 5)) + ' ' + json[0][0].substring(6, 10) + ')')
-                            .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
-                            .setImage('attachment://lastoilprice.png')
-                            .setTimestamp()
-                            .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
-
-                        if (imagegood == false) {
-                            msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
-                        }
-
-                        let messid = [];
-
-                        for (let i = 0; i < wow.length; i++) {
-                            try {
-                                if (imagegood == true) {
-                                    await client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
-                                        .then((log) => {
-                                            //console.log(log);
-                                            //push message id and channel id to messid
-                                            messid.push({
-                                                messid: log.id,
-                                                chanelid: wow[i]
-                                            })
-                                        })
-                                        .catch((error) => {
-                                            //console.log(error);
-                                            client.users.fetch('133439202556641280').then(dm => {
-                                                dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
-                                            })
-                                        });
-                                } else {
-                                    await client.channels.cache.get(wow[i]).send({ embeds: [msg] })
-                                        .then((log) => {
-                                            //console.log(log);
-                                            //push message id and channel id to messid
-                                            messid.push({
-                                                messid: log.id,
-                                                chanelid: wow[i]
-                                            })
-                                        })
-                                        .catch((error) => {
-                                            //console.log(error);
-                                            client.users.fetch('133439202556641280').then(dm => {
-                                                dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
-                                            })
-                                        });
-                                }
-                            } catch (error) {
-                                console.log('he not send')
-                            }
-                        }
-
-                        //convert messid to json
-                        let messidjson = JSON.stringify(messid);
-                        //get today date format day/month/thaiyear
-                        let today = new Date();
-                        let day = today.getDate();
-                        let month = today.getMonth() + 1;
-                        let thaiyear = today.getFullYear() + 543;
-                        let date = day + '/' + month + '/' + thaiyear;
-                        //push messidjson to database
-                        let sql = `INSERT INTO hell VALUES ('${date}', '${messidjson}')`;
-                        con.query(sql, function (err, result) {
-                            if (err) throw err;
-                            console.log('1 record inserted');
-                        });
-
-                        //const row = new MessageActionRow()
-                        const row = new ActionRowBuilder()
-                            .addComponents(
-                                //new MessageButton()
-                                new ButtonBuilder()
-                                    .setCustomId('hell')
-                                    .setLabel('ลบ')
-                                    .setStyle('DANGER'),
-                                //new MessageButton()
-                                new ButtonBuilder()
-                                    .setCustomId('hellandreset')
-                                    .setLabel('ลบและรีเซ็ต')
-                                    .setStyle('DANGER'),
-                            );
-
-                        //send msg to user 133439202556641280
-                        if (imagegood == true) {
-                            client.users.fetch('133439202556641280').then(dm => {
-                                dm.send({ embeds: [msg], files: [files], components: [row] })
-                                    .then((log) => {
-                                        console.log(log);
-                                    })
-                                    .catch((error) => {
-                                        console.log(error);
-
-                                    });
-                            });
-                        } else {
-                            client.users.fetch('133439202556641280').then(dm => {
-                                dm.send({ embeds: [msg], components: [row] })
-                                    .then((log) => {
-                                        console.log(log);
-                                    })
-                                    .catch((error) => {
-                                        console.log(error);
-
-                                    });
-                            });
-                        }
-                    });
+                //set Presence
+                if (parseInt(json[2][8]) > 0) {
+                    client.user.setPresence({ activities: [{ name: 'เซ็ง 91 ขึ้นอีกละ | discordbot.pwisetthon.com' }], status: 'online' });
+                    //after 1 hour set back to default
+                    setTimeout(() => {
+                        client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
+                    }, 3600000);
                 }
+
+                const response = await fetch(process.env.URL + '/discordbot/oilchlist.txt', { method: 'GET' });
+                const data = await response.json();
+                const wow = data;
+                //let imagegood = false;
+
+                /*await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000', { timeout: 7500 })
+                    .then(res => res.buffer())
+                    .then(async (res) => {
+                        await fs.writeFileSync('./lastoilprice.png', res)
+                        //imagegood = true;
+                    })
+                    .catch(async (err) => {
+                        console.log(err);
+                        //imagegood = false;
+                    });*/
+
+                const fetchthaioilimg = await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000');
+                const thaioilimg = await fetchthaioilimg.arrayBuffer();
+
+                //let files
+                //let imageisgood = false
+
+                //check if file exist and size > 400kb and size < 500kb
+                /*if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 400000 && fs.statSync('./lastoilprice.png').size < 500000) {
+                    //files = new MessageAttachment('./lastoilprice.png');
+                    imagegood = true
+                } else {
+                    imagegood = false;
+                    await fetch('https://topapi.pwisetthon.com/image')
+                        .then(res => res.buffer())
+                        .then(async (res) => {
+                            await fs.writeFileSync('./lastoilprice.png', res)
+                            //files = new MessageAttachment('./lastoilprice.png');
+                            imagegood = true;
+                        })
+                }*/
+
+                let todays = new Date();
+                let oilday = new Date(json[0][0].substring(6, 10) + '-' + json[0][0].substring(3, 5) + '-' + json[0][0].substring(0, 2));
+
+                let desctext
+
+                //if todays == oilday
+                if (todays.getDate() == oilday.getDate()) {
+                    desctext = 'นี้';
+                } else {
+                    desctext = 'พรุ่งนี้';
+                }
+
+                //const files = new MessageAttachment('./lastoilprice.png');
+                //const files = new AttachmentBuilder('./lastoilprice.png');
+                const files = new AttachmentBuilder(thaioilimg, 'lastoilprice.png');
+
+                let msg = new EmbedBuilder()
+                    .setColor('#0099ff')
+                    .setTitle('ราคาน้ำมันพรุ่งนี้')
+                    .setURL('https://www.bangchak.co.th/th/oilprice/historical')
+                    .setDescription('ราคาน้ำมันมีการเปลี่ยนแปลงสำหรับวัน' + desctext + ' (วันที่ ' + json[0][0].substring(0, 2) + ' ' + convertmonthtotext(json[0][0].substring(3, 5)) + ' ' + json[0][0].substring(6, 10) + ')')
+                    .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
+                    .setImage('attachment://lastoilprice.png')
+                    .setTimestamp()
+                    .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+
+                /*if (imagegood == false) {
+                    msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+                }*/
+
+                let messid = [];
+
+                for (let i = 0; i < wow.length; i++) {
+                    try {
+                        //if (imagegood == true) {
+                            await client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
+                                .then((log) => {
+                                    //console.log(log);
+                                    //push message id and channel id to messid
+                                    messid.push({
+                                        messid: log.id,
+                                        chanelid: wow[i]
+                                    })
+                                })
+                                .catch((error) => {
+                                    //console.log(error);
+                                    client.users.fetch('133439202556641280').then(dm => {
+                                        dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                                    })
+                                });
+                        /*} else {
+                            await client.channels.cache.get(wow[i]).send({ embeds: [msg] })
+                                .then((log) => {
+                                    //console.log(log);
+                                    //push message id and channel id to messid
+                                    messid.push({
+                                        messid: log.id,
+                                        chanelid: wow[i]
+                                    })
+                                })
+                                .catch((error) => {
+                                    //console.log(error);
+                                    client.users.fetch('133439202556641280').then(dm => {
+                                        dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                                    })
+                                });
+                        }*/
+                    } catch (error) {
+                        console.log('he not send')
+                    }
+                }
+
+                //convert messid to json
+                let messidjson = JSON.stringify(messid);
+                //get today date format day/month/thaiyear
+                let today = new Date();
+                let day = today.getDate();
+                let month = today.getMonth() + 1;
+                let thaiyear = today.getFullYear() + 543;
+                let date = day + '/' + month + '/' + thaiyear;
+                //push messidjson to database
+                let sql = `INSERT INTO hell VALUES ('${date}', '${messidjson}')`;
+                con.query(sql, function (err, result) {
+                    if (err) throw err;
+                    console.log('1 record inserted');
+                });
+
+                //const row = new MessageActionRow()
+                const row = new ActionRowBuilder()
+                    .addComponents(
+                        //new MessageButton()
+                        new ButtonBuilder()
+                            .setCustomId('hell')
+                            .setLabel('ลบ')
+                            .setStyle('DANGER'),
+                        //new MessageButton()
+                        new ButtonBuilder()
+                            .setCustomId('hellandreset')
+                            .setLabel('ลบและรีเซ็ต')
+                            .setStyle('DANGER'),
+                    );
+
+                //send msg to user 133439202556641280
+                //if (imagegood == true) {
+                    client.users.fetch('133439202556641280').then(dm => {
+                        dm.send({ embeds: [msg], files: [files], components: [row] })
+                            .then((log) => {
+                                console.log(log);
+                            })
+                            .catch((error) => {
+                                console.log(error);
+
+                            });
+                    });
+                /*} else {
+                    client.users.fetch('133439202556641280').then(dm => {
+                        dm.send({ embeds: [msg], components: [row] })
+                            .then((log) => {
+                                console.log(log);
+                            })
+                            .catch((error) => {
+                                console.log(error);
+
+                            });
+                    });
+                }*/
             });
-        })
-        .catch(err => {
-            console.log(err)
-        });
+        }
+    });
+    /*})
+    .catch(err => {
+        console.log(err)
+    });*/
 });
 
 scheduledthaioil.start();
@@ -919,16 +935,22 @@ client.on('interactionCreate', async interaction => {
         await interaction.deferReply();
         let havesub = false;
 
-        await fetch(process.env.URL + '/discordbot/chlist.txt')
+        /*await fetch(process.env.URL + '/discordbot/chlist.txt')
             .then(res => res.json())
             .then(async (res) => {
                 if (res.includes(interaction.channelId)) {
                     havesub = true;
                 }
-            })
+            })*/
+
+        const checklist = await fetch(process.env.URL + '/discordbot/chlist.txt')
+        const list = await checklist.json()
+        if (list.includes(interaction.channelId)) {
+            havesub = true;
+        }
 
         if (havesub == true) {
-            fetch(process.env.URL + '/discordbot/delchannels.php?chid=' + interaction.channelId)
+            /*fetch(process.env.URL + '/discordbot/delchannels.php?chid=' + interaction.channelId)
                 .then(res => res.text())
                 .then(async (res) => {
                     if (res === 'debug') {
@@ -938,9 +960,21 @@ client.on('interactionCreate', async interaction => {
                     }
                 }).catch(async (err) => {
                     await interaction.editReply('ไม่สามารถยกเลิกการติดตามสลากฯได้')
-                });
+                });*/
+            const delfromlist = await fetch(process.env.URL + '/discordbot/delchannels.php?chid=' + interaction.channelId)
+            const delfromlistres = await delfromlist.text()
+            const delfromliststatus = await delfromlist.status
+            if (delfromliststatus === 200) {
+                if (delfromlistres === 'debug') {
+                    await interaction.editReply('เอ้! ไม่สามารถยกเลิกการติดตามสลากฯได้')
+                } else {
+                    await interaction.editReply('ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+                }
+            }else{
+                await interaction.editReply('ไม่สามารถยกเลิกการติดตามสลากฯได้')
+            }
         } else {
-            fetch(process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channelId)
+            /*fetch(process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channelId)
                 .then(res => res.text())
                 .then(async (res) => {
                     if (res === 'debug') {
@@ -952,7 +986,21 @@ client.on('interactionCreate', async interaction => {
                     }
                 }).catch(async (err) => {
                     await interaction.editReply('ไม่สามารถติดตามสลากฯได้')
-                });
+                });*/
+            const addtolist = await fetch(process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channelId)
+            const addtolistres = await addtolist.text()
+            const addtoliststatus = await addtolist.status
+            if(addtoliststatus === 200) {
+                if (addtolistres === 'debug') {
+                    await interaction.editReply('เอ้! ไม่สามารถติดตามสลากฯได้')
+                } else if (addtolistres === 'error') {
+                    await interaction.editReply('เอ้! ไม่สามารถติดตามสลากฯได้')
+                } else {
+                    await interaction.editReply('ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
+                }
+            }else{
+                await interaction.editReply('ไม่สามารถติดตามสลากฯได้')
+            }
         }
     }
 
@@ -960,25 +1008,29 @@ client.on('interactionCreate', async interaction => {
         //await interaction.reply('Loading!');
         await interaction.deferReply();
 
-        const response = await fetch(lottoapi+'/lastlot?info=true');
+        const response = await fetch(lottoapi + '/lastlot?info=true');
         const data = await response.json();
 
-        if (fs.existsSync('./lottery_' + data.info.date + '.png') == false) {
-            
+        //if (fs.existsSync('./lottery_' + data.info.date + '.png') == false) {
+
             //await fetch(lotimgapi+'/?date=' + data.info.date)
-            await fetch('https://screenshot-xi.vercel.app/?date=' + data.info.date)
+            /*await fetch('https://screenshot-xi.vercel.app/?date=' + data.info.date)
                 .then(res => res.buffer())
                 .then(async (res) => {
                     await fs.writeFileSync('./lottery_' + data.info.date + '.png', res)
                 })
                 .catch(async (err) => {
                     await interaction.editReply('ไม่สามารถดึงข้อมูลล่าสุดสลากฯได้')
-                });
+                });*/
 
-        }
+            const fetchlotimg = await fetch ('https://screenshot-xi.vercel.app/?date=' + data.info.date)
+            const fetchlotimgres = await fetchlotimg.arrayBuffer()
+
+        //}
 
         //const file = new MessageAttachment('./lottery_' + data.info.date + '.png');
-        const file = new AttachmentBuilder('./lottery_' + data.info.date + '.png');
+        //const file = new AttachmentBuilder('./lottery_' + data.info.date + '.png');
+        const file = new AttachmentBuilder(fetchlotimgres, 'lottery_' + data.info.date + '.png');
 
         const msg = new EmbedBuilder()
             .setColor('#0099ff')
@@ -1014,10 +1066,10 @@ client.on('interactionCreate', async interaction => {
         //get this year in buddhist year
         const year = new Date().getFullYear() + 543;
 
-        const response = await fetch(lottoapi+'/lastlot?info=true');
+        const response = await fetch(lottoapi + '/lastlot?info=true');
         const data = await response.json();
 
-        const responses = await fetch(lottoapi+'/checklottery?by=' + data.info.date + '&search=' + numbertofind);
+        const responses = await fetch(lottoapi + '/checklottery?by=' + data.info.date + '&search=' + numbertofind);
         const datas = await responses.text();
 
         if (datas.search("111111") != -1) {
@@ -1269,7 +1321,7 @@ client.on('interactionCreate', async interaction => {
         //check if numbertosave is number
         if (isNaN(numbertosave)) {
             await interaction.editReply({ content: 'กรุณาใส่เลขที่ต้องการบันทึกให้ถูกต้อง' });
-        }else{
+        } else {
             //discord user id
             let userid = interaction.user.id;
             //date now
@@ -1320,7 +1372,7 @@ client.on('interactionCreate', async interaction => {
         let waitwhat;
         let lastlottdate;
         //node fetch http://192.168.31.210:5000/reto
-        await fetch(lottoapi+'/reto')
+        await fetch(lottoapi + '/reto')
             .then(res => res.text())
             .then(body => {
                 if (body == 'yes') {
@@ -1753,7 +1805,7 @@ client.on('interactionCreate', async interaction => {
                         const $ = cheerio.load(body);
                         const result = $('h4').toArray().map(p => $(p).text());
                         //if reusult length is 1, it means no result
-                        if(result.length == 1){
+                        if (result.length == 1) {
                             console.log(result);
                             arrayreport[0][0] = 0;
                         } else {
@@ -1771,7 +1823,7 @@ client.on('interactionCreate', async interaction => {
                             arrayreport[0][1] = result[2].replace(" บาท", "");
                             arrayreport[0][2] = amount3.replace("บาท", " บาท");
                             arrayreport[0][3] = date;
-                            arrayreport[0][4] = from + " " + bank; 
+                            arrayreport[0][4] = from + " " + bank;
                             arrayreport[0][5] = bank ? bank : "ไม่ระบุ";
                             arrayreport[0][6] = number ? number : "ไม่ระบุ";
                             arrayreport[0][7] = name ? name : result[0];
@@ -1811,7 +1863,7 @@ client.on('interactionCreate', async interaction => {
                         const $ = cheerio.load(body);
                         const result = $('h4').toArray().map(p => $(p).text());
                         //if reusult length is 1, it means no result
-                        if(result.length == 1){
+                        if (result.length == 1) {
                             console.log(result);
                             arrayreport[1][0] = 0;
                         } else {
@@ -1829,7 +1881,7 @@ client.on('interactionCreate', async interaction => {
                             arrayreport[1][1] = result[2].replace(" บาท", "");
                             arrayreport[1][2] = amount3.replace("บาท", " บาท");
                             arrayreport[1][3] = date;
-                            arrayreport[1][4] = from + " " + bank; 
+                            arrayreport[1][4] = from + " " + bank;
                             arrayreport[1][5] = bank ? bank : "ไม่ระบุ";
                             arrayreport[1][6] = number ? number : "ไม่ระบุ";
                             arrayreport[1][7] = name ? name : result[0];
@@ -1869,7 +1921,7 @@ client.on('interactionCreate', async interaction => {
                     const $ = cheerio.load(body);
                     const result = $('h4').toArray().map(p => $(p).text());
                     //if reusult length is 1, it means no result
-                    if(result.length == 1){
+                    if (result.length == 1) {
                         console.log(result);
                         arrayreport[2][0] = 0;
                     } else {
@@ -1887,7 +1939,7 @@ client.on('interactionCreate', async interaction => {
                         arrayreport[2][1] = result[2].replace(" บาท", "");
                         arrayreport[2][2] = amount3.replace("บาท", " บาท");
                         arrayreport[2][3] = date;
-                        arrayreport[2][4] = from + " " + bank; 
+                        arrayreport[2][4] = from + " " + bank;
                         arrayreport[2][5] = bank ? bank : "ไม่ระบุ";
                         arrayreport[2][6] = number ? number : "ไม่ระบุ";
                         arrayreport[2][7] = name ? name : result[0];
@@ -1920,14 +1972,14 @@ client.on('interactionCreate', async interaction => {
                     }).catch(async (err) => {
                         //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
                     });*/
-                
+
                 await fetch('https://www.whoscheat.com/Home/Results/?s_type=4&s_inp=' + name)
                     .then(res => res.text())
                     .then(body => {
                         const $ = cheerio.load(body);
                         const result = $('h4').toArray().map(p => $(p).text());
                         //if reusult length is 1, it means no result
-                        if(result.length == 1){
+                        if (result.length == 1) {
                             console.log(result);
                         } else {
                             //console.log(result);
@@ -1944,7 +1996,7 @@ client.on('interactionCreate', async interaction => {
                             arrayreport[arrayreportlength][1] = result[2].replace(" บาท", "");
                             arrayreport[arrayreportlength][2] = amount3.replace("บาท", " บาท");
                             arrayreport[arrayreportlength][3] = date;
-                            arrayreport[arrayreportlength][4] = from + " " + bank; 
+                            arrayreport[arrayreportlength][4] = from + " " + bank;
                             arrayreport[arrayreportlength][5] = bank ? bank : "ไม่ระบุ";
                             arrayreport[arrayreportlength][6] = number ? number : "ไม่ระบุ";
                             arrayreport[arrayreportlength][7] = name ? name : result[0];
@@ -1979,14 +2031,14 @@ client.on('interactionCreate', async interaction => {
                         }).catch(async (err) => {
                             //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
                         });*/
-                    
+
                     await fetch('https://www.whoscheat.com/Home/Results/?s_type=4&s_inp=' + name)
                         .then(res => res.text())
                         .then(body => {
                             const $ = cheerio.load(body);
                             const result = $('h4').toArray().map(p => $(p).text());
                             //if reusult length is 1, it means no result
-                            if(result.length == 1){
+                            if (result.length == 1) {
                                 console.log(result);
                             } else {
                                 //console.log(result);
@@ -2003,7 +2055,7 @@ client.on('interactionCreate', async interaction => {
                                 arrayreport[arrayreportlength][1] = result[2].replace(" บาท", "");
                                 arrayreport[arrayreportlength][2] = amount3.replace("บาท", " บาท");
                                 arrayreport[arrayreportlength][3] = date;
-                                arrayreport[arrayreportlength][4] = from + " " + bank; 
+                                arrayreport[arrayreportlength][4] = from + " " + bank;
                                 arrayreport[arrayreportlength][5] = bank ? bank : "ไม่ระบุ";
                                 arrayreport[arrayreportlength][6] = number ? number : "ไม่ระบุ";
                                 arrayreport[arrayreportlength][7] = name ? name : result[0];
@@ -2046,7 +2098,7 @@ client.on('interactionCreate', async interaction => {
                             const $ = cheerio.load(body);
                             const result = $('h4').toArray().map(p => $(p).text());
                             //if reusult length is 1, it means no result
-                            if(result.length == 1){
+                            if (result.length == 1) {
                                 console.log(result);
                             } else {
                                 //console.log(result);
@@ -2063,7 +2115,7 @@ client.on('interactionCreate', async interaction => {
                                 arrayreport[arrayreportlength][1] = result[2].replace(" บาท", "");
                                 arrayreport[arrayreportlength][2] = amount3.replace("บาท", " บาท");
                                 arrayreport[arrayreportlength][3] = date;
-                                arrayreport[arrayreportlength][4] = from + " " + bank; 
+                                arrayreport[arrayreportlength][4] = from + " " + bank;
                                 arrayreport[arrayreportlength][5] = bank ? bank : "ไม่ระบุ";
                                 arrayreport[arrayreportlength][6] = number ? number : "ไม่ระบุ";
                                 arrayreport[arrayreportlength][7] = name ? name : result[0];
@@ -2120,7 +2172,7 @@ client.on('interactionCreate', async interaction => {
                     .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/Images/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
                     //.addField('พบรายงานการโกง', 'จำนวน ' + arrayreport[index][0] + ' ครั้ง')
                     .addFields(
-                        { name: 'พบรายงานการโกง', value: 'จำนวน ' + arrayreport[index][0] + ' ครั้ง'},
+                        { name: 'พบรายงานการโกง', value: 'จำนวน ' + arrayreport[index][0] + ' ครั้ง' },
                     )
                     .addFields(
                         { name: 'ครั้งล่าสุด', value: arrayreport[index][3], inline: true },
@@ -2139,6 +2191,7 @@ client.on('interactionCreate', async interaction => {
         } else {
             console.log(searchdata);
             //change space in searchdata to +
+            let ogsearchdata = searchdata;
             searchdata = searchdata.replace(/\s/g, '+');
             //console.log(searchdata);
             //change searchdata to url encode
@@ -2192,7 +2245,7 @@ client.on('interactionCreate', async interaction => {
                     const $ = cheerio.load(body);
                     const result = $('h4').toArray().map(p => $(p).text());
                     //if reusult length is 1, it means no result
-                    if(result.length == 1){
+                    if (result.length == 1) {
                         //console.log(result);
                         await interaction.editReply('ไม่เคยมีประวัติการโกง')
                     } else {
@@ -2220,8 +2273,8 @@ client.on('interactionCreate', async interaction => {
 
                         const msg = new EmbedBuilder()
                             .setColor('#EE4B2B')
-                            .setTitle('ข้อมูลการรายงานของ ' + searchdata)
-                            .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + searchdata)
+                            .setTitle('ข้อมูลการรายงานของ ' + ogsearchdata)
+                            .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + ogsearchdata)
                             .setURL('https://www.whoscheat.com/Home/Results/?s_type=4&s_inp=' + name)
                             .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/Images/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
                             //.addField('พบรายงานการโกง', 'จำนวน ' + res.pageProps.searchResult.totalReport + ' ครั้ง')
@@ -2233,7 +2286,7 @@ client.on('interactionCreate', async interaction => {
                                 { name: 'ช่องทาง', value: from, inline: true }
                             )
                             .addFields(
-                                { name: 'รายละเอียด', value: from + '' + type, inline: true },
+                                { name: 'รายละเอียด', value: from + '' + type, inline: false },
                                 { name: 'ยอดความเสียหาย', value: amount3.replace("บาท", " บาท"), inline: true }
                             )
                             .setTimestamp()
@@ -2249,9 +2302,9 @@ client.on('interactionCreate', async interaction => {
         //await interaction.editReply('เปิดใช้งาน เร็วๆนี้...');
     }
 
-    if(interaction.customId === 'hellandreset' || interaction.customId === 'hell'){
+    if (interaction.customId === 'hellandreset' || interaction.customId === 'hell') {
         await interaction.deferReply();
-        
+
         //get today format day/month/thaiyear
         let today = new Date();
         let day = today.getDate();
@@ -2277,30 +2330,30 @@ client.on('interactionCreate', async interaction => {
             }
         })
 
-        if(interaction.customId === 'hellandreset'){
+        if (interaction.customId === 'hellandreset') {
             await fetch('https://topapi.pwisetthon.com')
-            .then(res => res.json())
-            .then(async (res) => {
-                let resetsql = 'DELETE FROM oilprice WHERE date = "' + res[0][0] + '"';
-                con.query(resetsql, function (err, result) {
-                    if (err) throw err;
-                    console.log("Number of records deleted: " + result.affectedRows);
-                });
-                //spilt res[0][0] to get date by /
-                let date = res[0][0].split('/');
-                let datenumber = parseInt(date[0])-1;
-                let datemonth = parseInt(date[1]);
-                let dateyear = date[2];
-                let newdate = datenumber + '/' + datemonth + '/' + dateyear;
-                resetsql = 'DELETE FROM hell WHERE date = "' + newdate + '"';
-                con.query(resetsql, function (err, result) {
-                    if (err) throw err;
-                    console.log("Number of records deleted: " + result.affectedRows);
+                .then(res => res.json())
+                .then(async (res) => {
+                    let resetsql = 'DELETE FROM oilprice WHERE date = "' + res[0][0] + '"';
+                    con.query(resetsql, function (err, result) {
+                        if (err) throw err;
+                        console.log("Number of records deleted: " + result.affectedRows);
+                    });
+                    //spilt res[0][0] to get date by /
+                    let date = res[0][0].split('/');
+                    let datenumber = parseInt(date[0]) - 1;
+                    let datemonth = parseInt(date[1]);
+                    let dateyear = date[2];
+                    let newdate = datenumber + '/' + datemonth + '/' + dateyear;
+                    resetsql = 'DELETE FROM hell WHERE date = "' + newdate + '"';
+                    con.query(resetsql, function (err, result) {
+                        if (err) throw err;
+                        console.log("Number of records deleted: " + result.affectedRows);
+                    })
                 })
-            })
-            .catch(async (err) => {
-                console.log(err);
-            })
+                .catch(async (err) => {
+                    console.log(err);
+                })
         }
 
         await interaction.editReply('กำลังล้างข้อมูล...');
