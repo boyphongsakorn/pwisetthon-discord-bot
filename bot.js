@@ -893,7 +893,7 @@ client.on('messageCreate', message => {
 });
 
 client.on('interactionCreate', async interaction => {
-    if (!interaction.isCommand() && !interaction.isContextMenu() && !interaction.isSelectMenu() && !interaction.isButton()) return;
+    if (!interaction.isCommand() && !interaction.isUserContextMenuCommand() && !interaction.isSelectMenu() && !interaction.isButton()) return;
 
     /*if (interaction.commandName === 'fthlotto') {
         await interaction.deferReply();
