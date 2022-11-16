@@ -1030,7 +1030,7 @@ client.on('interactionCreate', async interaction => {
 
         //const file = new MessageAttachment('./lottery_' + data.info.date + '.png');
         //const file = new AttachmentBuilder('./lottery_' + data.info.date + '.png');
-        const file = new AttachmentBuilder(fetchlotimgres);
+        const file = new AttachmentBuilder(Buffer.from(fetchlotimgres));
 
         const msg = new EmbedBuilder()
             .setColor('#0099ff')
