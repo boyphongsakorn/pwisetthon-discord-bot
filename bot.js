@@ -251,7 +251,7 @@ client.once('ready', () => {
                         //create commands
                         await guildCommandCreate(guild.id);
                     } else {
-
+                        console.log("Guild " + guild.name + " has " + commands.size + " commands");
                     }
                 });
             } catch (error) {
@@ -277,7 +277,7 @@ client.once('ready', () => {
     });
 });
 
-client.on("guildCreate", guild => {
+client.on("guildCreate", async guild => {
 
     console.log("Joined a new guild: " + guild.id);
 
@@ -288,7 +288,7 @@ client.on("guildCreate", guild => {
     if (guild.systemChannelId != null && guild.systemChannelId != undefined) {
         console.log("System Channel: " + guild.systemChannelId);
 
-        fetch(process.env.URL + '/discordbot/addchannels.php?chid=' + guild.systemChannelId)
+        /*fetch(process.env.URL + '/discordbot/addchannels.php?chid=' + guild.systemChannelId)
             .then(res => res.text())
             .then(body => {
                 console.log(body);
@@ -299,7 +299,17 @@ client.on("guildCreate", guild => {
                     client.channels.cache.get(guild.systemChannelId).send('ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว! \nใช้คำสั่ง /subthlotto เพื่อยกเลิก')
                         .catch(console.error);
                 }
-            });
+            });*/
+        
+        const fetchadd = await fetch(process.env.URL + '/discordbot/addchannels.php?chid=' + guild.systemChannelId)
+        const bodyadd = await fetchadd.text()
+        if (bodyadd == 'debug'){
+            client.channels.cache.get(guild.systemChannelId).send('ขอบคุณ! ที่เชิญเราเข้าส่วนหนึ่งในดิสของคุณ')
+                .catch(console.error);
+        }else{
+            client.channels.cache.get(guild.systemChannelId).send('ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว! \nใช้คำสั่ง /subthlotto เพื่อยกเลิก')
+                .catch(console.error);
+        }
 
     }
 
@@ -497,7 +507,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                     //}
 
                     //check number user save
-                    con.query("SELECT * FROM lott_table WHERE status = 'waiting'", function (err, result, fields) {
+                    con.query("SELECT * FROM lott_table WHERE status = 'waiting'", async function (err, result, fields) {
                         if (err) throw err;
                         console.log(result);
                         //loop result
@@ -508,7 +518,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                             console.log(result[i].lott_id)
                             console.log(result[i].numberbuy)
                             let optitot = { "method": "GET", "headers": { "x-rapidapi-host": "thai-lottery1.p.rapidapi.com", "x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137" } };
-                            fetch("https://thai-lottery1.p.rapidapi.com/checklottery?by=" + date + "" + month + "" + year + "&search=" + result[i].numberbuy, optitot)
+                            /*fetch("https://thai-lottery1.p.rapidapi.com/checklottery?by=" + date + "" + month + "" + year + "&search=" + result[i].numberbuy, optitot)
                                 .then(res => res.text())
                                 .then((json) => {
                                     //if json is null or empty send message to result[i].discord_id
@@ -529,7 +539,26 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                                             })
                                         });
                                     }
+                                });*/
+                            const checkapi = await fetch('https://thai-lottery1.p.rapidapi.com/checklottery?by=' + date + '' + month + '' + year + '&search=' + result[i].numberbuy, optitot)
+                            const checkjson = await checkapi.json()
+                            if (checkjson == '' || checkjson == null) {
+                                var sql = "UPDATE lott_table SET status = 'ไม่ถูก',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
+                                con.query(sql, function (err, result) {
+                                    if (err) throw err;
+                                    client.users.fetch(discordid).then(dm => {
+                                        dm.send('ขออภัยค่ะ! เลข ' + numberhebuy + ' ยังไม่ถูกรางวัลในงวดวันนี้ค่ะ')
+                                    })
                                 });
+                            } else {
+                                var sql = "UPDATE lott_table SET status = 'win',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
+                                con.query(sql, function (err, result) {
+                                    if (err) throw err;
+                                    client.users.fetch(discordid).then(dm => {
+                                        dm.send('ยินดีด้วย! เลข ' + numberhebuy + ' ถูกรางวัลในงวดวันนี้ค่ะ')
+                                    })
+                                });
+                            }
                         }
                     });
 
@@ -1153,17 +1182,21 @@ client.on('interactionCreate', async interaction => {
         //deferReply
         await interaction.deferReply();
 
-        await fetch('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280')
+        /*await fetch('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280')
             .then(res => res.buffer())
             .then(buffer => {
                 fs.writeFileSync('./aithing.png', buffer);
             })
             .catch(err => {
                 console.log(err)
-            });
+            });*/
+
+        const flashapi = await fetch('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280')
+        const imgapi = await flashapi.arrayBuffer()
 
         //const file = new MessageAttachment('./aithing.png');
-        const file = new AttachmentBuilder('./aithing.png');
+        //const file = new AttachmentBuilder('./aithing.png');
+        const file = new AttachmentBuilder(Buffer.from(imgapi), { name: 'aithing.png' });
 
         //create EmbedBuilder
         const msg = new EmbedBuilder()
@@ -1187,7 +1220,7 @@ client.on('interactionCreate', async interaction => {
         //request from https://raw.githubusercontent.com/boyphongsakorn/testrepo/main/godcombothtext to json
         let datearray = []
 
-        fetch('https://raw.githubusercontent.com/boyphongsakorn/testrepo/main/godcombothtext')
+        /*fetch('https://raw.githubusercontent.com/boyphongsakorn/testrepo/main/godcombothtext')
             .then(res => res.json())
             .then(async (json) => {
                 console.log(json)
@@ -1213,7 +1246,30 @@ client.on('interactionCreate', async interaction => {
                     )
 
                 await interaction.editReply({ content: 'ใบตรวจสลาก!', components: [row] })
+            })*/
+        
+        const fetchdate = await fetch('https://raw.githubusercontent.com/boyphongsakorn/testrepo/main/godcombothtext')
+        const jsondate = await fetchdate.json()
+        let jsons = jsondate.slice(jsondate.length - 25, jsondate.length)
+        for (let i of jsons) {
+            datearray.push({
+                label: String(i[1]),
+                description: String(i[0]),
+                value: String(i[0])
             })
+        }
+
+        console.log(datearray)
+
+        const row = new ActionRowBuilder()
+            .addComponents(
+                new SelectMenuBuilder()
+                    .setCustomId('lottsheet')
+                    .setPlaceholder('เลือกวันที่ต้องการ (25 งวดล่าสุด)')
+                    .addOptions(datearray)
+            )
+
+        await interaction.editReply({ content: 'ใบตรวจสลาก!', components: [row] })
 
     }
 
@@ -1375,7 +1431,7 @@ client.on('interactionCreate', async interaction => {
         let waitwhat;
         let lastlottdate;
         //node fetch http://192.168.31.210:5000/reto
-        await fetch(lottoapi + '/reto')
+        /*await fetch(lottoapi + '/reto')
             .then(res => res.text())
             .then(body => {
                 if (body == 'yes') {
@@ -1388,7 +1444,16 @@ client.on('interactionCreate', async interaction => {
             })
             .catch(err => {
                 console.log(err);
-            });
+            });*/
+        const fetchreto = await fetch(lottoapi + '/reto');
+        const reto = await fetchreto.text();
+        if (reto == 'yes') {
+            //add 1 day to todayformat
+            dd = parseInt(dd) + 1;
+            dd = padLeadingZeros(dd, 2);
+            todayformat = yyyy + '-' + mm + '-' + dd;
+            console.log(todayformat);
+        }
         //select to sql
         con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", async function (err, result, fields) {
             if (err) {
@@ -1445,7 +1510,7 @@ client.on('interactionCreate', async interaction => {
             body: smackdown,
             redirect: 'follow'
         }
-        await fetch('https://anywhere.pwisetthon.com/https://www.glo.or.th/api/lottery/getLotteryAward', reop)
+        /*await fetch('https://anywhere.pwisetthon.com/https://www.glo.or.th/api/lottery/getLotteryAward', reop)
             .then(response => response.json())
             .then(result => {
                 if (result['status']) {
@@ -1457,7 +1522,14 @@ client.on('interactionCreate', async interaction => {
             .catch(error => {
                 console.log('error', error)
                 gloapistatus = 0;
-            });
+            });*/
+        const gloapifetch = await fetch('https://anywhere.pwisetthon.com/https://www.glo.or.th/api/lottery/getLotteryAward', reop);
+        const gloapifetchjson = await gloapifetch.json();
+        if (gloapifetchjson['status']) {
+            gloapistatus = 1;
+        } else {
+            gloapistatus = 0;
+        }
         await fetch('https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/9', { method: 'GET', headers: { 'Content-Type': 'application/json' } })
             .then(response => response.json())
             .then(result => {
@@ -1644,9 +1716,9 @@ client.on('interactionCreate', async interaction => {
         await interaction.deferReply();
 
         //let files
-        let imagegood = false;
+        //let imagegood = false;
 
-        await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+        /*await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
             .then(res => res.buffer())
             .then(async (res) => {
                 await fs.writeFileSync('./lastoilprice.png', res)
@@ -1655,10 +1727,13 @@ client.on('interactionCreate', async interaction => {
             .catch(async (err) => {
                 console.log(err);
                 imagegood = false;
-            });
+            });*/
+
+        const thaioilimg = await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+        const thaioil = await thaioilimg.arrayBuffer()
 
         //check if file exist and size is not 0
-        if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
+        /*if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
             //files = new MessageAttachment('./lastoilprice.png');
             imagegood = true
         } else {
@@ -1674,10 +1749,11 @@ client.on('interactionCreate', async interaction => {
                     console.log(err);
                     imagegood = false;
                 });
-        }
+        }*/
 
         //const files = new MessageAttachment('./lastoilprice.png');
-        const files = new AttachmentBuilder('./lastoilprice.png');
+        //const files = new AttachmentBuilder('./lastoilprice.png');
+        const files = new AttachmentBuilder(thaioil, { filename: 'lastoilprice.png' });
 
         let msg = new EmbedBuilder()
             .setColor('#0099ff')
@@ -1690,12 +1766,12 @@ client.on('interactionCreate', async interaction => {
             .setTimestamp()
             .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
-        if (imagegood == false) {
+        /*if (imagegood == false) {
             msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
             await interaction.editReply({ embeds: [msg] })
-        } else {
+        } else {*/
             await interaction.editReply({ embeds: [msg], files: [files] });
-        }
+        //}
     }
 
     /*if (interaction.commandName === 'fthaioilprice') {
