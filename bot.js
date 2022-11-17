@@ -205,9 +205,10 @@ async function guildCommandDelete(guild) {
     await guild.commands.fetch()
         .then(async function (commands) {
             await commands.forEach(command => {
-                command.delete()
-                    .then(/*console.log*/)
-                    .catch(console.error);
+                /*command.delete()
+                    .then(console.log)
+                    .catch(console.error);*/
+                console.log(command.id)
             });
             return true;
         });
