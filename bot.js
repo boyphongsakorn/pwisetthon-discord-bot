@@ -249,6 +249,8 @@ client.once('ready', () => {
                     //if guild has no commands
                     if (commands.size != 13) {
                         //create commands
+                        //await guildCommandCreate(guild.id);
+                        await guildCommandDelete(guild);
                         await guildCommandCreate(guild.id);
                     } else {
                         console.log("Guild " + guild.name + " has " + commands.size + " commands");
@@ -1753,7 +1755,7 @@ client.on('interactionCreate', async interaction => {
 
         //const files = new MessageAttachment('./lastoilprice.png');
         //const files = new AttachmentBuilder('./lastoilprice.png');
-        const files = new AttachmentBuilder(thaioil, { name: 'lastoilprice.png' });
+        const files = new AttachmentBuilder(Buffer.from(thaioil), { name: 'lastoilprice.png' });
 
         let msg = new EmbedBuilder()
             .setColor('#0099ff')
