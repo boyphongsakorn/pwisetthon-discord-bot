@@ -1753,7 +1753,7 @@ client.on('interactionCreate', async interaction => {
 
         //const files = new MessageAttachment('./lastoilprice.png');
         //const files = new AttachmentBuilder('./lastoilprice.png');
-        const files = new AttachmentBuilder(thaioil, { filename: 'lastoilprice.png' });
+        const files = new AttachmentBuilder(thaioil, { name: 'lastoilprice.png' });
 
         let msg = new EmbedBuilder()
             .setColor('#0099ff')
@@ -1812,13 +1812,20 @@ client.on('interactionCreate', async interaction => {
         await interaction.deferReply();
         let havesub = false;
 
-        await fetch(process.env.URL + '/discordbot/oilchlist.txt')
+        /*await fetch(process.env.URL + '/discordbot/oilchlist.txt')
             .then(res => res.json())
             .then(async (res) => {
                 if (res.includes(interaction.channelId)) {
                     havesub = true;
                 }
-            })
+            })*/
+        
+        const oillist = await fetch(process.env.URL + '/discordbot/oillist.txt')
+        const oillistjson = await oillist.json();
+
+        if(oillistjson.includes(interaction.channelId)){
+            havesub = true;
+        }
 
         if (havesub == false) {
             fetch(process.env.URL + '/discordbot/addchanneloil.php?chid=' + interaction.channelId)
@@ -2410,7 +2417,7 @@ client.on('interactionCreate', async interaction => {
         })
 
         if (interaction.customId === 'hellandreset') {
-            await fetch('https://topapi.pwisetthon.com')
+            /*await fetch('https://topapi.pwisetthon.com')
                 .then(res => res.json())
                 .then(async (res) => {
                     let resetsql = 'DELETE FROM oilprice WHERE date = "' + res[0][0] + '"';
@@ -2432,7 +2439,25 @@ client.on('interactionCreate', async interaction => {
                 })
                 .catch(async (err) => {
                     console.log(err);
-                })
+                })*/
+            const topapifetch = await fetch('https://topapi.pwisetthon.com');
+            const topapijson = await topapifetch.json();
+            let resetsql = 'DELETE FROM oilprice WHERE date = "' + topapijson[0][0] + '"';
+            con.query(resetsql, function (err, result) {
+                if (err) throw err;
+                console.log("Number of records deleted: " + result.affectedRows);
+            });
+            //spilt res[0][0] to get date by /
+            let date = topapijson[0][0].split('/');
+            let datenumber = parseInt(date[0]) - 1;
+            let datemonth = parseInt(date[1]);
+            let dateyear = date[2];
+            let newdate = datenumber + '/' + datemonth + '/' + dateyear;
+            resetsql = 'DELETE FROM hell WHERE date = "' + newdate + '"';
+            con.query(resetsql, function (err, result) {
+                if (err) throw err;
+                console.log("Number of records deleted: " + result.affectedRows);
+            })
         }
 
         await interaction.editReply('กำลังล้างข้อมูล...');
