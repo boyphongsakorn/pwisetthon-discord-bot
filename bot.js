@@ -258,8 +258,8 @@ client.once('ready', () => {
                 console.log('error: ' + error);
             }
         });
-        //client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
-        client.user.setPresence({ activities: [{ name: '📙  /lotsheet ใช้ได้แล้วนะ 👍' }], status: 'online' });
+        client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
+        //client.user.setPresence({ activities: [{ name: '📙  /lotsheet ใช้ได้แล้วนะ 👍' }], status: 'online' });
         client.users.fetch('133439202556641280').then(dm => {
             dm.send('Bot เริ่มต้นการทำงานแล้ว')
         });
