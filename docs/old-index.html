@@ -510,27 +510,25 @@
                 const thaibadword = await fetch('https://raw.githubusercontent.com/chucknorris-io/swear-words/master/th')
                 const thaibadwordtext = await thaibadword.text()
                 //split bad word by new line
-                const badword = thaibadwordtext.split('\n')
-                const badwordpop = badword.pop()
+                const badword = thaibadwordtext.split('\n').slice(0, -1)
                 const engbadword = await fetch('https://raw.githubusercontent.com/chucknorris-io/swear-words/master/en')
                 const engbadwordtext = await engbadword.text()
                 //split bad word by new line
-                const engbadwordlist = engbadwordtext.split('\n')
-                const engbadwordlistpop = engbadwordlist.pop()
+                const engbadwordlist = engbadwordtext.split('\n').slice(0, -1)
                 for (var i = 0; i < guildlist.length; i++) {
                     //check have bad word in guildlist[i].name
                     var badwordcheck = false;
-                    for (var j = 0; j < badwordpop.length; j++) {
+                    for (var j = 0; j < badword.length; j++) {
                         let name = guildlist[i].name;
-                        console.log(badwordpop[j])
-                        if (name.includes(badwordpop[j])) {
+                        console.log(badword[j])
+                        if (name.includes(badword[j])) {
                             badwordcheck = true;
                         }
                     }
-                    for (var j = 0; j < engbadwordlistpop.length; j++) {
+                    for (var j = 0; j < engbadwordlist.length; j++) {
                         let name = guildlist[i].name;
-                        console.log(engbadwordlistpop[j])
-                        if (name.includes(engbadwordlistpop[j].toLowerCase())) {
+                        console.log(engbadwordlist[j])
+                        if (name.includes(engbadwordlist[j].toLowerCase())) {
                             badwordcheck = true;
                         }
                     }
