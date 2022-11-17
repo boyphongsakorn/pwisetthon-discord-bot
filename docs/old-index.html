@@ -140,15 +140,17 @@
     <div class="container-fluid py-3 bg-success bg-gradient">
         <div class="container text-center">
             <div class="my-slider" id="my-slider">
-                <div class="placeholder-glow">test</div>
-                <div class="placeholder-glow">test</div>
-                <div class="placeholder-glow">test</div>
-                <div class="placeholder-glow">test</div>
-                <div class="placeholder-glow">test</div>
-                <div class="placeholder-glow">test</div>
-                <div class="placeholder-glow">test</div>
-                <div class="placeholder-glow">test</div>
-                <div class="placeholder-glow">test</div>
+                <div class="placeholder">
+                    <div class="placeholder-glow">test</div>
+                    <div class="placeholder-glow">test</div>
+                    <div class="placeholder-glow">test</div>
+                    <div class="placeholder-glow">test</div>
+                    <div class="placeholder-glow">test</div>
+                    <div class="placeholder-glow">test</div>
+                    <div class="placeholder-glow">test</div>
+                    <div class="placeholder-glow">test</div>
+                    <div class="placeholder-glow">test</div>
+                </div>
             </div>              
         </div>
     </div>
@@ -520,12 +522,14 @@
                     var badwordcheck = false;
                     for (var j = 0; j < badword.length; j++) {
                         let name = guildlist[i].name;
+                        console.log(badword[j])
                         if (name.includes(badword[j])) {
                             badwordcheck = true;
                         }
                     }
                     for (var j = 0; j < engbadwordlist.length; j++) {
                         let name = guildlist[i].name;
+                        console.log(engbadwordlist[j])
                         if (name.includes(engbadwordlist[j].toLowerCase())) {
                             badwordcheck = true;
                         }
