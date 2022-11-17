@@ -513,6 +513,8 @@
                 const engbadwordtext = await engbadword.text()
                 //split bad word by new line
                 const engbadwordlist = engbadwordtext.split('\n')
+                console.log(engbadwordlist)
+                console.log(badword)
                 for (var i = 0; i < guildlist.length; i++) {
                     //check have bad word in guildlist[i].name
                     var badwordcheck = false;
