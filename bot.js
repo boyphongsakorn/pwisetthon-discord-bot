@@ -27,6 +27,8 @@ http.createServer(async function (req, res) {
         'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
         'Access-Control-Max-Age': 2592000, // 30 days
         /** add other headers as per requirement */
+        // set utf-8 encoding
+        'Content-Type': 'application/json; charset=utf-8'
     };
 
     if (req.url === '/count') {
@@ -48,7 +50,15 @@ http.createServer(async function (req, res) {
         res.writeHead(200, headers);
         //res.write(JSON.stringify(client.guilds.cache.map(guild => guild.name))); //write a response to the client
         //response guild name and guild image url
-        res.write(JSON.stringify(client.guilds.cache.map(guild => { return { name: guild.name, icon: guild.iconURL({ format: 'jpg', dynamic: true, size: 512 }) } }))); //write a response to the client
+        let guildlist = client.guilds.cache.map(guild => {
+            return {
+                name: guild.name,
+                icon: guild.iconURL({ format: 'jpg', dynamic: true, size: 512 })
+            }
+        });
+        //shuffling array
+        guildlist.sort(() => Math.random() - 0.5);
+        res.write(JSON.stringify(guildlist)); //write a response to the client
         res.end(); //end the response
     } else {
         res.writeHead(200, headers);
