@@ -517,18 +517,24 @@
                     //check have bad word in guildlist[i].name
                     var badwordcheck = false;
                     for (var j = 0; j < badword.length; j++) {
-                        if (guildlist[i].name.includes(badword[j])) {
+                        let name = guildlist[i].name;
+                        if (name.includes(badword[j])) {
                             badwordcheck = true;
                         }
                     }
                     for (var j = 0; j < engbadwordlist.length; j++) {
-                        if (guildlist[i].name.includes(engbadwordlist[j].toLowerCase())) {
+                        let name = guildlist[i].name;
+                        if (name.includes(engbadwordlist[j].toLowerCase())) {
                             badwordcheck = true;
                         }
                     }
                     if(guildlist[i].icon != null && guildlist[i].icon != 'null'){
                         if(badwordcheck == false){
                             guildlisthtml += '<div><img src="'+guildlist[i].icon+'" class="img-thumbnail w-25"> '+guildlist[i].name+'</div>';
+                        }
+                    } else {
+                        if(badwordcheck == false){
+                            guildlisthtml += '<div><img src="https://ui-avatars.com/api/?name='+guildlist[i].name+'" class="img-thumbnail w-25"> '+guildlist[i].name+'</div>';
                         }
                     }
                 }
