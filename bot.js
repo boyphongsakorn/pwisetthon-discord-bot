@@ -208,7 +208,8 @@ async function guildCommandDelete(guild) {
                 /*command.delete()
                     .then(console.log)
                     .catch(console.error);*/
-                console.log(command.id)
+                //console.log(command.id)
+                guild.commands.delete(command.id)
             });
             return true;
         });
