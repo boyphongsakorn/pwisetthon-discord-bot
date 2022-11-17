@@ -526,8 +526,10 @@
                             badwordcheck = true;
                         }
                     }
-                    if(guildlist[i].icon != null && guildlist[i].icon != 'null' && badwordcheck != false){
-                        guildlisthtml += '<div><img src="'+guildlist[i].icon+'" class="img-thumbnail w-25"> '+guildlist[i].name+'</div>';
+                    if(guildlist[i].icon != null && guildlist[i].icon != 'null'){
+                        if(badwordcheck == false){
+                            guildlisthtml += '<div><img src="'+guildlist[i].icon+'" class="img-thumbnail w-25"> '+guildlist[i].name+'</div>';
+                        }
                     }
                 }
                 document.getElementById("my-slider").innerHTML = guildlisthtml;
