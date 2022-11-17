@@ -508,13 +508,11 @@
                 const thaibadword = await fetch('https://raw.githubusercontent.com/chucknorris-io/swear-words/master/th')
                 const thaibadwordtext = await thaibadword.text()
                 //split bad word by new line
-                const badword = thaibadwordtext.split('\n')
+                const badword = thaibadwordtext.split('\n').pop()
                 const engbadword = await fetch('https://raw.githubusercontent.com/chucknorris-io/swear-words/master/en')
                 const engbadwordtext = await engbadword.text()
                 //split bad word by new line
-                const engbadwordlist = engbadwordtext.split('\n')
-                console.log(engbadwordlist)
-                console.log(badword)
+                const engbadwordlist = engbadwordtext.split('\n').pop()
                 for (var i = 0; i < guildlist.length; i++) {
                     //check have bad word in guildlist[i].name
                     var badwordcheck = false;
