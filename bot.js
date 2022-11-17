@@ -46,7 +46,9 @@ http.createServer(async function (req, res) {
             });
     } else if (req.url === '/guildlist') {
         res.writeHead(200, headers);
-        res.write(JSON.stringify(client.guilds.cache.map(guild => guild.name))); //write a response to the client
+        //res.write(JSON.stringify(client.guilds.cache.map(guild => guild.name))); //write a response to the client
+        //response guild name and guild image url
+        res.write(JSON.stringify(client.guilds.cache.map(guild => { return { name: guild.name, icon: guild.iconURL({ format: 'jpg', dynamic: true, size: 512 }) } }))); //write a response to the client
         res.end(); //end the response
     } else {
         res.writeHead(200, headers);
