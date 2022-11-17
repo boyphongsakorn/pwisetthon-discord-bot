@@ -501,12 +501,32 @@
 
         fetch('https://anywhere.pwisetthon.com/https://dbstatus.pwisetthon.com/guildlist')
             .then(response => response.json())
-            .then(data => {
+            .then(async data => {
                 //console.log(data);
                 var guildlist = data;
                 var guildlisthtml = '';
+                const thaibadword = await fetch('https://raw.githubusercontent.com/chucknorris-io/swear-words/master/th')
+                const thaibadwordtext = await thaibadword.text()
+                //split bad word by new line
+                const badword = thaibadwordtext.split('\n')
+                const engbadword = await fetch('https://raw.githubusercontent.com/chucknorris-io/swear-words/master/en')
+                const engbadwordtext = await engbadword.text()
+                //split bad word by new line
+                const engbadwordlist = engbadwordtext.split('\n')
                 for (var i = 0; i < guildlist.length; i++) {
-                    if(guildlist[i].icon != null && guildlist[i].icon != 'null') {
+                    //check have bad word in guildlist[i].name
+                    var badwordcheck = false;
+                    for (var j = 0; j < badword.length; j++) {
+                        if (guildlist[i].name.includes(badword[j].toLowerCase())) {
+                            badwordcheck = true;
+                        }
+                    }
+                    for (var j = 0; j < engbadwordlist.length; j++) {
+                        if (guildlist[i].name.includes(engbadwordlist[j].toLowerCase()) {
+                            badwordcheck = true;
+                        }
+                    }
+                    if(guildlist[i].icon != null && guildlist[i].icon != 'null' && badwordcheck == false){
                         guildlisthtml += '<div><img src="'+guildlist[i].icon+'" class="img-thumbnail w-25"> '+guildlist[i].name+'</div>';
                     }
                 }
