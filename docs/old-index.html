@@ -511,26 +511,26 @@
                 const thaibadwordtext = await thaibadword.text()
                 //split bad word by new line
                 const badword = thaibadwordtext.split('\n')
+                const badwordpop = badword.pop()
                 const engbadword = await fetch('https://raw.githubusercontent.com/chucknorris-io/swear-words/master/en')
                 const engbadwordtext = await engbadword.text()
                 //split bad word by new line
                 const engbadwordlist = engbadwordtext.split('\n')
-                console.log(engbadwordlist.pop())
-                console.log(badword.pop())
+                const engbadwordlistpop = engbadwordlist.pop()
                 for (var i = 0; i < guildlist.length; i++) {
                     //check have bad word in guildlist[i].name
                     var badwordcheck = false;
-                    for (var j = 0; j < badword.length; j++) {
+                    for (var j = 0; j < badwordpop.length; j++) {
                         let name = guildlist[i].name;
-                        console.log(badword[j])
-                        if (name.includes(badword[j])) {
+                        console.log(badwordpop[j])
+                        if (name.includes(badwordpop[j])) {
                             badwordcheck = true;
                         }
                     }
-                    for (var j = 0; j < engbadwordlist.length; j++) {
+                    for (var j = 0; j < engbadwordlistpop.length; j++) {
                         let name = guildlist[i].name;
-                        console.log(engbadwordlist[j])
-                        if (name.includes(engbadwordlist[j].toLowerCase())) {
+                        console.log(engbadwordlistpop[j])
+                        if (name.includes(engbadwordlistpop[j].toLowerCase())) {
                             badwordcheck = true;
                         }
                     }
