@@ -517,7 +517,7 @@
                     //check have bad word in guildlist[i].name
                     var badwordcheck = false;
                     for (var j = 0; j < badword.length; j++) {
-                        if (guildlist[i].name.includes(badword[j].toLowerCase())) {
+                        if (guildlist[i].name.includes(badword[j])) {
                             badwordcheck = true;
                         }
                     }
