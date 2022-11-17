@@ -520,14 +520,12 @@
                     var badwordcheck = false;
                     for (var j = 0; j < badword.length; j++) {
                         let name = guildlist[i].name;
-                        console.log(badword[j])
                         if (name.includes(badword[j])) {
                             badwordcheck = true;
                         }
                     }
                     for (var j = 0; j < engbadwordlist.length; j++) {
                         let name = guildlist[i].name;
-                        console.log(engbadwordlist[j])
                         if (name.includes(engbadwordlist[j].toLowerCase())) {
                             badwordcheck = true;
                         }
@@ -741,14 +739,14 @@
                 document.getElementById("glowebsitestatus").innerText = "ออฟไลน์";
             });
 
-        fetch("https://discordapp.com/api/guilds/844173039520317470/widget.json")
+        /*fetch("https://discordapp.com/api/guilds/844173039520317470/widget.json")
             .then(response => response.json())
             .then(result => {
                 document.getElementById("usercount").innerText = result["presence_count"]+" คน";
             })
             .catch(error => {
                 document.getElementById("usercount").innerText = "N/A";
-            });
+            });*/
     }
     </script>
 </body>
