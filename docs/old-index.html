@@ -639,11 +639,14 @@
                         var year = date.getFullYear();
                         //var hour = date.getHours();
                         //var minute = date.getMinutes();
-                        var hour = result["last_success"].match(/\d\d:\d\d/);
+                        var time = result["last_success"].match(/\d\d:\d\d/);
+                        var hour = time[0].split(":")[0];
+                        var minute = time[0].split(":")[1];
+                        time = (parseInt(hour)+7) + ":" + minute;
                         anime({
                             targets: document.getElementById("botstatus"),
                             //innerHTML: "ปกติ (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"popover\" title=\"ก่อนหน้านี้ไม่สามารถติดต่อได้\" data-bs-content=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+hour+":"+minute+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
-                            innerHTML: "มีปัญหา (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+hour+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
+                            innerHTML: "มีปัญหา (" + [parseInt(result["online_24_hours"])] + "% <a data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"ไม่สามารถติดต่อบอทได้ จำนวน "+result["failures_24_hours"]+" ครั้ง กลับมาใช้ได้ตอน "+day+"/"+month+"/"+(year+543)+" เวลา "+time+"\"><i class=\"fas fa-exclamation-circle\"></i></a>)",
                             round: 1,
                             easing: 'easeInOutExpo',
                             complete: function() {
