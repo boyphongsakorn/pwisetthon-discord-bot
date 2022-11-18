@@ -532,11 +532,11 @@
                     }
                     if(guildlist[i].icon != null && guildlist[i].icon != 'null'){
                         if(badwordcheck == false){
-                            guildlisthtml += '<div><img src="'+guildlist[i].icon+'" class="img-thumbnail w-25"> '+guildlist[i].name+'</div>';
+                            guildlisthtml += '<div class="text-nowrap"><img src="'+guildlist[i].icon+'" class="img-thumbnail w-25"> '+guildlist[i].name+'</div>';
                         }
                     } else {
                         if(badwordcheck == false){
-                            guildlisthtml += '<div><img src="https://ui-avatars.com/api/?name='+guildlist[i].name+'" class="img-thumbnail w-25"> '+guildlist[i].name+'</div>';
+                            guildlisthtml += '<div class="text-nowrap"><img src="https://ui-avatars.com/api/?name='+guildlist[i].name+'" class="img-thumbnail w-25"> '+guildlist[i].name+'</div>';
                         }
                     }
                 }
