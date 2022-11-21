@@ -895,12 +895,12 @@ let scheduledthaioil = new cron.CronJob('1-59/3 * * * *', async () => {
                         new ButtonBuilder()
                             .setCustomId('hell')
                             .setLabel('ลบ')
-                            .setStyle('DANGER'),
+                            .setStyle('Danger'),
                         //new MessageButton()
                         new ButtonBuilder()
                             .setCustomId('hellandreset')
                             .setLabel('ลบและรีเซ็ต')
-                            .setStyle('DANGER'),
+                            .setStyle('Danger'),
                     );
 
                 //send msg to user 133439202556641280
