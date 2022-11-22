@@ -267,8 +267,6 @@ client.once('ready', () => {
                         //await guildCommandCreate(guild.id);
                         await guildCommandDelete(guild);
                         await guildCommandCreate(guild.id);
-                    } else {
-                        console.log("Guild " + guild.name + " has " + commands.size + " commands");
                     }
                 });
             } catch (error) {
