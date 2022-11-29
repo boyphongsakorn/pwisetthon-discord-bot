@@ -740,13 +740,13 @@ let scheduledthaioil = new cron.CronJob('1-59 10-21 * * *', async () => {
         .then(json => {*/
     const fetchapi = await fetch('https://topapi.pwisetthon.com');
     const json = await fetchapi.json();
-    let ngv = json[0][9]
+    let ngv = json[0][10]
 
     var sql = 'SELECT * FROM oilprice WHERE date = "' + json[0][0] + '"';
     con.query(sql, function (err, result) {
         if (err) throw err;
         if (result.length == 0) {
-            if (json[0][9] == '-') {
+            if (json[0][10] == '-') {
                 ngv = 0
             }
             var sql = 'INSERT INTO oilprice VALUES ("' + json[0][0] + '", ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
