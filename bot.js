@@ -738,7 +738,7 @@ let scheduledthaioil = new cron.CronJob('1-59 10-21 * * *', async () => {
     /*fetch('https://thaioilpriceapi-vercel.vercel.app')
         .then(res => res.json())
         .then(json => {*/
-    const fetchapi = await fetch('https://thaioilpriceapi-vercel.vercel.app');
+    const fetchapi = await fetch('https://topapi.pwisetthon.com');
     const json = await fetchapi.json();
     let ngv = json[0][9]
 
