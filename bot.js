@@ -584,6 +584,11 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                     //const filegold = new AttachmentBuilder('./lottery_' + date + '' + month + '' + year + '_gold.png');
                     const filegold = new AttachmentBuilder(Buffer.from(bufgoldimg), { name: 'lottery_' + date + '' + month + '' + year + '_gold.png' });
 
+                    //Buffer.from(bufimg).length is low to be image then kill process
+                    if (Buffer.from(bufimg).length < 1000) {
+                        process.exit(1);
+                    }
+
                     const msg = new EmbedBuilder()
                         .setColor('#0099ff')
                         .setTitle('ผลสลากกินแบ่งรัฐบาล')
