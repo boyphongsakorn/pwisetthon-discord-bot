@@ -521,6 +521,8 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                     const bufgoldimg = await goldimg.arrayBuffer()
                     //}
 
+                    console.log(Buffer.from(bufimg).length)
+
                     //Buffer.from(bufimg).length is low to be image then kill process
                     if (Buffer.from(bufimg).length < 1000) {
                         process.exit(1);
