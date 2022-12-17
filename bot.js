@@ -725,7 +725,9 @@ let scheduledthaioil = new cron.CronJob('1-59 10-21 * * *', async () => {
     // if nows = 3 feb client.user.setAvatar
     if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hbd.jpg')
-    } else if (nows.getDate() >= 14 && nows.getDate() <= 16 && nows.getMonth() == 1) {
+    } else if (nows.getDate() >= 13 && nows.getDate() <= 14 && nows.getMonth() == 1) {
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vd.png')
+    } else if (nows.getDate() >= 15 && nows.getDate() <= 16 && nows.getMonth() == 1) {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_makha.jpg')
     } else if (nows.getDate() >= 11 && nows.getDate() <= 15 && nows.getMonth() == 3) {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_songkran.jpg')
