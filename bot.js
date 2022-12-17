@@ -754,7 +754,7 @@ let scheduledthaioil = new cron.CronJob('1-59 10-21 * * *', async () => {
     var sql = 'SELECT * FROM oilprice WHERE date = "' + json[0][0] + '"';
     con.query(sql, function (err, result) {
         if (err) throw err;
-        if (result.length == 0) {
+        if (result.length == 0 && json[0][0] != '') {
             if (json[0][10] == '-') {
                 ngv = 0
             }
