@@ -1845,7 +1845,7 @@ client.on('interactionCreate', async interaction => {
                 }
             })*/
         
-        const oillist = await fetch(process.env.URL + '/discordbot/oillist.txt')
+        const oillist = await fetch(process.env.URL + '/discordbot/oilchlist.txt')
         const oillistjson = await oillist.json();
 
         if(oillistjson.includes(interaction.channelId)){
