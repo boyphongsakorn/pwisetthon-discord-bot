@@ -818,9 +818,23 @@ let scheduledthaioil = new cron.CronJob('1-59 10-21 * * *', async () => {
                         //imagegood = false;
                     });*/
 
-                //const fetchthaioilimg = await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000');
-                const fetchthaioilimg = await fetch('https://topapi.pwisetthon.com/image');
-                const thaioilimg = await fetchthaioilimg.arrayBuffer();
+                let downloadscussess = false;
+                let thaioilimg
+
+                while (downloadscussess == false) {
+                    try {
+                        const fetchthaioilimg = await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000');
+                        thaioilimg = await fetchthaioilimg.arrayBuffer();
+                        if(Buffer.from(thaioilimg).length > 100000) {
+                            downloadscussess = true;
+                        }
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+                
+                //const fetchthaioilimg = await fetch('https://topapi.pwisetthon.com/image');
+                //const thaioilimg = await fetchthaioilimg.arrayBuffer();
 
                 //let files
                 //let imageisgood = false
