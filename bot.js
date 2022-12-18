@@ -2492,7 +2492,7 @@ client.on('interactionCreate', async interaction => {
                 //delete message by messid and chanelid
                 try {
                     //client.channels.cache.get(messid[i].chanelid).messages.cache.get(messid[i].messid).delete();
-                    client.channels.cache.get(messid[i].chanelid).messages.fetch(messid[i].messid).then(message => message.delete());
+                    client.channels.cache.get(messid[i].chanelid).messages.fetch(messid[i].messid).then(message => message.delete()).catch(console.log);
                     //client.channels.cache.get(messid[i].chanelid).fetchMessage(messid[i].messid).then(msg => msg.delete());
                     console.log('delete message ' + messid[i].messid + ' in ' + messid[i].chanelid + ' success');
                 } catch (error) {
