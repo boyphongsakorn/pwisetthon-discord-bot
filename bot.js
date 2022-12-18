@@ -2501,6 +2501,8 @@ client.on('interactionCreate', async interaction => {
             }
         })
 
+        await interaction.editReply('กำลังล้างข้อมูล...');
+
         if (interaction.customId === 'hellandreset') {
             /*await fetch('https://topapi.pwisetthon.com')
                 .then(res => res.json())
@@ -2542,10 +2544,11 @@ client.on('interactionCreate', async interaction => {
             con.query(resetsql, function (err, result) {
                 if (err) throw err;
                 console.log("Number of records deleted: " + result.affectedRows);
+                
             })
+            await interaction.editReply('ล้างข้อมูลเรียบร้อย');
         }
-
-        await interaction.editReply('กำลังล้างข้อมูล...');
+        
     }
 });
 
