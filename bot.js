@@ -10,12 +10,14 @@ const cheerio = require('cheerio');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
 //create mysql connection
-var con = mysql.createConnection({
+/*var con = mysql.createConnection({
     host: "192.168.31.210",
     user: "boyphongsakorn",
     password: "team1556th",
     database: "discordbot"
-});
+});*/
+
+var con
 
 let lottoapi = "http://192.168.31.210:5000";
 let lotimgapi = "http://192.168.31.220:14000";
@@ -250,46 +252,75 @@ async function guildCommandDeleteandCreate(guild) {
     return true;
 }
 
+function handleDisconnect() {
+    con = mysql.createConnection({
+        host: "192.168.31.210",
+        user: "boyphongsakorn",
+        password: "team1556th",
+        database: "discordbot"
+    }); // Recreate the connection, since
+    // the old one cannot be reused.
+
+    con.connect(function (err) {              // The server is either down
+        if (err) {                                     // or restarting (takes a while sometimes).
+            console.log('error when connecting to db:', err);
+            setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+        }else {
+            console.log("Database Connected!");
+        }                                     // to avoid a hot loop, and to allow our node script to
+    });                                       // process asynchronous requests in the meantime.
+    // If you're also serving http, display a 503 error.
+    con.on('error', function (err) {
+        console.log('db error', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+            handleDisconnect();                         // lost due to either server restart, or a
+        } else {                                      // connnection idle timeout (the wait_timeout
+            throw err;                                  // server variable configures this)
+        }
+    });
+}
+
 // end functions
 
 client.once('ready', () => {
-    con.connect(function (err) {
-        if (err) throw err;
-        console.log("Database Connected!");
-        //get all guilds
-        client.guilds.cache.forEach(async function (guild) {
+    handleDisconnect();
+    //con.connect(function (err) {
+    //if (err) throw err;
+    //console.log("Database Connected!");
+    //get all guilds
+    client.guilds.cache.forEach(async function (guild) {
 
-            try {
-                guild.commands.fetch().then(async function (commands) {
-                    //if guild has no commands
-                    if (commands.size != 13) {
-                        //create commands
-                        //await guildCommandCreate(guild.id);
-                        await guildCommandDelete(guild);
-                        await guildCommandCreate(guild.id);
-                    }
-                });
-            } catch (error) {
-                console.log('error: ' + error);
-            }
-        });
-        client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
-        //client.user.setPresence({ activities: [{ name: '📙  /lotsheet ใช้ได้แล้วนะ 👍' }], status: 'online' });
-        client.users.fetch('133439202556641280').then(dm => {
-            dm.send('Bot เริ่มต้นการทำงานแล้ว')
-        });
-        //send ok to channel 908708400379097184 and get message id
-        client.channels.cache.get('908708400379097184').send('Bot เริ่มต้นการทำงานแล้ว')
-            .then(async function (message) {
-                //log message id
-                console.log(message.id);
-                //wait 5 sec
-                await new Promise(resolve => setTimeout(resolve, 5000));
-                //delete message
-                client.channels.cache.get('908708400379097184').messages.cache.get(message.id).delete();
+        try {
+            guild.commands.fetch().then(async function (commands) {
+                //if guild has no commands
+                if (commands.size != 13) {
+                    //create commands
+                    //await guildCommandCreate(guild.id);
+                    await guildCommandDelete(guild);
+                    await guildCommandCreate(guild.id);
+                }
             });
-        console.log('I am ready!');
+        } catch (error) {
+            console.log('error: ' + error);
+        }
     });
+    client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
+    //client.user.setPresence({ activities: [{ name: '📙  /lotsheet ใช้ได้แล้วนะ 👍' }], status: 'online' });
+    client.users.fetch('133439202556641280').then(dm => {
+        dm.send('Bot เริ่มต้นการทำงานแล้ว')
+    });
+    //send ok to channel 908708400379097184 and get message id
+    client.channels.cache.get('908708400379097184').send('Bot เริ่มต้นการทำงานแล้ว')
+        .then(async function (message) {
+            //log message id
+            console.log(message.id);
+            //wait 5 sec
+            await new Promise(resolve => setTimeout(resolve, 5000));
+            //delete message
+            client.channels.cache.get('908708400379097184').messages.cache.get(message.id).delete();
+        });
+    console.log('I am ready!');
+    //});
 });
 
 client.on("guildCreate", async guild => {
@@ -315,13 +346,13 @@ client.on("guildCreate", async guild => {
                         .catch(console.error);
                 }
             });*/
-        
+
         const fetchadd = await fetch(process.env.URL + '/discordbot/addchannels.php?chid=' + guild.systemChannelId)
         const bodyadd = await fetchadd.text()
-        if (bodyadd == 'debug'){
+        if (bodyadd == 'debug') {
             client.channels.cache.get(guild.systemChannelId).send('ขอบคุณ! ที่เชิญเราเข้าส่วนหนึ่งในดิสของคุณ')
                 .catch(console.error);
-        }else{
+        } else {
             client.channels.cache.get(guild.systemChannelId).send('ขอบคุณ! ที่เชิญเราเข้าเป็นส่วนร่วมของดิสคุณ เราได้ทำการติดตามสลากฯให้สำหรับดิสนี้เรียบร้อยแล้ว! \nใช้คำสั่ง /subthlotto เพื่อยกเลิก')
                 .catch(console.error);
         }
@@ -608,7 +639,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                         .setImage('attachment://lottery_' + date + '' + month + '' + year + '.png')
                         .setTimestamp()
                         //.setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
-                        .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn'});
+                        .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
                     const msggold = new EmbedBuilder()
                         .setColor('#0099ff')
@@ -627,7 +658,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                         .setImage('attachment://lottery_' + date + '' + month + '' + year + '_gold.png')
                         .setTimestamp()
                         //.setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
-                        .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn'});
+                        .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
                     const response = await fetch(process.env.URL + '/discordbot/chlist.txt', { method: 'GET' });
                     const data = await response.json();
@@ -844,21 +875,21 @@ let scheduledthaioil = new cron.CronJob('1-59 10-21 * * *', async () => {
                 for (let i = 0; i < wow.length; i++) {
                     try {
                         //if (imagegood == true) {
-                            await client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
-                                .then((log) => {
-                                    //console.log(log);
-                                    //push message id and channel id to messid
-                                    messid.push({
-                                        messid: log.id,
-                                        chanelid: wow[i]
-                                    })
+                        await client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
+                            .then((log) => {
+                                //console.log(log);
+                                //push message id and channel id to messid
+                                messid.push({
+                                    messid: log.id,
+                                    chanelid: wow[i]
                                 })
-                                .catch((error) => {
-                                    //console.log(error);
-                                    client.users.fetch('133439202556641280').then(dm => {
-                                        dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
-                                    })
-                                });
+                            })
+                            .catch((error) => {
+                                //console.log(error);
+                                client.users.fetch('133439202556641280').then(dm => {
+                                    dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                                })
+                            });
                         /*} else {
                             await client.channels.cache.get(wow[i]).send({ embeds: [msg] })
                                 .then((log) => {
@@ -913,16 +944,16 @@ let scheduledthaioil = new cron.CronJob('1-59 10-21 * * *', async () => {
 
                 //send msg to user 133439202556641280
                 //if (imagegood == true) {
-                    client.users.fetch('133439202556641280').then(dm => {
-                        dm.send({ embeds: [msg], files: [files], components: [row] })
-                            .then((log) => {
-                                console.log(log);
-                            })
-                            .catch((error) => {
-                                console.log(error);
+                client.users.fetch('133439202556641280').then(dm => {
+                    dm.send({ embeds: [msg], files: [files], components: [row] })
+                        .then((log) => {
+                            console.log(log);
+                        })
+                        .catch((error) => {
+                            console.log(error);
 
-                            });
-                    });
+                        });
+                });
                 /*} else {
                     client.users.fetch('133439202556641280').then(dm => {
                         dm.send({ embeds: [msg], components: [row] })
@@ -1027,7 +1058,7 @@ client.on('interactionCreate', async interaction => {
                 } else {
                     await interaction.editReply('ยกเลิกการติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
                 }
-            }else{
+            } else {
                 await interaction.editReply('ไม่สามารถยกเลิกการติดตามสลากฯได้')
             }
         } else {
@@ -1047,7 +1078,7 @@ client.on('interactionCreate', async interaction => {
             const addtolist = await fetch(process.env.URL + '/discordbot/addchannels.php?chid=' + interaction.channelId)
             const addtolistres = await addtolist.text()
             const addtoliststatus = await addtolist.status
-            if(addtoliststatus === 200) {
+            if (addtoliststatus === 200) {
                 if (addtolistres === 'debug') {
                     await interaction.editReply('เอ้! ไม่สามารถติดตามสลากฯได้')
                 } else if (addtolistres === 'error') {
@@ -1055,7 +1086,7 @@ client.on('interactionCreate', async interaction => {
                 } else {
                     await interaction.editReply('ติดตามสลากฯในห้องนี้เสร็จเรียบร้อย')
                 }
-            }else{
+            } else {
                 await interaction.editReply('ไม่สามารถติดตามสลากฯได้')
             }
         }
@@ -1070,24 +1101,24 @@ client.on('interactionCreate', async interaction => {
 
         //if (fs.existsSync('./lottery_' + data.info.date + '.png') == false) {
 
-            //await fetch(lotimgapi+'/?date=' + data.info.date)
-            /*await fetch('https://screenshot-xi.vercel.app/?date=' + data.info.date)
-                .then(res => res.buffer())
-                .then(async (res) => {
-                    await fs.writeFileSync('./lottery_' + data.info.date + '.png', res)
-                })
-                .catch(async (err) => {
-                    await interaction.editReply('ไม่สามารถดึงข้อมูลล่าสุดสลากฯได้')
-                });*/
+        //await fetch(lotimgapi+'/?date=' + data.info.date)
+        /*await fetch('https://screenshot-xi.vercel.app/?date=' + data.info.date)
+            .then(res => res.buffer())
+            .then(async (res) => {
+                await fs.writeFileSync('./lottery_' + data.info.date + '.png', res)
+            })
+            .catch(async (err) => {
+                await interaction.editReply('ไม่สามารถดึงข้อมูลล่าสุดสลากฯได้')
+            });*/
 
-            const fetchlotimg = await fetch ('https://screenshot-xi.vercel.app/?date=' + data.info.date)
-            const fetchlotimgres = await fetchlotimg.arrayBuffer()
+        const fetchlotimg = await fetch('https://screenshot-xi.vercel.app/?date=' + data.info.date)
+        const fetchlotimgres = await fetchlotimg.arrayBuffer()
 
         //}
 
         //const file = new MessageAttachment('./lottery_' + data.info.date + '.png');
         //const file = new AttachmentBuilder('./lottery_' + data.info.date + '.png');
-        const file = new AttachmentBuilder(Buffer.from(fetchlotimgres), {name: 'lottery_' + data.info.date + '.png'});
+        const file = new AttachmentBuilder(Buffer.from(fetchlotimgres), { name: 'lottery_' + data.info.date + '.png' });
 
         const msg = new EmbedBuilder()
             .setColor('#0099ff')
@@ -1272,7 +1303,7 @@ client.on('interactionCreate', async interaction => {
 
                 await interaction.editReply({ content: 'ใบตรวจสลาก!', components: [row] })
             })*/
-        
+
         const fetchdate = await fetch('https://raw.githubusercontent.com/boyphongsakorn/testrepo/main/godcombothtext')
         const jsondate = await fetchdate.json()
         let jsons = jsondate.slice(jsondate.length - 25, jsondate.length)
@@ -1795,7 +1826,7 @@ client.on('interactionCreate', async interaction => {
             msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
             await interaction.editReply({ embeds: [msg] })
         } else {*/
-            await interaction.editReply({ embeds: [msg], files: [files] });
+        await interaction.editReply({ embeds: [msg], files: [files] });
         //}
     }
 
@@ -1844,11 +1875,11 @@ client.on('interactionCreate', async interaction => {
                     havesub = true;
                 }
             })*/
-        
+
         const oillist = await fetch(process.env.URL + '/discordbot/oilchlist.txt')
         const oillistjson = await oillist.json();
 
-        if(oillistjson.includes(interaction.channelId)){
+        if (oillistjson.includes(interaction.channelId)) {
             havesub = true;
         }
 
