@@ -265,7 +265,7 @@ function handleDisconnect() {
         if (err) {                                     // or restarting (takes a while sometimes).
             console.log('error when connecting to db:', err);
             setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
-        }else {
+        } else {
             console.log("Database Connected!");
         }                                     // to avoid a hot loop, and to allow our node script to
     });                                       // process asynchronous requests in the meantime.
@@ -825,14 +825,14 @@ let scheduledthaioil = new cron.CronJob('1-59 10-21 * * *', async () => {
                     try {
                         const fetchthaioilimg = await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000');
                         thaioilimg = await fetchthaioilimg.arrayBuffer();
-                        if(Buffer.from(thaioilimg).length > 100000) {
+                        if (Buffer.from(thaioilimg).length > 100000) {
                             downloadscussess = true;
                         }
                     } catch (err) {
                         console.log(err);
                     }
                 }
-                
+
                 //const fetchthaioilimg = await fetch('https://topapi.pwisetthon.com/image');
                 //const thaioilimg = await fetchthaioilimg.arrayBuffer();
 
@@ -1799,8 +1799,23 @@ client.on('interactionCreate', async interaction => {
                 imagegood = false;
             });*/
 
-        const thaioilimg = await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
-        const thaioil = await thaioilimg.arrayBuffer()
+        //const thaioilimg = await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+        //const thaioil = await thaioilimg.arrayBuffer()
+
+        let downloadscussess = false;
+        let thaioil
+
+        while (downloadscussess == false) {
+            try {
+                const thaioilimg = await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000');
+                thaioil = await thaioilimg.arrayBuffer();
+                if (Buffer.from(thaioil).length > 100000) {
+                    downloadscussess = true;
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
 
         //check if file exist and size is not 0
         /*if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 0) {
