@@ -937,8 +937,19 @@ let scheduledthaioil = new cron.CronJob('1-59 10-21 * * *', async () => {
                 //push messidjson to database
                 let sql = `INSERT INTO hell VALUES ('${date}', '${messidjson}')`;
                 con.query(sql, function (err, result) {
-                    if (err) throw err;
-                    console.log('1 record inserted');
+                    if (err) {
+                        //loop messid and delete message
+                        for (let i = 0; i < messid.length; i++) {
+                            client.channels.cache.get(messid[i].chanelid).messages.fetch(messid[i].messid).then(msg => {
+                                msg.delete()
+                            }).catch((error) => {
+                                console.log('this message not found or bot not have permission to delete this message or someboty delete this message');
+                            })
+                        }
+                        console.log('error insert to database');
+                    }else{
+                        console.log('1 record inserted');
+                    }
                 });
 
                 //const row = new MessageActionRow()
@@ -2544,7 +2555,6 @@ client.on('interactionCreate', async interaction => {
             con.query(resetsql, function (err, result) {
                 if (err) throw err;
                 console.log("Number of records deleted: " + result.affectedRows);
-                
             })
             await interaction.editReply('ล้างข้อมูลเรียบร้อย');
         }
