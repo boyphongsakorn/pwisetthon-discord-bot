@@ -872,7 +872,7 @@ let scheduledthaioil = new cron.CronJob('1-59 10-21 * * *', async () => {
 
                 let msg = new EmbedBuilder()
                     .setColor('#0099ff')
-                    .setTitle('ราคาน้ำมันพรุ่งนี้')
+                    .setTitle('ราคาน้ำมันวัน'+desctext)
                     .setURL('https://www.bangchak.co.th/th/oilprice/historical')
                     .setDescription('ราคาน้ำมันมีการเปลี่ยนแปลงสำหรับวัน' + desctext + ' (วันที่ ' + json[0][0].substring(0, 2) + ' ' + convertmonthtotext(json[0][0].substring(3, 5)) + ' ' + json[0][0].substring(6, 10) + ')')
                     .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
