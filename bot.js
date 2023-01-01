@@ -779,134 +779,119 @@ let scheduledthaioil = new cron.CronJob('1-59 10-21 * * *', async () => {
     /*fetch('https://thaioilpriceapi-vercel.vercel.app')
         .then(res => res.json())
         .then(json => {*/
-    const fetchapi = await fetch('https://topapi.pwisetthon.com');
-    const json = await fetchapi.json();
-    let ngv = json[0][10]
+    try {
+        const fetchapi = await fetch('https://topapi.pwisetthon.com');
+        const json = await fetchapi.json();
+        let ngv = json[0][10]
 
-    var sql = 'SELECT * FROM oilprice WHERE date = "' + json[0][0] + '"';
-    con.query(sql, function (err, result) {
-        if (err) throw err;
-        if (result.length == 0 && json[0][0] != '') {
-            if (json[0][10] == '-') {
-                ngv = 0
-            }
-            var sql = 'INSERT INTO oilprice VALUES ("' + json[0][0] + '", ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
-            con.query(sql, async function (err, result) {
-                if (err) throw err;
-
-                //set Presence
-                if (parseInt(json[2][8]) > 0) {
-                    client.user.setPresence({ activities: [{ name: 'เซ็ง 91 ขึ้นอีกละ | discordbot.pwisetthon.com' }], status: 'online' });
-                    //after 1 hour set back to default
-                    setTimeout(() => {
-                        client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
-                    }, 3600000);
+        var sql = 'SELECT * FROM oilprice WHERE date = "' + json[0][0] + '"';
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            if (result.length == 0 && json[0][0] != '') {
+                if (json[0][10] == '-') {
+                    ngv = 0
                 }
+                var sql = 'INSERT INTO oilprice VALUES ("' + json[0][0] + '", ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
+                con.query(sql, async function (err, result) {
+                    if (err) throw err;
 
-                const response = await fetch(process.env.URL + '/discordbot/oilchlist.txt', { method: 'GET' });
-                const data = await response.json();
-                const wow = data;
-                //let imagegood = false;
-
-                /*await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000', { timeout: 7500 })
-                    .then(res => res.buffer())
-                    .then(async (res) => {
-                        await fs.writeFileSync('./lastoilprice.png', res)
-                        //imagegood = true;
-                    })
-                    .catch(async (err) => {
-                        console.log(err);
-                        //imagegood = false;
-                    });*/
-
-                let downloadscussess = false;
-                let thaioilimg
-
-                while (downloadscussess == false) {
-                    try {
-                        const fetchthaioilimg = await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000');
-                        thaioilimg = await fetchthaioilimg.arrayBuffer();
-                        if (Buffer.from(thaioilimg).length > 100000) {
-                            downloadscussess = true;
-                        }
-                    } catch (err) {
-                        console.log(err);
+                    //set Presence
+                    if (parseInt(json[2][8]) > 0) {
+                        client.user.setPresence({ activities: [{ name: 'เซ็ง 91 ขึ้นอีกละ | discordbot.pwisetthon.com' }], status: 'online' });
+                        //after 1 hour set back to default
+                        setTimeout(() => {
+                            client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
+                        }, 3600000);
                     }
-                }
 
-                //const fetchthaioilimg = await fetch('https://topapi.pwisetthon.com/image');
-                //const thaioilimg = await fetchthaioilimg.arrayBuffer();
+                    const response = await fetch(process.env.URL + '/discordbot/oilchlist.txt', { method: 'GET' });
+                    const data = await response.json();
+                    const wow = data;
+                    //let imagegood = false;
 
-                //let files
-                //let imageisgood = false
-
-                //check if file exist and size > 400kb and size < 500kb
-                /*if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 400000 && fs.statSync('./lastoilprice.png').size < 500000) {
-                    //files = new MessageAttachment('./lastoilprice.png');
-                    imagegood = true
-                } else {
-                    imagegood = false;
-                    await fetch('https://topapi.pwisetthon.com/image')
+                    /*await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000', { timeout: 7500 })
                         .then(res => res.buffer())
                         .then(async (res) => {
                             await fs.writeFileSync('./lastoilprice.png', res)
-                            //files = new MessageAttachment('./lastoilprice.png');
-                            imagegood = true;
+                            //imagegood = true;
                         })
-                }*/
+                        .catch(async (err) => {
+                            console.log(err);
+                            //imagegood = false;
+                        });*/
 
-                let todays = new Date();
-                let oilday = new Date(json[0][0].substring(6, 10) + '-' + json[0][0].substring(3, 5) + '-' + json[0][0].substring(0, 2));
+                    let downloadscussess = false;
+                    let thaioilimg
 
-                let desctext
+                    while (downloadscussess == false) {
+                        try {
+                            const fetchthaioilimg = await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000');
+                            thaioilimg = await fetchthaioilimg.arrayBuffer();
+                            if (Buffer.from(thaioilimg).length > 100000) {
+                                downloadscussess = true;
+                            }
+                        } catch (err) {
+                            console.log(err);
+                        }
+                    }
 
-                //if todays == oilday
-                if (todays.getDate() == oilday.getDate()) {
-                    desctext = 'นี้';
-                } else {
-                    desctext = 'พรุ่งนี้';
-                }
+                    //const fetchthaioilimg = await fetch('https://topapi.pwisetthon.com/image');
+                    //const thaioilimg = await fetchthaioilimg.arrayBuffer();
 
-                //const files = new MessageAttachment('./lastoilprice.png');
-                //const files = new AttachmentBuilder('./lastoilprice.png');
-                const files = new AttachmentBuilder(Buffer.from(thaioilimg), { name: 'lastoilprice.png' });
+                    //let files
+                    //let imageisgood = false
 
-                let msg = new EmbedBuilder()
-                    .setColor('#0099ff')
-                    .setTitle('ราคาน้ำมันวัน'+desctext)
-                    .setURL('https://www.bangchak.co.th/th/oilprice/historical')
-                    .setDescription('ราคาน้ำมันมีการเปลี่ยนแปลงสำหรับวัน' + desctext + ' (วันที่ ' + json[0][0].substring(0, 2) + ' ' + convertmonthtotext(json[0][0].substring(3, 5)) + ' ' + json[0][0].substring(6, 10) + ')')
-                    .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
-                    .setImage('attachment://lastoilprice.png')
-                    .setTimestamp()
-                    .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
-
-                /*if (imagegood == false) {
-                    msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
-                }*/
-
-                let messid = [];
-
-                for (let i = 0; i < wow.length; i++) {
-                    try {
-                        //if (imagegood == true) {
-                        await client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
-                            .then((log) => {
-                                //console.log(log);
-                                //push message id and channel id to messid
-                                messid.push({
-                                    messid: log.id,
-                                    chanelid: wow[i]
-                                })
+                    //check if file exist and size > 400kb and size < 500kb
+                    /*if (fs.existsSync('./lastoilprice.png') && fs.statSync('./lastoilprice.png').size > 400000 && fs.statSync('./lastoilprice.png').size < 500000) {
+                        //files = new MessageAttachment('./lastoilprice.png');
+                        imagegood = true
+                    } else {
+                        imagegood = false;
+                        await fetch('https://topapi.pwisetthon.com/image')
+                            .then(res => res.buffer())
+                            .then(async (res) => {
+                                await fs.writeFileSync('./lastoilprice.png', res)
+                                //files = new MessageAttachment('./lastoilprice.png');
+                                imagegood = true;
                             })
-                            .catch((error) => {
-                                //console.log(error);
-                                client.users.fetch('133439202556641280').then(dm => {
-                                    dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
-                                })
-                            });
-                        /*} else {
-                            await client.channels.cache.get(wow[i]).send({ embeds: [msg] })
+                    }*/
+
+                    let todays = new Date();
+                    let oilday = new Date(json[0][0].substring(6, 10) + '-' + json[0][0].substring(3, 5) + '-' + json[0][0].substring(0, 2));
+
+                    let desctext
+
+                    //if todays == oilday
+                    if (todays.getDate() == oilday.getDate()) {
+                        desctext = 'นี้';
+                    } else {
+                        desctext = 'พรุ่งนี้';
+                    }
+
+                    //const files = new MessageAttachment('./lastoilprice.png');
+                    //const files = new AttachmentBuilder('./lastoilprice.png');
+                    const files = new AttachmentBuilder(Buffer.from(thaioilimg), { name: 'lastoilprice.png' });
+
+                    let msg = new EmbedBuilder()
+                        .setColor('#0099ff')
+                        .setTitle('ราคาน้ำมันวัน' + desctext)
+                        .setURL('https://www.bangchak.co.th/th/oilprice/historical')
+                        .setDescription('ราคาน้ำมันมีการเปลี่ยนแปลงสำหรับวัน' + desctext + ' (วันที่ ' + json[0][0].substring(0, 2) + ' ' + convertmonthtotext(json[0][0].substring(3, 5)) + ' ' + json[0][0].substring(6, 10) + ')')
+                        .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
+                        .setImage('attachment://lastoilprice.png')
+                        .setTimestamp()
+                        .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+
+                    /*if (imagegood == false) {
+                        msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+                    }*/
+
+                    let messid = [];
+
+                    for (let i = 0; i < wow.length; i++) {
+                        try {
+                            //if (imagegood == true) {
+                            await client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [files] })
                                 .then((log) => {
                                     //console.log(log);
                                     //push message id and channel id to messid
@@ -921,68 +906,73 @@ let scheduledthaioil = new cron.CronJob('1-59 10-21 * * *', async () => {
                                         dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
                                     })
                                 });
-                        }*/
-                    } catch (error) {
-                        console.log('he not send')
-                    }
-                }
-
-                //convert messid to json
-                let messidjson = JSON.stringify(messid);
-                //get today date format day/month/thaiyear
-                let today = new Date();
-                let day = today.getDate();
-                let month = today.getMonth() + 1;
-                let thaiyear = today.getFullYear() + 543;
-                let date = day + '/' + month + '/' + thaiyear;
-                //push messidjson to database
-                let sql = `INSERT INTO hell VALUES ('${date}', '${messidjson}')`;
-                con.query(sql, function (err, result) {
-                    if (err) {
-                        //loop messid and delete message
-                        for (let i = 0; i < messid.length; i++) {
-                            client.channels.cache.get(messid[i].chanelid).messages.fetch(messid[i].messid).then(msg => {
-                                msg.delete()
-                            }).catch((error) => {
-                                console.log('this message not found or bot not have permission to delete this message or someboty delete this message');
-                            })
+                            /*} else {
+                                await client.channels.cache.get(wow[i]).send({ embeds: [msg] })
+                                    .then((log) => {
+                                        //console.log(log);
+                                        //push message id and channel id to messid
+                                        messid.push({
+                                            messid: log.id,
+                                            chanelid: wow[i]
+                                        })
+                                    })
+                                    .catch((error) => {
+                                        //console.log(error);
+                                        client.users.fetch('133439202556641280').then(dm => {
+                                            dm.send('Bot ไม่สามารถส่งข้อความไปยังแชทแนว ' + wow[i] + ' ได้เนี่องจาก ' + error)
+                                        })
+                                    });
+                            }*/
+                        } catch (error) {
+                            console.log('he not send')
                         }
-                        console.log('error insert to database');
-                    }else{
-                        console.log('1 record inserted');
                     }
-                });
 
-                //const row = new MessageActionRow()
-                const row = new ActionRowBuilder()
-                    .addComponents(
-                        //new MessageButton()
-                        new ButtonBuilder()
-                            .setCustomId('hell')
-                            .setLabel('ลบ')
-                            .setStyle('Danger'),
-                        //new MessageButton()
-                        new ButtonBuilder()
-                            .setCustomId('hellandreset')
-                            .setLabel('ลบและรีเซ็ต')
-                            .setStyle('Danger'),
-                    );
+                    //convert messid to json
+                    let messidjson = JSON.stringify(messid);
+                    //get today date format day/month/thaiyear
+                    let today = new Date();
+                    let day = today.getDate();
+                    let month = today.getMonth() + 1;
+                    let thaiyear = today.getFullYear() + 543;
+                    let date = day + '/' + month + '/' + thaiyear;
+                    //push messidjson to database
+                    let sql = `INSERT INTO hell VALUES ('${date}', '${messidjson}')`;
+                    con.query(sql, function (err, result) {
+                        if (err) {
+                            //loop messid and delete message
+                            for (let i = 0; i < messid.length; i++) {
+                                client.channels.cache.get(messid[i].chanelid).messages.fetch(messid[i].messid).then(msg => {
+                                    msg.delete()
+                                }).catch((error) => {
+                                    console.log('this message not found or bot not have permission to delete this message or someboty delete this message');
+                                })
+                            }
+                            console.log('error insert to database');
+                        } else {
+                            console.log('1 record inserted');
+                        }
+                    });
 
-                //send msg to user 133439202556641280
-                //if (imagegood == true) {
-                client.users.fetch('133439202556641280').then(dm => {
-                    dm.send({ embeds: [msg], files: [files], components: [row] })
-                        .then((log) => {
-                            console.log(log);
-                        })
-                        .catch((error) => {
-                            console.log(error);
+                    //const row = new MessageActionRow()
+                    const row = new ActionRowBuilder()
+                        .addComponents(
+                            //new MessageButton()
+                            new ButtonBuilder()
+                                .setCustomId('hell')
+                                .setLabel('ลบ')
+                                .setStyle('Danger'),
+                            //new MessageButton()
+                            new ButtonBuilder()
+                                .setCustomId('hellandreset')
+                                .setLabel('ลบและรีเซ็ต')
+                                .setStyle('Danger'),
+                        );
 
-                        });
-                });
-                /*} else {
+                    //send msg to user 133439202556641280
+                    //if (imagegood == true) {
                     client.users.fetch('133439202556641280').then(dm => {
-                        dm.send({ embeds: [msg], components: [row] })
+                        dm.send({ embeds: [msg], files: [files], components: [row] })
                             .then((log) => {
                                 console.log(log);
                             })
@@ -991,10 +981,24 @@ let scheduledthaioil = new cron.CronJob('1-59 10-21 * * *', async () => {
 
                             });
                     });
-                }*/
-            });
-        }
-    });
+                    /*} else {
+                        client.users.fetch('133439202556641280').then(dm => {
+                            dm.send({ embeds: [msg], components: [row] })
+                                .then((log) => {
+                                    console.log(log);
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+
+                                });
+                        });
+                    }*/
+                });
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
     /*})
     .catch(err => {
         console.log(err)
@@ -2559,7 +2563,7 @@ client.on('interactionCreate', async interaction => {
             })
             await interaction.editReply('ล้างข้อมูลเรียบร้อย');
         }
-        
+
     }
 });
 
