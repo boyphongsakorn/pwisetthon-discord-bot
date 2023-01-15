@@ -864,6 +864,8 @@ let scheduledthaioil = new cron.CronJob('1-59 05-18 * * *', async () => {
                     //if todays == oilday
                     if (todays.getDate() == oilday.getDate()) {
                         desctext = 'นี้';
+                    } else if (todays.getDate() < oilday.getDate()) {
+                        desctext = 'เมื่อวานนี้';
                     } else {
                         desctext = 'พรุ่งนี้';
                     }
