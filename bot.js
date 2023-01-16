@@ -865,9 +865,9 @@ let scheduledthaioil = new cron.CronJob('1-59 05-22 * * *', async () => {
                     if (todays.getDate() == oilday.getDate()) {
                         desctext = 'นี้';
                     } else if (todays.getDate() > oilday.getDate()) {
-                        desctext = 'พรุ่งนี้';
-                    } else {
                         desctext = 'เมื่อวานนี้';
+                    } else {
+                        desctext = 'พรุ่งนี้';
                     }
 
                     //const files = new MessageAttachment('./lastoilprice.png');
