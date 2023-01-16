@@ -752,7 +752,7 @@ scheduledMessage.start()
 
 //thaioilprice cron
 
-let scheduledthaioil = new cron.CronJob('1-59 05-18 * * *', async () => {
+let scheduledthaioil = new cron.CronJob('1-59 05-22 * * *', async () => {
     let nows = new Date();
     // if nows = 3 feb client.user.setAvatar
     if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
