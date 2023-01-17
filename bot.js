@@ -311,7 +311,7 @@ client.once('ready', () => {
         dm.send('Bot เริ่มต้นการทำงานแล้ว')
     });
     //send ok to channel 908708400379097184 and get message id
-    client.channels.cache.get('908708400379097184').send('Bot เริ่มต้นการทำงานแล้ว')
+    /*client.channels.cache.get('908708400379097184').send('Bot เริ่มต้นการทำงานแล้ว')
         .then(async function (message) {
             //log message id
             console.log(message.id);
@@ -319,7 +319,7 @@ client.once('ready', () => {
             await new Promise(resolve => setTimeout(resolve, 5000));
             //delete message
             client.channels.cache.get('908708400379097184').messages.cache.get(message.id).delete();
-        });
+        });*/
     console.log('I am ready!');
     //});
 });
@@ -951,6 +951,9 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
                                 })
                             }
                             console.log('error insert to database');
+                            client.users.fetch('133439202556641280').then(dm => {
+                                dm.send('Bot มีปัญหาในการเชื่อมต่อกับฐานข้อมูล เนื่องจาก ' + err)
+                            });
                         } else {
                             console.log('1 record inserted');
                         }
