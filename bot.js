@@ -825,7 +825,8 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
 
                     while (downloadscussess == false) {
                         try {
-                            const fetchthaioilimg = await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000');
+                            //const fetchthaioilimg = await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000');
+                            const fetchthaioilimg = await fetch('https://thaioilpriceapi-vercel.vercel.app/image');
                             thaioilimg = await fetchthaioilimg.arrayBuffer();
                             if (Buffer.from(thaioilimg).length > 100000) {
                                 downloadscussess = true;
