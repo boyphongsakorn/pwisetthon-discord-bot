@@ -788,6 +788,7 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
         con.query(sql, function (err, result) {
             if (err) throw err;
             if (result.length == 0 && json[0][0] != '') {
+                console.log('hey new oil price has come');
                 if (json[0][10] == '-') {
                     ngv = 0
                 }
