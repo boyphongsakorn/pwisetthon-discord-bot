@@ -752,7 +752,7 @@ scheduledMessage.start()
 
 //thaioilprice cron
 
-let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
+let scheduledthaioil = new cron.CronJob('* 05-19 * * *', async () => {
     let nows = new Date();
     // if nows = 3 feb client.user.setAvatar
     if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
@@ -2379,7 +2379,7 @@ client.on('interactionCreate', async interaction => {
 
                 await interaction.editReply({ embeds: [msg] });
             } else {
-                await interaction.editReply('ไม่เคยมีประวัติการโกง')
+                await interaction.editReply('จากการตรวจสอบเบื้องต้น ไม่เคยมีประวัติการโกง')
             }
 
         } else {
@@ -2387,6 +2387,7 @@ client.on('interactionCreate', async interaction => {
             //change space in searchdata to +
             let ogsearchdata = searchdata;
             searchdata = searchdata.replace(/\s/g, '+');
+            let twodata = [];
             //console.log(searchdata);
             //change searchdata to url encode
             //searchdata = encodeURI(searchdata);
@@ -2441,7 +2442,8 @@ client.on('interactionCreate', async interaction => {
                     //if reusult length is 1, it means no result
                     if (result.length == 1) {
                         //console.log(result);
-                        await interaction.editReply('ไม่เคยมีประวัติการโกง')
+                        //await interaction.editReply('จากการตรวจสอบเบื้องต้น ไม่เคยมีประวัติการโกง')
+                        twodata[0] = 'nothing'
                     } else {
                         //console.log(result);
                         //get text from id s_amount
@@ -2463,9 +2465,18 @@ client.on('interactionCreate', async interaction => {
                         arrayreport[arrayreportlength][7] = name ? name : result[0];
                         console.log("found");
                         console.log(arrayreport[0]);*/
-                        let name = encodeURI(searchdata);
+                        //let name = encodeURI(searchdata);
 
-                        const msg = new EmbedBuilder()
+                        twodata[0][0] = result[1]
+                        twodata[0][1] = amount3.replace("บาท", "")
+                        twodata[0][2] = amount3.replace("บาท", " บาท")
+                        twodata[0][3] = date
+                        twodata[0][4] = from
+                        twodata[0][5] = type
+                        twodata[0][6] = "ไม่ระบุ"
+                        twodata[0][7] = ogsearchdata
+
+                        /*const msg = new EmbedBuilder()
                             .setColor('#EE4B2B')
                             .setTitle('ข้อมูลการรายงานของ ' + ogsearchdata)
                             .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + ogsearchdata)
@@ -2486,10 +2497,64 @@ client.on('interactionCreate', async interaction => {
                             .setTimestamp()
                             .setFooter({ text: 'ขอบคุณข้อมูลจาก whoscheat.com', iconURL: 'https://www.whoscheat.com/Images/apple-touch-icon.png?v=1' });
 
-                        await interaction.editReply({ embeds: [msg] });
+                        await interaction.editReply({ embeds: [msg] });*/
                     }
                 }).catch(async (err) => {
-                    await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                    //await interaction.editReply('ไม่สามารถตรวจสอบข้อมูลได้')
+                    twodata[0] = 'nothing'
+                });
+
+            await fetch("https://www.chaladohn.com/report/detail/"+ encodeURIComponent(name))
+                .then(res => res.text())
+                .then(body => {
+                    //console.log(body);
+                    const $ = cheerio.load(body);
+                    //get div text
+                    const result = $('div').toArray();
+                    //check all result if result have word ข้อมูลนี้พบเรื่องร้องเรียน console.log("found")
+                    for(let i = 0; i < result.length; i++){
+                        if(result[i].children[0].data.indexOf("ข้อมูลนี้พบเรื่องร้องเรียน") != -1){
+                            console.log("found");
+                        }
+                    }
+                    //get text from div with class col-4
+                    const result2 = $('.col-4').toArray().map(p => $(p).text());
+                    //console log all result2 text
+                    for(let i = 0; i < result2.length; i++){
+                        //console.log('--');
+                        //console.log(result2[i]);
+                        //if result2[i] have word รายงานการร้องเรียนที่นับได้ console log that
+                        if(result2[i].indexOf("รายงานการร้องเรียนที่นับได้") != -1){
+                            console.log("found");
+                            //console.log(result2[i]);
+                            //remove word การร้องเรียน but remove last word
+                            const result3 = result2[i].replace("รายงานการร้องเรียนที่นับได้", "");
+                            //remove space from result3
+                            const result4 = result3.replace(/\s/g, "");
+                            twodata[1][0] = result[1]
+                            twodata[1][1] = amount3.replace("บาท", "")
+                            twodata[1][2] = amount3.replace("บาท", " บาท")
+                            twodata[1][3] = date
+                            twodata[1][4] = from
+                            twodata[1][5] = type
+                            twodata[1][6] = "ไม่ระบุ"
+                            twodata[1][7] = ogsearchdata
+                            const result5 = result4.replace("การร้องเรียน", "รายงานการร้องเรียนที่นับได้ ");
+                            console.log(result5);
+                            //get all a tag
+                            const result6 = $('a').toArray();
+                            //log all href from a tag
+                            console.log(result6.length);
+                            for(let i = 0; i < result6.length; i++){
+                                //console.log(result6[i].attribs.href);
+                                //if href have google.com log that
+                                if(result6[i].attribs.href.indexOf("google.com") != -1){
+                                    console.log("found");
+                                    console.log(result6[i].attribs.href);
+                                }
+                            }
+                        }
+                    }
                 });
         }
 
