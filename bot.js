@@ -2573,18 +2573,20 @@ client.on('interactionCreate', async interaction => {
         let hellsql = 'SELECT messid FROM hell WHERE date = \'' + todayformat + '\' LIMIT 1';
         con.query(hellsql, async (err, result) => {
             if (err) throw err;
-            //convert result[0].messid from json text to json object
-            let messid = JSON.parse(result[0].messid);
-            //loop messid
-            for (let i = 0; i < messid.length; i++) {
-                //delete message by messid and chanelid
-                try {
-                    //client.channels.cache.get(messid[i].chanelid).messages.cache.get(messid[i].messid).delete();
-                    client.channels.cache.get(messid[i].chanelid).messages.fetch(messid[i].messid).then(message => message.delete()).catch(console.log);
-                    //client.channels.cache.get(messid[i].chanelid).fetchMessage(messid[i].messid).then(msg => msg.delete());
-                    console.log('delete message ' + messid[i].messid + ' in ' + messid[i].chanelid + ' success');
-                } catch (error) {
-                    console.log(error)
+            if(result.length > 0){
+                //convert result[0].messid from json text to json object
+                let messid = JSON.parse(result[0].messid);
+                //loop messid
+                for (let i = 0; i < messid.length; i++) {
+                    //delete message by messid and chanelid
+                    try {
+                        //client.channels.cache.get(messid[i].chanelid).messages.cache.get(messid[i].messid).delete();
+                        client.channels.cache.get(messid[i].chanelid).messages.fetch(messid[i].messid).then(message => message.delete()).catch(console.log);
+                        //client.channels.cache.get(messid[i].chanelid).fetchMessage(messid[i].messid).then(msg => msg.delete());
+                        console.log('delete message ' + messid[i].messid + ' in ' + messid[i].chanelid + ' success');
+                    } catch (error) {
+                        console.log(error)
+                    }
                 }
             }
         })
