@@ -755,7 +755,9 @@ scheduledMessage.start()
 let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
     let nows = new Date();
     // if nows = 3 feb client.user.setAvatar
-    if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
+    if ((nows.getDate() >= 21 && nows.getDate() <= 23 && nows.getMonth() == 0)) {
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_cny.png')
+    } else if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hbd.jpg')
     } else if (nows.getDate() >= 13 && nows.getDate() <= 14 && nows.getMonth() == 1) {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vd.png')
