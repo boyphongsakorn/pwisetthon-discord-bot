@@ -2594,7 +2594,7 @@ client.on('interactionCreate', async interaction => {
                     .setFooter({ text: 'ขอบคุณข้อมูลจาก whoscheat.com', iconURL: 'https://www.whoscheat.com/Images/apple-touch-icon.png?v=1' });
 
                 await interaction.editReply({ embeds: [msg] });
-            } else if (twodata[1] != 'nothing') {
+            } else if (twodata[1] != 'nothing' && twodata[1].length > 0) {
                 const msg = new EmbedBuilder()
                     .setColor('#EE4B2B')
                     .setTitle('ข้อมูลการรายงานของ ' + twodata[1][7])
