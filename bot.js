@@ -2389,7 +2389,7 @@ client.on('interactionCreate', async interaction => {
             //change space in searchdata to +
             let ogsearchdata = searchdata;
             //searchdata = searchdata.replace(/\s/g, '+');
-            let twodata = [];
+            let twodata = [[],[]];
             //console.log(searchdata);
             //change searchdata to url encode
             //searchdata = encodeURI(searchdata);
