@@ -2515,7 +2515,7 @@ client.on('interactionCreate', async interaction => {
             }
 
             //await fetch("https://www.chaladohn.com/report/detail/" + encodeURIComponent(name))
-            await fetch("https://www.chaladohn.com/report/detail/" + searchdata)
+            await fetch("https://www.chaladohn.com/report/detail/" + encodeURIComponent(searchdata))
                 .then(res => res.text())
                 .then(body => {
                     //console.log(body);
