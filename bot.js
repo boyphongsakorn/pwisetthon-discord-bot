@@ -2388,7 +2388,7 @@ client.on('interactionCreate', async interaction => {
             console.log(searchdata);
             //change space in searchdata to +
             let ogsearchdata = searchdata;
-            searchdata = searchdata.replace(/\s/g, '+');
+            //searchdata = searchdata.replace(/\s/g, '+');
             let twodata = [];
             //console.log(searchdata);
             //change searchdata to url encode
