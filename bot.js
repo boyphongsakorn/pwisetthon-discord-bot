@@ -2604,7 +2604,7 @@ client.on('interactionCreate', async interaction => {
                     .setColor('#EE4B2B')
                     .setTitle('ข้อมูลการรายงานของ ' + twodata[1][7])
                     .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + twodata[1][7])
-                    .setURL('https://www.chaladohn.com/report/detail/' + twodata[1][7])
+                    .setURL('https://www.chaladohn.com/report/detail/' + encodeURIComponent(twodata[1][7]))
                     .setAuthor({ name: 'whoscheat', iconURL: 'https://www.chaladohn.com/public/images/web/logo_meta.png', url: 'https://www.chaladohn.com' })
                     //.addField('พบรายงานการโกง', 'จำนวน ' + res.pageProps.searchResult.totalReport + ' ครั้ง')
                     .addFields(
@@ -2626,7 +2626,7 @@ client.on('interactionCreate', async interaction => {
                         new ButtonBuilder()
                             .setLabel('ดูรายละเอียด')
                             .setStyle('Link')
-                            .setURL('https://www.chaladohn.com/report/detail/' + twodata[1][7])
+                            .setURL('https://www.chaladohn.com/report/detail/' + encodeURIComponent(twodata[1][7]))
                     );
 
                 await interaction.editReply({ embeds: [msg], components: [row] });
