@@ -2506,7 +2506,7 @@ client.on('interactionCreate', async interaction => {
                     twodata[0] = 'nothing'
                 });
 
-            await fetch("https://www.chaladohn.com/report/detail/"+ encodeURIComponent(name))
+            await fetch("https://www.chaladohn.com/report/detail/" + encodeURIComponent(name))
                 .then(res => res.text())
                 .then(body => {
                     //console.log(body);
@@ -2514,25 +2514,41 @@ client.on('interactionCreate', async interaction => {
                     //get div text
                     const result = $('div').toArray();
                     //check all result if result have word ข้อมูลนี้พบเรื่องร้องเรียน console.log("found")
-                    for(let i = 0; i < result.length; i++){
-                        if(result[i].children[0].data.indexOf("ข้อมูลนี้พบเรื่องร้องเรียน") != -1){
+                    for (let i = 0; i < result.length; i++) {
+                        if (result[i].children[0].data.indexOf("ข้อมูลนี้พบเรื่องร้องเรียน") != -1) {
                             console.log("found");
+                        } else {
+                            twodata[1] = 'nothing'
                         }
                     }
                     //get text from div with class col-4
                     const result2 = $('.col-4').toArray().map(p => $(p).text());
                     //console log all result2 text
-                    for(let i = 0; i < result2.length; i++){
+                    for (let i = 0; i < result2.length; i++) {
                         //console.log('--');
                         //console.log(result2[i]);
                         //if result2[i] have word รายงานการร้องเรียนที่นับได้ console log that
-                        if(result2[i].indexOf("รายงานการร้องเรียนที่นับได้") != -1){
+                        if (result2[i].indexOf("รายงานการร้องเรียนที่นับได้") != -1) {
                             console.log("found");
                             //console.log(result2[i]);
                             //remove word การร้องเรียน but remove last word
                             const result3 = result2[i].replace("รายงานการร้องเรียนที่นับได้", "");
                             //remove space from result3
                             const result4 = result3.replace(/\s/g, "");
+                            const result5 = result4.replace("การร้องเรียน", "รายงานการร้องเรียนที่นับได้ ");
+                            console.log(result5);
+                            //get all a tag
+                            const result6 = $('a').toArray();
+                            //log all href from a tag
+                            console.log(result6.length);
+                            for (let i = 0; i < result6.length; i++) {
+                                //console.log(result6[i].attribs.href);
+                                //if href have google.com log that
+                                if (result6[i].attribs.href.indexOf("google.com") != -1) {
+                                    console.log("found");
+                                    console.log(result6[i].attribs.href);
+                                }
+                            }
                             twodata[1][0] = result[1]
                             twodata[1][1] = amount3.replace("บาท", "")
                             twodata[1][2] = amount3.replace("บาท", " บาท")
@@ -2541,23 +2557,37 @@ client.on('interactionCreate', async interaction => {
                             twodata[1][5] = type
                             twodata[1][6] = "ไม่ระบุ"
                             twodata[1][7] = ogsearchdata
-                            const result5 = result4.replace("การร้องเรียน", "รายงานการร้องเรียนที่นับได้ ");
-                            console.log(result5);
-                            //get all a tag
-                            const result6 = $('a').toArray();
-                            //log all href from a tag
-                            console.log(result6.length);
-                            for(let i = 0; i < result6.length; i++){
-                                //console.log(result6[i].attribs.href);
-                                //if href have google.com log that
-                                if(result6[i].attribs.href.indexOf("google.com") != -1){
-                                    console.log("found");
-                                    console.log(result6[i].attribs.href);
-                                }
-                            }
                         }
                     }
                 });
+
+            if (twodata[0] != 'nothing') {
+                const msg = new EmbedBuilder()
+                    .setColor('#EE4B2B')
+                    .setTitle('ข้อมูลการรายงานของ ' + twodata[0][7])
+                    .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + twodata[0][7])
+                    .setURL('https://www.whoscheat.com/Home/Results/?s_type=4&s_inp=' + name)
+                    .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/Images/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
+                    //.addField('พบรายงานการโกง', 'จำนวน ' + res.pageProps.searchResult.totalReport + ' ครั้ง')
+                    .addFields(
+                        { name: 'พบรายงานการโกง', value: 'จำนวน ' + twodata[0][1] + ' ครั้ง', inline: false },
+                    )
+                    .addFields(
+                        { name: 'ครั้งล่าสุด', value: twodata[0][3], inline: true },
+                        { name: 'ช่องทาง', value: twodata[0][4], inline: true }
+                    )
+                    .addFields(
+                        { name: 'รายละเอียด', value: twodata[0][4] + '' + twodata[0][5], inline: false },
+                        { name: 'ยอดความเสียหาย', value: twodata[0][2], inline: true }
+                    )
+                    .setTimestamp()
+                    .setFooter({ text: 'ขอบคุณข้อมูลจาก whoscheat.com', iconURL: 'https://www.whoscheat.com/Images/apple-touch-icon.png?v=1' });
+
+                await interaction.editReply({ embeds: [msg] });
+            } else if (twodata[1] != 'nothing') {
+            } else {
+                await interaction.editReply('ไม่เคยมีประวัติการโกง');
+            }
         }
 
         //await interaction.editReply('เปิดใช้งาน เร็วๆนี้...');
@@ -2575,7 +2605,7 @@ client.on('interactionCreate', async interaction => {
         let hellsql = 'SELECT messid FROM hell WHERE date = \'' + todayformat + '\' LIMIT 1';
         con.query(hellsql, async (err, result) => {
             if (err) throw err;
-            if(result.length > 0){
+            if (result.length > 0) {
                 //convert result[0].messid from json text to json object
                 let messid = JSON.parse(result[0].messid);
                 //loop messid
