@@ -2523,12 +2523,16 @@ client.on('interactionCreate', async interaction => {
                     //get div text
                     const result = $('div').toArray();
                     //check all result if result have word ข้อมูลนี้พบเรื่องร้องเรียน console.log("found")
+                    let found = false;
                     for (let i = 0; i < result.length; i++) {
                         if (result[i].children[0].data.indexOf("ข้อมูลนี้พบเรื่องร้องเรียน") != -1) {
                             console.log("found");
-                        } else {
-                            twodata[1] = 'nothing'
+                            found = true;
                         }
+                    }
+                    //if found is false
+                    if (found == false) {
+                        twodata[1] = 'nothing'
                     }
                     //get text from div with class col-4
                     const result2 = $('.col-4').toArray().map(p => $(p).text());
@@ -2571,6 +2575,7 @@ client.on('interactionCreate', async interaction => {
                     }
                 });
 
+            console.log(twodata);
             if (twodata[0] != 'nothing') {
                 const msg = new EmbedBuilder()
                     .setColor('#EE4B2B')
