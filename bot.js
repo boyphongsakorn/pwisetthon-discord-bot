@@ -2622,7 +2622,12 @@ client.on('interactionCreate', async interaction => {
                     .setFooter({ text: 'ขอบคุณข้อมูลจาก chaladohn.com', iconURL: 'https://www.chaladohn.com/public/images/web/logo_meta.png' });
 
                 const row = new ActionRowBuilder()
-                    .addButton({ label: 'ดูรายละเอียด', style: 'LINK', url: 'https://www.chaladohn.com/report/detail/' + twodata[0][7] });
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setLabel('ดูรายละเอียด')
+                            .setStyle('LINK')
+                            .setURL('https://www.chaladohn.com/report/detail/' + twodata[1][7])
+                    );
 
                 await interaction.editReply({ embeds: [msg], components: [row] });
             } else {
