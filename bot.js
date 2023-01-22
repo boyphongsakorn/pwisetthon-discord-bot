@@ -2506,6 +2506,14 @@ client.on('interactionCreate', async interaction => {
                     twodata[0] = 'nothing'
                 });
 
+            if (searchdata.indexOf("นาย") == 0) {
+                searchdata = searchdata.replace("นาย", "");
+            } else if (searchdata.indexOf("นาง") == 0) {
+                searchdata = searchdata.replace("นาง", "");
+            } else if (searchdata.indexOf("นางสาว") == 0) {
+                searchdata = searchdata.replace("นางสาว", "");
+            }
+
             //await fetch("https://www.chaladohn.com/report/detail/" + encodeURIComponent(name))
             await fetch("https://www.chaladohn.com/report/detail/" + searchdata)
                 .then(res => res.text())
