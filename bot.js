@@ -2625,7 +2625,7 @@ client.on('interactionCreate', async interaction => {
                     .addComponents(
                         new ButtonBuilder()
                             .setLabel('ดูรายละเอียด')
-                            .setStyle('LINK')
+                            .setStyle('Link')
                             .setURL('https://www.chaladohn.com/report/detail/' + twodata[1][7])
                     );
 
