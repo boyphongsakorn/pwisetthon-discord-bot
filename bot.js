@@ -2581,7 +2581,7 @@ client.on('interactionCreate', async interaction => {
                     .setColor('#EE4B2B')
                     .setTitle('ข้อมูลการรายงานของ ' + twodata[0][7])
                     .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + twodata[0][7])
-                    .setURL('https://www.whoscheat.com/Home/Results/?s_type=4&s_inp=' + name)
+                    .setURL('https://www.whoscheat.com/Home/Results/?s_type=4&s_inp=' + twodata[0][7])
                     .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/Images/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
                     //.addField('พบรายงานการโกง', 'จำนวน ' + res.pageProps.searchResult.totalReport + ' ครั้ง')
                     .addFields(
