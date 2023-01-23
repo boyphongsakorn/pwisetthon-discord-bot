@@ -2585,7 +2585,7 @@ client.on('interactionCreate', async interaction => {
                     .setAuthor({ name: 'whoscheat', iconURL: 'https://www.whoscheat.com/Images/apple-touch-icon.png?v=1', url: 'https://www.whoscheat.com' })
                     //.addField('พบรายงานการโกง', 'จำนวน ' + res.pageProps.searchResult.totalReport + ' ครั้ง')
                     .addFields(
-                        { name: 'พบรายงานการโกง', value: 'จำนวน ' + twodata[0][1] + ' ครั้ง', inline: false },
+                        { name: 'พบรายงานการโกง', value: 'จำนวน ' + twodata[0][0] + ' ครั้ง', inline: false },
                     )
                     .addFields(
                         { name: 'ครั้งล่าสุด', value: twodata[0][3], inline: true },
@@ -2608,7 +2608,7 @@ client.on('interactionCreate', async interaction => {
                     .setAuthor({ name: 'whoscheat', iconURL: 'https://www.chaladohn.com/public/images/web/logo_meta.png', url: 'https://www.chaladohn.com' })
                     //.addField('พบรายงานการโกง', 'จำนวน ' + res.pageProps.searchResult.totalReport + ' ครั้ง')
                     .addFields(
-                        { name: 'พบรายงานการโกง', value: 'จำนวน ' + twodata[1][1], inline: false },
+                        { name: 'พบรายงานการโกง', value: 'จำนวน ' + twodata[1][0], inline: false },
                     )
                     .addFields(
                         { name: 'ครั้งล่าสุด', value: twodata[1][3], inline: true },
