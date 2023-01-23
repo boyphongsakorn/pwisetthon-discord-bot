@@ -2546,7 +2546,9 @@ client.on('interactionCreate', async interaction => {
                             //console.log(result2[i]);
                             //remove word การร้องเรียน but remove last word
                             const result3 = result2[i].replace("รายงานการร้องเรียนที่นับได้", "");
-                            twodata[1][0] = result3
+                            //remove space from result3
+                            const result4 = result3.replace(/\s/g, "");
+                            twodata[1][0] = result4
                             twodata[1][1] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
                             twodata[1][2] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
                             twodata[1][3] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
@@ -2554,8 +2556,6 @@ client.on('interactionCreate', async interaction => {
                             twodata[1][5] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
                             twodata[1][6] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
                             twodata[1][7] = ogsearchdata
-                            //remove space from result3
-                            const result4 = result3.replace(/\s/g, "");
                             const result5 = result4.replace("การร้องเรียน", "รายงานการร้องเรียนที่นับได้ ");
                             console.log(result5);
                             //get all a tag
