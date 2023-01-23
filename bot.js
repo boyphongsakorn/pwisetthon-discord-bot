@@ -2553,7 +2553,7 @@ client.on('interactionCreate', async interaction => {
                             twodata[1][4] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
                             twodata[1][5] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
                             twodata[1][6] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
-                            twodata[1][7] = ogsearchdata
+                            twodata[1][7] = searchdata
                             //remove space from result3
                             const result4 = result3.replace(/\s/g, "");
                             const result5 = result4.replace("การร้องเรียน", "รายงานการร้องเรียนที่นับได้ ");
