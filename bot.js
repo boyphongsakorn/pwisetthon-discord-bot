@@ -2628,7 +2628,7 @@ client.on('interactionCreate', async interaction => {
                             .setLabel('ดูรายละเอียด')
                             .setStyle('Link')
                             //.setURL('https://www.chaladohn.com/report/detail/' + encodeURIComponent(twodata[1][7]))
-                            .setURL(twodata[1][4])
+                            .setURL(encodeURIComponent(twodata[1][4]))
                     );
 
                 await interaction.editReply({ embeds: [msg], components: [row] });
