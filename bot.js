@@ -2576,7 +2576,7 @@ client.on('interactionCreate', async interaction => {
                 });
 
             console.log(twodata);
-            if (twodata[0] != 'nothing') {
+            if (twodata[0] != 'nothing' && twodata[0].length > 0) {
                 const msg = new EmbedBuilder()
                     .setColor('#EE4B2B')
                     .setTitle('ข้อมูลการรายงานของ ' + twodata[0][7])
