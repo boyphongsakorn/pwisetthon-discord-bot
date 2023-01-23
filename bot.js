@@ -2547,12 +2547,12 @@ client.on('interactionCreate', async interaction => {
                             //remove word การร้องเรียน but remove last word
                             const result3 = result2[i].replace("รายงานการร้องเรียนที่นับได้", "");
                             twodata[1][0] = result3
-                            twodata[1][1] = "ไม่ระบุ"
-                            twodata[1][2] = "ไม่ระบุ"
-                            twodata[1][3] = "ไม่ระบุ"
-                            twodata[1][4] = "ไม่ระบุ"
-                            twodata[1][5] = "ไม่ระบุ"
-                            twodata[1][6] = "ไม่ระบุ"
+                            twodata[1][1] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
+                            twodata[1][2] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
+                            twodata[1][3] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
+                            twodata[1][4] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
+                            twodata[1][5] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
+                            twodata[1][6] = "กดปุ่มข้างล่างเพื่อดูรายละเอียด"
                             twodata[1][7] = ogsearchdata
                             //remove space from result3
                             const result4 = result3.replace(/\s/g, "");
@@ -2605,17 +2605,18 @@ client.on('interactionCreate', async interaction => {
                     .setTitle('ข้อมูลการรายงานของ ' + twodata[1][7])
                     .setDescription('ข้อมูลการรายงานประวัติการโกงของ ' + twodata[1][7])
                     .setURL('https://www.chaladohn.com/report/detail/' + encodeURIComponent(twodata[1][7]))
-                    .setAuthor({ name: 'whoscheat', iconURL: 'https://www.chaladohn.com/public/images/web/logo_meta.png', url: 'https://www.chaladohn.com' })
+                    .setAuthor({ name: 'chaladohn', iconURL: 'https://www.chaladohn.com/public/images/web/logo_meta.png', url: 'https://www.chaladohn.com' })
                     //.addField('พบรายงานการโกง', 'จำนวน ' + res.pageProps.searchResult.totalReport + ' ครั้ง')
                     .addFields(
                         { name: 'พบรายงานการโกง', value: 'จำนวน ' + twodata[1][0], inline: false },
                     )
                     .addFields(
                         { name: 'ครั้งล่าสุด', value: twodata[1][3], inline: true },
-                        { name: 'ช่องทาง', value: twodata[1][4], inline: true }
+                        //{ name: 'ช่องทาง', value: twodata[1][4], inline: true }
+                        { name: 'ช่องทาง', value: 'ไม่ทราบแน่ชัด', inline: true}
                     )
                     .addFields(
-                        { name: 'รายละเอียด', value: 'กดปุ่มข้างล่างเพื่อเข้าเว็บไซต์เพื่อดูรายละเอียด', inline: false },
+                        { name: 'รายละเอียด', value: 'กดปุ่มข้างล่างเพื่อดูรายละเอียด', inline: false },
                         { name: 'ยอดความเสียหาย', value: twodata[1][2], inline: true }
                     )
                     .setTimestamp()
@@ -2626,7 +2627,8 @@ client.on('interactionCreate', async interaction => {
                         new ButtonBuilder()
                             .setLabel('ดูรายละเอียด')
                             .setStyle('Link')
-                            .setURL('https://www.chaladohn.com/report/detail/' + encodeURIComponent(twodata[1][7]))
+                            //.setURL('https://www.chaladohn.com/report/detail/' + encodeURIComponent(twodata[1][7]))
+                            .setURL(twodata[1][4])
                     );
 
                 await interaction.editReply({ embeds: [msg], components: [row] });
