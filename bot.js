@@ -1769,7 +1769,7 @@ client.on('interactionCreate', async interaction => {
             value: 'normal'
         }, {
             label: 'โหมดสลากฯบวกราคาทอง',
-            description: 'รูปสรุปสลากกินแบ่งฯบวกกับราคาทอง',
+            description: 'รูปสรุปสลากกินแบ่งฯบวกกับราคาทอง (เฉพาะวันที่มีการออกผลสลากกินแบ่งฯ)',
             value: 'gold'
         }]
 
