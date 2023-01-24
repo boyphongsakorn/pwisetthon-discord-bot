@@ -1286,7 +1286,7 @@ client.on('interactionCreate', async interaction => {
                 console.log(err)
             });*/
 
-        const flashapi = await fetch('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280')
+        const flashapi = await fetch('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai.vercel.app%2F%3Fwant%3Dtrue&width=1280')
         const imgapi = await flashapi.arrayBuffer()
 
         //const file = new MessageAttachment('./aithing.png');
@@ -1301,7 +1301,7 @@ client.on('interactionCreate', async interaction => {
             //.setImage('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280')
             .setImage('attachment://aithing.png')
             .setTimestamp()
-            .setFooter({ text: 'ข้อมูลจาก https://lottsanook-chitai-production.up.railway.app/ai \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+            .setFooter({ text: 'ข้อมูลจาก https://lottsanook-chitai.vercel.app/ai \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
         //edit message
         //await interaction.editReply({ embeds: [msg] })
