@@ -80,7 +80,7 @@
             <div class="row d-none">
                 <div class="col-12 col-lg-6 my-auto">
                     <h1>PWisetthon.com Discord Bot</h1>
-                    <p>My First Discord Bot For Thai Lottery and more...</p>
+                    <!--p>My First Discord Bot For Thai Lottery and more...</p-->
                 </div>
                 <div class="col-12 col-lg-6">
                     <img src="https://i.imgur.com/CZ7rYk6.png" class="w-50"><br>
@@ -103,19 +103,19 @@
                 <div class="col text-center my-auto py-auto"!-->
                     <div class="row d-none">
                         <div class="col-6 col-lg-3 text-center">
-                            <p class="fs-4"><i class="fas fa-user-plus"></i> เชิญไปทั้งหมด</p><br>
+                            <p class="fs-2 text-truncate"><i class="fas fa-user-plus"></i> เชิญไปทั้งหมด</p><br>
                             <p class="d-inline fs-3" id="serverjoin"><span class="placeholder col-12"></span></p> <p class="fs-3 d-inline">เซิร์ฟเวอร์</p>
                         </div>
                         <div class="col-6 col-lg-3 text-center">
-                            <p class="fs-4"><i class="fas fa-signal"></i> ตอนนี้บอททำงาน</p><br>
+                            <p class="fs-2 text-truncate"><i class="fas fa-signal"></i> ตอนนี้บอททำงาน</p><br>
                             <p class="fs-3" id="botstatus"><span class="placeholder col-12"></span></p>
                         </div>
                         <div class="col-6 col-lg-3 text-center">
-                            <p class="fs-4"><i class="fas fa-spinner"></i> การตอบสนองของบอท</p><br>
+                            <p class="fs-2 text-truncate"><i class="fas fa-spinner"></i> การตอบสนองของบอท</p><br>
                             <p class="fs-3" id="respo"><span class="placeholder col-12"></span></p>
                         </div>
                         <div class="col-6 col-lg-3 text-center">
-                            <p class="fs-4"><i class="fas fa-server"></i> เวอร์ชั่นบอท</p><br>
+                            <p class="fs-2 text-truncate"><i class="fas fa-server"></i> เวอร์ชั่นบอท</p><br>
                             <p class="fs-3">0.0.5</p>
                         </div>
                     </div>
@@ -290,10 +290,10 @@
 
     <!-- container-fluid > container -->
     <div class="container-fluid py-3 bg-dark bg-gradient text-white" id="troubleshooting">
-        <div class="container px-5">
-            <p class="fs-1 text-center">แก้ไขปัญหาเบื้องต้น</p>
+        <p class="fs-1 text-center">แก้ไขปัญหาเบื้องต้น</p>
+        <div class="d-flex align-items-start justify-content-center">
             <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <div class="nav nav-tabs flex-column bg-light bg-gradient" id="nav-tab" role="tablist">
                   <button class="nav-link active" id="nav-sendfail-tab" data-bs-toggle="tab" data-bs-target="#nav-sendfail" type="button" role="tab" aria-controls="nav-sendfail" aria-selected="true">สลากฯออกครบหมดแล้ว แต่ไม่เห็นบอทส่งอะไรมาเลย</button>
                   <button class="nav-link" id="nav-nocommand-tab" data-bs-toggle="tab" data-bs-target="#nav-nocommand" type="button" role="tab" aria-controls="nav-nocommand" aria-selected="false">ไม่มีคำสั่งในดิสของฉัน</button>
                   <button class="nav-link" id="nav-response-tab" data-bs-toggle="tab" data-bs-target="#nav-response" type="button" role="tab" aria-controls="nav-response" aria-selected="false">ใช้คำสั่งแล้วขึ้นข้อความสีแดง</button>
@@ -539,11 +539,11 @@
                     }
                     if(guildlist[i].icon != null && guildlist[i].icon != 'null'){
                         if(badwordcheck == false){
-                            guildlisthtml += '<div class="text-nowrap"><img src="'+guildlist[i].icon+'" class="rounded w-25"> '+guildlist[i].name+'</div>';
+                            guildlisthtml += '<div class="text-nowrap text-truncate"><img src="'+guildlist[i].icon+'" class="rounded w-25"> '+guildlist[i].name+'</div>';
                         }
                     } else {
                         if(badwordcheck == false){
-                            guildlisthtml += '<div class="text-nowrap"><img src="https://ui-avatars.com/api/?name='+guildlist[i].name+'" class="rounded w-25"> '+guildlist[i].name+'</div>';
+                            guildlisthtml += '<div class="text-nowrap text-truncate"><img src="https://ui-avatars.com/api/?name='+guildlist[i].name+'" class="rounded w-25"> '+guildlist[i].name+'</div>';
                         }
                     }
                 }
