@@ -53,7 +53,7 @@
                 <i data-feather="rss"></i>
             </div>
             <hr class="bg-gray-200 dark:bg-gray-800 border border-gray-200 dark:border-gray-800 rounded-full mx-2">
-            <div data-tooltip-target="troublebot" data-tooltip-placement="right" class="vl relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto text-white bg-gray-400 hover:bg-indigo-600 dark:bg-gray-800 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg" onclick="window.open('https://discordbot.pwisetthon.com/#troubleshooting', '_blank')">
+            <div data-tooltip-target="troublebot" data-tooltip-placement="right" class="vl relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto text-white bg-gray-400 hover:bg-indigo-600 dark:bg-gray-800 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg" onclick="window.open('https://discordbot.pwisetthon.com/#troubleshooting')">
                 <i data-feather="alert-circle"></i>
             </div>
             <div data-tooltip-target="kofibot" data-tooltip-placement="right" class="vl relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto text-white bg-gray-400 hover:bg-indigo-600 dark:bg-gray-800 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg" onclick="window.open('https://ko-fi.com/boyphongsakorn', '_blank')">
@@ -98,6 +98,20 @@
         window.addEventListener('load', () => {
             feather.replace()
         })
+
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        console.log(window.location.hash);
+        // if window.location.hash = #troubleshooting
+        if(window.location.hash == '#troubleshooting'){
+            //change iframe src to old-index.html#troubleshooting
+            document.getElementsByTagName("iframe")[0].src = "old-index.html#troubleshooting";
+        }
+        // var c = url.searchParams.get("betaindex");
+        // if(c==1 || c== '1'){
+        //    document.getElementsByClassName("navbar")[0].style.setProperty("display", "none", "important")
+        //    document.getElementsByClassName("alert-warning")[0].style.setProperty("display", "none", "important")
+        // }
     </script>
 </body>
 </html>
