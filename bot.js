@@ -2708,7 +2708,12 @@ client.on('interactionCreate', async interaction => {
             let datenumber = parseInt(date[0]) - 1;
             let datemonth = parseInt(date[1]);
             let dateyear = date[2];
+            //convert datenumber datemonth dateyear-543 to date
+            let newoildate = new Date(dateyear - 543, datemonth - 1, datenumber+1);
+            //minus 1 day
+            newoildate.setDate(newoildate.getDate() - 1);
             let newdate = datenumber + '/' + datemonth + '/' + dateyear;
+            newdate = newoildate.getDate() + '/' + (newoildate.getMonth() + 1) + '/' + (newoildate.getFullYear() + 543);
             resetsql = 'DELETE FROM hell WHERE date = "' + newdate + '"';
             con.query(resetsql, function (err, result) {
                 if (err) throw err;
