@@ -810,7 +810,7 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
                         }, 3600000);
                     }
 
-                    const response = await fetch(process.env.URL + '/discordbot/oilchlist.txt', { method: 'GET' });
+                    const response = await fetch(process.env.URL + '/discordbot/oilchlist.txt');
                     const data = await response.json();
                     const wow = data;
                     //let imagegood = false;
@@ -885,7 +885,7 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
                         .setColor('#0099ff')
                         .setTitle('ราคาน้ำมันวัน' + desctext)
                         .setURL('https://www.bangchak.co.th/th/oilprice/historical')
-                        .setDescription('ราคาน้ำมันมีการเปลี่ยนแปลงสำหรับวัน' + desctext + ' (วันที่ ' + json[0][0].substring(0, 2) + ' ' + convertmonthtotext(json[0][0].substring(3, 5)) + ' ' + json[0][0].substring(6, 10) + ')')
+                        .setDescription('ราคาน้ำมันมีการเปลี่ยนแปลงสำหรับวัน' + desctext + ' (วันที่ ' + parseInt(json[0][0].substring(0, 2)) + ' ' + convertmonthtotext(json[0][0].substring(3, 5)) + ' ' + json[0][0].substring(6, 10) + ')')
                         .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
                         .setImage('attachment://lastoilprice.png')
                         .setTimestamp()
@@ -954,7 +954,7 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
                                 client.channels.cache.get(messid[i].chanelid).messages.fetch(messid[i].messid).then(msg => {
                                     msg.delete()
                                 }).catch((error) => {
-                                    console.log('this message not found or bot not have permission to delete this message or someboty delete this message');
+                                    console.log('this message not found or bot not have permission to delete this message or somebody delete this message');
                                 })
                             }
                             console.log('error insert to database');
