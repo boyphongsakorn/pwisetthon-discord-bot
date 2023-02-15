@@ -761,9 +761,10 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_cny.png')
         } else if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hbd.jpg')
-        } else if (nows.getDate() >= 13 && nows.getDate() <= 14 && nows.getMonth() == 1) {
+        } else if (nows.getDate() >= 13 && nows.getDate() <= 15 && nows.getMonth() == 1) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vd.png')
-        } else if (nows.getDate() >= 15 && nows.getDate() <= 16 && nows.getMonth() == 1) {
+        //} else if (nows.getDate() >= 15 && nows.getDate() <= 16 && nows.getMonth() == 1) {
+        } else if (nows.getDate() >= 4 && nows.getDate() <= 6 && nows.getMonth() == 2) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_makha.jpg')
         } else if (nows.getDate() >= 11 && nows.getDate() <= 15 && nows.getMonth() == 3) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_songkran.jpg')
