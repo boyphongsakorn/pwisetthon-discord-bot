@@ -514,6 +514,8 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                 todayformat = yyyy + '-' + mm + '-' + dd;
                 if(lasttime == null){
                     lasttime = new Date();
+                    //minus 2 days
+                    lasttime.setDate(lasttime.getDate() - 2);
                 }
                 if (fileContents != "1" && (lasttime.toDateString() != today.toDateString() || todayformat != lastdatefromsql)) {
                     fs.writeFile('check.txt', '1', function (err) {
