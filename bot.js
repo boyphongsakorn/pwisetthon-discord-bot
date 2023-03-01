@@ -601,7 +601,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                                 });*/
                             const checkapi = await fetch('https://thai-lottery1.p.rapidapi.com/checklottery?by=' + date + '' + month + '' + year + '&search=' + result[i].numberbuy, optitot)
                             const checkjson = await checkapi.json()
-                            if (checkjson == '' || checkjson == null) {
+                            if (checkjson == '' || checkjson == null || checkjson == {} || checkjson == [] || checkjson.length == 0) {
                                 var sql = "UPDATE lott_table SET status = 'ไม่ถูก',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
                                 con.query(sql, function (err, result) {
                                     if (err) throw err;
