@@ -21,6 +21,7 @@ var con
 
 let lottoapi = "http://192.168.31.210:5000";
 let lotimgapi = "http://192.168.31.220:14000";
+let apikey = process.env.rapidapikey;
 
 //create a server object:
 http.createServer(async function (req, res) {
@@ -576,7 +577,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                             let numberhebuy = result[i].numberbuy
                             console.log(result[i].lott_id)
                             console.log(result[i].numberbuy)
-                            let optitot = { "method": "GET", "headers": { "x-rapidapi-host": "thai-lottery1.p.rapidapi.com", "x-rapidapi-key": "c34ed3c573mshbdf38eb6814e7a7p1e0eedjsnab10f5aef137" } };
+                            let optitot = { "method": "GET", "headers": { "x-rapidapi-host": "thai-lottery1.p.rapidapi.com", "x-rapidapi-key": apikey } };
                             /*fetch("https://thai-lottery1.p.rapidapi.com/checklottery?by=" + date + "" + month + "" + year + "&search=" + result[i].numberbuy, optitot)
                                 .then(res => res.text())
                                 .then((json) => {
