@@ -796,6 +796,10 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
         const json = await fetchapi.json();
         let ngv = json[0][10]
 
+        const response = await fetch(process.env.URL + '/discordbot/oilchlist.txt');
+        const data = await response.json();
+        const wow = data;
+
         var sql = 'SELECT * FROM oilprice WHERE date = "' + json[0][0] + '"';
         con.query(sql, function (err, result) {
             if (err) throw err;
@@ -817,9 +821,6 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
                         }, 3600000);
                     }
 
-                    const response = await fetch(process.env.URL + '/discordbot/oilchlist.txt');
-                    const data = await response.json();
-                    const wow = data;
                     //let imagegood = false;
 
                     /*await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000', { timeout: 7500 })
