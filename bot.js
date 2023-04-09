@@ -772,8 +772,14 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
         //} else if (nows.getDate() >= 15 && nows.getDate() <= 16 && nows.getMonth() == 1) {
         } else if (nows.getDate() >= 4 && nows.getDate() <= 6 && nows.getMonth() == 2) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_makha.jpg')
+        } else if (nows.getDate() >= 5 && nows.getDate() <= 7 && nows.getMonth() == 3) {
+            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_ckd.png')
         } else if (nows.getDate() >= 11 && nows.getDate() <= 15 && nows.getMonth() == 3) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_songkran.jpg')
+        } else if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 4) {
+            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_lod.png')
+        } else if (nows.getDate() >= 2 && nows.getDate() <= 4 && nows.getMonth() == 6) {
+            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd.png')
         } else if (nows.getDate() >= 21 && nows.getDate() <= 23 && nows.getMonth() == 9) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
         } else if ((nows.getDate() >= 30 && nows.getDate() <= 31 && nows.getMonth() == 9) || (nows.getDate() == 1 && nows.getMonth() == 10)) {
