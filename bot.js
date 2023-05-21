@@ -646,7 +646,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                         .setImage('attachment://lottery_' + date + '' + month + '' + year + '.png')
                         .setTimestamp()
                         //.setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
-                        .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+                        .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย TeamQuadB.in.th \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
                     const msggold = new EmbedBuilder()
                         .setColor('#0099ff')
@@ -665,7 +665,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                         .setImage('attachment://lottery_' + date + '' + month + '' + year + '_gold.png')
                         .setTimestamp()
                         //.setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
-                        .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+                        .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย TeamQuadB.in.th \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
                     const response = await fetch(process.env.URL + '/discordbot/chlist.txt', { method: 'GET' });
                     const data = await response.json();
@@ -903,7 +903,7 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
                         .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
                         .setImage('attachment://lastoilprice.png')
                         .setTimestamp()
-                        .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+                        .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย TeamQuadB.in.th \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
                     /*if (imagegood == false) {
                         msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
@@ -1191,7 +1191,7 @@ client.on('interactionCreate', async interaction => {
             //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
             .setImage('attachment://lottery_' + data.info.date + '.png')
             .setTimestamp()
-            .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+            .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย TeamQuadB.in.th \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
         //replyembedtype(interaction, msg)
         await interaction.editReply({ embeds: [msg], files: [file] })
@@ -1318,7 +1318,7 @@ client.on('interactionCreate', async interaction => {
             //.setImage('https://api.apiflash.com/v1/urltoimage?access_key=fda71090a5d94be7b45fe09cb2db840c&delay=10&fresh=true&height=720&url=https%3A%2F%2Flottsanook-chitai-production.up.railway.app%2F%3Fwant%3Dtrue&width=1280')
             .setImage('attachment://aithing.png')
             .setTimestamp()
-            .setFooter({ text: 'ข้อมูลจาก https://lottsanook-chitai.vercel.app/ai \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+            .setFooter({ text: 'ข้อมูลจาก https://lottsanook-chitai.vercel.app/ai \nบอทจัดทำโดย TeamQuadB.in.th \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
         //edit message
         //await interaction.editReply({ embeds: [msg] })
@@ -1460,7 +1460,7 @@ client.on('interactionCreate', async interaction => {
                     //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
                     .setImage('attachment://lotsheet_' + interaction.values[0] + '_edit.jpeg')
                     .setTimestamp()
-                    .setFooter({ text: 'ข้อมูลจาก glo.or.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+                    .setFooter({ text: 'ข้อมูลจาก glo.or.th \nบอทจัดทำโดย TeamQuadB.in.th \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
                 //edit message
                 await interaction.editReply({ embeds: [msg], files: [file] })
@@ -1479,7 +1479,7 @@ client.on('interactionCreate', async interaction => {
                 //.setImage('https://thai-lottery1.p.rapidapi.com/gdpy?year='+interaction.values[0])
                 .setImage('attachment://lotsheet_' + interaction.values[0] + '.png')
                 .setTimestamp()
-                .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+                .setFooter({ text: 'ข้อมูลจาก ทดสอบ \nบอทจัดทำโดย TeamQuadB.in.th \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
             //edit message
             await interaction.editReply({ embeds: [msg], files: [file] })
@@ -1713,7 +1713,7 @@ client.on('interactionCreate', async interaction => {
             //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
             //.setImage('attachment://lottery_' + body.info.date + '.png')
             .setTimestamp()
-            .setFooter({ text: 'ข้อมูลจาก status.teamquadb.in.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+            .setFooter({ text: 'ข้อมูลจาก status.teamquadb.in.th \nบอทจัดทำโดย TeamQuadB.in.th \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
         await interaction.editReply({ embeds: [msg] });
         //after 30s delete message
@@ -1752,7 +1752,7 @@ client.on('interactionCreate', async interaction => {
                 //.setImage('https://lotimg.pwisetthon.com/?date=' + body.info.date)
                 //.setImage('attachment://lottery_' + body.info.date + '.png')
                 .setTimestamp()
-                .setFooter({ text: 'ข้อมูลจาก Database \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+                .setFooter({ text: 'ข้อมูลจาก Database \nบอทจัดทำโดย TeamQuadB.in.th \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
             console.log(result);
 
@@ -1886,12 +1886,13 @@ client.on('interactionCreate', async interaction => {
             .setColor('#0099ff')
             .setTitle('ราคาน้ำมันล่าสุด')
             .setURL('https://www.bangchak.co.th/th/oilprice/historical')
-            .setDescription('ราคาน้ำมันล่าสุด จาก บางจาก')
-            .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
+            .setDescription('ราคาน้ำมันล่าสุด จาก บางจาก และ ปตท.')
+            // .setThumbnail('https://www.bangchak.co.th/glide/assets/images/defaults/opengraph.png?h=350&fit=max&fm=jpg&t=1650602255')
+            .setThumbnail('https://img.gs/fhcphvsghs/200x200,crop/https://www.konkao.net/news_pic/1499161427_22.jpg')
             //.setImage('https://topapi.pwisetthon.com/image')
             .setImage('attachment://lastoilprice.png')
             .setTimestamp()
-            .setFooter({ text: 'ข้อมูลจาก bangchak.co.th \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
+            .setFooter({ text: 'ข้อมูลจาก bangchak.co.th และ pttor.com \nบอทจัดทำโดย TeamQuadB.in.th \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
         /*if (imagegood == false) {
             msg.setImage('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
