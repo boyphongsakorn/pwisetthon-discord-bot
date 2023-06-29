@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   cheerio:
     specifier: 1.0.0-rc.12
@@ -17,8 +21,8 @@ dependencies:
     specifier: ^3.3.1
     version: 3.3.1
   pdf-images:
-    specifier: ^1.2.0
-    version: 1.2.0
+    specifier: ^1.3.0
+    version: 1.3.0
   png-to-jpeg:
     specifier: ^1.0.1
     version: 1.0.1
@@ -361,8 +365,8 @@ packages:
       entities: 4.5.0
     dev: false
 
-  /pdf-images@1.2.0:
-    resolution: {integrity: sha512-jTnvJOaDEC+ANmqfrNrfAav0fdIUwow63FdwI/t4aiy4FoBZE3Uhq0cA1qfbbwOuMMVPVhaGmDV1MJGGbPWq/A==}
+  /pdf-images@1.3.0:
+    resolution: {integrity: sha512-Xl4wLfpPj20SgQYu30t0baFIwczPDLT4FSisAQxYIjFTX+e3u0E5dIUKuUTkUxx4JzmukThYu6NJ162OvFCqMw==}
     dev: false
 
   /peek-readable@5.0.0:
