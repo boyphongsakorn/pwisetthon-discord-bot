@@ -543,7 +543,8 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                             console.log('Error:', err.message)
                         });*/
 
-                    const normalimg = await fetch('https://screenshot-xi.vercel.app/api?date=' + date + '' + month + '' + year)
+                    // const normalimg = await fetch('https://screenshot-xi.vercel.app/api?date=' + date + '' + month + '' + year)
+                    const normalimg = await fetch('https://anywhere.pwisetthon.com/http://108.61.183.221:8080/?date=' + date + '' + month + '' + year + '&mode=normal')
                     const bufimg = await normalimg.arrayBuffer()
 
                     /*await fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year + '&mode=gold')
@@ -561,8 +562,8 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
 
                     console.log(Buffer.from(bufimg).length)
 
-                    //Buffer.from(bufimg).length is low to be image then kill process
-                    if (Buffer.from(bufimg).length < 1000) {
+                    //Buffer.from(bufimg).length is low to be image then kill process or goldimg is not image type
+                    if (Buffer.from(bufimg).length < 1000 || Buffer.from(bufgoldimg).length < 1000) {
                         process.exit(1);
                     }
 
