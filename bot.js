@@ -779,7 +779,7 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_songkran.jpg')
         } else if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 4) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_lod.png')
-        } else if (nows.getDate() >= 2 && nows.getDate() <= 4 && nows.getMonth() == 6) {
+        } else if (nows.getDate() >= 26 && nows.getDate() <= 28 && nows.getMonth() == 10) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd.png')
         } else if (nows.getDate() >= 21 && nows.getDate() <= 23 && nows.getMonth() == 9) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
