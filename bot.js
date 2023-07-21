@@ -801,7 +801,7 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
     try {
         const fetchapi = await fetch('https://topapi.pwisetthon.com');
         const json = await fetchapi.json();
-        let ngv = json[0][10]
+        let ngv = json[0][10].replace('~', '');
 
         const response = await fetch(process.env.URL + '/discordbot/oilchlist.txt');
         const data = await response.json();
