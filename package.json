@@ -13,7 +13,7 @@
   "homepage": "https://github.com/boyphongsakorn/pwisetthon-discord-bot#readme",
   "dependencies": {
     "cheerio": "1.0.0-rc.12",
-    "cron": "^2.4.1",
+    "cron": "^2.4.3",
     "discord.js": "^14.13.0",
     "mysql": "^2.18.1",
     "node-fetch": "^3.3.2",
