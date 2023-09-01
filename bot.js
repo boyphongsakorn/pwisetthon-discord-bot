@@ -544,7 +544,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                         });*/
 
                     // const normalimg = await fetch('https://screenshot-xi.vercel.app/api?date=' + date + '' + month + '' + year)
-                    const normalimg = await fetch('https://anywhere.pwisetthon.com/http://108.61.183.221:8080/?date=' + date + '' + month + '' + year + '&mode=normal')
+                    const normalimg = await fetch('https://anywhere.pwisetthon.com/http://108.61.183.221:8080/?date=' + date + '' + month + '' + year)
                     const bufimg = await normalimg.arrayBuffer()
 
                     /*await fetch('https://lotimg.pwisetthon.com/?date=' + date + '' + month + '' + year + '&mode=gold')
