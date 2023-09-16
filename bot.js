@@ -564,6 +564,18 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
 
                     //Buffer.from(bufimg).length is low to be image then kill process or goldimg is not image type
                     if (Buffer.from(bufimg).length < 1000 || Buffer.from(bufgoldimg).length < 1000) {
+                        fs.writeFile('check.txt', '0', function (err) {
+                            if (err) {
+                                throw err
+                            };
+                            console.log('Saved!');
+                        });
+                        fs.writeFile('lastout.txt', '0', function (err) {
+                            if (err) {
+                                throw err
+                            };
+                            console.log('Saved!');
+                        });
                         process.exit(1);
                     }
 
