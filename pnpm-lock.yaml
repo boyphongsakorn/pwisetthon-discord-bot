@@ -9,8 +9,8 @@ dependencies:
     specifier: 1.0.0-rc.12
     version: 1.0.0-rc.12
   cron:
-    specifier: ^3.0.0
-    version: 3.0.0
+    specifier: ^3.1.0
+    version: 3.1.0
   discord.js:
     specifier: ^14.13.0
     version: 14.13.0
@@ -172,8 +172,8 @@ packages:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: false
 
-  /cron@3.0.0:
-    resolution: {integrity: sha512-2aFNFH+kwHUlqJlc1M4sP6/l+gZjBYaoHrhPRkTkg80DlA68ueyhRDfWnMAMulg/+mE9F8cGtfwL8wedr4jfqQ==}
+  /cron@3.1.0:
+    resolution: {integrity: sha512-u6Z89TV7zhG7aW7MX7aLQhK5PYjTzFpzjFgiSX5r7qC1vjPvRt1FVfarHRaN/5IokEXM1DRJcXnwXI0e9G0awA==}
     dependencies:
       '@types/luxon': 3.3.1
       luxon: 3.3.0
