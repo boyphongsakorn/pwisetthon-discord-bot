@@ -1,5 +1,5 @@
 #FROM node:16.13.1-alpine3.15
-FROM node:lts-alpine
+FROM node:18-alpine
 WORKDIR '/app'
 #RUN apk add --update g++ make python3 py3-pip 
 RUN apk add --update imagemagick
