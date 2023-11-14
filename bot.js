@@ -829,7 +829,14 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
                 }
                 var sql = 'INSERT INTO oilprice VALUES ("' + json[0][0] + '", ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
                 con.query(sql, async function (err, result) {
-                    if (err) throw err;
+                    if (err) {
+                        var deletesql = 'DELETE FROM oilprice WHERE date = "' + json[0][0] + '"';
+                        con.query(deletesql, function (err, result) {
+                            if (err) throw err;
+                            console.log('Deleted!');
+                        });
+                        return;
+                    }
 
                     //set Presence
                     if (parseInt(json[2][8]) > 0) {
