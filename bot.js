@@ -102,117 +102,121 @@ async function guildCommandCreate(guildid) {
             await guildCommandCreate(guildid[i]);
         }
     } else {
-        const thatguild = client.guilds.cache.get(guildid);
-        let commands
+        try {
+            const thatguild = client.guilds.cache.get(guildid);
+            let commands
 
-        if (thatguild) {
-            commands = thatguild.commands
-        } else {
-            commands = client.applications?.commands
+            if (thatguild) {
+                commands = thatguild.commands
+            } else {
+                commands = client.applications?.commands
+            }
+
+            /*commands?.create({
+                name: 'fthlotto',
+                description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก"
+            }, guildid)*/
+
+            commands?.create({
+                name: 'flottomode',
+                description: "ปรับโหมดการแจ้งเตือนสลากกินแบ่งฯ"
+            }, guildid)
+
+            /*commands?.create({
+                name: 'cthlotto',
+                description: "ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้"
+            }, guildid)*/
+
+            commands?.create({
+                name: 'subthlotto',
+                description: "ติดตาม/ยกเลิกการแจ้งเตือนสลากกินแบ่งฯ"
+            }, guildid)
+
+            commands?.create({
+                name: 'lastlotto',
+                description: "ดูสลากกินแบ่งรัฐบาลล่าสุด"
+            }, guildid)
+
+            commands?.create({
+                name: 'aithing',
+                description: "ดูเลขเด็ด 10 อันดับจากการใช้ Ai"
+            }, guildid)
+
+            commands?.create({
+                name: 'lotsheet',
+                description: "ใบตรวจสลากกินแบ่งรัฐบาล"
+            }, guildid)
+
+            commands?.create({
+                name: 'synumber',
+                description: "บันทึกเลขสลากฯที่คุณซื้อ เพื่อรับแจ้งเตือน",
+                options: [{
+                    type: 3,
+                    name: 'number',
+                    description: 'ตัวเลขที่คุณซื้อหรือเลขที่คุณต้องการแจ้งเตือน (1 เลขต่อครั้ง)',
+                    required: true
+                }]
+            }, guildid)
+
+            commands?.create({
+                name: 'srchlot',
+                description: "ตรวจสลากฯ ล่าสุดด้วยเลข",
+                options: [{
+                    type: 3,
+                    name: 'number',
+                    description: 'ตัวเลขที่ต้องการตรวจสลากฯ',
+                    required: true
+                }]
+            }, guildid)
+
+            commands?.create({
+                name: 'ตรวจสลากฯ',
+                type: 3
+            }, guildid)
+
+            commands?.create({
+                name: 'checkconnection',
+                description: 'เช็คการเชื่อมต่อ'
+            }, guildid)
+
+            commands?.create({
+                name: 'syhistory',
+                description: 'ประวัติการบันทึกสลากฯ'
+            }, guildid)
+
+            commands?.create({
+                name: 'lastthaioilprice',
+                description: 'ดูราคาน้ำมันล่าสุด'
+            }, guildid)
+
+            /*commands?.create({
+                name: 'fthaioilprice',
+                description: 'ติดตาม/แจ้งเตือนราคาน้ำมัน'
+            }, guildid)
+
+            commands?.create({
+                name: 'cthaioilprice',
+                description: 'ยกเลิกการแจ้งเตือนราคาน้ำมัน'
+            }, guildid)*/
+
+            commands?.create({
+                name: 'subthaioilprice',
+                description: 'ติดตาม/ยกเลิกการแจ้งเตือนราคาน้ำมัน'
+            }, guildid)
+
+            commands?.create({
+                name: 'checkblacklist',
+                description: 'ตรวจสอบรายชื่อคนโกง',
+                options: [{
+                    type: 3,
+                    name: 'search',
+                    description: 'เลขประจำตัว/บัญชี/เบอร์/ชื่อคนโกง',
+                    required: true
+                }]
+            }, guildid)
+        } catch (error) {
+            console.log('error: ' + error);
         }
-
-        /*commands?.create({
-            name: 'fthlotto',
-            description: "แจ้งเตือนสลากกินแบ่งรัฐบาลเวลาสี่โมงเย็นของวันทึ่ออก"
-        }, guildid)*/
-
-        commands?.create({
-            name: 'flottomode',
-            description: "ปรับโหมดการแจ้งเตือนสลากกินแบ่งฯ"
-        }, guildid)
-
-        /*commands?.create({
-            name: 'cthlotto',
-            description: "ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้"
-        }, guildid)*/
-
-        commands?.create({
-            name: 'subthlotto',
-            description: "ติดตาม/ยกเลิกการแจ้งเตือนสลากกินแบ่งฯ"
-        }, guildid)
-
-        commands?.create({
-            name: 'lastlotto',
-            description: "ดูสลากกินแบ่งรัฐบาลล่าสุด"
-        }, guildid)
-
-        commands?.create({
-            name: 'aithing',
-            description: "ดูเลขเด็ด 10 อันดับจากการใช้ Ai"
-        }, guildid)
-
-        commands?.create({
-            name: 'lotsheet',
-            description: "ใบตรวจสลากกินแบ่งรัฐบาล"
-        }, guildid)
-
-        commands?.create({
-            name: 'synumber',
-            description: "บันทึกเลขสลากฯที่คุณซื้อ เพื่อรับแจ้งเตือน",
-            options: [{
-                type: 3,
-                name: 'number',
-                description: 'ตัวเลขที่คุณซื้อหรือเลขที่คุณต้องการแจ้งเตือน (1 เลขต่อครั้ง)',
-                required: true
-            }]
-        }, guildid)
-
-        commands?.create({
-            name: 'srchlot',
-            description: "ตรวจสลากฯ ล่าสุดด้วยเลข",
-            options: [{
-                type: 3,
-                name: 'number',
-                description: 'ตัวเลขที่ต้องการตรวจสลากฯ',
-                required: true
-            }]
-        }, guildid)
-
-        commands?.create({
-            name: 'ตรวจสลากฯ',
-            type: 3
-        }, guildid)
-
-        commands?.create({
-            name: 'checkconnection',
-            description: 'เช็คการเชื่อมต่อ'
-        }, guildid)
-
-        commands?.create({
-            name: 'syhistory',
-            description: 'ประวัติการบันทึกสลากฯ'
-        }, guildid)
-
-        commands?.create({
-            name: 'lastthaioilprice',
-            description: 'ดูราคาน้ำมันล่าสุด'
-        }, guildid)
-
-        /*commands?.create({
-            name: 'fthaioilprice',
-            description: 'ติดตาม/แจ้งเตือนราคาน้ำมัน'
-        }, guildid)
-
-        commands?.create({
-            name: 'cthaioilprice',
-            description: 'ยกเลิกการแจ้งเตือนราคาน้ำมัน'
-        }, guildid)*/
-
-        commands?.create({
-            name: 'subthaioilprice',
-            description: 'ติดตาม/ยกเลิกการแจ้งเตือนราคาน้ำมัน'
-        }, guildid)
-
-        commands?.create({
-            name: 'checkblacklist',
-            description: 'ตรวจสอบรายชื่อคนโกง',
-            options: [{
-                type: 3,
-                name: 'search',
-                description: 'เลขประจำตัว/บัญชี/เบอร์/ชื่อคนโกง',
-                required: true
-            }]
-        }, guildid)
 
         //return good
         return true;
@@ -228,6 +232,10 @@ async function guildCommandDelete(guild) {
                     .catch(console.error);
             });
             return true;
+        })
+        .catch((error) => {
+            console.log('error: ' + error);
+            return false;
         });
 }
 
