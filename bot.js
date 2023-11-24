@@ -784,7 +784,7 @@ scheduledMessage.start()
 let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
     let nows = new Date();
     //is 5 in morning
-    if (nows.getHours() == 16 && nows.getMinutes() == 0) {
+    if (nows.getHours() == 16 && nows.getMinutes() == 10) {
         if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hbd.jpg')
         } else if (nows.getDate() >= 13 && nows.getDate() <= 15 && nows.getMonth() == 1) {
@@ -817,34 +817,35 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
             response.body.pipe(writer);
             writer.on('finish', () => {
                 console.log('Image saved!');
-            });
-            Promise.all([
-                Jimp.read(transparentImagePath),
-                Jimp.read(backgroundImagePath)
-            ]).then(images => {
-                const transparentImage = images[0];
-                const backgroundImage = images[1];
 
-                backgroundImage.resize(transparentImage.bitmap.width, transparentImage.bitmap.height);
-
-                backgroundImage.composite(transparentImage, 0, 0, {
-                    mode: Jimp.BLEND_SOURCE_OVER, // Blend mode for composite
-                    opacitySource: 1, // Opacity of the transparent image
-                    opacityDest: 1 // Opacity of the background image
+                Promise.all([
+                    Jimp.read(transparentImagePath),
+                    Jimp.read(backgroundImagePath)
+                ]).then(images => {
+                    const transparentImage = images[0];
+                    const backgroundImage = images[1];
+    
+                    backgroundImage.resize(transparentImage.bitmap.width, transparentImage.bitmap.height);
+    
+                    backgroundImage.composite(transparentImage, 0, 0, {
+                        mode: Jimp.BLEND_SOURCE_OVER, // Blend mode for composite
+                        opacitySource: 1, // Opacity of the transparent image
+                        opacityDest: 1 // Opacity of the background image
+                    });
+    
+                    backgroundImage.write('img/aibotav.png', (err) => {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            //get image from folder img to Buffer and set avatar
+                            const avatar = fs.readFileSync('img/aibotav.png');
+                            client.user.setAvatar(avatar);
+                        }
+                    });
+    
+                }).catch(err => {
+                    console.error(err);
                 });
-
-                backgroundImage.write('img/aibotav.png', (err) => {
-                    if (err) {
-                        console.error(err);
-                    } else {
-                        //get image from folder img to Buffer and set avatar
-                        const avatar = fs.readFileSync('img/aibotav.png');
-                        client.user.setAvatar(avatar);
-                    }
-                });
-
-            }).catch(err => {
-                console.error(err);
             });
         }
 
