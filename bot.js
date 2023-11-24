@@ -784,7 +784,7 @@ scheduledMessage.start()
 let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
     let nows = new Date();
     //is 5 in morning
-    if (nows.getHours() == 15 && nows.getMinutes() == 40) {
+    if (nows.getHours() == 15 && nows.getMinutes() == 50) {
         if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hbd.jpg')
         } else if (nows.getDate() >= 13 && nows.getDate() <= 15 && nows.getMonth() == 1) {
@@ -809,8 +809,8 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
             // client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.jpg')
             // https://random.imagecdn.app/512/512
 
-            const transparentImagePath = '/img/botav.png';
-            const backgroundImagePath = '/img/bot_bg.png';
+            const transparentImagePath = 'img/botav.png';
+            const backgroundImagePath = 'img/bot_bg.png';
             //save image from https://random.imagecdn.app/512/512 to folder img
             const writer = fs.createWriteStream(transparentImagePath);
             const response = await fetch('https://random.imagecdn.app/512/512');

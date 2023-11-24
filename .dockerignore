@@ -2,4 +2,3 @@ docs
 .github
 ecosystem.config.js
 Procfile
-img/
