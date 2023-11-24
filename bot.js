@@ -6,6 +6,7 @@ var http = require('http');
 const pngToJpeg = require('png-to-jpeg');
 var mysql = require('mysql');
 const cheerio = require('cheerio');
+const Jimp = require('jimp');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
@@ -521,7 +522,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                 dd = padLeadingZeros(dd, 2);
                 mm = padLeadingZeros(mm, 2);
                 todayformat = yyyy + '-' + mm + '-' + dd;
-                if(lasttime == null){
+                if (lasttime == null) {
                     lasttime = new Date();
                     //minus 2 days
                     lasttime.setDate(lasttime.getDate() - 2);
@@ -783,16 +784,12 @@ scheduledMessage.start()
 let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
     let nows = new Date();
     //is 5 in morning
-    if (nows.getHours() == 5 && nows.getMinutes() == 0) {
-        // if nows = 3 feb client.user.setAvatar
-        if ((nows.getDate() >= 21 && nows.getDate() <= 23 && nows.getMonth() == 0)) {
-            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_cny.png')
-        } else if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
+    if (nows.getHours() == 15 && nows.getMinutes() == 30) {
+        if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hbd.jpg')
         } else if (nows.getDate() >= 13 && nows.getDate() <= 15 && nows.getMonth() == 1) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vd.png')
-        //} else if (nows.getDate() >= 15 && nows.getDate() <= 16 && nows.getMonth() == 1) {
-        } else if (nows.getDate() >= 4 && nows.getDate() <= 6 && nows.getMonth() == 2) {
+        } else if (nows.getDate() >= 24 && nows.getDate() <= 26 && nows.getMonth() == 1) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_makha.jpg')
         } else if (nows.getDate() >= 5 && nows.getDate() <= 7 && nows.getMonth() == 3) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_ckd.png')
@@ -800,8 +797,6 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_songkran.jpg')
         } else if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 4) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_lod.png')
-        } else if (nows.getDate() >= 26 && nows.getDate() <= 28 && nows.getMonth() == 10) {
-            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd.png')
         } else if (nows.getDate() >= 21 && nows.getDate() <= 23 && nows.getMonth() == 9) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
         } else if ((nows.getDate() >= 30 && nows.getDate() <= 31 && nows.getMonth() == 9) || (nows.getDate() == 1 && nows.getMonth() == 10)) {
@@ -811,7 +806,56 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
         } else if ((nows.getDate() >= 23 && nows.getDate() <= 31 && nows.getMonth() == 11) || (nows.getDate() == 1 && nows.getMonth() == 0)) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_mrahny.jpg')
         } else {
-            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.jpg')
+            // client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.jpg')
+            https://random.imagecdn.app/512/512
+
+            const transparentImagePath = 'img/botav.png';
+            const backgroundImagePath = 'img/bot_bg.png';
+            //save image from https://random.imagecdn.app/512/512 to folder img
+            const writer = fs.createWriteStream(transparentImagePath);
+            const response = await fetch('https://random.imagecdn.app/512/512');
+            response.body.pipe(writer);
+            writer.on('finish', () => {
+                console.log('Image saved!');
+            });
+            Promise.all([
+                Jimp.read(backgroundImagePath),
+                Jimp.read(transparentImagePath)
+            ]).then(images => {
+                const transparentImage = images[0];
+                const backgroundImage = images[1];
+
+                backgroundImage.resize(transparentImage.bitmap.width, transparentImage.bitmap.height);
+
+                backgroundImage.composite(transparentImage, 0, 0, {
+                    mode: Jimp.BLEND_SOURCE_OVER, // Blend mode for composite
+                    opacitySource: 1, // Opacity of the transparent image
+                    opacityDest: 1 // Opacity of the background image
+                });
+
+                backgroundImage.write('img/aibotav.png', (err) => {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        //get image from folder img to Buffer and set avatar
+                        const avatar = fs.readFileSync('img/aibotav.png');
+                        client.user.setAvatar(avatar);
+                    }
+                });
+
+            }).catch(err => {
+                console.error(err);
+            });
+        }
+
+        // Special Day
+        // Chinese New Year
+        if ((nows.getDate() >= 7 && nows.getDate() <= 11 && nows.getMonth() == 1)) {
+            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_cny.png')
+        }
+        // Loy Krathong Day
+        if (nows.getDate() >= 26 && nows.getDate() <= 28 && nows.getMonth() == 10) {
+            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd.png')
         }
     }
 
@@ -2436,7 +2480,7 @@ client.on('interactionCreate', async interaction => {
             //change space in searchdata to +
             let ogsearchdata = searchdata;
             //searchdata = searchdata.replace(/\s/g, '+');
-            let twodata = [[],[]];
+            let twodata = [[], []];
             //console.log(searchdata);
             //change searchdata to url encode
             //searchdata = encodeURI(searchdata);
@@ -2661,7 +2705,7 @@ client.on('interactionCreate', async interaction => {
                     .addFields(
                         { name: 'ครั้งล่าสุด', value: twodata[1][3], inline: true },
                         //{ name: 'ช่องทาง', value: twodata[1][4], inline: true }
-                        { name: 'ช่องทาง', value: 'ไม่ทราบแน่ชัด', inline: true}
+                        { name: 'ช่องทาง', value: 'ไม่ทราบแน่ชัด', inline: true }
                     )
                     .addFields(
                         { name: 'รายละเอียด', value: 'กดปุ่มข้างล่างเพื่อดูรายละเอียด', inline: false },
@@ -2757,7 +2801,7 @@ client.on('interactionCreate', async interaction => {
             let datemonth = parseInt(date[1]);
             let dateyear = date[2];
             //convert datenumber datemonth dateyear-543 to date
-            let newoildate = new Date(dateyear - 543, datemonth - 1, datenumber+1);
+            let newoildate = new Date(dateyear - 543, datemonth - 1, datenumber + 1);
             //minus 1 day
             newoildate.setDate(newoildate.getDate() - 1);
             let newdate = datenumber + '/' + datemonth + '/' + dateyear;
