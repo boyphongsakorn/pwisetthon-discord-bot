@@ -809,8 +809,8 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
             // client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.jpg')
             // https://random.imagecdn.app/512/512
 
-            const transparentImagePath = 'img/botav.png';
-            const backgroundImagePath = 'img/bot_bg.png';
+            const transparentImagePath = '/img/botav.png';
+            const backgroundImagePath = '/img/bot_bg.png';
             //save image from https://random.imagecdn.app/512/512 to folder img
             const writer = fs.createWriteStream(transparentImagePath);
             const response = await fetch('https://random.imagecdn.app/512/512');
@@ -833,12 +833,12 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
                     opacityDest: 1 // Opacity of the background image
                 });
 
-                backgroundImage.write('img/aibotav.png', (err) => {
+                backgroundImage.write('/img/aibotav.png', (err) => {
                     if (err) {
                         console.error(err);
                     } else {
                         //get image from folder img to Buffer and set avatar
-                        const avatar = fs.readFileSync('img/aibotav.png');
+                        const avatar = fs.readFileSync('/img/aibotav.png');
                         client.user.setAvatar(avatar);
                     }
                 });
