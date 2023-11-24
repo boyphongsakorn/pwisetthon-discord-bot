@@ -807,7 +807,7 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_mrahny.jpg')
         } else {
             // client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.jpg')
-            https://random.imagecdn.app/512/512
+            // https://random.imagecdn.app/512/512
 
             const transparentImagePath = 'img/botav.png';
             const backgroundImagePath = 'img/bot_bg.png';
