@@ -784,7 +784,7 @@ scheduledMessage.start()
 let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
     let nows = new Date();
     //is 5 in morning
-    if (nows.getHours() == 16 && nows.getMinutes() == 10) {
+    if (nows.getHours() == 16 && nows.getMinutes() == 20) {
         if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hbd.jpg')
         } else if (nows.getDate() >= 13 && nows.getDate() <= 15 && nows.getMonth() == 1) {
