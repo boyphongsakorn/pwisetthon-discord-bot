@@ -624,6 +624,23 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                                     }
                                 });*/
                             const checkapi = await fetch('https://thai-lottery1.p.rapidapi.com/checklottery?by=' + date + '' + month + '' + year + '&search=' + result[i].numberbuy, optitot)
+                            try {
+                                const checkjson = await checkapi.json()
+                            } catch (error) {
+                                fs.writeFile('check.txt', '0', function (err) {
+                                    if (err) {
+                                        throw err
+                                    };
+                                    console.log('Saved!');
+                                });
+                                fs.writeFile('lastout.txt', '0', function (err) {
+                                    if (err) {
+                                        throw err
+                                    };
+                                    console.log('Saved!');
+                                });
+                                process.exit(1);
+                            }
                             const checkjson = await checkapi.json()
                             if (checkjson == '' || checkjson == null || checkjson == {} || checkjson == [] || checkjson.length == 0) {
                                 var sql = "UPDATE lott_table SET status = 'ไม่ถูก',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
