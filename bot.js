@@ -623,7 +623,8 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                                         });
                                     }
                                 });*/
-                            const checkapi = await fetch('https://thai-lottery1.p.rapidapi.com/checklottery?by=' + date + '' + month + '' + year + '&search=' + result[i].numberbuy, optitot)
+                            // const checkapi = await fetch('https://thai-lottery1.p.rapidapi.com/checklottery?by=' + date + '' + month + '' + year + '&search=' + result[i].numberbuy, optitot)
+                            const checkapi = await fetch('https://lotapi.pwisetthon.com/checklottery?by=' + date + '' + month + '' + year + '&search=' + result[i].numberbuy)
                             try {
                                 const checkjson = await checkapi.json()
                             } catch (error) {
