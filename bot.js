@@ -590,8 +590,11 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                     }
 
                     //check number user save
-                    con.query("SELECT * FROM lott_table WHERE status = 'waiting'", async function (err, result, fields) {
-                        if (err) throw err;
+                    // con.query("SELECT * FROM lott_table WHERE status = 'waiting'", async function (err, result, fields) {
+                    const result = await con.query("SELECT * FROM lott_table WHERE status = 'waiting'", async function (err, result, fields) {
+                        return result
+                    });
+                        // if (err) throw err;
                         console.log(result);
                         //loop result
                         for (let i = 0; i < result.length; i++) {
@@ -661,7 +664,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                                 });
                             }
                         }
-                    });
+                    // });
 
                     //const file = new MessageAttachment('./lottery_' + date + '' + month + '' + year + '.png');
                     //const file = new AttachmentBuilder('./lottery_' + date + '' + month + '' + year + '.png');
