@@ -879,6 +879,42 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
         if (nows.getDate() >= 26 && nows.getDate() <= 28 && nows.getMonth() == 10) {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd.png')
         }
+
+        const response = await fetch('https://lotapi.pwisetthon.com/reto');
+        const data = await response.text();
+        if (data == 'yes') {
+            const transparentImagePath = 'img/botav.png';
+            const backgroundImagePath = 'img/lot_bg.png';
+
+            Promise.all([
+                Jimp.read(transparentImagePath),
+                Jimp.read(backgroundImagePath)
+            ]).then(images => {
+                const transparentImage = images[0];
+                const backgroundImage = images[1];
+
+                backgroundImage.resize(transparentImage.bitmap.width, transparentImage.bitmap.height);
+
+                backgroundImage.composite(transparentImage, 0, 0, {
+                    mode: Jimp.BLEND_SOURCE_OVER, // Blend mode for composite
+                    opacitySource: 1, // Opacity of the transparent image
+                    opacityDest: 1 // Opacity of the background image
+                });
+
+                backgroundImage.write('img/aibotav.png', (err) => {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        //get image from folder img to Buffer and set avatar
+                        const avatar = fs.readFileSync('img/aibotav.png');
+                        client.user.setAvatar(avatar);
+                    }
+                });
+
+            }).catch(err => {
+                console.error(err);
+            });
+        }
     }
 
     //fetch http://192.168.31.210:1000 || https://topapi.pwisetthon.com
