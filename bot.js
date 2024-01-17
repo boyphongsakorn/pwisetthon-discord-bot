@@ -574,7 +574,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                     console.log(Buffer.from(bufgoldimg).length)
 
                     //Buffer.from(bufimg).length is low to be image then kill process or goldimg is not image type
-                    if (Buffer.from(bufimg).length < 1000 || Buffer.from(bufgoldimg).length < 1000) {
+                    if (Buffer.from(bufimg).length < 1000 || Buffer.from(bufgoldimg).length < 1000 || normalimg.status != 200 || goldimg.status != 200) {
                         fs.writeFile('check.txt', '0', function (err) {
                             if (err) {
                                 throw err
