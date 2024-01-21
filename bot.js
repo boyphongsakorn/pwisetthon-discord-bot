@@ -808,24 +808,34 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
     //is 5 in morning
     if (nows.getHours() == 5 && nows.getMinutes() == 0) {
         if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
+            // วันเกิด
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hbd.jpg')
         } else if (nows.getDate() >= 13 && nows.getDate() <= 15 && nows.getMonth() == 1) {
+            // วันวาเลนไทน์
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vd.png')
         } else if (nows.getDate() >= 24 && nows.getDate() <= 26 && nows.getMonth() == 1) {
+            // วันมาฆบูชา
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_makha.jpg')
         } else if (nows.getDate() >= 5 && nows.getDate() <= 7 && nows.getMonth() == 3) {
+            // วันจักรี
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_ckd.png')
         } else if (nows.getDate() >= 11 && nows.getDate() <= 15 && nows.getMonth() == 3) {
+            // วันสงกรานต์
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_songkran.jpg')
         } else if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 4) {
+            // วันแรงงาน
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_lod.png')
         } else if (nows.getDate() >= 21 && nows.getDate() <= 23 && nows.getMonth() == 9) {
+            // วันวิสาขบูชา
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
         } else if ((nows.getDate() >= 30 && nows.getDate() <= 31 && nows.getMonth() == 9) || (nows.getDate() == 1 && nows.getMonth() == 10)) {
+            // วันฮาโลวีน
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hh.jpg')
         } else if (nows.getDate() >= 8 && nows.getDate() <= 10 && nows.getMonth() == 11) {
+            // วันรัฐธรรมนูญ
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_law.jpg')
         } else if ((nows.getDate() >= 23 && nows.getDate() <= 31 && nows.getMonth() == 11) || (nows.getDate() == 1 && nows.getMonth() == 0)) {
+            // วันคริสมาสต์ และ วันปีใหม่
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_mrahny.jpg')
             if (nows.getDate() >= 24 && nows.getDate() <= 25) {
                 client.user.setActivity('🎄🎅🎁🎉🎊🎆🎇🧨🎈🎄', { type: 'PLAYING' });
