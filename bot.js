@@ -807,9 +807,16 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
     let nows = new Date();
     //is 5 in morning
     if (nows.getHours() == 5 && nows.getMinutes() == 0) {
-        if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
+        if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 0) {
+            // วันปีใหม่
+            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_mrahny.jpg')
+            client.user.setActivity('สุขสันต์วันปีใหม่ ' + (nows.getFullYear() + 543), { type: 'PLAYING' });
+        } else if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
             // วันเกิด
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hbd.jpg')
+        } else if (nows.getDate() >= 7 && nows.getDate() <= 11 && nows.getMonth() == 1) {
+            // วันตรุษจีน
+            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_cny.png')
         } else if (nows.getDate() >= 13 && nows.getDate() <= 15 && nows.getMonth() == 1) {
             // วันวาเลนไทน์
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vd.png')
@@ -831,6 +838,9 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
         } else if ((nows.getDate() >= 30 && nows.getDate() <= 31 && nows.getMonth() == 9) || (nows.getDate() == 1 && nows.getMonth() == 10)) {
             // วันฮาโลวีน
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hh.jpg')
+        } else if (nows.getDate() >= 26 && nows.getDate() <= 28 && nows.getMonth() == 10) {
+            // วันลอยกระทง
+            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd.png')
         } else if (nows.getDate() >= 8 && nows.getDate() <= 10 && nows.getMonth() == 11) {
             // วันรัฐธรรมนูญ
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_law.jpg')
@@ -838,100 +848,14 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
             // วันคริสมาสต์ และ วันปีใหม่
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_mrahny.jpg')
             if (nows.getDate() >= 24 && nows.getDate() <= 25) {
-                client.user.setActivity('🎄🎅🎁🎉🎊🎆🎇🧨🎈🎄', { type: 'PLAYING' });
+            client.user.setActivity('🎄🎅🎁🎉🎊🎆🎇🧨🎈🎄', { type: 'PLAYING' });
             } else if (nows.getDate() >= 26 && nows.getDate() <= 31) {
-                client.user.setActivity('Happy New Year ' + (nows.getFullYear() + 543), { type: 'PLAYING' });
+            client.user.setActivity('Happy New Year ' + (nows.getFullYear() + 543), { type: 'PLAYING' });
             } else if (nows.getDate() == 1) {
-                client.user.setActivity('สุขสันต์วันปีใหม่ ' + (nows.getFullYear() + 543), { type: 'PLAYING' });
+            client.user.setActivity('สุขสันต์วันปีใหม่ ' + (nows.getFullYear() + 543), { type: 'PLAYING' });
             }
         } else {
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.jpg')
-            // https://random.imagecdn.app/512/512
-
-            // const transparentImagePath = 'img/botav.png';
-            // const backgroundImagePath = 'img/bot_bg.png';
-            // //save image from https://random.imagecdn.app/512/512 to folder img
-            // const writer = fs.createWriteStream(backgroundImagePath);
-            // const response = await fetch('https://random.imagecdn.app/512/512');
-            // response.body.pipe(writer);
-            // writer.on('finish', async () => {
-            //     console.log('Image saved!');
-
-            //     Promise.all([
-            //         Jimp.read(transparentImagePath),
-            //         Jimp.read(backgroundImagePath)
-            //     ]).then(images => {
-            //         const transparentImage = images[0];
-            //         const backgroundImage = images[1];
-    
-            //         backgroundImage.resize(transparentImage.bitmap.width, transparentImage.bitmap.height);
-    
-            //         backgroundImage.composite(transparentImage, 0, 0, {
-            //             mode: Jimp.BLEND_SOURCE_OVER, // Blend mode for composite
-            //             opacitySource: 1, // Opacity of the transparent image
-            //             opacityDest: 1 // Opacity of the background image
-            //         });
-    
-            //         backgroundImage.write('img/aibotav.png', (err) => {
-            //             if (err) {
-            //                 console.error(err);
-            //             } else {
-            //                 //get image from folder img to Buffer and set avatar
-            //                 const avatar = fs.readFileSync('img/aibotav.png');
-            //                 client.user.setAvatar(avatar);
-            //             }
-            //         });
-    
-            //     }).catch(err => {
-            //         console.error(err);
-            //     });
-
-            //     const response = await fetch('https://lotapi.pwisetthon.com/reto');
-            //     const data = await response.text();
-            //     if (data == 'yes') {
-            //         const transparentImagePath = 'img/botav.png';
-            //         const backgroundImagePath = 'img/lot_bg.png';
-
-            //         Promise.all([
-            //             Jimp.read(transparentImagePath),
-            //             Jimp.read(backgroundImagePath)
-            //         ]).then(images => {
-            //             const transparentImage = images[0];
-            //             const backgroundImage = images[1];
-
-            //             backgroundImage.resize(transparentImage.bitmap.width, transparentImage.bitmap.height);
-
-            //             backgroundImage.composite(transparentImage, 0, 0, {
-            //                 mode: Jimp.BLEND_SOURCE_OVER, // Blend mode for composite
-            //                 opacitySource: 1, // Opacity of the transparent image
-            //                 opacityDest: 1 // Opacity of the background image
-            //             });
-
-            //             backgroundImage.write('img/aibotav.png', (err) => {
-            //                 if (err) {
-            //                     console.error(err);
-            //                 } else {
-            //                     //get image from folder img to Buffer and set avatar
-            //                     const avatar = fs.readFileSync('img/aibotav.png');
-            //                     client.user.setAvatar(avatar);
-            //                 }
-            //             });
-
-            //         }).catch(err => {
-            //             console.error(err);
-            //         });
-            //     }
-            // });
-        }
-
-        // Special Day
-        // Chinese New Year
-        if ((nows.getDate() >= 7 && nows.getDate() <= 11 && nows.getMonth() == 1)) {
-            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_cny.png')
-        }
-        // Loy Krathong Day
-        if (nows.getDate() >= 26 && nows.getDate() <= 28 && nows.getMonth() == 10) {
-            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd.png')
         }
     }
 
