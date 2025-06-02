@@ -336,6 +336,7 @@ client.once('ready', () => {
 });
 
 function newAvatar() {
+    let nows = new Date();
     if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 0) {
         // วันปีใหม่
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_mrahny.jpg')
