@@ -390,6 +390,11 @@ function newAvatar() {
     } else {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.jpg')
     }
+
+    if (nows.getDate() >= 10 && nows.getDate() <= 12 && nows.getMonth() == 6) {
+        // วันวิสาขบูชา
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
+    }
 }
 
 client.on("guildCreate", async guild => {
