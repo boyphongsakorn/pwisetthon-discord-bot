@@ -609,7 +609,7 @@ function thl_date(i_date, options = {}) {
 
   // Holiday detection
   if (holiday) {
-    const holiday_str = th_lunar_holiday(adjusted_date);
+    const holiday_str = th_lunar_holiday(i_date);
     if (holiday_str) result += ` ${holiday_str}`;
   }
 
@@ -622,8 +622,10 @@ function th_zodiac(i_year){
     return zodiac[mod]
 }
 
-function th_lunar_holiday(i_date){
-    if (athika_mas(i_date.year)){
+function th_lunar_holiday(i_date) {
+  let holidays;
+
+  if (athika_mas(i_date.getFullYear())) {
         holidays = {
             "ขึ้น 15 ค่ำ เดือน 4": "วันมาฆบูชา",
             "ขึ้น 15 ค่ำ เดือน 7": "วันวิสาขบูชา",
@@ -632,9 +634,8 @@ function th_lunar_holiday(i_date){
             "แรม 1 ค่ำ เดือน 88": "วันเข้าพรรษา",
             "ขึ้น 15 ค่ำ เดือน 11": "วันออกพรรษา",
             "ขึ้น 15 ค่ำ เดือน 12": "วันลอยกระทง"
-        }
-    }
-    else{
+    };
+  } else {
         holidays = {
             "ขึ้น 15 ค่ำ เดือน 3": "วันมาฆบูชา",
             "ขึ้น 15 ค่ำ เดือน 6": "วันวิสาขบูชา",
@@ -643,10 +644,11 @@ function th_lunar_holiday(i_date){
             "แรม 1 ค่ำ เดือน 8": "วันเข้าพรรษา",
             "ขึ้น 15 ค่ำ เดือน 11": "วันออกพรรษา",
             "ขึ้น 15 ค่ำ เดือน 12": "วันลอยกระทง"
-        }
+    };
     }
-    lunar_date = thl_date(i_date)
-    return holidays.get(lunar_date, "")
+
+  const lunar_date = thl_date(i_date);
+  return holidays[lunar_date] || "";
 }
 
 // end functions
