@@ -388,7 +388,7 @@ function newAvatar() {
             client.user.setActivity('สุขสันต์วันปีใหม่ ' + (nows.getFullYear() + 543), { type: 'PLAYING' });
         }
     } else {
-        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.jpg')
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_gray.png')
     }
 
     if (nows.getDate() >= 10 && nows.getDate() <= 12 && nows.getMonth() == 6) {
