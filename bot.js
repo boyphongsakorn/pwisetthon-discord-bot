@@ -6,7 +6,6 @@ var http = require('http');
 const pngToJpeg = require('png-to-jpeg');
 var mysql = require('mysql');
 const cheerio = require('cheerio');
-const Jimp = require('jimp');
 const solarlunar = require('solarlunar');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
