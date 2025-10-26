@@ -7,6 +7,7 @@ const pngToJpeg = require('png-to-jpeg');
 var mysql = require('mysql');
 const cheerio = require('cheerio');
 const Jimp = require('jimp');
+const solarlunar = require('solarlunar');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
@@ -651,6 +652,12 @@ function th_lunar_holiday(i_date) {
   return holidays[lunar_date] || "";
 }
 
+function getChineseNewYear(year) {
+  // วันแรกของเดือน 1 ในปฏิทินจีน คือวันตรุษจีน
+  const result = solarlunar.lunar2solar(year, 1, 1);
+  return new Date(result.cYear, result.cMonth - 1, result.cDay);
+}
+
 // end functions
 
 client.once('ready', () => {
@@ -705,15 +712,15 @@ function newAvatar() {
     } else if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 1) {
         // วันเกิด
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hbd.jpg')
-    } else if (nows.getDate() >= 7 && nows.getDate() <= 11 && nows.getMonth() == 1) {
-        // วันตรุษจีน
-        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_cny.png')
+    // } else if (nows.getDate() >= 7 && nows.getDate() <= 11 && nows.getMonth() == 1) {
+    //     // วันตรุษจีน
+    //     client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_cny.png')
     } else if (nows.getDate() >= 13 && nows.getDate() <= 15 && nows.getMonth() == 1) {
         // วันวาเลนไทน์
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vd.png')
-    } else if (nows.getDate() >= 24 && nows.getDate() <= 26 && nows.getMonth() == 1) {
-        // วันมาฆบูชา
-        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_makha.jpg')
+    // } else if (nows.getDate() >= 24 && nows.getDate() <= 26 && nows.getMonth() == 1) {
+    //     // วันมาฆบูชา
+    //     client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_makha.jpg')
     } else if (nows.getDate() >= 5 && nows.getDate() <= 7 && nows.getMonth() == 3) {
         // วันจักรี
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_ckd.png')
@@ -726,15 +733,15 @@ function newAvatar() {
     } else if (nows.getMonth() == 5) {
         // pride month
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_pride.jpg')
-    } else if (nows.getDate() >= 10 && nows.getDate() <= 12 && nows.getMonth() == 4) {
-        // วันวิสาขบูชา
-        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
+    // } else if (nows.getDate() >= 10 && nows.getDate() <= 12 && nows.getMonth() == 4) {
+    //     // วันวิสาขบูชา
+    //     client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
     } else if ((nows.getDate() >= 30 && nows.getDate() <= 31 && nows.getMonth() == 9) || (nows.getDate() == 1 && nows.getMonth() == 10)) {
         // วันฮาโลวีน
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_hh.jpg')
-    } else if (nows.getDate() >= 26 && nows.getDate() <= 28 && nows.getMonth() == 10) {
-        // วันลอยกระทง
-        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd.png')
+    // } else if (nows.getDate() >= 26 && nows.getDate() <= 28 && nows.getMonth() == 10) {
+    //     // วันลอยกระทง
+    //     client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd.png')
     } else if (nows.getDate() >= 8 && nows.getDate() <= 10 && nows.getMonth() == 11) {
         // วันรัฐธรรมนูญ
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_law.jpg')
@@ -752,9 +759,27 @@ function newAvatar() {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_gray.png')
     }
 
-    if (nows.getDate() >= 10 && nows.getDate() <= 12 && nows.getMonth() == 6) {
+    let yestomorrow = [nows.getDate() - 1, nows.getDate(), nows.getDate() + 1];
+    for (let dt of yestomorrow) {
+        if (thl_date(new Date(nows.getFullYear(), nows.getMonth(), dt), {holiday: true}).includes('วันมาฆบูชา')) {
+            // วันมาฆบูชา
+            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_makha.jpg')
+        }
+
+        if (thl_date(new Date(nows.getFullYear(), nows.getMonth(), dt), {holiday: true}).includes('วันวิสาขบูชา')) {
         // วันวิสาขบูชา
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
+        }
+
+        if (thl_date(new Date(nows.getFullYear(), nows.getMonth(), dt)) == 'ขึ้น 15 ค่ำ เดือน 12') {
+            // วันลอยกระทง
+            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd.png')
+        }
+
+        if (getChineseNewYear(nows.getFullYear()) == new Date(nows.getFullYear(), nows.getMonth(), dt)) {
+            // วันตรุษจีน
+            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_cny.png')
+        }
     }
 }
 
