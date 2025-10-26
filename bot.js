@@ -3,7 +3,7 @@ const cron = require("cron");
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 var fs = require('fs');
 var http = require('http');
-const pngToJpeg = require('png-to-jpeg');
+const pngToJpeg = require('bp-png-to-jpeg');
 var mysql = require('mysql');
 const cheerio = require('cheerio');
 const solarlunar = require('solarlunar');
