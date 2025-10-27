@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       bp-png-to-jpeg:
-        specifier: ^1.0.7
-        version: 1.0.7
+        specifier: ^1.1.1
+        version: 1.1.1
       cheerio:
         specifier: 1.0.0-rc.12
         version: 1.0.0-rc.12
@@ -94,8 +94,8 @@ packages:
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
-  bp-png-to-jpeg@1.0.7:
-    resolution: {integrity: sha512-1471APer4TXDbvHqn6t4dM6SJmOn6DfCvTvq9qvZ41Yy7rv7bhn+H1vRtn1K+ixsHgvsfygNxNQsXpfcrVvi8g==}
+  bp-png-to-jpeg@1.1.1:
+    resolution: {integrity: sha512-PKH5hfNvd2A2kwlhKEQQNxw5y0e2DNFWQunsgX8DuN/aNLSGmhlhT/oiUOKRB+yvjKv6JYUlXICamUOzoHuaTA==}
     engines: {node: '>=4'}
 
   cheerio-select@2.1.0:
@@ -339,7 +339,7 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  bp-png-to-jpeg@1.0.7:
+  bp-png-to-jpeg@1.1.1:
     dependencies:
       jpeg-js: 0.4.4
       png-js: 1.0.0
