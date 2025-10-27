@@ -12,7 +12,7 @@
   },
   "homepage": "https://github.com/boyphongsakorn/pwisetthon-discord-bot#readme",
   "dependencies": {
-    "bp-png-to-jpeg": "^1.0.7",
+    "bp-png-to-jpeg": "^1.1.1",
     "cheerio": "1.0.0-rc.12",
     "cron": "^3.5.0",
     "discord.js": "^14.24.0",
