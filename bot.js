@@ -1,4 +1,4 @@
-const { MessageAttachment, EmbedBuilder, Client, GatewayIntentBits, ButtonBuilder, SelectMenuBuilder, ActionRowBuilder, ClientUser, AttachmentBuilder } = require('discord.js');
+const { MessageAttachment, EmbedBuilder, Client, GatewayIntentBits, ButtonBuilder, SelectMenuBuilder, ActionRowBuilder, ClientUser, AttachmentBuilder, ActivityType } = require('discord.js');
 const cron = require("cron");
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 var fs = require('fs');
@@ -681,9 +681,11 @@ client.once('ready', () => {
             console.log('error: ' + error);
         }
     });
-    //client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
-    client.user.setPresence({ activities: [{ name: 'เจอปัญหาแจ้งได้ที่ discord.com/invite/j7xce5hxUf' }], status: 'online' });
-    //client.user.setPresence({ activities: [{ name: '📙  /lotsheet ใช้ได้แล้วนะ 👍' }], status: 'online' });
+    client.user.setActivity({
+        type: ActivityType.Custom,
+        name: 'customstatus',
+        state: 'เจอปัญหาแจ้งได้ที่ discord.com/invite/j7xce5hxUf'
+    });
     client.users.fetch('133439202556641280').then(dm => {
         dm.send('Bot เริ่มต้นการทำงานแล้ว')
     });
@@ -748,14 +750,14 @@ function newAvatar() {
         // วันคริสมาสต์ และ วันปีใหม่
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_mrahny.jpg')
         if (nows.getDate() >= 24 && nows.getDate() <= 25) {
-            client.user.setActivity('🎄🎅🎁🎉🎊🎆🎇🧨🎈🎄', { type: 'PLAYING' });
+            client.user.setActivity({ type: ActivityType.Custom,name: 'customstatus',state: '🎄🎅🎁🎉🎊🎆🎇🧨🎈🎄' });
         } else if (nows.getDate() >= 26 && nows.getDate() <= 31) {
-            client.user.setActivity('Happy New Year ' + (nows.getFullYear() + 543), { type: 'PLAYING' });
+            client.user.setActivity({ type: ActivityType.Custom,name: 'customstatus',state: 'Happy New Year ' + nows.getFullYear() });
         } else if (nows.getDate() == 1) {
-            client.user.setActivity('สุขสันต์วันปีใหม่ ' + (nows.getFullYear() + 543), { type: 'PLAYING' });
+            client.user.setActivity({ type: ActivityType.Custom,name: 'customstatus',state: 'สุขสันต์วันปีใหม่ ' + (nows.getFullYear() + 543) });
         }
     } else {
-        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_gray.png')
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512,bgcolor=FFAAF8/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.png')
     }
 
     let yestomorrow = [nows.getDate() - 1, nows.getDate(), nows.getDate() + 1];
@@ -1291,11 +1293,21 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
                     }
 
                     //set Presence
-                    if (parseInt(json[2][8]) > 0) {
-                        client.user.setPresence({ activities: [{ name: 'เซ็ง 91 ขึ้นอีกละ | discordbot.pwisetthon.com' }], status: 'online' });
+                    if (parseFloat(json[2][8]) > 0.00) {
+                        // client.user.setPresence({ activities: [{ name: 'เซ็ง 91 ขึ้นอีกละ | discordbot.pwisetthon.com' }], status: 'online' });
+                        client.user.setActivity({
+                            type: ActivityType.Custom,
+                            name: 'customstatus',
+                            state: 'เซ็ง 91 ขึ้นอีกละ | discordbot.pwisetthon.com'
+                        });
                         //after 1 hour set back to default
                         setTimeout(() => {
-                            client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
+                            // client.user.setPresence({ activities: [{ name: 'discordbot.pwisetthon.com' }], status: 'online' });
+                            client.user.setActivity({
+                                type: ActivityType.Custom,
+                                name: 'customstatus',
+                                state: 'discordbot.pwisetthon.com'
+                            });
                         }, 3600000);
                     }
 
