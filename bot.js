@@ -757,7 +757,7 @@ function newAvatar() {
             client.user.setActivity({ type: ActivityType.Custom,name: 'customstatus',state: 'สุขสันต์วันปีใหม่ ' + (nows.getFullYear() + 543) });
         }
     } else {
-        client.user.setAvatar('https://img.gs/fhcphvsghs/512,bgcolor=FFAAF8/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.png')
+        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.jpg')
     }
 
     let yestomorrow = [nows.getDate() - 1, nows.getDate(), nows.getDate() + 1];
@@ -3229,3 +3229,4 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(process.env.BOT_TOKEN);
+
