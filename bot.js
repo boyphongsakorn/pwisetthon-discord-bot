@@ -781,6 +781,7 @@ function newAvatar() {
             // วันตรุษจีน
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_cny.png')
         }
+        console.log(thl_date(new Date(nows.getFullYear(), nows.getMonth(), dt)))
     }
 }
 
@@ -3229,4 +3230,5 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(process.env.BOT_TOKEN);
+
 
