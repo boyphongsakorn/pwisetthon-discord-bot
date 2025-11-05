@@ -774,7 +774,7 @@ function newAvatar() {
 
         if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt)) == 'ขึ้น 15 ค่ำ เดือน 12') {
             // วันลอยกระทง
-            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd.png')
+            client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd_v2.jpg')
         }
 
         if (getChineseNewYear(nows.getFullYear()) == new Date(nows.getFullYear(), nows.getMonth(), dt)) {
@@ -3231,6 +3231,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(process.env.BOT_TOKEN);
+
 
 
 
