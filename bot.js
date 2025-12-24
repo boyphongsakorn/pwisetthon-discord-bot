@@ -3228,6 +3228,7 @@ client.on('interactionCreate', async interaction => {
             resetsql = 'DELETE FROM hell WHERE date = "' + newdate + '"';
             con.query(resetsql, function (err, result) {
                 if (err) throw err;
+                console.log(resetsql);
                 console.log("Number of records deleted: " + result.affectedRows);
             })
             await interaction.editReply('ล้างข้อมูลเรียบร้อย');
@@ -3237,6 +3238,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(process.env.BOT_TOKEN);
+
 
 
 
