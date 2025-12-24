@@ -3218,8 +3218,13 @@ client.on('interactionCreate', async interaction => {
             let newoildate = new Date(dateyear - 543, datemonth - 1, datenumber + 1);
             //minus 1 day
             newoildate.setDate(newoildate.getDate() - 1);
-            let newdate = datenumber + '/' + datemonth + '/' + dateyear;
-            newdate = newoildate.getDate() + '/' + (newoildate.getMonth() + 1) + '/' + (newoildate.getFullYear() + 543);
+            // let newdate = datenumber + '/' + datemonth + '/' + dateyear;
+            // newdate = newoildate.getDate() + '/' + (newoildate.getMonth() + 1) + '/' + (newoildate.getFullYear() + 543);
+            let today = new Date();
+            // let day = today.getDate();
+            // let month = today.getMonth() + 1;
+            // let thaiyear = today.getFullYear() + 543;
+            let newdate = today.getDate() + '/' + (today.getMonth() + 1) + '/' + (today.getFullYear() + 543);
             resetsql = 'DELETE FROM hell WHERE date = "' + newdate + '"';
             con.query(resetsql, function (err, result) {
                 if (err) throw err;
@@ -3232,6 +3237,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(process.env.BOT_TOKEN);
+
 
 
 
