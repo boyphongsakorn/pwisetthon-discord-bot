@@ -2297,16 +2297,29 @@ client.on('interactionCreate', async interaction => {
 
         //select lott_guildid from lott_main where lott_guildid = interaction.guildId if not exist insert lott_guildid = interaction.guildId but if exist update lott_guildid = interaction.guildId
         con.query(`SELECT * FROM lott_main WHERE lott_guildid = '${interaction.guildId}'`, async (err, result) => {
-            if (result.length == 0) {
-                con.query(`INSERT INTO lott_main (lott_guildid, lott_resultmode) VALUES ('${interaction.guildId}', '${interaction.values[0]}')`, async (err, result) => {
-                    console.log(result);
-                    await interaction.editReply('บันทึกการเปลี่ยนโหมดการแสดงสรุปสลากกินแบ่งฯเรียบร้อยแล้ว');
-                });
-            } else {
-                con.query(`UPDATE lott_main SET lott_resultmode = '${interaction.values[0]}' WHERE lott_guildid = '${interaction.guildId}'`, async (err, result) => {
-                    console.log(result);
-                    await interaction.editReply('อัพเดทการเปลี่ยนโหมดการแสดงสรุปสลากกินแบ่งฯเรียบร้อยแล้ว');
-                });
+            try {
+                if (result.length == 0) {
+                    con.query(`INSERT INTO lott_main (lott_guildid, lott_resultmode) VALUES ('${interaction.guildId}', '${interaction.values[0]}')`, async (err, result) => {
+                        console.log(result);
+                        await interaction.editReply('บันทึกการเปลี่ยนโหมดการแสดงสรุปสลากกินแบ่งฯเรียบร้อยแล้ว');
+                    });
+                } else {
+                    con.query(`UPDATE lott_main SET lott_resultmode = '${interaction.values[0]}' WHERE lott_guildid = '${interaction.guildId}'`, async (err, result) => {
+                        console.log(result);
+                        await interaction.editReply('อัพเดทการเปลี่ยนโหมดการแสดงสรุปสลากกินแบ่งฯเรียบร้อยแล้ว');
+                    });
+                }
+            } catch (err) {
+                con.query(`DELETE FROM lott_main WHERE lott_guildid = '${interaction.guildId}'`, function (err, result) {
+                    if (err) throw err;
+                    console.log('DELETE FROM lott_main WHERE lott_guildid = "' + interaction.guildId + '"');
+                    console.log("Number of records deleted: " + result.affectedRows);
+                    con.query(`INSERT INTO lott_main (lott_guildid, lott_resultmode) VALUES ('${interaction.guildId}', '${interaction.values[0]}')`, async (err, result) => {
+                        console.log(result);
+                        await interaction.editReply('บันทึกการเปลี่ยนโหมดการแสดงสรุปสลากกินแบ่งฯเรียบร้อยแล้ว');
+                    });
+                })
+                console.log(err);
             }
         });
     }
