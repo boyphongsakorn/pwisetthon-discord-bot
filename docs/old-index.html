@@ -508,7 +508,7 @@
         var n = d.getFullYear();
         document.getElementById("thisyear").innerHTML = "<span id=\"copyright\">&copy; Copyright "+n+". <a href=\"https://pwisetthon.com\" class=\"text-decoration-none text-reset\">PWisetthon.com</a> All Rights Reserved.</span>"
 
-        fetch('https://anywhere.pwisetthon.com/https://dbstatus.pwisetthon.com/guildlist')
+        fetch('https://cors-fany.vercel.app/dbstatus.pwisetthon.com/guildlist')
             .then(response => response.json())
             .then(async data => {
                 //console.log(data);
@@ -637,7 +637,7 @@
             }
         };
 
-        fetch("https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/11", requestOptions)
+        fetch("https://cors-fany.vercel.app/status.teamquadb.in.th/api/services/11", requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result["online"]) {
@@ -690,7 +690,7 @@
                 document.getElementById("respo").innerText = "0 μs";
             });
 
-        fetch("https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/9", requestOptions)
+        fetch("https://cors-fany.vercel.app/status.teamquadb.in.th/api/services/9", requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result["online"]) {
@@ -701,7 +701,7 @@
             })
             .catch(error => document.getElementById("tlapistatus").innerText = "ออฟไลน์");
 
-        fetch("https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/12", requestOptions)
+        fetch("https://cors-fany.vercel.app/status.teamquadb.in.th/api/services/12", requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result["online"]) {
@@ -712,7 +712,7 @@
             })
             .catch(error => document.getElementById("tlimageapistatus").innerText = "ออฟไลน์");
 
-        fetch("https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/19", requestOptions)
+        fetch("https://cors-fany.vercel.app/status.teamquadb.in.th/api/services/19", requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result["online"]) {
@@ -739,7 +739,7 @@
             redirect: 'follow'
         };
 
-        fetch("https://anywhere.pwisetthon.com/https://www.glo.or.th/api/lottery/getLotteryAward", requestOptions)
+        fetch("https://cors-fany.vercel.app/www.glo.or.th/api/lottery/getLotteryAward", requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result["status"]) {
