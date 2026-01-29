@@ -2122,14 +2122,14 @@ client.on('interactionCreate', async interaction => {
                 console.log('error', error)
                 gloapistatus = 0;
             });*/
-        const gloapifetch = await fetch('https://anywhere.pwisetthon.com/https://www.glo.or.th/api/lottery/getLotteryAward', reop);
+        const gloapifetch = await fetch('https://cors-fany.vercel.app/www.glo.or.th/api/lottery/getLotteryAward', reop);
         const gloapifetchjson = await gloapifetch.json();
         if (gloapifetchjson['status']) {
             gloapistatus = 1;
         } else {
             gloapistatus = 0;
         }
-        await fetch('https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/9', { method: 'GET', headers: { 'Content-Type': 'application/json' } })
+        await fetch('https://cors-fany.vercel.app/status.teamquadb.in.th/api/services/9', { method: 'GET', headers: { 'Content-Type': 'application/json' } })
             .then(response => response.json())
             .then(result => {
                 if (result['online']) {
@@ -2142,7 +2142,7 @@ client.on('interactionCreate', async interaction => {
                 console.log('error', error)
                 lotapistatus = 0;
             });
-        await fetch('https://anywhere.pwisetthon.com/https://status.teamquadb.in.th/api/services/12', { method: 'GET', headers: { 'Content-Type': 'application/json' } })
+        await fetch('https://cors-fany.vercel.app/status.teamquadb.in.th/api/services/12', { method: 'GET', headers: { 'Content-Type': 'application/json' } })
             .then(response => response.json())
             .then(result => {
                 if (result['online']) {
@@ -2187,7 +2187,7 @@ client.on('interactionCreate', async interaction => {
             .setTitle('สถานะการเชื่อมต่อ')
             .setURL('https://status.teamquadb.in.th')
             .setDescription('เช็คสถานะการเชื่อมต่อของบอท ระหว่าง ลอตเตอรรี่ API,รูปภาพลอตเตอรรี่ API, ฐานข้อมูล และ เว็บไซต์ glo.or.th')
-            .setThumbnail('https://anywhere.pwisetthon.com/https://dbstatus.pwisetthon.com/botimage')
+            .setThumbnail('https://cors-fany.vercel.app/dbstatus.pwisetthon.com/botimage')
             .addFields(
                 { name: 'ฐานข้อมูล', value: sqlstatustext },
                 { name: 'ทดสอบเพิ่มข้อมูล', value: sqlinserttesttext, inline: true },
@@ -3254,6 +3254,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(process.env.BOT_TOKEN);
+
 
 
 
