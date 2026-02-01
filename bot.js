@@ -701,7 +701,7 @@ client.once('ready', () => {
         });*/
     console.log('I am ready!');
     //});
-    newAvatar();
+    //newAvatar();
 });
 
 function newAvatar() {
@@ -1260,7 +1260,7 @@ let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
     let nows = new Date();
     //is 5 in morning
     if (nows.getHours() == 5 && nows.getMinutes() == 0) {
-        newAvatar();
+        //newAvatar();
     }
 
     //fetch http://192.168.31.210:1000 || https://topapi.pwisetthon.com
