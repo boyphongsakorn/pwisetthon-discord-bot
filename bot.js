@@ -295,6 +295,11 @@ function xl_mod(a, b) {
 }
 
 function athika_mas(i_year){
+    athi = xl_mod((i_year - 78) - 0.45222, 2.7118886)
+    return athi < 1
+}
+
+function athika_mas_int(i_year){
     athi = parseInt(xl_mod((i_year - 78) - 0.45222, 2.7118886))
     return athi <= 1
 }
@@ -609,7 +614,7 @@ function thl_date(i_date, options = {}) {
 
   // Holiday detection
   if (holiday) {
-    const holiday_str = th_lunar_holiday(adjusted_date);
+    const holiday_str = th_lunar_holiday(i_date);
     if (holiday_str) result += ` ${holiday_str}`;
   }
 
@@ -625,7 +630,7 @@ function th_zodiac(i_year){
 function th_lunar_holiday(i_date) {
   let holidays;
 
-  if (athika_mas(i_date.getFullYear())) {
+  if (athika_mas_int(i_date.getFullYear())) {
         holidays = {
             "ขึ้น 15 ค่ำ เดือน 4": "วันมาฆบูชา",
             "ขึ้น 15 ค่ำ เดือน 7": "วันวิสาขบูชา",
