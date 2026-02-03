@@ -701,7 +701,7 @@ client.once('ready', () => {
         });*/
     console.log('I am ready!');
     //});
-    //newAvatar();
+    newAvatar();
 });
 
 function newAvatar() {
@@ -709,17 +709,17 @@ function newAvatar() {
 
     let yestomorrow = [nows.getDate() - 1, nows.getDate(), nows.getDate() + 1];
     for (let dt of yestomorrow) {
-        if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt), {holiday: true}).includes('วันมาฆบูชา')) {
+        if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth()+1, dt), {holiday: true}).includes('วันมาฆบูชา')) {
             // วันมาฆบูชา
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_makha.jpg')
         }
 
-        if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt), {holiday: true}).includes('วันวิสาขบูชา')) {
+        if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth()+1, dt), {holiday: true}).includes('วันวิสาขบูชา')) {
             // วันวิสาขบูชา
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
         }
 
-        if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt)) == 'ขึ้น 15 ค่ำ เดือน 12') {
+        if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth()+1, dt)) == 'ขึ้น 15 ค่ำ เดือน 12') {
             // วันลอยกระทง
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd_v2.jpg')
         }
@@ -3254,6 +3254,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(process.env.BOT_TOKEN);
+
 
 
 
