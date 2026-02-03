@@ -609,7 +609,7 @@ function thl_date(i_date, options = {}) {
 
   // Holiday detection
   if (holiday) {
-    const holiday_str = th_lunar_holiday(i_date);
+    const holiday_str = th_lunar_holiday(adjusted_date);
     if (holiday_str) result += ` ${holiday_str}`;
   }
 
