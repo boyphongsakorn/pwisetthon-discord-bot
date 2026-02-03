@@ -295,8 +295,8 @@ function xl_mod(a, b) {
 }
 
 function athika_mas(i_year){
-    athi = xl_mod((i_year - 78) - 0.45222, 2.7118886)
-    return athi < 1
+    athi = parseInt(xl_mod((i_year - 78) - 0.45222, 2.7118886))
+    return athi <= 1
 }
 
 function l_day_in_year(i_year){
@@ -709,12 +709,12 @@ function newAvatar() {
 
     let yestomorrow = [nows.getDate() - 1, nows.getDate(), nows.getDate() + 1];
     for (let dt of yestomorrow) {
-        if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt), {thai_number:true, holiday: true}).includes('วันมาฆบูชา')) {
+        if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt), {holiday: true}).includes('วันมาฆบูชา')) {
             // วันมาฆบูชา
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_makha.jpg')
         }
 
-        if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt), {thai_number:true, holiday: true}).includes('วันวิสาขบูชา')) {
+        if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt), {holiday: true}).includes('วันวิสาขบูชา')) {
             // วันวิสาขบูชา
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
         }
@@ -728,7 +728,7 @@ function newAvatar() {
             // วันตรุษจีน
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_cny.png')
         }
-        console.log(thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt), {thai_number:true}))
+        console.log(thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt)))
         console.log(getChineseNewYear(nows.getFullYear()))
     }
     
