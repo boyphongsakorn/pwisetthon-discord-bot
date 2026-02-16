@@ -740,7 +740,8 @@ function newAvatar() {
             specialholiday = true;
         }
         console.log(thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt)))
-        console.log(getChineseNewYear(nows.getFullYear()))
+        console.log(getChineseNewYear(nows.getFullYear()).toDateString())
+        console.log(new Date(nows.getFullYear(), nows.getMonth(), dt).toDateString())
     }
     
     if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 0) {
