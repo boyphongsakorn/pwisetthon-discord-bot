@@ -713,25 +713,31 @@ function newAvatar() {
     let nows = new Date();
 
     let yestomorrow = [nows.getDate() - 1, nows.getDate(), nows.getDate() + 1];
+
+    let specialholiday = false;
     for (let dt of yestomorrow) {
         if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt), {holiday: true}).includes('วันมาฆบูชา')) {
             // วันมาฆบูชา
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_makha.jpg')
+            specialholiday = true;
         }
 
         if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt), {holiday: true}).includes('วันวิสาขบูชา')) {
             // วันวิสาขบูชา
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
+            specialholiday = true;
         }
 
         if (thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt)) == 'ขึ้น 15 ค่ำ เดือน 12') {
             // วันลอยกระทง
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_vsd_v2.jpg')
+            specialholiday = true;
         }
 
         if (getChineseNewYear(nows.getFullYear()) == new Date(nows.getFullYear(), nows.getMonth(), dt)) {
             // วันตรุษจีน
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_cny.png')
+            specialholiday = true;
         }
         console.log(thl_date(new Date(nows.getFullYear()+543, nows.getMonth(), dt)))
         console.log(getChineseNewYear(nows.getFullYear()))
@@ -787,7 +793,7 @@ function newAvatar() {
         } else if (nows.getDate() == 1) {
             client.user.setActivity({ type: ActivityType.Custom,name: 'customstatus',state: 'สุขสันต์วันปีใหม่ ' + (nows.getFullYear() + 543) });
         }
-    } else {
+    } else if (specialholiday == false) {
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav.jpg')
     }
 }
@@ -3259,6 +3265,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(process.env.BOT_TOKEN);
+
 
 
 
