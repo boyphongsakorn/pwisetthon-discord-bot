@@ -734,7 +734,7 @@ function newAvatar() {
             specialholiday = true;
         }
 
-        if (getChineseNewYear(nows.getFullYear()) == new Date(nows.getFullYear(), nows.getMonth(), dt)) {
+        if (getChineseNewYear(nows.getFullYear()).toDateString() == new Date(nows.getFullYear(), nows.getMonth(), dt).toDateString()) {
             // วันตรุษจีน
             client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_cny.png')
             specialholiday = true;
@@ -3265,6 +3265,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(process.env.BOT_TOKEN);
+
 
 
 
