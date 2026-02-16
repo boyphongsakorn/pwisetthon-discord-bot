@@ -1256,7 +1256,23 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
 
                     //insert to sql
                     con.query("INSERT INTO lott_round (id, round) VALUES ('" + date + "" + month + "" + year + "', '" + todayformat + "')", function (err, result, fields) {
-                        if (err) throw err;
+                        // if (err) throw err;
+                        if (err) {
+                            for (let i = 0; i < messid.length; i++) {
+                                //delete message by messid and chanelid
+                                try {
+                                    client.channels.cache.get(messid[i].chanelid).messages.fetch(messid[i].messid).then(message => message.delete()).catch(console.log);
+                                    console.log('delete message ' + messid[i].messid + ' in ' + messid[i].chanelid + ' success');
+                                    if (i == (messid.length-1)) {
+                                        client.users.fetch('133439202556641280').then(dm => {
+                                            dm.send('Bot เริ่มต้นการทำงานแล้ว')
+                                        });
+                                    }
+                                } catch (error) {
+                                    console.log(error)
+                                }
+                            }
+                        }
                         //console.log(result);
                         console.log('Insert complete');
                     });
