@@ -1176,6 +1176,8 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                         //.setFooter('ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย Phongsakorn Wisetthon \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn');
                         .setFooter({ text: 'ข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 \nบอทจัดทำโดย TeamQuadB.in.th \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
+                    let messid = [];
+
                     const response = await fetch(process.env.URL + '/discordbot/chlist.txt', { method: 'GET' });
                     const data = await response.json();
                     const wow = data;
@@ -1205,6 +1207,10 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                                         client.channels.cache.get(wow[i]).send({ embeds: [msg], files: [file] })
                                             .then((log) => {
                                                 console.log(log);
+                                                messid.push({
+                                                    messid: log.id,
+                                                    chanelid: wow[i]
+                                                })
                                             })
                                             .catch((error) => {
 
@@ -1217,6 +1223,10 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                                         client.channels.cache.get(wow[i]).send({ embeds: [msggold], files: [filegold] })
                                             .then((log) => {
                                                 console.log(log);
+                                                messid.push({
+                                                    messid: log.id,
+                                                    chanelid: wow[i]
+                                                })
                                             })
                                             .catch((error) => {
 
