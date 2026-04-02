@@ -1294,7 +1294,7 @@ scheduledMessage.start()
 
 //thaioilprice cron
 
-let scheduledthaioil = new cron.CronJob('* 05-18 * * *', async () => {
+let scheduledthaioil = new cron.CronJob('*/5 05-20 * * *', async () => {
     let nows = new Date();
     //is 5 in morning
     if (nows.getHours() == 5 && nows.getMinutes() == 0) {
