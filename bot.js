@@ -7,6 +7,7 @@ const pngToJpeg = require('bp-png-to-jpeg');
 var mysql = require('mysql');
 const cheerio = require('cheerio');
 const solarlunar = require('solarlunar');
+const { execSync } = require('child_process');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
@@ -138,10 +139,10 @@ async function guildCommandCreate(guildid) {
                 description: "ดูสลากกินแบ่งรัฐบาลล่าสุด"
             }, guildid)
 
-            commands?.create({
-                name: 'aithing',
-                description: "ดูเลขเด็ด 10 อันดับจากการใช้ Ai"
-            }, guildid)
+            // commands?.create({
+            //     name: 'aithing',
+            //     description: "ดูเลขเด็ด 10 อันดับจากการใช้ Ai"
+            // }, guildid)
 
             commands?.create({
                 name: 'lotsheet',
@@ -205,16 +206,16 @@ async function guildCommandCreate(guildid) {
                 description: 'ติดตาม/ยกเลิกการแจ้งเตือนราคาน้ำมัน'
             }, guildid)
 
-            commands?.create({
-                name: 'checkblacklist',
-                description: 'ตรวจสอบรายชื่อคนโกง',
-                options: [{
-                    type: 3,
-                    name: 'search',
-                    description: 'เลขประจำตัว/บัญชี/เบอร์/ชื่อคนโกง',
-                    required: true
-                }]
-            }, guildid)
+            // commands?.create({
+            //     name: 'checkblacklist',
+            //     description: 'ตรวจสอบรายชื่อคนโกง',
+            //     options: [{
+            //         type: 3,
+            //         name: 'search',
+            //         description: 'เลขประจำตัว/บัญชี/เบอร์/ชื่อคนโกง',
+            //         required: true
+            //     }]
+            // }, guildid)
         } catch (error) {
             console.log('error: ' + error);
         }
@@ -1960,16 +1961,31 @@ client.on('interactionCreate', async interaction => {
             await testdownload(pdfurl, './lotsheet_' + interaction.values[0] + '.pdf', async function () {
                 console.log('done');
 
-                const { ImageMagick } = require('pdf-images');
+                // const { ImageMagick } = require('pdf-images');
 
-                //create docs folder if not exist
+                // //create docs folder if not exist
 
-                const result = ImageMagick.convert('./lotsheet_' + interaction.values[0] + '.pdf', '/app/docs', './lotsheet_' + interaction.values[0]);
-                console.log(result)
+                // const result = ImageMagick.convert('./lotsheet_' + interaction.values[0] + '.pdf', '/app/docs', './lotsheet_' + interaction.values[0]);
+                // console.log(result)
 
-                let buffer = fs.readFileSync("./docs/lotsheet_" + interaction.values[0] + "/lotsheet_" + interaction.values[0] + ".png");
+                // let buffer = fs.readFileSync("./docs/lotsheet_" + interaction.values[0] + "/lotsheet_" + interaction.values[0] + ".png");
+                // pngToJpeg({ quality: 90 })(buffer)
+                //     .then(output => fs.writeFileSync("./lotsheet_" + interaction.values[0] + "_edit.jpeg", output));
+
+                const lotId = interaction.values[0];
+                const pdfPath = `./lotsheet_${lotId}.pdf`;
+                const outputDir = `/app/docs/lotsheet_${lotId}`;
+                const outputBase = `${outputDir}/lotsheet_${lotId}`;
+
+                // Create output dir if not exists
+                fs.mkdirSync(outputDir, { recursive: true });
+
+                // Use magick instead of convert (IMv7)
+                execSync(`magick -quiet -density 200 ${pdfPath} -quality 100 ${outputBase}.png`);
+
+                let buffer = fs.readFileSync(`${outputBase}.png`);
                 pngToJpeg({ quality: 90 })(buffer)
-                    .then(output => fs.writeFileSync("./lotsheet_" + interaction.values[0] + "_edit.jpeg", output));
+                    .then(output => fs.writeFileSync(`./lotsheet_${lotId}_edit.jpeg`, output));
 
                 //wait 10 seconds
                 await new Promise(resolve => setTimeout(resolve, 10000));

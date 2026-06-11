@@ -2,7 +2,9 @@
 FROM node:18-alpine
 WORKDIR '/app'
 #RUN apk add --update g++ make python3 py3-pip 
-RUN apk add --update imagemagick
+RUN apk add --update imagemagick ghostscript
+# Fix ImageMagick policy to allow PDF reading
+RUN sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read|write" pattern="PDF" \/>/' /etc/ImageMagick-7/policy.xml
 RUN npm install -g pnpm
 COPY package*.json ./
 COPY pnpm-*.yaml ./
