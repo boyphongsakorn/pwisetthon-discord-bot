@@ -251,9 +251,9 @@ async function guildCommandDeleteandCreate(guild) {
             });
         });
 
-    // wait 5 sec
+    // wait 30 seconds
 
-    await new Promise(resolve => setTimeout(resolve, 5000));
+    await new Promise(resolve => setTimeout(resolve, 30000));
 
     let guildid = guild.id;
 
