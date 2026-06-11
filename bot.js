@@ -124,13 +124,6 @@ async function guildCommandCreate(guildid) {
                 description: "ปรับโหมดการแจ้งเตือนสลากกินแบ่งฯ"
             }, guildid)
 
-            thatguild.commands.create({
-                name: 'ping',
-                description: 'Replies with Pong!',
-            })
-            .then(command => console.log(`Created command ${command.name}`))
-            .catch(console.error);
-
             /*commands?.create({
                 name: 'cthlotto',
                 description: "ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้"
@@ -260,7 +253,7 @@ async function guildCommandDeleteandCreate(guild) {
 
     // wait 5 sec
 
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await new Promise(resolve => setTimeout(resolve, 5000));
 
     let guildid = guild.id;
 
@@ -685,6 +678,9 @@ client.once('ready', () => {
                 //if guild has no commands
                 if (commands.size != 11) {
                     //create commands
+                    console.log('Creating commands for guild: ' + guild.name);
+                    console.log('Guild ID: ' + guild.id);
+                    console.log('Commands size: ' + commands.size);
                     //await guildCommandCreate(guild.id);
                     // await guildCommandDelete(guild);
                     // await guildCommandCreate(guild.id);
