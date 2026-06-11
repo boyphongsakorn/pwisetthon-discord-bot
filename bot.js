@@ -124,6 +124,13 @@ async function guildCommandCreate(guildid) {
                 description: "ปรับโหมดการแจ้งเตือนสลากกินแบ่งฯ"
             }, guildid)
 
+            thatguild.commands.create({
+                name: 'ping',
+                description: 'Replies with Pong!',
+            })
+            .then(command => console.log(`Created command ${command.name}`))
+            .catch(console.error);
+
             /*commands?.create({
                 name: 'cthlotto',
                 description: "ยกเลิกแจ้งเตือนสลากกินแบ่งรัฐบาลของแชนแนลนี้"
