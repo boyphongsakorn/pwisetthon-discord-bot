@@ -665,7 +665,7 @@ function getChineseNewYear(year) {
 
 // end functions
 
-client.once('ready', () => {
+client.once('ready', async () => {
     handleDisconnect();
     //con.connect(function (err) {
     //if (err) throw err;
