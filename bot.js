@@ -1714,7 +1714,8 @@ client.on('interactionCreate', async interaction => {
                 await interaction.editReply('ไม่สามารถดึงข้อมูลล่าสุดสลากฯได้')
             });*/
 
-        const fetchlotimg = await fetch('https://screenshot-xi.vercel.app/?date=' + data.info.date)
+        // const fetchlotimg = await fetch('https://screenshot-xi.vercel.app/?date=' + data.info.date)
+        const fetchlotimg = await fetch('https://lotimg.pwisetthon.com/?date=' + data.info.date)
         const fetchlotimgres = await fetchlotimg.arrayBuffer()
 
         //}
@@ -2424,7 +2425,7 @@ client.on('interactionCreate', async interaction => {
 
         while (downloadscussess == false) {
             try {
-                const thaioilimg = await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000');
+                const thaioilimg = await fetch('https://topapi.pwisetthon.com/image');
                 thaioil = await thaioilimg.arrayBuffer();
                 if (Buffer.from(thaioil).length > 100000) {
                     downloadscussess = true;
