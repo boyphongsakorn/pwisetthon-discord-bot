@@ -230,7 +230,7 @@ async function guildCommandDelete(guild) {
         .then(async function (commands) {
             await commands.forEach(command => {
                 command.delete()
-                    .then(/*console.log*/)
+                    .then(console.log)
                     .catch(console.error);
             });
             return true;
@@ -246,7 +246,7 @@ async function guildCommandDeleteandCreate(guild) {
         .then(async function (commands) {
             await commands.forEach(command => {
                 command.delete()
-                    .then(/*console.log*/)
+                    .then(console.log)
                     .catch(console.error);
             });
         });
@@ -679,8 +679,9 @@ client.once('ready', () => {
                 if (commands.size != 11) {
                     //create commands
                     //await guildCommandCreate(guild.id);
-                    await guildCommandDelete(guild);
-                    await guildCommandCreate(guild.id);
+                    // await guildCommandDelete(guild);
+                    // await guildCommandCreate(guild.id);
+                    await guildCommandDeleteandCreate(guild);
                 }
             });
         } catch (error) {
