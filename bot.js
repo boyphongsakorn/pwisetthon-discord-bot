@@ -671,26 +671,43 @@ client.once('ready', () => {
     //if (err) throw err;
     //console.log("Database Connected!");
     //get all guilds
-    client.guilds.cache.forEach(async function (guild) {
+    // client.guilds.cache.forEach(async function (guild) {
 
+    //     try {
+    //         guild.commands.fetch().then(async function (commands) {
+    //             //if guild has no commands
+    //             if (commands.size != 11) {
+    //                 //create commands
+    //                 console.log('Creating commands for guild: ' + guild.name);
+    //                 console.log('Guild ID: ' + guild.id);
+    //                 console.log('Commands size: ' + commands.size);
+    //                 //await guildCommandCreate(guild.id);
+    //                 // await guildCommandDelete(guild);
+    //                 // await guildCommandCreate(guild.id);
+    //                 await guildCommandDeleteandCreate(guild);
+    //             }
+    //         });
+    //     } catch (error) {
+    //         console.log('error: ' + error);
+    //     }
+    // });
+    for (const [, guild] of client.guilds.cache) {
         try {
-            guild.commands.fetch().then(async function (commands) {
-                //if guild has no commands
-                if (commands.size != 11) {
-                    //create commands
-                    console.log('Creating commands for guild: ' + guild.name);
-                    console.log('Guild ID: ' + guild.id);
-                    console.log('Commands size: ' + commands.size);
-                    //await guildCommandCreate(guild.id);
-                    // await guildCommandDelete(guild);
-                    // await guildCommandCreate(guild.id);
-                    await guildCommandDeleteandCreate(guild);
-                }
-            });
+            const commands = await guild.commands.fetch();
+            
+            if (commands.size != 11) {
+                console.log('Creating commands for guild: ' + guild.name);
+                console.log('Guild ID: ' + guild.id);
+                console.log('Commands size: ' + commands.size);
+                //await guildCommandCreate(guild.id);
+                // await guildCommandDelete(guild);
+                // await guildCommandCreate(guild.id);
+                await guildCommandDeleteandCreate(guild);
+            }
         } catch (error) {
             console.log('error: ' + error);
         }
-    });
+    }
     client.user.setActivity({
         type: ActivityType.Custom,
         name: 'customstatus',
