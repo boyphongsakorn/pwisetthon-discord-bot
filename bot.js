@@ -676,7 +676,7 @@ client.once('ready', () => {
         try {
             guild.commands.fetch().then(async function (commands) {
                 //if guild has no commands
-                if (commands.size != 13) {
+                if (commands.size != 11) {
                     //create commands
                     //await guildCommandCreate(guild.id);
                     await guildCommandDelete(guild);
