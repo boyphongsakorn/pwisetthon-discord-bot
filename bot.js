@@ -791,9 +791,9 @@ function newAvatar() {
     } else if (nows.getDate() >= 1 && nows.getDate() <= 3 && nows.getMonth() == 4) {
         // วันแรงงาน
         client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_lod.png')
-    } else if (nows.getMonth() == 5) {
+    // } else if (nows.getMonth() == 5) {
         // pride month
-        client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_pride.jpg')
+        // client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_pride.jpg')
     // } else if (nows.getDate() >= 10 && nows.getDate() <= 12 && nows.getMonth() == 4) {
     //     // วันวิสาขบูชา
     //     client.user.setAvatar('https://img.gs/fhcphvsghs/512/https://raw.githubusercontent.com/boyphongsakorn/pwisetthon-discord-bot/master/img/botav_piya.jpg')
