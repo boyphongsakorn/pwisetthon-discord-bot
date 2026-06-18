@@ -15,11 +15,20 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 /*var con = mysql.createConnection({
     host: "192.168.31.210",
     user: "boyphongsakorn",
-    password: "team1556th",
+    password: process.env.DB_PASS,
     database: "discordbot"
 });*/
 
 var con
+
+const pool = mysql.createPool({
+  host: "192.168.31.210",
+  user: "boyphongsakorn",
+  password: process.env.DB_PASS,
+  database: "discordbot",
+  connectionLimit: 10,
+  waitForConnections: true,
+});
 
 let lottoapi = "http://192.168.31.210:5000";
 let lotimgapi = "http://192.168.31.220:14000";
@@ -267,7 +276,7 @@ function handleDisconnect() {
     con = mysql.createConnection({
         host: "192.168.31.210",
         user: "boyphongsakorn",
-        password: "team1556th",
+        password: process.env.DB_PASS,
         database: "discordbot"
     }); // Recreate the connection, since
     // the old one cannot be reused.
@@ -996,7 +1005,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
 
             if (fileContents) {
                 let lastdatefromsql
-                con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", function (err, result, fields) {
+                pool.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", function (err, result, fields) {
                     if (err) throw err;
                     //console.log(result);
                     lastdatefromsql = result[0].round; //YYYY-MM-DD
@@ -1079,7 +1088,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
 
                     //check number user save
                     // con.query("SELECT * FROM lott_table WHERE status = 'waiting'", async function (err, result, fields) {
-                    const result = await con.query("SELECT * FROM lott_table WHERE status = 'waiting'", async function (err, result, fields) {
+                    const result = await pool.query("SELECT * FROM lott_table WHERE status = 'waiting'", async function (err, result, fields) {
                         return result
                     });
                         // if (err) throw err;
@@ -1136,7 +1145,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                             const checkjson = await checkapi.json()
                             if (checkjson == '' || checkjson == null || checkjson == {} || checkjson == [] || checkjson.length == 0) {
                                 var sql = "UPDATE lott_table SET status = 'ไม่ถูก',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
-                                con.query(sql, function (err, result) {
+                                pool.query(sql, function (err, result) {
                                     if (err) throw err;
                                     client.users.fetch(discordid).then(dm => {
                                         dm.send('ขออภัยค่ะ! เลข ' + numberhebuy + ' ยังไม่ถูกรางวัลในงวดวันนี้ค่ะ')
@@ -1144,7 +1153,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                                 });
                             } else {
                                 var sql = "UPDATE lott_table SET status = 'win',lotround = '" + (year - 543) + "-" + month + "-" + date + "' WHERE lott_id = '" + whatid + "'";
-                                con.query(sql, function (err, result) {
+                                pool.query(sql, function (err, result) {
                                     if (err) throw err;
                                     client.users.fetch(discordid).then(dm => {
                                         dm.send('ยินดีด้วย! เลข ' + numberhebuy + ' ถูกรางวัลในงวดวันนี้ค่ะ')
@@ -1219,7 +1228,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                         await new Promise(r => setTimeout(r, 3000));
 
                         if (unknows != 0) {
-                            con.query("SELECT * FROM lott_main WHERE lott_guildid = '" + unknows + "'", function (err, result, fields) {
+                            pool.query("SELECT * FROM lott_main WHERE lott_guildid = '" + unknows + "'", function (err, result, fields) {
                                 //if (err) throw err;
                                 if (result.length == 0 || result[0].lott_resultmode == 'normal' || err) {
                                     if (err) {
@@ -1278,7 +1287,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
                     }
 
                     //insert to sql
-                    con.query("INSERT INTO lott_round (id, round) VALUES ('" + date + "" + month + "" + year + "', '" + todayformat + "')", function (err, result, fields) {
+                    pool.query("INSERT INTO lott_round (id, round) VALUES ('" + date + "" + month + "" + year + "', '" + todayformat + "')", function (err, result, fields) {
                         // if (err) throw err;
                         if (err) {
                             for (let i = 0; i < messid.length; i++) {
@@ -1337,7 +1346,7 @@ let scheduledthaioil = new cron.CronJob('*/5 05-20 * * *', async () => {
         const wow = data;
 
         var sql = 'SELECT * FROM oilprice WHERE date = "' + json[0][0] + '"';
-        con.query(sql, function (err, result) {
+        pool.query(sql, function (err, result) {
             if (err) throw err;
             if (result.length == 0 && json[0][0] != '') {
                 console.log('hey new oil price has come');
@@ -1345,10 +1354,10 @@ let scheduledthaioil = new cron.CronJob('*/5 05-20 * * *', async () => {
                     ngv = 0
                 }
                 var sql = 'INSERT INTO oilprice VALUES ("' + json[0][0] + '", ' + json[0][1] + ', ' + json[0][2] + ', ' + json[0][3] + ', ' + json[0][4] + ', ' + json[0][5] + ', ' + json[0][6] + ', ' + json[0][7] + ', ' + json[0][8] + ', ' + ngv + ')';
-                con.query(sql, async function (err, result) {
+                pool.query(sql, async function (err, result) {
                     if (err) {
                         var deletesql = 'DELETE FROM oilprice WHERE date = "' + json[0][0] + '"';
-                        con.query(deletesql, function (err, result) {
+                        pool.query(deletesql, function (err, result) {
                             if (err) throw err;
                             console.log('Deleted!');
                         });
@@ -1508,7 +1517,7 @@ let scheduledthaioil = new cron.CronJob('*/5 05-20 * * *', async () => {
                     let date = day + '/' + month + '/' + thaiyear;
                     //push messidjson to database
                     let sql = `INSERT INTO hell VALUES ('${date}', '${messidjson}')`;
-                    con.query(sql, function (err, result) {
+                    pool.query(sql, function (err, result) {
                         if (err) {
                             //loop messid and delete message
                             for (let i = 0; i < messid.length; i++) {
@@ -2071,7 +2080,7 @@ client.on('interactionCreate', async interaction => {
             //create lott id = date/time/last4userid
             let lottid = padLeadingZeros(date.getDate(), 2) + '' + padLeadingZeros(date.getMonth() + 1, 2) + '' + date.getFullYear() + '/' + timeformat + '/' + last4userid;
             var sql = "INSERT INTO lott_table VALUES ('" + lottid + "', '" + userid + "', 'notyet', '" + numbertosave + "', 'waiting', '" + dateformat + "', '0000-00-00')";
-            con.query(sql, async function (err, result) {
+            pool.query(sql, async function (err, result) {
                 if (err) {
                     await interaction.editReply('ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง');
                     console.log(err);
@@ -2086,7 +2095,7 @@ client.on('interactionCreate', async interaction => {
     if (interaction.commandName === 'checkconnection') {
         await interaction.deferReply();
         let lotapistatus, lotimgstatus, gloapistatus, sqlstatus, sqlinserttest, sqldeletetest, sqlselecttest;
-        con.ping(function (err) {
+        pool.ping(function (err) {
             if (err) {
                 console.log(err);
                 sqlstatus = 0;
@@ -2130,7 +2139,7 @@ client.on('interactionCreate', async interaction => {
             console.log(todayformat);
         }
         //select to sql
-        con.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", async function (err, result, fields) {
+        pool.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", async function (err, result, fields) {
             if (err) {
                 sqlselecttest = 0;
             } else {
@@ -2151,7 +2160,7 @@ client.on('interactionCreate', async interaction => {
             }
         });
 
-        con.query("INSERT INTO lott_round (id, round) VALUES ('" + dd + "" + mm + "" + (yyyy + 543) + "', '" + todayformat + "')", async function (err, result, fields) {
+        pool.query("INSERT INTO lott_round (id, round) VALUES ('" + dd + "" + mm + "" + (yyyy + 543) + "', '" + todayformat + "')", async function (err, result, fields) {
             if (err) {
                 console.log(err);
                 sqlinserttest = 0;
@@ -2162,7 +2171,7 @@ client.on('interactionCreate', async interaction => {
             //console.log(result);
         });
         //delete old data
-        con.query("DELETE FROM lott_round WHERE id = '" + dd + "" + mm + "" + (yyyy + 543) + "'", async function (err, result, fields) {
+        pool.query("DELETE FROM lott_round WHERE id = '" + dd + "" + mm + "" + (yyyy + 543) + "'", async function (err, result, fields) {
             if (err) {
                 console.log(err);
                 sqldeletetest = 0;
@@ -2290,7 +2299,7 @@ client.on('interactionCreate', async interaction => {
         //get user id
         let userid = interaction.user.id;
         //select * from lott_table where discord_id = userid
-        con.query(`SELECT * FROM lott_table WHERE discord_id = '${userid}'`, async (err, result) => {
+        pool.query(`SELECT * FROM lott_table WHERE discord_id = '${userid}'`, async (err, result) => {
             //2d {} array
             let history = {};
             //for each result
@@ -2372,25 +2381,25 @@ client.on('interactionCreate', async interaction => {
         console.log(interaction.guildId)
 
         //select lott_guildid from lott_main where lott_guildid = interaction.guildId if not exist insert lott_guildid = interaction.guildId but if exist update lott_guildid = interaction.guildId
-        con.query(`SELECT * FROM lott_main WHERE lott_guildid = '${interaction.guildId}'`, async (err, result) => {
+        pool.query(`SELECT * FROM lott_main WHERE lott_guildid = '${interaction.guildId}'`, async (err, result) => {
             try {
                 if (result.length == 0) {
-                    con.query(`INSERT INTO lott_main (lott_guildid, lott_resultmode) VALUES ('${interaction.guildId}', '${interaction.values[0]}')`, async (err, result) => {
+                    pool.query(`INSERT INTO lott_main (lott_guildid, lott_resultmode) VALUES ('${interaction.guildId}', '${interaction.values[0]}')`, async (err, result) => {
                         console.log(result);
                         await interaction.editReply('บันทึกการเปลี่ยนโหมดการแสดงสรุปสลากกินแบ่งฯเรียบร้อยแล้ว');
                     });
                 } else {
-                    con.query(`UPDATE lott_main SET lott_resultmode = '${interaction.values[0]}' WHERE lott_guildid = '${interaction.guildId}'`, async (err, result) => {
+                    pool.query(`UPDATE lott_main SET lott_resultmode = '${interaction.values[0]}' WHERE lott_guildid = '${interaction.guildId}'`, async (err, result) => {
                         console.log(result);
                         await interaction.editReply('อัพเดทการเปลี่ยนโหมดการแสดงสรุปสลากกินแบ่งฯเรียบร้อยแล้ว');
                     });
                 }
             } catch (err) {
-                con.query(`DELETE FROM lott_main WHERE lott_guildid = '${interaction.guildId}'`, function (err, result) {
+                pool.query(`DELETE FROM lott_main WHERE lott_guildid = '${interaction.guildId}'`, function (err, result) {
                     if (err) throw err;
                     console.log('DELETE FROM lott_main WHERE lott_guildid = "' + interaction.guildId + '"');
                     console.log("Number of records deleted: " + result.affectedRows);
-                    con.query(`INSERT INTO lott_main (lott_guildid, lott_resultmode) VALUES ('${interaction.guildId}', '${interaction.values[0]}')`, async (err, result) => {
+                    pool.query(`INSERT INTO lott_main (lott_guildid, lott_resultmode) VALUES ('${interaction.guildId}', '${interaction.values[0]}')`, async (err, result) => {
                         console.log(result);
                         await interaction.editReply('บันทึกการเปลี่ยนโหมดการแสดงสรุปสลากกินแบ่งฯเรียบร้อยแล้ว');
                     });
@@ -3245,7 +3254,7 @@ client.on('interactionCreate', async interaction => {
         let thaiyear = today.getFullYear() + 543;
         let todayformat = day + '/' + month + '/' + thaiyear;
         let hellsql = 'SELECT messid FROM hell WHERE date = \'' + todayformat + '\' LIMIT 1';
-        con.query(hellsql, async (err, result) => {
+        pool.query(hellsql, async (err, result) => {
             if (err) throw err;
             if (result.length > 0) {
                 //convert result[0].messid from json text to json object
@@ -3297,7 +3306,7 @@ client.on('interactionCreate', async interaction => {
             const topapifetch = await fetch('https://topapi.pwisetthon.com');
             const topapijson = await topapifetch.json();
             let resetsql = 'DELETE FROM oilprice WHERE date = "' + topapijson[0][0] + '"';
-            con.query(resetsql, function (err, result) {
+            pool.query(resetsql, function (err, result) {
                 if (err) throw err;
                 console.log("Number of records deleted: " + result.affectedRows);
             });
@@ -3318,7 +3327,7 @@ client.on('interactionCreate', async interaction => {
             // let thaiyear = today.getFullYear() + 543;
             let newdate = today.getDate() + '/' + (today.getMonth() + 1) + '/' + (today.getFullYear() + 543);
             resetsql = 'DELETE FROM hell WHERE date = "' + newdate + '"';
-            con.query(resetsql, function (err, result) {
+            pool.query(resetsql, function (err, result) {
                 if (err) throw err;
                 console.log(resetsql);
                 console.log("Number of records deleted: " + result.affectedRows);
