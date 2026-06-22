@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ข้อกำหนดการให้บริการ - PWisetthon Discord Bot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased">
+    <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-slate-200">
+        <div class="bg-gradient-to-r from-slate-900 to-cyan-600 px-6 py-8 sm:px-10">
+          <div class="max-w-3xl">
+            <p class="text-sm uppercase tracking-[0.22em] text-cyan-200">ข้อกำหนดการให้บริการ</p>
+            <h1 class="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">PW Discord Bot</h1>
+            <p class="mt-4 max-w-2xl text-slate-200 sm:text-lg">เงื่อนไขการให้บริการสำหรับบอท PW Discord Bot ซึ่งรวมถึงการเก็บข้อมูล การใช้งาน และบริการภายนอกที่เชื่อมต่อ</p>
+          </div>
+        </div>
+        <div class="border-t border-slate-200 px-6 py-8 sm:px-10 sm:py-10">
+          <div class="space-y-10">
+            <section class="rounded-3xl bg-slate-50 p-6 shadow-sm ring-1 ring-slate-200">
+              <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p class="text-sm font-semibold text-slate-700">บอท PW Discord Bot</p>
+                  <p class="mt-1 text-sm text-slate-500">discordbot.pwisetthon.com</p>
+                </div>
+                <!-- <p class="rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white">เริ่มใช้: 22 มิถุนายน 2568</p> -->
+              </div>
+            </section>
+
+            <section class="space-y-4">
+              <h2 class="text-2xl font-semibold text-slate-900">1. ข้อมูลทั่วไป</h2>
+              <p class="text-slate-700 leading-8">บอท PW Discord Bot ("บอท") ทำงานบนแพลตฟอร์ม Discord การเชิญหรือใช้งานบอทนี้ในเซิร์ฟเวอร์ Discord ของคุณ ถือว่าคุณยอมรับข้อกำหนดการให้บริการฉบับนี้ทั้งหมด</p>
+            </section>
+
+            <section class="space-y-4">
+              <h2 class="text-2xl font-semibold text-slate-900">2. ขอบเขตการให้บริการ</h2>
+              <p class="text-slate-700 leading-8">บอทมีฟีเจอร์และคำสั่งดังต่อไปนี้:</p>
+
+              <div class="space-y-6 rounded-3xl bg-slate-50 p-6 shadow-sm ring-1 ring-slate-200">
+                <div class="space-y-3">
+                  <h3 class="text-xl font-semibold text-slate-900">2.1 บริการสลากกินแบ่งรัฐบาล</h3>
+                  <ul class="list-disc space-y-2 pl-5 text-slate-700">
+                    <li><span class="font-medium text-slate-900">/lastlotto</span> — ดูผลสลากกินแบ่งรัฐบาลงวดล่าสุด</li>
+                    <li><span class="font-medium text-slate-900">/subthlotto</span> — ติดตาม/ยกเลิกการแจ้งเตือนผลสลากฯ อัตโนมัติ</li>
+                    <li><span class="font-medium text-slate-900">/flottomode</span> — ปรับโหมดการแสดงผลสลากฯ (ปกติ / โกลด์)</li>
+                    <li><span class="font-medium text-slate-900">/lotsheet</span> — แสดงใบตรวจสลากกินแบ่งรัฐบาล</li>
+                    <li><span class="font-medium text-slate-900">/synumber</span> — บันทึกเลขสลากฯ ที่คุณซื้อเพื่อรับการแจ้งเตือนผลรางวัล</li>
+                    <li><span class="font-medium text-slate-900">/srchlot</span> — ตรวจสลากฯ ล่าสุดด้วยเลขที่กำหนด</li>
+                    <li><span class="font-medium text-slate-900">/ตรวจสลากฯ</span> — คำสั่งตรวจสลากฯ แบบ Context Menu</li>
+                    <li><span class="font-medium text-slate-900">/syhistory</span> — ดูประวัติการบันทึกเลขสลากฯ ของคุณ</li>
+                  </ul>
+                  <p class="text-slate-700">บอทจะแจ้งเตือนผลสลากฯ อัตโนมัติในช่วงเวลา 15:00–17:00 น. ของทุกวันที่มีการออกสลาก โดยอ้างอิงข้อมูลจาก rapidapi.com/boyphongsakorn/api/thai-lottery1 และ สำนักงานสลากกินแบ่งรัฐบาล (glo.or.th)</p>
+                </div>
+
+                <div class="space-y-3">
+                  <h3 class="text-xl font-semibold text-slate-900">2.2 บริการราคาน้ำมัน</h3>
+                  <ul class="list-disc space-y-2 pl-5 text-slate-700">
+                    <li><span class="font-medium text-slate-900">/lastthaioilprice</span> — ดูราคาน้ำมันล่าสุดในประเทศไทย</li>
+                    <li><span class="font-medium text-slate-900">/subthaioilprice</span> — ติดตาม/ยกเลิกการแจ้งเตือนเมื่อราคาน้ำมันเปลี่ยนแปลง</li>
+                  </ul>
+                  <p class="text-slate-700">บอทดึงข้อมูลราคาน้ำมันจาก thaioilpriceapi-vercel.vercel.app และจะแจ้งเตือนช่องที่ติดตามโดยอัตโนมัติเมื่อมีราคาใหม่</p>
+                </div>
+
+                <!-- <div class="space-y-3">
+                  <h3 class="text-xl font-semibold text-slate-900">2.3 บริการตรวจสอบประวัติการโกง</h3>
+                  <ul class="list-disc space-y-2 pl-5 text-slate-700">
+                    <li><span class="font-medium text-slate-900">/checkblacklist</span> — ตรวจสอบข้อมูลประวัติการโกงด้วยชื่อ เลขบัญชี หรือเบอร์โทร</li>
+                  </ul>
+                  <p class="text-slate-700">ข้อมูลอ้างอิงจากเว็บไซต์บุคคลที่สาม ได้แก่ whoscheat.com และ chaladohn.com ผู้พัฒนาไม่ได้เป็นเจ้าของหรือรับรองความถูกต้องของข้อมูลเหล่านั้น</p>
+                </div> -->
+
+                <div class="space-y-3">
+                  <!-- <h3 class="text-xl font-semibold text-slate-900">2.4 บริการอื่น ๆ</h3> -->
+                  <h3 class="text-xl font-semibold text-slate-900">2.3 บริการอื่น ๆ</h3>
+                  <ul class="list-disc space-y-2 pl-5 text-slate-700">
+                    <li><span class="font-medium text-slate-900">/checkconnection</span> — ตรวจสอบสถานะการเชื่อมต่อของบอท</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section class="space-y-4">
+              <h2 class="text-2xl font-semibold text-slate-900">3. การเก็บข้อมูลส่วนบุคคล</h2>
+              <div class="space-y-4 rounded-3xl bg-slate-50 p-6 shadow-sm ring-1 ring-slate-200">
+                <div>
+                  <h3 class="text-xl font-semibold text-slate-900">3.1 ข้อมูลที่บอทจัดเก็บ</h3>
+                  <ul class="list-disc space-y-2 pl-5 text-slate-700">
+                    <!-- <li><strong>Discord User ID</strong> — เพื่อส่งแจ้งเตือนผลสลากฯ และราคาน้ำมันผ่านข้อความส่วนตัว (DM)</li> -->
+                     <li><strong>Discord User ID</strong> — เพื่อส่งแจ้งเตือนผลสลากฯ ผ่านข้อความส่วนตัว (DM)</li>
+                    <li><strong>Discord Channel ID</strong> — เพื่อส่งผลสลากฯ และราคาน้ำมันเข้าช่องที่ลงทะเบียน</li>
+                    <li><strong>Discord Guild (Server) ID</strong> — เพื่อบริหารจัดการการตั้งค่าต่าง ๆ ต่อเซิร์ฟเวอร์</li>
+                    <li><strong>เลขสลากฯ ที่ผู้ใช้บันทึก</strong> — เก็บในฐานข้อมูลเพื่อใช้ตรวจผลรางวัลอัตโนมัติ</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-slate-900">3.2 วิธีการจัดเก็บข้อมูล</h3>
+                  <p class="text-slate-700 leading-7">ข้อมูลทั้งหมดจัดเก็บในฐานข้อมูล MySQL ที่ผู้พัฒนาดูแลเอง ข้อมูลไม่ถูกส่งต่อให้บุคคลที่สาม ยกเว้นที่จำเป็นเพื่อการให้บริการ (เช่น การดึง API ราคาน้ำมันหรือผลสลากฯ)</p>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-slate-900">3.3 การใช้งานข้อมูล</h3>
+                  <p class="text-slate-700 leading-7">ข้อมูลที่เก็บรวบรวมจะถูกใช้เพียงเพื่อวัตถุประสงค์ของการให้บริการบอทเท่านั้น ไม่มีการนำไปใช้เพื่อการตลาด การโฆษณา หรือการขายข้อมูล</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="space-y-4">
+              <h2 class="text-2xl font-semibold text-slate-900">4. ข้อจำกัดความรับผิดชอบ</h2>
+              <div class="space-y-4 rounded-3xl bg-slate-50 p-6 shadow-sm ring-1 ring-slate-200">
+                <div>
+                  <h3 class="text-xl font-semibold text-slate-900">4.1 ความถูกต้องของข้อมูล</h3>
+                  <ul class="list-disc space-y-2 pl-5 text-slate-700">
+                    <li>ผลสลากกินแบ่งรัฐบาลที่แสดงอ้างอิงจาก API ภายนอก หากข้อมูลผิดพลาดกรุณาตรวจสอบจาก glo.or.th โดยตรง</li>
+                    <li>ราคาน้ำมันที่แสดงอาจมีความล่าช้าหรือคลาดเคลื่อนจากราคาจริง กรุณาตรวจสอบจากผู้จำหน่ายน้ำมันโดยตรง</li>
+                    <!-- <li>ข้อมูลประวัติการโกงมาจากแหล่งข้อมูลบุคคลที่สาม ผู้พัฒนาไม่รับรองความถูกต้อง ครบถ้วน หรือความเป็นปัจจุบันของข้อมูลดังกล่าว</li> -->
+                  </ul>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-slate-900">4.2 ความพร้อมในการให้บริการ</h3>
+                  <p class="text-slate-700 leading-7">บอทให้บริการในลักษณะ "ตามที่มี" (as-is) ผู้พัฒนาไม่รับประกันว่าบอทจะพร้อมใช้งานตลอดเวลา อาจมีการหยุดให้บริการชั่วคราวเพื่อการบำรุงรักษา อัปเดต หรือเหตุขัดข้องทางเทคนิค</p>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-slate-900">4.3 การตัดสินใจของผู้ใช้</h3>
+                  <p class="text-slate-700 leading-7">ผู้ใช้ต้องใช้วิจารณญาณของตนเองในการตัดสินใจโดยอาศัยข้อมูลจากบอท โดยเฉพาะในเรื่องการซื้อสลากฯ และราคาน้ำมัน ผู้พัฒนาไม่รับผิดชอบต่อความเสียหายใด ๆ ที่เกิดจากการใช้ข้อมูลจากบอท</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="space-y-4">
+              <h2 class="text-2xl font-semibold text-slate-900">5. พฤติกรรมที่ห้ามกระทำ</h2>
+              <div class="rounded-3xl bg-slate-50 p-6 shadow-sm ring-1 ring-slate-200">
+                <p class="text-slate-700 leading-7">ผู้ใช้งานและผู้ดูแลเซิร์ฟเวอร์ต้องไม่:</p>
+                <ul class="list-disc space-y-2 pl-5 text-slate-700">
+                  <li>พยายามล่วงละเมิด หรือทดสอบช่องโหว่ของระบบบอท</li>
+                  <li>ส่งคำสั่งในปริมาณมากเกินสมควรจนกระทบต่อการให้บริการ (Abuse / Spam)</li>
+                  <li>นำข้อมูลที่ได้จากบอทไปใช้ในทางที่ผิดกฎหมาย</li>
+                  <li>พยายามหลอกลวงหรือแอบอ้างว่าตนเองเป็นผู้พัฒนาบอท</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="space-y-4">
+              <h2 class="text-2xl font-semibold text-slate-900">6. API และบริการภายนอกที่ใช้</h2>
+              <div class="rounded-3xl bg-slate-50 p-6 shadow-sm ring-1 ring-slate-200">
+                <p class="text-slate-700 leading-7">บอทนี้เชื่อมต่อกับบริการภายนอกดังต่อไปนี้ ซึ่งมีข้อกำหนดการให้บริการของตนเอง:</p>
+                <ul class="list-disc space-y-2 pl-5 text-slate-700">
+                  <li><strong>สำนักงานสลากกินแบ่งรัฐบาล</strong> (glo.or.th)</li>
+                  <li><strong>RapidAPI – Thai Lottery API</strong> (rapidapi.com)</li>
+                  <li><strong>Thai Oil Price API</strong> (thaioilpriceapi-vercel.vercel.app)</li>
+                  <!-- <li><strong>whoscheat.com</strong> — ฐานข้อมูลรายงานการโกง</li>
+                  <li><strong>chaladohn.com</strong> — ฐานข้อมูลรายงานการโกง</li> -->
+                  <li><strong>Discord API</strong> (discord.com)</li>
+                </ul>
+                <p class="text-slate-700 leading-7">ผู้ใช้ยอมรับว่าการใช้งานบอทหมายถึงการยินยอมให้บอทดึงข้อมูลจากบริการเหล่านี้ในนามของการให้บริการ</p>
+              </div>
+            </section>
+
+            <section class="space-y-4">
+              <h2 class="text-2xl font-semibold text-slate-900">7. การยุติการใช้งาน</h2>
+              <div class="space-y-4 rounded-3xl bg-slate-50 p-6 shadow-sm ring-1 ring-slate-200">
+                <div>
+                  <h3 class="text-xl font-semibold text-slate-900">7.1 โดยผู้ใช้</h3>
+                  <p class="text-slate-700 leading-7">ผู้ดูแลเซิร์ฟเวอร์สามารถถอนบอทออกจากเซิร์ฟเวอร์ได้ทุกเมื่อ และสามารถยกเลิกการแจ้งเตือนต่าง ๆ ผ่านคำสั่ง <span class="rounded bg-slate-100 px-2 py-0.5 text-slate-800">/subthlotto</span> และ <span class="rounded bg-slate-100 px-2 py-0.5 text-slate-800">/subthaioilprice</span></p>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-slate-900">7.2 โดยผู้พัฒนา</h3>
+                  <p class="text-slate-700 leading-7">ผู้พัฒนาสงวนสิทธิ์ในการระงับหรือยุติการให้บริการแก่เซิร์ฟเวอร์หรือผู้ใช้ที่ละเมิดข้อกำหนดนี้ โดยไม่จำเป็นต้องแจ้งล่วงหน้า</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="space-y-4">
+              <h2 class="text-2xl font-semibold text-slate-900">8. การแก้ไขข้อกำหนด</h2>
+              <div class="rounded-3xl bg-slate-50 p-6 shadow-sm ring-1 ring-slate-200">
+                <p class="text-slate-700 leading-7">ผู้พัฒนาอาจแก้ไขข้อกำหนดการให้บริการนี้ได้ตลอดเวลา การใช้งานบอทต่อเนื่องหลังจากมีการแก้ไขถือว่าคุณยอมรับข้อกำหนดฉบับใหม่</p>
+              </div>
+            </section>
+
+            <section class="space-y-4">
+              <h2 class="text-2xl font-semibold text-slate-900">9. ช่องทางการติดต่อ</h2>
+              <div class="rounded-3xl bg-slate-50 p-6 shadow-sm ring-1 ring-slate-200">
+                <p class="text-slate-700 leading-7">หากมีคำถาม ข้อร้องเรียน หรือต้องการแจ้งปัญหาการใช้งาน สามารถติดต่อผู้พัฒนาได้ที่:</p>
+                <ul class="list-disc space-y-2 pl-5 text-slate-700">
+                  <li><strong>Discord Server:</strong> discord.com/invite/j7xce5hxUf</li>
+                  <li><strong>เว็บไซต์:</strong> discordbot.pwisetthon.com</li>
+                  <li><strong>สนับสนุนผู้พัฒนา:</strong> buymeacoffee.com/boyphongsakorn</li>
+                </ul>
+              </div>
+            </section>
+            <p class="mt-4 rounded-2xl bg-slate-100 p-4 text-sm text-slate-500">*ข้อกำหนดการให้บริการฉบับนี้จัดทำขึ้นจากการวิเคราะห์โค้ดต้นฉบับของบอท เพื่อสะท้อนฟีเจอร์และพฤติกรรมจริงของระบบ*</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
