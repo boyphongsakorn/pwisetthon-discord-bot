@@ -34,6 +34,10 @@ let lottoapi = "http://192.168.31.210:5000";
 let lotimgapi = "http://192.168.31.220:14000";
 let apikey = process.env.rapidapikey;
 
+function stripTime(d) {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+
 //create a server object:
 http.createServer(async function (req, res) {
     const headers = {
@@ -1439,12 +1443,29 @@ let scheduledthaioil = new cron.CronJob('*/5 05-21 * * *', async () => {
                     let desctext
 
                     //if todays == oilday
-                    if (todays.getDate() == oilday.getDate()) {
+                    // if (todays.getDate() == oilday.getDate()) {
+                    //     desctext = 'นี้';
+                    // } else if (todays.getDate() > oilday.getDate()) {
+                    //     desctext = 'เมื่อวานนี้';
+                    // } else {
+                    //     desctext = 'พรุ่งนี้';
+                    // }
+
+                    var todayOnly = stripTime(todays);
+                    var oildayOnly = stripTime(oilday);
+                    
+                    var diffDays = Math.round((oildayOnly - todayOnly) / (1000 * 60 * 60 * 24));
+                    
+                    if (diffDays === 0) {
                         desctext = 'นี้';
-                    } else if (todays.getDate() > oilday.getDate()) {
-                        desctext = 'เมื่อวานนี้';
+                    } else if (diffDays === -1) {
+                        desctext = 'เมื่อวานนี้'; // oilday was yesterday
+                    } else if (diffDays === 1) {
+                        desctext = 'พรุ่งนี้'; // oilday is tomorrow
+                    } else if (diffDays < -1) {
+                        desctext = 'เมื่อวานนี้'; // or some "X days ago" label if needed
                     } else {
-                        desctext = 'พรุ่งนี้';
+                        desctext = 'พรุ่งนี้'; // or some "in X days" label if needed
                     }
 
                     //const files = new MessageAttachment('./lastoilprice.png');
