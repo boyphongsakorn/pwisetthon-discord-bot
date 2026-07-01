@@ -1438,7 +1438,7 @@ let scheduledthaioil = new cron.CronJob('*/5 05-21 * * *', async () => {
                     }*/
 
                     let todays = new Date();
-                    let oilday = new Date(json[0][0].substring(6, 10) + '-' + json[0][0].substring(3, 5) + '-' + json[0][0].substring(0, 2));
+                    let oilday = new Date(parseInt(json[0][0].substring(6, 10))-543 + '-' + json[0][0].substring(3, 5) + '-' + json[0][0].substring(0, 2));
 
                     let desctext
 
