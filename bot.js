@@ -887,7 +887,7 @@ let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
     month = padLeadingZeros(month, 2);
     year = padLeadingZeros(year, 4);
 
-    let url = lottoapi + "/?date=" + date + "" + month + "" + year + "&fresh";
+    let url = lottoapi + "/index3?date=" + date + "" + month + "" + year + "&fresh";
     let settings = { "method": "GET" };
 
     /*fetch(url, settings)
