@@ -875,7 +875,7 @@ client.on("guildCreate", async guild => {
 
 })
 
-let scheduledMessage = new cron.CronJob('* 15-17 * * *', async () => {
+let scheduledMessage = new cron.CronJob('* 15-23 * * *', async () => {
 
     // datedata
 
