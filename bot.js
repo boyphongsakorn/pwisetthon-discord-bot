@@ -30,7 +30,7 @@ const pool = mysql.createPool({
   waitForConnections: true,
 });
 
-let lottoapi = "http://192.168.31.215:5000";
+let  = "http://192.168.31.215:5000";
 let lotimgapi = "http://192.168.31.220:14000";
 let apikey = process.env.rapidapikey;
 
@@ -890,6 +890,7 @@ let scheduledMessage = new cron.CronJob('* 15-23 * * *', async () => {
     let url = lottoapi + "/index3?date=" + date + "" + month + "" + year + "&fresh";
     let settings = { "method": "GET" };
 
+    console.log(url)
     /*fetch(url, settings)
         .then(res => res.json())
         .then(async (json) => {*/
