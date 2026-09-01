@@ -5,7 +5,8 @@ WORKDIR '/app'
 RUN apk add --update imagemagick ghostscript
 # Fix ImageMagick policy to allow PDF reading
 RUN sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read|write" pattern="PDF" \/>/' /etc/ImageMagick-7/policy.xml
-RUN npm install -g pnpm
+# RUN npm install -g pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY package*.json ./
 COPY pnpm-*.yaml ./
 # RUN pnpm fetch --prod
