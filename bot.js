@@ -30,7 +30,7 @@ const pool = mysql.createPool({
   waitForConnections: true,
 });
 
-let  = "http://192.168.31.215:5000";
+let lottoapi = "http://192.168.31.215:5000";
 let lotimgapi = "http://192.168.31.220:14000";
 let apikey = process.env.rapidapikey;
 
