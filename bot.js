@@ -278,7 +278,7 @@ async function guildCommandDeleteandCreate(guild) {
 
 function handleDisconnect() {
     con = mysql.createConnection({
-        host: "192.168.31.210",
+        host: "192.168.31.215",
         user: "boyphongsakorn",
         password: process.env.DB_PASS,
         database: "discordbot"
