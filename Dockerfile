@@ -7,18 +7,21 @@ RUN apk add --update imagemagick ghostscript
 RUN sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read|write" pattern="PDF" \/>/' /etc/ImageMagick-7/policy.xml
 # RUN npm install -g pnpm
 RUN if [ "$(uname -m)" = "armv7l" ] || [ "$(uname -m)" = "armv6l" ]; then \
-      wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.shrc" SHELL="$(which sh)" sh -; \
+      echo 'nothing'; \
     else \
-      npm install -g pnpm@9; \
+      npm install -g pnpm; \
     fi
-ENV PNPM_HOME="/root/.local/share/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
 COPY package*.json ./
 COPY pnpm-*.yaml ./
 # RUN pnpm fetch --prod
 ADD . ./
 # RUN pnpm install -r --offline --prod
-RUN pnpm install --no-frozen-lockfile
+# RUN pnpm install --no-frozen-lockfile
+RUN if [ "$(uname -m)" = "armv7l" ] || [ "$(uname -m)" = "armv6l" ]; then \
+      npm install --no-package-lock; \
+    else \
+      pnpm install --no-frozen-lockfile; \
+    fi
 #RUN npm install
 #COPY . .
 CMD ["node","bot.js"]
