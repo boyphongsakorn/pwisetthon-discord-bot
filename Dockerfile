@@ -7,10 +7,12 @@ RUN apk add --update imagemagick ghostscript
 RUN sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read|write" pattern="PDF" \/>/' /etc/ImageMagick-7/policy.xml
 # RUN npm install -g pnpm
 RUN if [ "$(uname -m)" = "armv7l" ] || [ "$(uname -m)" = "armv6l" ]; then \
-      npm install -g corepack@0.31.0 && corepack enable && corepack prepare pnpm@latest --activate; \
+      wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.shrc" SHELL="$(which sh)" sh -; \
     else \
       npm install -g pnpm@9; \
     fi
+ENV PNPM_HOME="/root/.local/share/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 COPY package*.json ./
 COPY pnpm-*.yaml ./
 # RUN pnpm fetch --prod
