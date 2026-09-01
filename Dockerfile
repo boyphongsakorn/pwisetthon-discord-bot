@@ -6,7 +6,7 @@ RUN apk add --update imagemagick ghostscript
 # Fix ImageMagick policy to allow PDF reading
 RUN sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read|write" pattern="PDF" \/>/' /etc/ImageMagick-7/policy.xml
 # RUN npm install -g pnpm
-RUN if [ "$(uname -m)" = "armv7l" ] || [ "$(uname -m)" = "armv6l" ]; then \
+RUN if [ "$(uname -m)" = "armv7l" ] || [ "$(uname -m)" = "armv6l" || [ "$(uname -m)" = "ppc64le" ]; then \
       echo 'nothing'; \
     else \
       npm install -g pnpm; \
@@ -17,7 +17,7 @@ COPY pnpm-*.yaml ./
 ADD . ./
 # RUN pnpm install -r --offline --prod
 # RUN pnpm install --no-frozen-lockfile
-RUN if [ "$(uname -m)" = "armv7l" ] || [ "$(uname -m)" = "armv6l" ]; then \
+RUN if [ "$(uname -m)" = "armv7l" ] || [ "$(uname -m)" = "armv6l" || [ "$(uname -m)" = "ppc64le" ]; then \
       npm install --no-package-lock; \
     else \
       pnpm install --no-frozen-lockfile; \
