@@ -2117,7 +2117,7 @@ client.on('interactionCreate', async interaction => {
     if (interaction.commandName === 'checkconnection') {
         await interaction.deferReply();
         let lotapistatus, lotimgstatus, gloapistatus, sqlstatus, sqlinserttest, sqldeletetest, sqlselecttest;
-        pool.ping(function (err) {
+        pool.query('SELECT 1', function (err) {
             if (err) {
                 console.log(err);
                 sqlstatus = 0;
