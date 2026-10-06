@@ -2115,27 +2115,32 @@ client.on('interactionCreate', async interaction => {
     }
 
     if (interaction.commandName === 'checkconnection') {
-        await interaction.deferReply();
-        let lotapistatus, lotimgstatus, gloapistatus, sqlstatus, sqlinserttest, sqldeletetest, sqlselecttest;
-        pool.query('SELECT 1', function (err) {
-            if (err) {
-                console.log(err);
-                sqlstatus = 0;
-            } else {
-                console.log('Database is connected!');
-                sqlstatus = 1;
-            }
-        })
+        await interaction.deferReply().catch(() => {});
+        let lotapistatus = 0, lotimgstatus = 0, gloapistatus = 0, sqlstatus = 0, sqlinserttest = 0, sqldeletetest = 0, sqlselecttest = 0;
+        let lastlottdate = null;
+        let waitwhat = 0;
+        const queryAsync = (sql) => new Promise((resolve, reject) => {
+            try {
+                pool.query(sql, function (err, result) {
+                    if (err) reject(err);
+                    else resolve(result);
+                });
+            } catch (e) { reject(e); }
+        });
+        try {
+            await queryAsync('SELECT 1');
+            console.log('Database is connected!');
+            sqlstatus = 1;
+        } catch (e) {
+            console.log(e);
+            sqlstatus = 0;
+        }
         let today = new Date();
         // convert today to yyyy-mm-dd
-        let dd = today.getDate();
-        let mm = today.getMonth() + 1; //January is 0!
+        let dd = padLeadingZeros(today.getDate(), 2);
+        let mm = padLeadingZeros(today.getMonth() + 1, 2); //January is 0!
         let yyyy = today.getFullYear();
-        dd = padLeadingZeros(dd, 2);
-        mm = padLeadingZeros(mm, 2);
-        todayformat = yyyy + '-' + mm + '-' + dd;
-        let waitwhat;
-        let lastlottdate;
+        let todayformat = yyyy + '-' + mm + '-' + dd;
         //node fetch http://192.168.31.210:5000/reto
         /*await fetch(lottoapi + '/reto')
             .then(res => res.text())
@@ -2151,57 +2156,57 @@ client.on('interactionCreate', async interaction => {
             .catch(err => {
                 console.log(err);
             });*/
-        const fetchreto = await fetch(lottoapi + '/reto');
-        const reto = await fetchreto.text();
-        if (reto == 'yes') {
-            //add 1 day to todayformat
-            dd = parseInt(dd) + 1;
-            dd = padLeadingZeros(dd, 2);
-            todayformat = yyyy + '-' + mm + '-' + dd;
-            console.log(todayformat);
-        }
+        try {
+            const fetchreto = await fetch(lottoapi + '/reto');
+            const reto = await fetchreto.text();
+            if (reto == 'yes') {
+                //add 1 day to todayformat
+                dd = padLeadingZeros(parseInt(dd, 10) + 1, 2);
+                todayformat = yyyy + '-' + mm + '-' + dd;
+                console.log(todayformat);
+            }
+        } catch (e) { console.log(e); }
         //select to sql
-        pool.query("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1", async function (err, result, fields) {
-            if (err) {
-                sqlselecttest = 0;
-            } else {
-                //if result[0].round == todayformat
-                if (result[0].round == todayformat) {
+        try {
+            const selResult = await queryAsync("SELECT * FROM lott_round ORDER BY round DESC LIMIT 1");
+            if (selResult && selResult[0]) {
+                //if selResult[0].round == todayformat
+                if (selResult[0].round == todayformat) {
                     waitwhat = 1;
                 } else {
                     waitwhat = 0;
                 }
-                lastlottdate = result[0].round;
+                lastlottdate = selResult[0].round;
                 sqlselecttest = 1;
                 if (waitwhat == 1) {
-                    dd = parseInt(dd) + 1;
-                    dd = padLeadingZeros(dd, 2);
+                    dd = padLeadingZeros(parseInt(dd, 10) + 1, 2);
                     todayformat = yyyy + '-' + mm + '-' + dd;
                 }
-
-            }
-        });
-
-        pool.query("INSERT INTO lott_round (id, round) VALUES ('" + dd + "" + mm + "" + (yyyy + 543) + "', '" + todayformat + "')", async function (err, result, fields) {
-            if (err) {
-                console.log(err);
-                sqlinserttest = 0;
             } else {
-                sqlinserttest = 1;
-                console.log('Insert complete');
+                sqlselecttest = 0;
             }
-            //console.log(result);
-        });
+        } catch (e) {
+            console.log(e);
+            sqlselecttest = 0;
+        }
+
+        try {
+            await queryAsync("INSERT INTO lott_round (id, round) VALUES ('" + dd + "" + mm + "" + (yyyy + 543) + "', '" + todayformat + "')");
+            sqlinserttest = 1;
+            console.log('Insert complete');
+        } catch (e) {
+            console.log(e);
+            sqlinserttest = 0;
+        }
         //delete old data
-        pool.query("DELETE FROM lott_round WHERE id = '" + dd + "" + mm + "" + (yyyy + 543) + "'", async function (err, result, fields) {
-            if (err) {
-                console.log(err);
-                sqldeletetest = 0;
-            } else {
-                sqldeletetest = 1;
-                console.log('Delete complete');
-            }
-        });
+        try {
+            await queryAsync("DELETE FROM lott_round WHERE id = '" + dd + "" + mm + "" + (yyyy + 543) + "'");
+            sqldeletetest = 1;
+            console.log('Delete complete');
+        } catch (e) {
+            console.log(e);
+            sqldeletetest = 0;
+        }
         var myHeaders = {
             'content-type': 'application/json'
         };
@@ -2229,11 +2234,16 @@ client.on('interactionCreate', async interaction => {
                 console.log('error', error)
                 gloapistatus = 0;
             });*/
-        const gloapifetch = await fetch('https://cors-fany.vercel.app/www.glo.or.th/api/lottery/getLotteryAward', reop);
-        const gloapifetchjson = await gloapifetch.json();
-        if (gloapifetchjson['status']) {
-            gloapistatus = 1;
-        } else {
+        try {
+            const gloapifetch = await fetch('https://cors-fany.vercel.app/www.glo.or.th/api/lottery/getLotteryAward', reop);
+            const gloapifetchjson = await gloapifetch.json();
+            if (gloapifetchjson['status']) {
+                gloapistatus = 1;
+            } else {
+                gloapistatus = 0;
+            }
+        } catch (error) {
+            console.log('error', error);
             gloapistatus = 0;
         }
         await fetch('https://cors-fany.vercel.app/status.teamquadb.in.th/api/services/9', { method: 'GET', headers: { 'Content-Type': 'application/json' } })
@@ -2278,14 +2288,16 @@ client.on('interactionCreate', async interaction => {
         //if sqlselecttest true then create text of status = '✅ ดึงข้อมูลสำเร็จ' else create text of status = '❌ ดึงข้อมูลไม่สำเร็จ'
         let sqlselecttesttext = sqlselecttest ? '✅ ดึงข้อมูลสำเร็จ' : '❌ ดึงข้อมูลไม่สำเร็จ';
         //get YYYY-MM-DD
-        let lastlottdateplus543 = lastlottdate.toLocaleString("en-CA", { timeZone: "Asia/Bangkok" });
-        console.log(lastlottdateplus543);
-        //convert lastlottdateplus543 to dd/mm/yyyy
-        let lastlottdateplus543toformat = lastlottdateplus543.substring(8, 10) + '/' + lastlottdateplus543.substring(5, 7) + '/' + (parseInt(lastlottdateplus543.substring(0, 4)) + 543);
-        let sqlselecttesttextplus543
-        if (sqlselecttest != 0) {
-            //add lastlottdateplus543toformat after text of sqlselecttesttext
-            sqlselecttesttextplus543 = sqlselecttesttext + ' ( ' + lastlottdateplus543toformat + ' )';
+        let sqlselecttesttextplus543 = sqlselecttesttext;
+        if (sqlselecttest && lastlottdate) {
+            try {
+                let lastlottdateplus543 = new Date(lastlottdate).toLocaleString("en-CA", { timeZone: "Asia/Bangkok" });
+                console.log(lastlottdateplus543);
+                //convert lastlottdateplus543 to dd/mm/yyyy
+                let lastlottdateplus543toformat = lastlottdateplus543.substring(8, 10) + '/' + lastlottdateplus543.substring(5, 7) + '/' + (parseInt(lastlottdateplus543.substring(0, 4)) + 543);
+                //add lastlottdateplus543toformat after text of sqlselecttesttext
+                sqlselecttesttextplus543 = sqlselecttesttext + ' ( ' + lastlottdateplus543toformat + ' )';
+            } catch (e) { console.log(e); }
         }
 
         //create message embed
@@ -2309,10 +2321,15 @@ client.on('interactionCreate', async interaction => {
             .setTimestamp()
             .setFooter({ text: 'ข้อมูลจาก status.teamquadb.in.th \nบอทจัดทำโดย TeamQuadB.in.th \nให้ค่ากาแฟ buymeacoffee.com/boyphongsakorn' });
 
-        await interaction.editReply({ embeds: [msg] });
+        try {
+            await interaction.editReply({ embeds: [msg] });
+        } catch (e) {
+            console.log(e);
+            try { await interaction.editReply({ content: 'ตรวจสอบการเชื่อมต่อไม่สำเร็จ แต่บอทยังทำงานอยู่' }); } catch (_) {}
+        }
         //after 30s delete message
         setTimeout(() => {
-            interaction.deleteReply();
+            interaction.deleteReply().catch(() => {});
         }, 30000);
     }
 
